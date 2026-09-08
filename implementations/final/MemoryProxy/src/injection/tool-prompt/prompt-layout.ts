@@ -51,7 +51,8 @@ export const V4_EFFECTIVE_GLOBAL_RULES: Readonly<Record<string, string>> = Objec
   "no-call": "NO_CALL for self-contained coding/general knowledge with no missing asset-dependent facts or workflow, or when all required facts/instructions are already in context (including L3 and prior tool results). Keyword overlap alone never triggers a call.",
   "family-route": [
     "Asset source routing: route by the missing evidence, not by a topic keyword.",
-    "- History, prior decisions, exact wording, private facts, or scenes -> Memory first; workflow, convention, checklist, procedure, or attachment -> Skill first; cross-file structure or design rationale -> Knowledge first.",
+    "- Remembered decision, agreement, or rationale -> Memory first; executable workflow, ordered procedure, checklist, or required Skill resource -> Skill first; cross-file structure or design rationale -> Knowledge first.",
+    "- A convention can belong to either family: use Memory for its history/rationale and Skill for applying its operational steps."
     "- These are priorities, not exclusive ownership. Use another family only when the required evidence remains unresolved.",
     "- A repository name, filename, identifier, acronym, or technical term alone does not determine the source.",
     "- A keyword, summary, Skill name, or description alone is not sufficient evidence for a required workflow.",
