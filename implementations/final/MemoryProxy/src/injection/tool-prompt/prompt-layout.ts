@@ -52,7 +52,8 @@ export const V4_EFFECTIVE_GLOBAL_RULES: Readonly<Record<string, string>> = Objec
   "family-route": [
     "Asset source routing: route by the missing evidence, not by a topic keyword.",
     "- Remembered decision, agreement, or rationale -> Memory first; executable workflow, ordered procedure, checklist, or required Skill resource -> Skill first; cross-file structure or design rationale -> Knowledge first.",
-    "- A convention can belong to either family: use Memory for its history/rationale and Skill for applying its operational steps."
+    "- A convention can belong to either family: use Memory for its history/rationale and Skill for applying its operational steps.",
+    "- If Memory results still lack required steps, consult a relevant Skill instead of repeating the same search.",
     "- These are priorities, not exclusive ownership. Use another family only when the required evidence remains unresolved.",
     "- A repository name, filename, identifier, acronym, or technical term alone does not determine the source.",
     "- A keyword, summary, Skill name, or description alone is not sufficient evidence for a required workflow.",
