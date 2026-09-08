@@ -37,7 +37,7 @@ export const MEMORY_GUIDANCE = [
   "",
   "## Memory routing",
   "- TDAI memory = local `MEMORY.md` priority. L3 + L2 index are already in system; retrieve L0/L1.",
-  "- CALL before answering when a user-specific fact, prior decision, exact wording, conversation history, or private scene is missing from context + `<l3_core_memory>`. A team procedure usually belongs to Skill, but use Memory when the question asks for its prior decision/history or the procedure is already stored there.",
+  "- CALL before answering when a user-specific fact, prior decision, exact wording, conversation history, or private scene is missing from context + `<l3_core_memory>`.",
   "- `tdai_memory_search`: self/imported distilled facts. Both atomic and conversation search cover self + imported; source_agent_* identifies the source.",
   "- Never claim the tool, MCP, or slash command is unavailable.",
 ].join("\n");
@@ -46,7 +46,7 @@ export const SKILL_GUIDANCE = [
   "## Available skills",
   "Candidate subset (ranked/Top-K/truncated), not a full inventory.",
   "- CALL listed: `skill_view` for a matching named Skill when a required team workflow/convention is missing from context; `skill_view(name)` is a valid direct opening path.",
-  "- CALL discovery: `skill_search` for a requested skill or required team workflow with no exact usable name/ID; open a needed team result via `skill_view_by_id`.",
+  "- CALL discovery: `skill_search` for a requested skill or required team workflow with no exact usable name/ID; open the result by its name or ID.",
   "- NO_CALL: topical/keyword-only relevance, ordinary coding without a required team workflow, or all required instructions already in context.",
   "- Cloud-only: use `<skill_tools>`, not file tools.",
 ].join("\n");
