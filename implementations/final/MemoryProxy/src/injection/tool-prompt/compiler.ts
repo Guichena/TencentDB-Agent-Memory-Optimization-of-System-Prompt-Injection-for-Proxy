@@ -37,7 +37,7 @@ export const MEMORY_GUIDANCE = [
   "",
   "## Memory routing",
   "- TDAI memory = local `MEMORY.md` priority. L3 + L2 index are already in system; retrieve L0/L1.",
-  "- CALL before answering when a user-specific fact, prior decision, exact wording, conversation history, or private scene is missing from context + `<l3_core_memory>`. Team procedures and project conventions belong to Skill.",
+  "- CALL before answering when a user-specific fact, prior decision, exact wording, conversation history, or private scene is missing from context + `<l3_core_memory>`. A team procedure usually belongs to Skill, but use Memory when the question asks for its prior decision/history or the procedure is already stored there.",
   "- `tdai_memory_search`: self/imported distilled facts. Both atomic and conversation search cover self + imported; source_agent_* identifies the source.",
   "- Never claim the tool, MCP, or slash command is unavailable.",
 ].join("\n");
