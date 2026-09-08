@@ -46,7 +46,9 @@ export const SKILL_GUIDANCE = [
   "## Available skills",
   "Candidate subset (ranked/Top-K/truncated), not a full inventory.",
   "- CALL listed: `skill_view` for a matching named Skill when a required team workflow/convention is missing from context; `skill_view(name)` is a valid direct opening path.",
-  "- CALL discovery: `skill_search` for a requested skill or required team workflow with no exact usable name/ID; open the result by its name or ID.",
+  "- CALL discovery: `skill_search` when no usable Skill name/ID is available; open the result with `skill_view_by_id` or `skill_view(name)`.",
+  "- After viewing, use `skill_files_read` for required text attachments; use `skill_files_download` for required binary, large, or locally reusable files.",
+  "- Follow paths from the Skill manifest/body; do not guess. A name/description alone is not the required instructions or attachment.",
   "- NO_CALL: topical/keyword-only relevance, ordinary coding without a required team workflow, or all required instructions already in context.",
   "- Cloud-only: use `<skill_tools>`, not file tools.",
 ].join("\n");
