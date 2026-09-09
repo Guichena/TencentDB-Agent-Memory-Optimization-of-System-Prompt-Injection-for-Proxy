@@ -34,8 +34,11 @@ const V4_SHARED_PROTOCOL = [
   "- 只传卡片参数；身份只走 Runtime bindings，除非列为 optional。",
   "- `<bindings>` 展开为当前 family 的 Runtime bindings 中每个 header 的 `-H 'name: value'`；不要遗漏 header、照抄占位符或把 header 填进 body。",
   "- Types: limit/offset/version/expected_version=integer; time_start/time_end=ISO-8601; type=episodic|persona|instruction; include_content/include_manifest/replace_all/is_executable=boolean.",
-  "- 成功条件：HTTP 成功且 JSON `code=0`；否则读 `message`。",
-  "- `response: bytes` 才是原始字节；仅落盘时用 `-o`。",
+  "- JSON 响应成功条件：HTTP 成功且 `code=0`；否则读 `message`。",
+  "- JSON returns envelope: `{code,message,data}`; memory atomic search/query uses `data.items[]`, conversation search/query uses `data.messages[]`, and skill search uses `data.items[].skill_id`.",
+  "- Memory search: `data.partial=true` means incomplete coverage; `data.failed_agents[]` identifies failed sources. Disclose the limitation; an empty partial result does not establish that no memory exists. A retrieval error is not an empty result.",
+  "- Knowledge results depend on the selected tool: code-graph queries return `data.text/isError` (isError=true is failure); wiki search returns `data.results[]`, read_page returns `data.items[]`. Do not interpret a missing field from another tool's shape as an empty result.",
+  "- `response: bytes` 的正常响应是原始字节，传输完成且 HTTP 成功即可，不要求 JSON `code`；失败仍可能返回 JSON 错误信封，检查状态及响应，不要将错误信封当成文件。仅落盘时用 `-o`。",
   "canonical form: `curl -sSk -X POST '<endpoint>' -H 'content-type: application/json' <bindings> -d '<body>'`",
   "- PowerShell 使用 `curl.exe`；JSON 有引号/换行等转义风险时，先写入 UTF-8 无 BOM 文件，再用 `--data-binary '@<json-file>'` 代替 `-d '<body>'`。",
 ].join("\n");
@@ -49,17 +52,8 @@ export const V4_EFFECTIVE_GLOBAL_RULES: Readonly<Record<string, string>> = Objec
     "- Skill enabled: load a matching skill only when the task explicitly requests its use or requires a specific team workflow/convention, and the needed instructions are missing from context. A name/description is not the instructions; topical relevance or ordinary coding alone does not require loading.",
   ].join("\n"),
   "no-call": "NO_CALL for self-contained coding/general knowledge with no missing asset-dependent facts or workflow, or when all required facts/instructions are already in context (including L3 and prior tool results). Keyword overlap alone never triggers a call.",
-  "family-route": [
-    "Asset source routing: route by the missing evidence, not by a topic keyword.",
-    "- Remembered decision, agreement, or rationale -> Memory first; executable workflow, ordered procedure, checklist, or required Skill resource -> Skill first; cross-file structure or design rationale -> Knowledge first.",
-    "- A convention can belong to either family: use Memory for its history/rationale and Skill for applying its operational steps.",
-    "- If Memory results still lack required steps, consult a relevant Skill instead of repeating the same search.",
-    "- These are priorities, not exclusive ownership. Use another family only when the required evidence remains unresolved.",
-    "- A repository name, filename, identifier, acronym, or technical term alone does not determine the source.",
-    "- A keyword, summary, Skill name, or description alone is not sufficient evidence for a required workflow.",
-    "- For a Skill-shaped task, obtain the Skill body first; read or download an attachment only when the task or Skill body requires that attachment.",
-  ].join("\n"),
-  selection: "Choose the narrowest matching `when`; obey `avoid`/`contrast`; keep all families available and stop only when the required evidence is sufficient.",
+  "family-route": "Route: memory=past user facts/preferences/decisions/wording/scenes; skill=missing reusable workflow, not keyword overlap; knowledge=matching cross-file structure/design rationale, but local source for exact/current code.",
+  selection: "Choose the narrowest matching `when`; obey `avoid`/`contrast`; use multiple families only for distinct gaps.",
   protocol: V4_SHARED_PROTOCOL,
   defaults: V4_SHARED_DEFAULTS.join("\n"),
   stop: GLOBAL_STOP_ERROR_RULES.join("\n"),
@@ -95,14 +89,15 @@ export function assembleFidelityInjectionRegion(
     const source = bySurface.get(surface);
     if (source === undefined) continue;
     let content = source;
-    const bindings = takeRuntimeBindings(content);
-    content = bindings.content;
-    runtimeBindings.push(...bindings.lines.map((line) => `- ${surface}: ${line}`));
     if (surface === "knowledge-tools") {
       const resources = takeKnowledgeResources(content);
       content = resources.content;
       knowledgeAssets.push(...resources.resources);
     }
+    // Resource attributes may contain protocol-like lines; extract bindings only from generated text.
+    const bindings = takeRuntimeBindings(content);
+    content = bindings.content;
+    runtimeBindings.push(...bindings.lines.map((line) => `- ${surface}: ${line}`));
     toolContents.push(content.trim().replace(/\n{3,}/g, "\n\n"));
   }
 
@@ -175,24 +170,42 @@ export function lintAssembledFidelityInjectionRegion(
   profile: CompiledToolPromptProfile = "v4-compact",
 ): void {
   const state = parseCapabilitySignature(capabilitySignature);
+  const closing = "</task1_prompt_injection>";
+  if (!region.startsWith("<task1_prompt_injection>\n") || !region.endsWith(closing)) {
+    throw new Error("fidelity assembled region has invalid outer boundaries");
+  }
+  // Asset prose is data, not protocol. Keep the generated section marker and
+  // outer boundary, but exclude its payload from every structural check below.
+  const assetBoundary = "\n\n## Runtime assets\n\n";
+  const assetOffset = region.indexOf(assetBoundary);
+  if (assetOffset >= 0) {
+    region = region.slice(0, assetOffset + assetBoundary.length) + closing;
+  }
   if (countLiteral(region, "<task1_prompt_injection>") !== 1
     || countLiteral(region, "</task1_prompt_injection>") !== 1) {
     throw new Error("fidelity assembled region must have exactly one wrapper");
   }
 
+  const toolSurfaceFamilies: Array<readonly [string, "memory" | "skill" | "knowledge"]> = [
+    ["<tdai_memory_tools>", "memory"],
+    ["<skill_tools>", "skill"],
+    ["<knowledge_tools>", "knowledge"],
+  ];
+  const presentToolFamilies = new Set(
+    toolSurfaceFamilies
+      .filter(([tag]) => region.includes(tag))
+      .map(([, family]) => family),
+  );
+  // A failed tool hook may leave only a successfully loaded profile or listing.
+  const expectedSharedCount = presentToolFamilies.size > 0 ? 1 : 0;
   const grammar = region.indexOf("## 统一工具调用协议");
   const gate = region.indexOf("## Tool / no-tool gate");
   const bitmap = region.indexOf("## Capability bitmap");
-  if (grammar < 0 || gate < 0 || bitmap < 0 || grammar > gate || gate > bitmap) {
+  if (bitmap < 0 || (expectedSharedCount > 0
+    && (grammar < 0 || gate < 0 || grammar > gate || gate > bitmap))) {
     throw new Error("fidelity assembled region has invalid shared-section order");
   }
 
-  const activeFamilies = [
-    ...(state.memory ? ["memory"] : []),
-    ...(state.skill ? ["skill"] : []),
-    ...(state.knowledge ? ["knowledge"] : []),
-  ];
-  const expectedSharedCount = activeFamilies.length > 0 ? 1 : 0;
   for (const marker of ["## 统一工具调用协议", "## Tool / no-tool gate"]) {
     if (countLiteral(region, marker) !== expectedSharedCount) {
       throw new Error(`${marker} expected ${expectedSharedCount} in assembled region`);
@@ -211,16 +224,6 @@ export function lintAssembledFidelityInjectionRegion(
     }
   }
 
-  const toolSurfaceFamilies: Array<readonly [string, "memory" | "skill" | "knowledge"]> = [
-    ["<tdai_memory_tools>", "memory"],
-    ["<skill_tools>", "skill"],
-    ["<knowledge_tools>", "knowledge"],
-  ];
-  const presentToolFamilies = new Set(
-    toolSurfaceFamilies
-      .filter(([tag]) => region.includes(tag))
-      .map(([, family]) => family),
-  );
   for (const family of presentToolFamilies) {
     if (!state[family]) {
       throw new Error(`disabled ${family} capability produced a fidelity tool surface`);
@@ -259,7 +262,7 @@ export function lintAssembledFidelityInjectionRegion(
   if (bindings >= 0 && listing >= 0 && bindings < listing) {
     throw new Error("fidelity runtime bindings must follow static guidance");
   }
-  if (assets >= 0 && bindings < 0) {
+  if (assets >= 0 && bindings < 0 && expectedSharedCount > 0) {
     throw new Error("fidelity runtime assets require a runtime bindings section");
   }
   if (assets >= 0 && bindings >= 0 && assets < bindings) {
@@ -271,7 +274,7 @@ export function lintAssembledFidelityInjectionRegion(
       throw new Error("v4 final capability bitmap changed");
     }
     for (const section of [V4_SHARED_PROTOCOL, V4_SHARED_GATE, V4_SHARED_DEFAULTS.join("\n"), GLOBAL_STOP_ERROR_RULES.join("\n")]) {
-      if (countLiteral(region, section) !== 1) {
+      if (countLiteral(region, section) !== expectedSharedCount) {
         throw new Error("v4 assembled shared rules are missing, duplicated or changed");
       }
     }

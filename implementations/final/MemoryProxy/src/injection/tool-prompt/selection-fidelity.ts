@@ -6,7 +6,7 @@ const V4_COMPACT_DECISIONS: Record<string, string> = {
   skill_delete: "An owned skill must be archived (soft-delete; versions are not physically removed).",
   skill_files_write: "One or more resource files of an owned skill must be created or replaced.",
   skill_files_remove: "One or more resource files of an owned skill must be removed.",
-  tdai_memory_search: "Missing durable personal preference, historical fact, prior decision, or past conclusion; not a team workflow, project convention, procedure, or Skill resource.",
+  tdai_memory_search: "Missing durable preference, fact, instruction, or past conclusion.",
   tdai_atomic_query: "Need type/time/page filters, not semantic search.",
   tdai_conversation_search: "Missing exact past wording or timeline evidence.",
   tdai_conversation_query: "Read a known session chronologically.",
@@ -17,7 +17,7 @@ const V4_COMPACT_DECISIONS: Record<string, string> = {
   skill_view_by_id: "Open a team result or exact skill_id.",
   skill_files_read: "Read a viewed skill resource into context.",
   skill_files_download: "Download a viewed skill resource as raw bytes.",
-  knowledge_tools_list: "Unknown/matching schema: list once/session; cache authoritative name/description/params.",
+  knowledge_tools_list: "Unknown/matching schema: list once per resource per session; cache authoritative name/description/params for that resource.",
   knowledge_tools_call: "Run narrowest listed name+params on the same resource.",
 };
 

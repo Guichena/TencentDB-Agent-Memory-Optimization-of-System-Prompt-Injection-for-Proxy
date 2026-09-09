@@ -31,13 +31,12 @@ export interface ToolPromptInput {
 export const MEMORY_GUIDANCE = [
   "<memory-tools-guide>",
   "## Memory constraints",
-  "- `tdai_memory_search` + `tdai_conversation_search` total ≤ 3 calls per turn.",
   "- If retrieval is empty, say the memory was not found; do not invent it.",
   "</memory-tools-guide>",
   "",
   "## Memory routing",
-  "- TDAI memory = local `MEMORY.md` priority. L3 + L2 index are already in system; retrieve L0/L1.",
-  "- CALL before answering when a user-specific fact, prior decision, exact wording, conversation history, or private scene is missing from context + `<l3_core_memory>`.",
+  "- TDAI memory and local `MEMORY.md` are peer sources; route by the missing evidence. L3 + L2 index are already in system; retrieve TDAI L0/L1 when durable context is missing, and do not assume the local file supersedes TDAI.",
+  "- CALL before answering when identity, preference, history, decision, convention, exact wording, or a known scene is needed but absent from context + `<l3_core_memory>`.",
   "- `tdai_memory_search`: self/imported distilled facts. Both atomic and conversation search cover self + imported; source_agent_* identifies the source.",
   "- Never claim the tool, MCP, or slash command is unavailable.",
 ].join("\n");
@@ -45,10 +44,8 @@ export const MEMORY_GUIDANCE = [
 export const SKILL_GUIDANCE = [
   "## Available skills",
   "Candidate subset (ranked/Top-K/truncated), not a full inventory.",
-  "- CALL listed: `skill_view` for a matching named Skill when a required team workflow/convention is missing from context; `skill_view(name)` is a valid direct opening path.",
-  "- CALL discovery: `skill_search` when no usable Skill name/ID is available; open the result with `skill_view_by_id` or `skill_view(name)`.",
-  "- After viewing, use `skill_files_read` for a required text attachment; use `skill_files_download` for a required binary, large, or locally reusable file. Do not fetch attachments by default.",
-  "- Follow paths from the Skill manifest/body; do not guess. A name/description alone is not the required instructions.",
+  "- CALL listed: `skill_view` for explicitly requested skill use or a required specific team workflow/convention, when the needed instructions are missing from context.",
+  "- CALL discovery: `skill_search` for a requested skill or required team workflow with no exact usable name/ID; open a needed team result via `skill_view_by_id`.",
   "- NO_CALL: topical/keyword-only relevance, ordinary coding without a required team workflow, or all required instructions already in context.",
   "- Cloud-only: use `<skill_tools>`, not file tools.",
 ].join("\n");
@@ -96,10 +93,10 @@ export function compileToolPrompt(input: ToolPromptInput) {
       ? "## 知识库专用流程\nendpoint-base: 使用目标 `<knowledge>` 的 `url`；knowledge_id 只放 body，不拼进 URL。"
       : "";
     const footer = input.family === "memory"
-      ? "## 调用约束\n- Read-only; mutate memory through the main path."
+      ? "## 调用约束\n- Read-only; mutate memory through the main path.\n- `tdai_memory_search` + `tdai_conversation_search` total ≤ 3 calls per turn."
       : input.family === "skill"
         ? ""
-        : "## 约定\n\n- code graph: explore=filename; search=symbol; files=one directory overview/resource/session.\n- wiki: search -> read_page; no full list.\n- Resources may run in parallel; unavailable -> local search.";
+        : "## 约定\n\n- code graph: explore=query/files; search=symbol name; callers/callees/impact=symbol; files=directory overview/resource/session.\n- wiki: search -> read_page; no full list.\n- Resources may run in parallel; unavailable -> local search.";
     const closing = input.family === "skill" && !state.skillWrite
       ? `read-only (skill_write=0).\n</${tag}>` : `</${tag}>`;
     content = [`<${tag}>`, bindings, intro, ...promptIr.tools.map(renderV4ToolCard), footer, closing,

@@ -1,0 +1,96 @@
+server:
+  host: 127.0.0.1
+  port: 8096
+  forwardTimeoutMs: 600000
+
+upstream:
+  url: "${TDAI_CODEX_UPSTREAM_URL}"
+  apiKey: ""
+  agents:
+    codex:
+      url: "${TDAI_CODEX_UPSTREAM_URL}"
+      apiKey: ""
+    claude-code:
+      url: "${TDAI_CLAUDE_UPSTREAM_URL}"
+      apiKey: ""
+
+log:
+  file: ""
+  verbose: true
+  level: debug
+  backend: console
+
+redis:
+  enabled: false
+
+storage:
+  enabled: true
+  backend: memory
+
+rateLimit:
+  tpm: 0
+  qpm: 0
+
+injection:
+  enabled: true
+  injectors: ["skill", "tdai-memory"]
+  externalGatewayUrl: "http://127.0.0.1:8096"
+  toolPromptProfile: v4-compact
+  assetReflection:
+    markerOptIn: false
+
+extraction:
+  enabled: false
+  extractors: []
+
+sessionInit:
+  enabled: true
+  maxRetries: 3
+  injectAgentContext: true
+  injectTaskContext: true
+  headerAutoSelect:
+    enabled: true
+    teamHeader: x-team-id
+    agentHeader: x-agent-id
+    taskHeader: x-task-id
+    onMismatch: bypass
+
+tdai:
+  enabled: true
+  endpoint: "http://127.0.0.1:8420"
+  apiKey: local-test-service-token
+  serviceId: default
+  memory:
+    enabled: true
+    inject: true
+    writeL0: false
+    recallL1: true
+    injectL2L3: true
+    l1Limit: 5
+    l2Limit: 3
+    timeoutMs: 5000
+
+skill:
+  endpoint: "http://127.0.0.1:8420"
+  serviceToken: local-test-service-token
+  serviceId: default
+  timeoutMs: 5000
+
+knowledge:
+  enabled: false
+
+skillRuntime:
+  allowLlmWrite: false
+
+auth:
+  enabled: true
+  url: "http://127.0.0.1:8420"
+  timeoutMs: 5000
+
+systemUsers: []
+
+ccRequestRouting:
+  enabled: true
+
+workbuddyRequestRouting:
+  enabled: true

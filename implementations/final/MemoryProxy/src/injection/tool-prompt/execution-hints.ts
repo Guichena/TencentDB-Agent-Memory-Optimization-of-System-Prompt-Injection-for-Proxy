@@ -1,12 +1,13 @@
 /** Parameter values not recoverable from field names alone. Source: Core schemas and bridge responses. */
 const INPUT_HINTS: Readonly<Record<string, string>> = {
-  tdai_read_scene: "path from L2 index/list; for imported_from, agent_id from that same index segment.",
-  skill_search: "query: nonempty BM25 keywords; open a returned skill_id with skill_view_by_id, or use its returned name with skill_view when available.",
+  tdai_read_scene: "path from L2 index/list; for imported_from, agent_id from that same index segment. Reads current content only; historical version selection is not supported.",
+  skill_search: "query: nonempty BM25 keywords; selected data.items[].skill_id opens with skill_view_by_id.",
   skill_view: "returns data.skill_id, data.version, data.manifest[].path; content/manifest default true.",
   skill_view_by_id: "returns data.skill_id, data.version, data.manifest[].path; content/manifest default true.",
-  skill_files_read: "only when the task or Skill body requires a text file; use the viewed skill's exact manifest path and version; encoding=utf-8|base64.",
-  skill_files_download: "only when the task or Skill body requires a binary, large, or locally reusable file; use the viewed skill's exact manifest path and version; encoding=utf-8|base64; save with -o; chmod +x scripts before execution.",
+  skill_files_read: "use the viewed skill's exact manifest path and version; encoding=utf-8|base64. Returns JSON data.content with data.encoding; -o saves the JSON, not decoded bytes. Use skill_files_download for raw bytes.",
+  skill_files_download: "use the viewed skill's exact manifest path and version; encoding=utf-8|base64; save with -o; chmod +x scripts before execution.",
   skill_create: "content=full SKILL.md with frontmatter; resources=[{path,content,encoding:utf-8|base64,mime_type?,is_executable?}].",
+  skill_extract: "Archives the current session buffer and queues asynchronous extraction; do not send messages. data.status=archived|empty; archived does not mean a skill has already been generated.",
   skill_update: "content=full SKILL.md; expected_version from the viewed skill.",
   skill_patch: "expected_version from the viewed skill; replace_all=true only for intended all-match edits.",
   skill_delete: "expected_version from the viewed skill; archives the skill without bumping version.",
