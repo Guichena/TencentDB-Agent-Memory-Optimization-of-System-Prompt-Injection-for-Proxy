@@ -22,6 +22,8 @@ if ($Smoke) {
   Write-Host "Single-case smoke: client=$Client variant=$Variant case=$CaseId"
 }
 $root = Split-Path $PSScriptRoot -Parent
+if (-not [IO.Path]::IsPathRooted($OutputRoot)) { $OutputRoot = Join-Path $root $OutputRoot }
+if (-not [IO.Path]::IsPathRooted($BundleRoot)) { $BundleRoot = Join-Path $root $BundleRoot }
 $tsx = Join-Path $root 'evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs'
 if (-not (Test-Path $tsx)) { throw 'Install dependencies: npm --prefix evaluation/MemoryProxy ci' }
 & node $tsx (Join-Path $root 'evaluation/MemoryProxy/eval/tool-prompt-bench/test1k-entry.ts') $Mode ([IO.Path]::GetFullPath($OutputRoot)) $CorePort $Client $Variant ([IO.Path]::GetFullPath($BundleRoot)) $CaseId

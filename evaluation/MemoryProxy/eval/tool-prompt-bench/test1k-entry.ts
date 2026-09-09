@@ -18,6 +18,16 @@ const tsx = resolve(here, "../../node_modules/tsx/dist/cli.mjs");
 const read = (file: string) => JSON.parse(readFileSync(file, "utf8"));
 const write = (file: string, value: unknown) => writeFileSync(file, JSON.stringify(value, null, 2) + "\n", { flag: "wx" });
 
+const configPathFields = ["baselineRoot", "v4Root", "proxyConfig", "envFile", "plan", "workspaceManifest", "teamsRoot", "skillCatalogBindings", "runtimeBindings", "assetRunRoot", "outputRoot"] as const;
+
+export function readTest1kConfig(output: string) {
+  const config = read(join(output, "evaluation.json"));
+  for (const field of configPathFields) {
+    if (typeof config[field] === "string") config[field] = resolve(output, config[field]);
+  }
+  return config;
+}
+
 export function prepareTest1k(output: string, corePort = 8427) {
   output = resolve(output);
   const within = relative(join(root, "runs"), output);
@@ -53,7 +63,9 @@ export function prepareTest1k(output: string, corePort = 8427) {
     outputRoot: join(output, "execution"), timeoutMs: 480000, maxRetries: 0,
     clients: { codex: { concurrency: 5, providerKeyEnv: "TDAI_CODEX_PROVIDER_API_KEY" }, "claude-code": { concurrency: 5, providerKeyEnv: "TDAI_CLAUDE_PROVIDER_API_KEY" } },
   };
-  write(join(output, "evaluation.json"), config);
+  const portableConfig = { ...config };
+  for (const field of configPathFields) portableConfig[field] = relative(output, config[field]) || ".";
+  write(join(output, "evaluation.json"), portableConfig);
   if (!existsSync(config.envFile)) cpSync(join(root, "evaluation/.env.example"), config.envFile, { errorOnExist: true, force: false });
   return { config: join(output, "evaluation.json"), cases: ids.length, slotsPerClient: plan.slots.length, envFile: config.envFile };
 }
@@ -68,7 +80,7 @@ async function runNode(args: string[], output: string, label: string, env: NodeJ
 }
 
 async function withCore(output: string, initialize: boolean, action: (env: NodeJS.ProcessEnv) => Promise<void>) {
-  const config = read(join(output, "evaluation.json"));
+  const config = readTest1kConfig(output);
   if (resolve(config.assetRunRoot) !== output) throw new Error("Asset directory does not match this run");
   const url = new URL(config.coreUrl);
   if (url.hostname !== "127.0.0.1" || url.protocol !== "http:") throw new Error("Expected local Core URL");
@@ -93,7 +105,7 @@ async function withCore(output: string, initialize: boolean, action: (env: NodeJ
 }
 
 export async function initializeTest1k(output: string) {
-  const config = read(join(output, "evaluation.json"));
+  const config = readTest1kConfig(output);
   await withCore(output, true, async env => {
     // Import routines share the explicit local gateway token with the owned Core.
     const previous = process.env.FINAL5_RESTORE_AUTH_TOKEN;
@@ -120,7 +132,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   else if (mode === "initialize") await initializeTest1k(output);
   else {
     if (!["both", "codex", "claude-code"].includes(client) || !["both", "baseline", "V4"].includes(variant)) throw new Error("Invalid client or variant");
-    const config = read(join(output, "evaluation.json"));
+    const config = readTest1kConfig(output);
     const validated = readDualClientConfig(join(output, "evaluation.json"));
     for (const selected of client === "both" ? ["codex", "claude-code"] as const : [client] as ("codex" | "claude-code")[]) {
       const environment = managedEnvironment(validated, selected);
