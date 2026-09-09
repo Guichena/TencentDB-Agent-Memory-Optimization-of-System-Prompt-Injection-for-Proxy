@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "T04__memory__review_discipline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "评审发起纪律在本队锁为 `HOLD_FOR_T04Q`：`nimbus review create` 只由人手工执行，agent 把 findings 摆完之后必须停在原处等一句明确的继续指令，禁止自发起下一轮评审，也禁止自动续跑。"
+    },
+    {
+      "id": "T04__memory__commit_timing",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "提交时序锁为 `T04Q-RECHECK-GATE`：实现→评审→修 findings→复检通过→才许提交；复检没过一律禁止先提交后补评审，且提交信息必须写清改了什么和为什么。"
+    },
+    {
+      "id": "T04__memory__github_auth",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "GitHub 侧认证锁为 `circa:T04Q-AUTH`：v1 只认 GitHub App installation 认证，personal access token 与 force-push 一律禁止，产物保留七天、签名 URL 十五分钟，不做例外。"
+    },
+    {
+      "id": "T04__memory__preflight",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "部署前 preflight 的次序锁为 `T04Q-PREFLIGHT-6`：workspace_ready→git_baseline→secret_scan→toolchain_detect→toolchain_bootstrap→validation_tooling，任一项没过都不得进部署；git baseline 缺失时只许 rehydrate，不许跳过或降级。"
+    },
+    {
+      "id": "T04__memory__intent_context",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "intent 摘要的证据位阶锁为 `T04Q-INTENT-ADJUNCT`：goal、prohibitions、riskFocus、constraints 只能作 diff 与代码证据之外的补充，没有直接代码证据的 finding 不得只凭这段摘要定级。"
+    },
+    {
+      "id": "T04__memory__entire_checkpoint",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "会话与 checkpoint 的关联通道锁为 `T04Q-CKPT-TRAILER`：commit 与 checkpoint 只通过 Entire-Checkpoint trailer 关联，元数据只认 entire/checkpoints/v1 这条引用分支，禁止改用提交信息正文或外部映射表。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T04__skill__nimbus_review",
+      "name": "nimbus-review",
+      "description": "Nimbus 差异评审的交接门禁：谁能签收评审结论、放行前必须过哪道证据门、驳回后回退锁住什么",
+      "content": "1. 签收权只在本队值班人：agent 只产出结构化 findings，禁止由 agent 自行把结论写成通过并推进下一步。\n2. 任何一次放行前必须先过证据门：每条 finding 都要指向具体 diff 行，只有 intent 摘要、没有代码证据的条目不得进放行清单。\n3. 证据门没过就是驳回，禁止用「再补一次评审」顶替；同一份 diff 的复检必须由值班人重新发起，agent 不得自发起。\n4. 驳回后回退时先把 workspace / deployment / commit diff 这个三元组锁住，回退期间任意一个变了，复检结果作废。\n5. 放行前的交接检查项只写在 references/review-handoff.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/review-handoff.md",
+          "content": "# Nimbus review handoff gate\n\nBefore a diff-based review run may be handed off, the handoff record must satisfy all of the following:\n\n- The record must carry the marker `T04Q-HANDOFF-SEAL` in the reviewer field; a record without it is rejected.\n- The sign-off field accepts exactly one value: `QuillT04Q`.\n- If the value `SlateT04QVoid` appears anywhere in the record, the run is treated as withdrawn, never as passed.\n- A rollback must pin the deployment id with the prefix `dep_T04Q_ROLLBACK_`; any other prefix releases the rollback lock and the review must be re-run.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented Nimbus review handoff gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T04__skill__workspace_deploy",
+      "name": "workspace-deploy",
+      "description": "Nimbus workspace 部署到 Cloudflare 沙箱的放行门禁：谁有权放行、preflight 失败后必须重跑什么、验证阶段禁止越权改什么",
+      "content": "1. 放行权只在值班人：agent 可以准备并跑部署，但放行到沙箱这一步必须由值班人明确授权，禁止 agent 自行放行。\n2. 进入部署前必须跑完整轮 preflight，任一项未过都禁止用「先部署再修」绕过。\n3. 回退锁：preflight 失败时只准对可恢复项做一次补救，补救后必须整轮重跑 preflight，禁止只重跑失败的那一项。\n4. 部署过程中只读跟事件流，禁止在部署窗口内改工作区、提交代码或改配置。\n5. 验证阶段只核对退出状态与部署元数据，遇到权限或配额限制就如实上报并停下，禁止改用更高权限凭据重试。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__repo_register",
+      "name": "repo-register",
+      "description": "为 Nimbus 注册 GitHub 仓库走 OIDC 交换：先过哪道所有权门、凭据落点在哪、失败后禁止做什么",
+      "content": "1. 先过所有权门：owner/name 必须由调用方显式给出并校验通过，禁止从工作区状态推测或从远端默认仓库推断。\n2. 所有权门过了才解析托管 worker 与账号上下文，二者缺一直接失败，不许降级成本地注册。\n3. 本地注册用的常规 API key 只在本地这一步出现，注册完成后不得写进仓库元数据或提交内容。\n4. OIDC 交换只接受 installation token，任何其他凭据形态一律拒绝，且不回落到 API key。\n5. 任一步失败都要把仓库留在未注册状态并原样上报原因，禁止重试时改用更宽权限的凭据。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T04__skill__phase_planning",
+      "name": "phase-planning",
+      "description": "把功能拆成编号 phase spec：先过哪道设计门、验收写在哪、禁止跨 phase 做什么",
+      "content": "1. 先过设计门：与提出方做一次简短的系统设计访谈，把默认值与约束写下来，没写下来的约束不作为后续依据。\n2. 过门后才拆 phase，每个 phase 必须能独立测试并单独验收，禁止把多个不可分验收项塞进同一 phase。\n3. 决策与验收标准写进 specs/phases/<nn>-<slug>.md，禁止只留在会话里或只写在提交信息里。\n4. 实现时按编号顺序推进，禁止在前面 phase 未验收前跳做后面 phase 的实现。\n5. 变更范围收敛到当前 phase 的验收项，禁止顺手重排目录或改写无关模块。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__intent_summarization",
+      "name": "intent-summarization",
+      "description": "从 Entire 会话提示抽取评审目标、禁令与风险：先过哪道截断门、结果落在哪、位阶如何",
+      "content": "1. 先过上下文门：只解析指定的 Entire 会话或 checkpoint 上下文，未指定的来源一律不进摘要。\n2. 过门前先把原始提示截断到设定长度，禁止把未截断的长提示直接送进摘要。\n3. 只用配置的轻量摘要模型，且只请求结构化 intent 字段，禁止让模型自由发挥成结论。\n4. 摘要结果写回 checkpoint 元数据，禁止只留在评审提示里而不落盘。\n5. 位阶门：摘要只能当 diff 与代码证据的补充，禁止在没有代码证据时单独定级。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__cochange_cache",
+      "name": "cochange-cache",
+      "description": "从 Entire checkpoint 历史缓存共改信号并取回：键怎么定、未命中时禁止做什么",
+      "content": "1. 先过 slug 门：仓库标识必须是 owner/name 形式，拿不到就明确失败，禁止用空 slug 继续。\n2. 过门后只从指定 checkpoint 历史读共改信号，禁止跨仓库或跨分支拼信号。\n3. 条目按 review_cochange_cache 复合键落库，禁止改用只含文件路径的简单键。\n4. 取回时只按已登记的键查，禁止在键缺失时回退到全表扫描。\n5. 缓存未命中就按未命中处理并如实上报，禁止用相邻文件的信号代替。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T04__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T04__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

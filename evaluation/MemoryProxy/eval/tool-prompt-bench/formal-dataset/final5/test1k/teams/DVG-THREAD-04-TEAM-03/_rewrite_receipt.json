@@ -1,0 +1,10 @@
+{
+  "team": "DVG-THREAD-04-TEAM-03",
+  "files_skill": "android-resource-audit",
+  "files_path": "references/audit-lock.md",
+  "n_cases": 17,
+  "mem_pairs": 2,
+  "skill_pairs": 3,
+  "files_pairs": 1,
+  "notes": "myPlanet 整队重写；files 挂在 android-resource-audit。"
+}

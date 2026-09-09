@@ -1,0 +1,205 @@
+{
+  "memory": [
+    {
+      "id": "T08__memory__prisma_orm",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "ORM 锁为 `T08Q-ORM-PRISMA`：数据库操作只走 Prisma，schema 只认 packages/db 下那一份，禁止绕过 ORM 直连，也禁止另建第二份 schema。"
+    },
+    {
+      "id": "T08__memory__workspace_filters",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "工作区命令锁为 `T08Q-FILTER-EXPLICIT`：命令必须带包过滤，禁止在根目录跑不带过滤的全仓命令，也禁止用全量命令代替针对性执行。"
+    },
+    {
+      "id": "T08__memory__schema_environments",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "schema 变更锁为 `T08Q-SCHEMA-SPLIT`：开发用 db:push 迭代、生产用 db:migrate，禁止在生产跑 push，也禁止把开发迭代直接当迁移提交。"
+    },
+    {
+      "id": "T08__memory__tracking_architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "追踪归属锁为 `T08Q-TRACK-SPLIT`：追踪分属 Simulation、Message、ApiUsage 三处，禁止新增第四处，也禁止把三类数据并到一处。"
+    },
+    {
+      "id": "T08__memory__memory_embeddings",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "记忆存储锁为 `T08Q-MEM-EMBED`：记忆以任意 JSON 存储，向量固定用 text-embedding-3-large，禁止换成别的维度或别的模型，也禁止另存一份原文当索引。"
+    },
+    {
+      "id": "T08__memory__mcp_transport",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "MCP 传输锁为 `T08Q-MCP-STREAM`：编辑器集成只走可流式 HTTP 的 /mcp/stream 端点，禁止改用旧式传输，也禁止为某个编辑器单开一套端点。"
+    },
+    {
+      "id": "T08__memory__env_validation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "环境变量校验锁为 `T08Q-ENV-EMPTY`：空串变量按未定义处理并明确报出，禁止当有效值，也禁止静默回落到默认值。"
+    },
+    {
+      "id": "T08__memory__signup_webhook",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "注册通知锁为 `T08Q-SIGNUP-CHANNEL`：新用户注册只通知指定频道，禁止改投别的频道，也禁止为测试把 webhook 指向生产频道。"
+    },
+    {
+      "id": "T08__memory__install_idempotence",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "安装脚本锁为 `T08Q-INSTALL-IDEMPOTENT`：安装脚本必须幂等并能识别既有安装，禁止假定全新环境，也禁止重跑时覆盖用户既有配置。"
+    },
+    {
+      "id": "T08__memory__omega_design",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Omega 视觉锁为 `T08Q-OMEGA-BRUTAL`：只走全宽紧凑的命令中心风格，禁止引入圆角卡片式变体，也禁止为单个页面另起一套视觉语言。"
+    },
+    {
+      "id": "T08__memory__tool_approval",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "工具执行锁为 `T08Q-TOOL-APPROVE`：执行必须经发现、用户批准、执行三步，权限判断集中一处，禁止跳过批准，也禁止把权限判断散到各工具里。"
+    },
+    {
+      "id": "T08__memory__timeline_ci",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "时间线数据锁为 `T08Q-TIMELINE-CI`：时间线数据由 CI 自动更新，跳过标记会阻止更新，禁止手工编辑时间线数据，也禁止在跳过 CI 时声称数据已刷新。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T08__skill__environment_variables",
+      "name": "tpmjs-environment-validation",
+      "description": "校验本仓库环境变量：先过哪道空串门、缺失怎么报、敏感值落在哪",
+      "content": "1. 先过空串门：空串按未定义处理并明确报出，禁止当有效值或静默回落默认值。\n2. 来源门：先说清变量应在哪一层配置，禁止跨层取到最后一个就算。\n3. 敏感值只留在对应环境，禁止写进提交内容或日志。\n4. 改完必须在该环境重跑一次校验，禁止只在本地验过就当全部通过。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T08__skill__mcp_server_integration",
+      "name": "tpmjs-mcp-server-integration",
+      "description": "接入 MCP 服务端：先过哪道传输门、端点怎么定、能力怎么声明",
+      "content": "1. 先过传输门：只走可流式 HTTP 传输与指定端点，禁止改用旧式传输。\n2. 端点门：端点路径保持稳定，禁止为某个编辑器单开一套路径。\n3. 能力门：先声明能力清单再实现，禁止边实现边补声明。\n4. 接入后必须跑一次真实握手，禁止只看服务启动成功。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__omega_ui",
+      "name": "omega-command-center-ui",
+      "description": "改 Omega 命令中心界面：先过哪道视觉门、布局怎么收、状态怎么齐",
+      "content": "1. 先过视觉门：只走全宽紧凑的命令中心风格，禁止引入圆角卡片变体。\n2. 布局门：先复用既有栅格，禁止为单个页面另写一套容器。\n3. 状态门：加载与空态必须各有呈现，禁止只做成功态。\n4. 改完必须核对键盘可达性，禁止只看视觉稿通过。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T08__skill__prisma_workflow",
+      "name": "tpmjs-prisma-schema-workflow",
+      "description": "改 Prisma schema：先过哪道环境门、push 与 migrate 怎么分、客户端怎么同步",
+      "content": "1. 先过环境门：先确认是开发迭代还是生产变更，禁止混用两种命令。\n2. 开发迭代用 push、生产变更用 migrate，禁止在生产跑 push。\n3. 客户端门：schema 改动后必须重新生成客户端，禁止只改 schema 不生成。\n4. 收尾必须跑一次迁移校验，禁止只看生成成功。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T08__skill__tool_permissions",
+      "name": "tpmjs-tool-permission-flow",
+      "description": "走工具发现、批准与执行的权限流：先过哪道批准门、权限判断放在哪",
+      "content": "1. 先过发现门：工具必须先被登记发现，禁止直接调用未登记工具。\n2. 批准门：执行前必须拿到显式批准，禁止跳过或用默认同意顶替。\n3. 权限门：权限判断集中在同一处，禁止散落到各工具内部。\n4. 拒绝必须原样上报原因，禁止降级成静默跳过。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__bulk_collection_tools",
+      "name": "bulk-collection-tool-addition",
+      "description": "批量往集合里加工具：先过哪道清单门、命名怎么定、一次覆盖多少",
+      "content": "1. 先过清单门：先定要加的完整清单，禁止边加边想。\n2. 命名门：工具标识按既有前缀与命名规则，禁止为省事另起一套前缀。\n3. 批量门：一次只提交一个集合的改动，禁止跨集合混在一次。\n4. 加完必须逐个跑通，禁止抽样验证就报完成。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__execution_tracking",
+      "name": "unified-execution-tracking",
+      "description": "统一执行追踪：先过哪道归属门、三处数据怎么分、新增字段怎么做",
+      "content": "1. 先过归属门：先确定这次执行属于哪一类追踪，禁止默认记到最通用那一处。\n2. 分处门：三类追踪数据各归各处，禁止新增第四处或并到一处。\n3. 字段门：新增字段先登记再写入，禁止临时加字段后补登记。\n4. 收尾必须核对计数一致，禁止只看写入不报错。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sentry_pipeline",
+      "name": "sentry-auto-fix-pipeline",
+      "description": "跑自动修复流水线：先过哪道复现门、修复范围怎么定、验证怎么收",
+      "content": "1. 先过复现门：先拿到可复现的问题证据，禁止凭告警标题直接改。\n2. 范围门：只改根因所在处，禁止顺手重构周边。\n3. 验证门：修完必须重跑出错路径，禁止只看流水线变绿。\n4. 未修复必须原样上报，禁止关闭告警了事。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sentry_frontend",
+      "name": "sentry-frontend-instrumentation",
+      "description": "给前端加埋点：先过哪道范围门、采样怎么定、敏感信息怎么处理",
+      "content": "1. 先过范围门：先定要观测的交互边界，禁止全局无差别埋点。\n2. 采样门：采样率按环境区分，禁止在生产用开发采样率。\n3. 脱敏门：上报前去掉用户标识与凭据，禁止把原始请求体带上。\n4. 加完必须验证一次上报链路，禁止只看代码编译通过。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__performance_checks",
+      "name": "fast-workspace-verification",
+      "description": "快速校验工作区：先过哪道范围门、顺序怎么定、结果怎么判",
+      "content": "1. 先过范围门：只跑受影响的包，禁止在根目录跑不带过滤的全仓命令。\n2. 顺序门：先类型再测试，禁止跳步只跑测试。\n3. 判读门：失败先取第一条根因，禁止一次改多处后猜。\n4. 修完必须重跑同一命令，禁止改命令让结果变绿。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sandbox_tools",
+      "name": "agent-sandbox-tools",
+      "description": "给 agent 沙箱加工具：先过哪道边界门、参数怎么定、失败怎么暴露",
+      "content": "1. 先过边界门：先声明工具可触及的资源边界，禁止默认给完整工作区权限。\n2. 参数门：入参先定校验规则再实现，禁止把裸参数直接传给底层。\n3. 失败门：失败必须带出原始错误，禁止吞掉异常后返回空结果。\n4. 加完必须在沙箱内跑通一次，禁止只在工作区验证。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sandbox_testing",
+      "name": "sandbox-integration-testing",
+      "description": "跑沙箱集成测试：先过哪道隔离门、夹具基线在附件哪里",
+      "content": "1. 先过隔离门：每个用例起独立沙箱，禁止复用上一用例的残留状态。\n2. 夹具门：用登记的夹具造数据，禁止临时连真实外部服务。\n3. 断言只针对沙箱可观察产物，禁止断言内部调用细节。\n4. 收尾的夹具基线检查项只写在 references/sandbox-fixtures.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/sandbox-fixtures.md",
+          "content": "# Sandbox fixture baseline\n\nA sandbox integration run is only valid when all of the following hold:\n\n- The run must be stamped with the fixture marker `T08Q-FIXTURE-SEAL`.\n- The sandbox id must carry the prefix `T08Q-SBX-`.\n- Network access must be declared with the value `T08Q-NET-OFF`; any other value voids the run.\n- A run containing `T08Q-REUSE-STATE` is rejected; each case must start from a clean sandbox.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented sandbox fixture baseline for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T08__skill__sandbox_logs",
+      "name": "sandbox-execution-logs",
+      "description": "读沙箱执行日志：先过哪道来源门、怎么定位一次执行、禁止怎么猜",
+      "content": "1. 先过来源门：先确认输出来自哪一次沙箱执行，禁止拿最近一份当答案。\n2. 定位门：按执行标识定位而不是按时间戳猜，禁止凭相似文本匹配。\n3. 判读门：先区分沙箱自身错误与被观测代码的错误，禁止一律归到被测代码。\n4. 缺日志必须明说缺失，禁止用相邻执行补上结论。",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T08__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T08__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

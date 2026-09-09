@@ -1,0 +1,11 @@
+{
+  "team": "dvg03_cpp100days",
+  "files_skill": "dependency-verification",
+  "files_path": "references/dep-verify.md",
+  "n_cases": 29,
+  "mem_pairs": 7,
+  "skill_pairs": 3,
+  "files_pairs": 1,
+  "notes": "cpp_100daysofcode 整队重写；files 挂在 dependency-verification。 | rewrote leftover distractor/natural queries: ['dvg03_cpp100days__h02_none', 'dvg03_cpp100days__k02_call', 'dvg03_cpp100days__k03_call', 'dvg03_cpp100days__m04_call', 'dvg03_cpp100days__m06_call', 'dvg03_cpp100days__n01_none', 'dvg03_cpp100days__n02_none', 'dvg03_cpp100days__n04_none', 'dvg03_cpp100days__s06_none']",
+  "audit_fix": "rewrote leftover distractor/natural queries: ['dvg03_cpp100days__h02_none', 'dvg03_cpp100days__k02_call', 'dvg03_cpp100days__k03_call', 'dvg03_cpp100days__m04_call', 'dvg03_cpp100days__m06_call', 'dvg03_cpp100days__n01_none', 'dvg03_cpp100days__n02_none', 'dvg03_cpp100days__n04_none', 'dvg03_cpp100days__s06_none']"
+}

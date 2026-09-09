@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "task1.candidate-base.v1",
+  "status": "awaiting-r05",
+  "formalData": {
+    "tag": "task1-data-formal-v2.1",
+    "tagObject": "6dcb766b0d9d831fe06cd45176da4d8d59cd0a78",
+    "peeledCommit": "a8ae02e376f07ea7baa6a13f66aa4fb560b95ce6"
+  },
+  "promptBaseline": {
+    "tag": "task1-code-freeze",
+    "tagObject": "edbf18309fbf100cdf5b26d64c0fbb6f12c8f3a5",
+    "peeledCommit": "d0996809ed63f6cfc67504ad180db0d48ac70475"
+  },
+  "selectionContract": {
+    "path": "MemoryProxy/eval/tool-prompt-bench/measurement-v2/SELECTION-CONTRACT.json",
+    "canonicalSha256": "5dca2bf5df8cf0f1d6de1284934ed6c754ba4ff980ce7d59fc9ec576f25314f9"
+  },
+  "executionCohort": {
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "verbosity": "medium",
+    "provider": "openai",
+    "apiProtocol": "responses-v1",
+    "adapterVersion": "memory-proxy-provider-observer-v1",
+    "nodeMajor": 22,
+    "codexCliVersion": null
+  },
+  "tokenizer": {
+    "id": "o200k_base",
+    "version": "tiktoken-1.0.22"
+  },
+  "r05": {
+    "status": "pending",
+    "receiptSha256": null,
+    "runtimeConfigFileSha256": null
+  },
+  "modelRunsAtFreeze": 0,
+  "canonicalSha256": "8967296f3c21b43b092e5d9e1c0b3b4749842baff2f8a4d170632cb890b7d21e"
+}

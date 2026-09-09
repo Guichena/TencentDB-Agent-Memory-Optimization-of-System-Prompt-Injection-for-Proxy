@@ -1,0 +1,196 @@
+{
+  "memory": [
+    {
+      "id": "T08__memory__prisma_orm",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "TPMJS uses Prisma for database operations, with the schema in `packages/db/prisma/schema.prisma`."
+    },
+    {
+      "id": "T08__memory__workspace_filters",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Workspace commands use `pnpm --filter=` to target a package; root-wide unfiltered commands are avoided."
+    },
+    {
+      "id": "T08__memory__schema_environments",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Use `db:push` for development schema iteration and `db:migrate` for production changes; production migrations must not be skipped."
+    },
+    {
+      "id": "T08__memory__tracking_architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Tracking is split among Simulation for the playground, Message for agents, and ApiUsageRecord for API requests; the project is moving toward unified per-tool execution tracking."
+    },
+    {
+      "id": "T08__memory__memory_embeddings",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The memory service stores arbitrary JSON memories and uses OpenAI `text-embedding-3-large` for semantic search."
+    },
+    {
+      "id": "T08__memory__mcp_transport",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Editor integrations use streamable HTTP MCP endpoints, specifically `/mcp/stream`, rather than the non-streaming `/mcp` endpoint."
+    },
+    {
+      "id": "T08__memory__env_validation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "`createEnv` treats empty-string environment variables as undefined and should report the specific field name in validation errors."
+    },
+    {
+      "id": "T08__memory__signup_webhook",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "New user signups notify the Discord `#tpmjs` channel through `DISCORD_SIGNUP_WEBHOOK_URL`."
+    },
+    {
+      "id": "T08__memory__install_idempotence",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The install script is intentionally idempotent and detects prior setup so contributors can safely run it more than once."
+    },
+    {
+      "id": "T08__memory__omega_design",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Omega uses a brutalist command-center visual direction: full-width layouts, compact headers, real registry statistics, and copper accents."
+    },
+    {
+      "id": "T08__memory__tool_approval",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Tool execution requires discovery, user approval, and execution; permission checks and audit logging must not be bypassed."
+    },
+    {
+      "id": "T08__memory__timeline_ci",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Timeline data is updated automatically by CI, and the skip-CI flag prevents timeline commits from triggering an infinite loop."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T08__skill__environment_variables",
+      "name": "tpmjs-environment-validation",
+      "description": "Configure and validate workspace environment variables with the repository’s createEnv rules.",
+      "content": "1. Locate the relevant `createEnv` schema and `.env.example`. 2. Use the exact variable names and treat empty strings as missing. 3. Add new variables to the schema and document placeholder values without committing secrets. 4. Run the package-scoped command with `pnpm --filter=`. 5. Check the resulting error names and rerun the focused check.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T08__skill__mcp_server_integration",
+      "name": "tpmjs-mcp-server-integration",
+      "description": "Register a custom MCP server and make it usable by editor integrations, including schema, authentication, Prisma client generation, and install verification.",
+      "content": "1. Add the server and transport metadata to the Prisma schema or registry path used by the repository. 2. Configure bearer-token authentication for the editor connection. 3. Apply the schema change with the filtered Prisma commands and regenerate the client. 4. Run the idempotent editor install step. 5. Restart the editor, list discovered tools, and diagnose authentication or discovery errors.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__omega_ui",
+      "name": "omega-command-center-ui",
+      "description": "Implement Omega pages while preserving the project’s brutalist command-center design system.",
+      "content": "1. Inspect the existing Omega layout and shared UI components. 2. Keep full-width sections, compact headers, sharp borders, monospace typography, and real registry values. 3. Implement the requested interaction without introducing placeholder statistics. 4. Verify light and dark theme tokens and responsive layout. 5. Run the web type check and manually exercise the affected page.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T08__skill__prisma_workflow",
+      "name": "tpmjs-prisma-schema-workflow",
+      "description": "Iterate on Prisma schemas safely in development and create deployable production migrations.",
+      "content": "1. Edit `packages/db/prisma/schema.prisma`. 2. For development iteration, run `pnpm --filter=@tpmjs/db db:push` followed by `db:generate`. 3. For production changes, create a named migration and use `db:migrate deploy`; never use `db:push` in production. 4. Run filtered type checks and inspect the generated client. 5. Record the database result before moving to application code.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T08__skill__tool_permissions",
+      "name": "tpmjs-tool-permission-flow",
+      "description": "Implement or debug dynamic tool execution with discovery, approval, permission checks, and tracking.",
+      "content": "1. Discover the tool and enrich its metadata. 2. Request execution and wait for explicit approval. 3. Check every required permission before execution. 4. Execute only after approval and enforce a timeout. 5. Record the outcome for audit and return actionable errors for denied or undiscovered tools.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__bulk_collection_tools",
+      "name": "bulk-collection-tool-addition",
+      "description": "Add all matching tools from an npm package to a collection while handling duplicates and collection limits.",
+      "content": "1. Validate the package name and resolve the package record. 2. Fetch its tools and the collection’s existing entries. 3. Calculate remaining capacity and separate duplicates, skipped tools, and additions. 4. Insert with duplicate protection and log the activity without failing the request. 5. Return counts and added tools, then update the UI and CLI callers and run focused tests.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__execution_tracking",
+      "name": "unified-execution-tracking",
+      "description": "Add consistent execution events across MCP, agent, collection, and tool paths.",
+      "content": "1. Define the event model and indexes without foreign-key coupling that would make tracking block entity deletion. 2. Implement a fire-and-forget `trackExecution` helper that catches logging failures. 3. Instrument each execution boundary with source, status, duration, and identifiers. 4. Add filtered pagination to the query endpoint and aggregate daily stats. 5. Run type checks, tests, and a manual tool call to verify an event is recorded.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sentry_pipeline",
+      "name": "sentry-auto-fix-pipeline",
+      "description": "Design and verify the production-error path from Sentry through an issue, automated fix, PR, and notification.",
+      "content": "1. Capture the production error with release and request context. 2. Deliver the Sentry webhook to the remediation endpoint and authenticate it. 3. Create or deduplicate the GitHub issue, then run the constrained auto-fix workflow. 4. Open a reviewable PR and notify Discord only after the relevant state transition. 5. Add tests for webhook validation, deduplication, failure handling, and notification behavior.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sentry_frontend",
+      "name": "sentry-frontend-instrumentation",
+      "description": "Add actionable browser error context and verify that frontend failures reach the Sentry auto-fix path.",
+      "content": "1. Configure the browser Sentry client with the repository’s environment and release metadata. 2. Capture route, component, and user-safe context without secrets. 3. Verify the event reaches the backend remediation path and is deduplicated. 4. Add focused tests for capture and transport failure cases. 5. Run lint, type checks, and a manual browser error.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__performance_checks",
+      "name": "fast-workspace-verification",
+      "description": "Speed up and diagnose the monorepo’s build, lint, and type-check workflow without losing verification coverage.",
+      "content": "1. Inspect the Turborepo task graph and package boundaries. 2. Use filtered or cached tasks for local diagnosis while retaining the complete verification command for the final check. 3. Confirm cache inputs and outputs are correct before trusting a hit. 4. Compare lint, type-check, test, and build timings. 5. Run a clean or cache-disabled verification when validating a build-system change.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sandbox_tools",
+      "name": "agent-sandbox-tools",
+      "description": "Implement stateful shell, file, and git tools for agents with safe session lifecycle handling.",
+      "content": "1. Create or reuse a sandbox session for the conversation. 2. Validate tool inputs and enforce the permission and timeout policy. 3. Execute shell or file operations in the session and return structured stdout, stderr, exit code, or file metadata. 4. Keep session state across calls and destroy it on cleanup. 5. Add focused tests for success, failure, timeout, and cleanup paths.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sandbox_testing",
+      "name": "sandbox-integration-testing",
+      "description": "Verify sandbox server and shell tools end to end in CI without leaking state.",
+      "content": "1. Start the sandbox test service with isolated credentials and a temporary workspace. 2. Exercise create, execute, read, write, list, and destroy operations. 3. Assert structured results, persistence across calls, timeouts, and cleanup. 4. Keep CI data separate from production services. 5. Run the package integration suite and report logs for failures.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T08__skill__sandbox_logs",
+      "name": "sandbox-execution-logs",
+      "description": "Expose useful, paginated logs for sandbox tool executions in the agent detail UI.",
+      "content": "1. Filter the logs endpoint to sandbox tool names and preserve complete tool results. 2. Match assistant tool inputs to tool-result records by tool-call ID. 3. Add a conditional agent-detail tab and a loading, empty, and pagination state. 4. Render shell stdout/stderr and file-operation metadata in a terminal-like view. 5. Add auto-refresh only while enabled, then run type checks and manual pagination tests.",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T08__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T08__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

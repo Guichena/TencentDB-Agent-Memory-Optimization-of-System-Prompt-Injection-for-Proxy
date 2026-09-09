@@ -1,0 +1,10 @@
+{
+  "team": "dvg03_cse491",
+  "files_skill": "game-state-logging",
+  "files_path": "references/game-log.md",
+  "n_cases": 29,
+  "mem_pairs": 4,
+  "skill_pairs": 6,
+  "files_pairs": 1,
+  "notes": "cse_491_fall_2023 整队重写；files 挂在 game-state-logging。"
+}

@@ -1,0 +1,13 @@
+{
+  "team_id": "T12",
+  "repo_id": "tslateman/reck",
+  "repo_url": "https://github.com/tslateman/reck.git",
+  "case_count": 40,
+  "current_agent_id": "T12__agent__primary",
+  "agent_ids": [
+    "T12__agent__primary",
+    "T12__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

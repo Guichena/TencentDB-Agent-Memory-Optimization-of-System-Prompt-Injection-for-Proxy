@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "task1.skill-catalog-freeze/v1",
+  "seed": "final5",
+  "policy": {
+    "visibleCount": 8,
+    "candidateWindow": "own+next1+next2",
+    "sourceQuotas": {
+      "own": 3,
+      "next1": 3,
+      "next2": 2
+    },
+    "fallback": "stable-source-order-without-duplicates",
+    "catalogChoice": "sha256(seed:case_id) mod team_catalog_count",
+    "entryOrder": "sha256(seed:team:catalog_index:runtime_skill_id)",
+    "searchablePool": "all-imported-skills",
+    "variants": [
+      "server_team",
+      "V4"
+    ],
+    "variantAssetBinding": "identical-case-catalog-binding",
+    "goldDependency": "none-for-catalog-choice"
+  },
+  "counts": {
+    "teams": 39,
+    "runtimeSkills": 240,
+    "catalogs": 87,
+    "cases": 1140,
+    "skillCallCases": 236,
+    "directVisibleSkillCalls": 109,
+    "searchRequiredSkillCalls": 127
+  },
+  "directVisibleSkillCallRate": 0.461864406779661,
+  "teamOrderSha256": "f811bb4d9d40d39d39f67ea828423384917d6ab5bf6a0b7c79ba55ba097044b5",
+  "searchableSkillIndexSha256": "140938290d04a4328b5f912f32c5a923dac2696179d2ee98e317e6827867e737",
+  "catalogsSha256": "705a6b13a93c3e7e94f7e545a1a3ae3aaf89dc50a1457129709f5a3585350f84",
+  "caseBindingsSha256": "5d19edf23b7dc4ccae80ffe41f677fd8784b84929ab1e6923dd34d48f79e76cd",
+  "derivedGoldSha256": "326ba4c289d3a552c3254b58b2502996660cbedb3c9f7405bac79530fbc6243e",
+  "formalReady": true,
+  "test1kKeep": true
+}

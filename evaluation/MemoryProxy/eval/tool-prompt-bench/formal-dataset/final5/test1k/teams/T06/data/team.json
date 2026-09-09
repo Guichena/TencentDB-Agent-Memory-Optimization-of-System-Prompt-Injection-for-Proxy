@@ -1,0 +1,19 @@
+{
+  "team_id": "T06",
+  "repo_id": "anchoo2kewl/SprintSpark",
+  "repo_url": "https://github.com/anchoo2kewl/SprintSpark",
+  "case_count": 29,
+  "current_agent_id": "T06__agent__primary",
+  "agent_ids": [
+    "T06__agent__primary",
+    "T06__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "T06__skill__test_strategy",
+    "T06__skill__integration_testing",
+    "T06__skill__regression_fix",
+    "T06__skill__refactor_safely",
+    "T06__skill__release_validation"
+  ],
+  "status": "active"
+}

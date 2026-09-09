@@ -1,0 +1,102 @@
+{
+  "caseIds": [
+    "T01-MEMORY-006-P",
+    "T01-SKILL-010-P",
+    "T01-KNOWLEDGE-DECODER-005-P",
+    "T01-MEMORY-006-N",
+    "T01-NATURAL-004",
+    "T02-MEMORY-001-P",
+    "T02-SKILL-007-P",
+    "T02-KNOWLEDGE-013-P",
+    "T02-SKILL-007-N",
+    "T02-NATURAL-009",
+    "T03-MEM-001-P",
+    "T03-SKILL-001-P",
+    "T03-KNOW-001-P",
+    "T03-KNOW-001-N",
+    "T03-NAT-002",
+    "T04-MEM-001-P",
+    "T04-SKILL-001-P",
+    "T04-KNOW-001-P",
+    "T04-MEM-001-N",
+    "T04-NAT-006",
+    "T11-MEMORY-003-P",
+    "T11-SKILL-007-P",
+    "T11-KNOWLEDGE-013-P",
+    "T11-SKILL-007-N",
+    "T11-NATURAL-001-N",
+    "T12-MEMORY-006-P",
+    "T12-SKILL-007-P",
+    "T12-KNOWLEDGE-014-P",
+    "T12-KNOWLEDGE-014-N",
+    "T12-NATURAL-006-N",
+    "T17-MEM-01-P",
+    "T17-SKL-01-P",
+    "T17-KNW-01-P",
+    "T17-MEM-01-N",
+    "T17-NAT-02",
+    "T18-MEM-05-P",
+    "T18-SKL-06-P",
+    "T18-KNW-01-P",
+    "T18-SKL-06-N",
+    "T18-NAT-10"
+  ],
+  "selectionContract": {
+    "schemaVersion": "task1.formal-dev-smoke-preregistration.v2",
+    "split": "dev",
+    "totalCases": 40,
+    "casesPerTeam": 5,
+    "teamRules": [
+      {
+        "teamId": "T01",
+        "pairedNegativeFamily": "memory"
+      },
+      {
+        "teamId": "T02",
+        "pairedNegativeFamily": "skill"
+      },
+      {
+        "teamId": "T03",
+        "pairedNegativeFamily": "knowledge"
+      },
+      {
+        "teamId": "T04",
+        "pairedNegativeFamily": "memory"
+      },
+      {
+        "teamId": "T11",
+        "pairedNegativeFamily": "skill"
+      },
+      {
+        "teamId": "T12",
+        "pairedNegativeFamily": "knowledge"
+      },
+      {
+        "teamId": "T17",
+        "pairedNegativeFamily": "memory"
+      },
+      {
+        "teamId": "T18",
+        "pairedNegativeFamily": "skill"
+      }
+    ],
+    "positiveFamilies": [
+      "memory",
+      "skill",
+      "knowledge"
+    ],
+    "positiveSelection": "deterministic_constraint_search",
+    "pairedNoToolSelection": "frozen_pair_v2_counterpart_of_selected_positive",
+    "naturalNoToolSelection": "most_context_rich_then_query_length_then_case_id",
+    "coverage": {
+      "memory": "all_six_operations_and_single_plus_multi_step",
+      "skill": "direct_view_search_to_view_and_view_to_files_read",
+      "knowledge": "list_to_call_all_available_smoke_operations_and_four_resources",
+      "pairedNegative": "three_memory_three_skill_two_knowledge_frozen_counterparts",
+      "counterfactualKind": "answer_in_current_context",
+      "naturalNegative": "one_real_coding_negative_per_team"
+    },
+    "ordering": "team_rule_order_memory_skill_knowledge_paired_natural"
+  },
+  "sha256": "523788fad4c50750049ea8efb53e9c4ce43d43d0b05de8696fd403e7efd68bee"
+}

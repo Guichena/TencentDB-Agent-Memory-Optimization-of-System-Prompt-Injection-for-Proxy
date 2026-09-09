@@ -1,0 +1,71 @@
+{
+  "memory": [
+    {
+      "id": "DVG-THREAD-04-TEAM-01__memory__game_concept",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Pickup 与角色脚本的内部锁定名是 Forest Spirit 和 Evil Spirits。课程/README 对外可用 flame keeper、forest hostiles；禁止把对外名当作预制体名、Tag 或脚本标识。"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__memory__enemy_architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "敌人行为按 Patrol、Chase、Attack 等独立 Unity 组件组织，并由 EnemyController 依据状态协调；EnemyController 使用 NavMesh 和玩家视线检测。"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__memory__terrain_design",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "禁止用手雕 Terrain prefab 或外部高度图替换本仓库的 WorldGenerator + Perlin 运行时生成；对象放置仍走 WorldGenerator，不要改成手工摆盘或单独 Placeables 场景。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG-THREAD-04-TEAM-01__skill__enemy_behavior",
+      "name": "unity-enemy-behavior",
+      "description": "实现并调试敌人的巡逻、视线追踪、攻击和状态切换；Play 前 Tag/Layer 在附件",
+      "content": "1. 只有 EnemyController 可以把 currentState 从 Patrolling 写成 Chasing；PatrolBehavior 与 Trigger 回调不得写状态。\n2. 同一帧切入 Chasing 前，视线门必须已经为真；禁止用距离阈值直接切状态。\n3. 过门禁止把 OnTriggerStay 当作“看见玩家”；Trigger 只作范围提示。\n4. Play 前 Tag / Layer 检查只写在 references/sight-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/sight-gate.md",
+          "content": "# Play-mode Tag / Layer gate\n\nBefore Play on ECS189L EnemyController scenes:\n\n- TagManager must include the tag `KindleWisp` (exact spelling). This is the only legal CompareTag target for the sight gate.\n- The sight component's playerLayer must not include the layer `UmbralHull`.\n- If playerLayer includes UmbralHull, the spirit Raycast hits itself and the chase gate never opens.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented Tag/Layer gate for this ECS189L evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__skill__patrol_navmesh",
+      "name": "unity-navmesh-patrol",
+      "description": "让敌人沿巡逻点使用 NavMesh 移动",
+      "content": "1. 在场景中烘焙可行走 NavMesh，确认地面和障碍已被包含。\n2. 给敌人添加 NavMeshAgent，并在 Inspector 中绑定 patrolPoints 数组。\n3. 在 Start 中获取 Agent，设置首个巡逻点和巡逻速度。\n4. 当 remainingDistance 达到阈值且路径不再计算时，把索引循环到下一个点并 SetDestination。\n5. 运行时确认目标数组非空，且敌人对象确实位于 NavMesh 上。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__skill__procedural_terrain",
+      "name": "unity-procedural-terrain",
+      "description": "生成以原点为中心的 Perlin noise 地形并放置对象",
+      "content": "1. 先计算 mapEdge，再创建 TerrainData，并设置 heightmapResolution 和 size。\n2. 遍历以原点为中心的坐标，将负坐标加上 mapEdge 后再写入高度图，避免只生成第一象限。\n3. 使用 Mathf.PerlinNoise，按 octave、persistence 和 lacunarity 叠加多层噪声。\n4. 调用 SetHeights(0, 0, heightmap) 把高度图应用到 Terrain。\n5. 用 Terrain.activeTerrain.SampleHeight 生成对象位置，并检查 Terrain 组件、Terrain Asset 和 prefab 数组是否已赋值。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG-THREAD-04-TEAM-01__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

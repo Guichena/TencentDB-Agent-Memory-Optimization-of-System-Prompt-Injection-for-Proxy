@@ -1,0 +1,10 @@
+{
+  "team": "T02",
+  "files_skill": "image-perf-audit",
+  "files_path": "references/image-baseline.md",
+  "n_cases": 26,
+  "mem_pairs": 7,
+  "skill_pairs": 6,
+  "files_pairs": 1,
+  "notes": "amytis (hutusi/amytis) 整队重写；files 挂在 image-perf-audit。"
+}

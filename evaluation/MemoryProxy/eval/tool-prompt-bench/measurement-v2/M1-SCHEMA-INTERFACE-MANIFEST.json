@@ -1,0 +1,196 @@
+{
+  "manifestSchemaVersion": "m1-schema-interface-manifest-v2",
+  "candidateId": "M1",
+  "publicApis": [
+    "validatePairContractV2",
+    "computePairContractCanonicalSha256V2",
+    "buildFrozenPairIdentityManifestV2",
+    "validateFrozenPairIdentityManifestV2",
+    "computeFrozenPairIdentityManifestSha256V2",
+    "buildFrozenPairSlotManifestV2",
+    "validateFrozenPairSlotManifestV2",
+    "computeFrozenPairSlotManifestSha256V2",
+    "validatePairCaseOutcomeV2",
+    "scorePairV2",
+    "summarizePairScoresV2",
+    "computePairScoringPolicySha256V2",
+    "computeExpectedPairMembershipSha256V2"
+  ],
+  "pairContract": {
+    "schemaVersion": "2",
+    "invariantProjectionSchemaVersion": "pair-invariant-projection-v2",
+    "requiredFields": [
+      "pairId",
+      "positiveCaseId",
+      "negativeCaseId",
+      "causalFactorId",
+      "allowedChangedPointers",
+      "invariantProjectionSchemaVersion",
+      "invariantFieldsSha256",
+      "changedPointerCount",
+      "minimalityReviewStatus",
+      "independenceKey",
+      "split"
+    ],
+    "minimalityReviewStatusRequired": "approved",
+    "splitValues": [
+      "dev",
+      "hidden"
+    ],
+    "failsClosedOn": [
+      "invalid runtime shape or schema version",
+      "non-JSON runtime values, exotic prototypes, accessors, symbols, sparse/decorated arrays, cycles, non-finite numbers, or negative zero",
+      "unknown Pair Contract or pair-case runtime fields",
+      "invalid, duplicate, overlapping, empty, or unused changed-pointer allowlist",
+      "change outside allowlist",
+      "case identity or split mismatch",
+      "changed-pointer count mismatch",
+      "invariant projection or SHA-256 mismatch"
+    ]
+  },
+  "integratedOutcomeSeam": {
+    "interface": "IntegratedCaseOutcomeForPairV2",
+    "ownership": "Integration combines M0 chain facts, M2 eligibility, and frozen execution identity; M1 only consumes the result",
+    "recomputesEcr": false,
+    "fields": [
+      "caseId",
+      "repeatId",
+      "variantId",
+      "model",
+      "reasoningEffort",
+      "provider",
+      "apiProtocol",
+      "adapterVersion",
+      "executionIdentitySha256",
+      "assetSnapshotSha256",
+      "rawEvidenceArtifactRef",
+      "rawEvidenceArtifactSha256",
+      "runId",
+      "sessionId",
+      "localStateId",
+      "integrationEligible",
+      "traceComplete",
+      "completeChainSuccess",
+      "strictChainExact?",
+      "executorBoundAttempt",
+      "malformedTdaiDispatchIntent",
+      "failureLayer?"
+    ],
+    "completeChainSource": "M0.completeChainSuccess",
+    "strictChainSource": "M0.strictChainExact when preregistered",
+    "eligibilitySource": "Integration-owned; M1 never derives final eligibility",
+    "runtimeValidation": "required strings and raw evidence artifact refs are non-blank; identity/evidence hashes are lowercase SHA-256; required booleans are explicit booleans; strictChainExact=true requires completeChainSuccess=true",
+    "fcrAttemptSemanticsChanged": false
+  },
+  "negativeBoundary": {
+    "negativePass": "!executorBoundAttempt && !malformedTdaiDispatchIntent",
+    "falseIntentTypes": [
+      "executor_bound",
+      "malformed_unbound"
+    ],
+    "boundarySwitch": "positive.executorBoundAttempt && !negative.executorBoundAttempt",
+    "note": "BoundarySwitch is intentionally weaker than PairExact and ignores malformed unbound negative intent."
+  },
+  "pairScoreIdentityFields": [
+    "pairId",
+    "positiveCaseId",
+    "negativeCaseId",
+    "independenceKey",
+    "split",
+    "pairContractSha256"
+  ],
+  "repeatAggregation": {
+    "policyId": "all-repeats-pass-v1",
+    "rule": "a pair-level metric passes only when every matched repeat passes",
+    "matchedRepeatIdsRequired": true,
+    "preservesPerRepeatInputsAndScores": true,
+    "repeatsAreIndependentPairs": false
+  },
+  "summaryCampaign": {
+    "schemaVersion": "pair-summary-campaign-v2",
+    "cohortFields": [
+      "split",
+      "variantId",
+      "model",
+      "reasoningEffort",
+      "provider",
+      "apiProtocol",
+      "adapterVersion",
+      "executionIdentitySha256",
+      "assetSnapshotSha256"
+    ],
+    "frozenMembershipFields": [
+      "split",
+      "expectedPairIds",
+      "expectedPairIdsSha256",
+      "frozenPairSetRevision",
+      "frozenPairSetSha256",
+      "frozenPairSlotManifest",
+      "frozenPairSlotEvidenceRootSha256"
+    ],
+    "frozenPairSetShaSemantics": "external canonical content hash from the frozen data artifact; M1 validates shape and records it but does not pretend pair IDs reconstruct data content",
+    "expectedPairIdsShaSemantics": "M1-computed membership hash over split and sorted expectedPairIds; invariant across Variant and execution cohort",
+    "frozenPairSlotManifest": {
+      "schemaVersion": "frozen-pair-slot-evidence-manifest-v2",
+      "slotFields": [
+        "slotOrdinal",
+        "pairId",
+        "positiveCaseId",
+        "negativeCaseId",
+        "independenceKey",
+        "split",
+        "pairContractSha256",
+        "repeats"
+      ],
+      "repeatEvidenceFields": [
+        "repeatId",
+        "positive.rawEvidenceArtifactRef",
+        "positive.rawEvidenceArtifactSha256",
+        "positive.runId",
+        "negative.rawEvidenceArtifactRef",
+        "negative.rawEvidenceArtifactSha256",
+        "negative.runId"
+      ],
+      "source": "validated PairContractV2 records plus Integration-owned frozen raw-evidence references",
+      "canonicalShaRequired": true,
+      "trustedCampaignRootPinRequired": true,
+      "globalUniqueness": "pairId, raw evidence artifact ref, raw evidence artifact SHA-256, and runId may not be reused across slots",
+      "summaryTraversal": "ordered trusted slots are the oracle; untrusted score.pairId is only a declaration checked against its assigned slot"
+    },
+    "expectedRepeatIdsRequired": true,
+    "mixedCohortPolicy": "campaign incomplete; mismatched scores excluded from metric denominator",
+    "missingPairPolicy": "campaign incomplete; jFrozen remains the frozen expected-pair count",
+    "incompleteEvidencePolicy": "any frozen pair whose canonical score eligibility is incomplete makes the campaign incomplete; behavior failures with complete evidence remain eligible behavior observations",
+    "runtimeContainerPolicy": "the score collection is checked before iteration; malformed rows fail closed without native TypeError and cannot enter any metric denominator",
+    "serializedScorePolicy": "every reloaded PairScore is bound by ordered trusted slot, checked against its frozen pair/case/contract/repeat/raw-evidence identity, and canonical-JSON compared with the score rederived by the same scorer from persisted repeat inputs; malformed, eligibility, trace, cohort, isolation, case-ID, result, aggregate, or persisted-policy drift is excluded",
+    "scoringPolicyBound": true
+  },
+  "metrics": {
+    "jFrozen": "count of ordered slots in the verified frozen pair-slot evidence manifest; never inferred from observed rows or score declarations",
+    "jObserved": "count of expected frozen pairIds actually supplied",
+    "jEligible": "count of pairIds whose two sides and all matched repeats pass integration, trace, identity, isolation, and parity gates",
+    "jIncomplete": "jFrozen - jEligible, including entirely missing frozen members",
+    "pairExact": "all-repeats(M0.completeChainSuccess_positive && negativePass)",
+    "boundarySwitchAccuracy": "all-repeats(positive.executorBoundAttempt && !negative.executorBoundAttempt)",
+    "strictPairExact": "optional preregistered all-repeats(M0.completeChainSuccess_positive && M0.strictChainExact_positive && negativePass)"
+  },
+  "independenceClusters": {
+    "key": "PairContractV2.independenceKey",
+    "eligiblePairsOnly": true,
+    "samplingUnit": "whole matched cluster",
+    "minimumBlocksForBootstrapReady": 2
+  },
+  "syntheticFixture": {
+    "path": "fixtures/m1-pair-v2.synthetic.json",
+    "canonicalization": "strict JSON only; recursive lexicographic object-key order; dense array order preserved; compact finite scalars; own __proto__/constructor/prototype keys preserved",
+    "canonicalSha256": "394e4e2cf3a05ddcff072a86e4652fcd5323266710d6a397e6051d38de299b8e"
+  },
+  "formalDataStatus": "FORMAL_DATA_BLOCKED",
+  "formalDataBlockers": [
+    "Formal pair rows are not present and frozen on this implementation branch.",
+    "Formal allowedChangedPointers, invariantFieldsSha256, causalFactorId, minimalityReviewStatus, and independenceKey have not been validated by M1.",
+    "M0 formal case facts and M2 eligibility/execution evidence are integrated later and are not duplicated by this candidate.",
+    "The formal frozen pair-set SHA, validated ordered pair-slot/evidence manifest and trusted root pin, expected repeat set, and execution cohort have not been supplied."
+  ],
+  "modelRuns": 0
+}

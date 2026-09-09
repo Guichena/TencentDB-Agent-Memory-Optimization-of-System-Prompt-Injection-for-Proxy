@@ -1,0 +1,222 @@
+{
+  "formalDataState": "blocked",
+  "runIsolation": {
+    "schemaVersion": 2,
+    "runId": "synthetic-m2-evidence",
+    "runNamespace": "task1/synthetic-m2-evidence",
+    "caseId": "synthetic-case",
+    "variantId": "V0",
+    "repeatIndex": 0,
+    "caseInputControlSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "comparisonGroupSha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "providerRequestSha256": "3333333333333333333333333333333333333333333333333333333333333333",
+    "staticPromptSha256": "6666666666666666666666666666666666666666666666666666666666666666",
+    "executionIdentity": {
+      "modelId": "gpt-5.6-luna",
+      "reasoningEffort": "high",
+      "verbosity": "medium",
+      "codexCliVersion": "synthetic-codex-cli-1",
+      "provider": "openai",
+      "usageSchema": "openai.responses",
+      "apiVersion": "2026-08-01",
+      "adapterVersion": "responses-v2-cache-write",
+      "requiredUsageFields": [
+        "cacheReadInputTokens",
+        "cacheWriteInputTokens",
+        "ordinaryInputTokens",
+        "outputTokens",
+        "providerTotalInputTokens"
+      ],
+      "unsupportedUsageFields": [],
+      "canonicalSha256": "be8a3be2c3dc014d2b7cca4130a4ece8ed180ea53c436b02b05ba0251457742c"
+    },
+    "counterfactualRole": null,
+    "session": {
+      "id": "synthetic-session",
+      "fresh": true
+    },
+    "memoryProxyContext": {
+      "id": "synthetic-proxy-context",
+      "fresh": true
+    },
+    "snapshot": {
+      "id": "synthetic-snapshot",
+      "expectedSha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "restoredSha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "restoreSucceeded": true
+    },
+    "visibleAssetsSha256": "5555555555555555555555555555555555555555555555555555555555555555",
+    "localState": {
+      "pathId": "synthetic-local-state",
+      "fresh": true,
+      "inheritedHistory": false
+    },
+    "providerCache": {
+      "cacheLane": "warm",
+      "cacheReadInputTokens": 40,
+      "cacheWriteInputTokens": 10,
+      "cacheReadState": "reported",
+      "cacheWriteState": "reported",
+      "telemetryUsable": true
+    },
+    "isolationStatus": "ready",
+    "blockers": []
+  },
+  "repeatedRunIsolation": {
+    "schemaVersion": 2,
+    "runId": "synthetic-m2-evidence-repeat-1",
+    "runNamespace": "task1/synthetic-m2-evidence-repeat-1",
+    "caseId": "synthetic-case",
+    "variantId": "V0",
+    "repeatIndex": 1,
+    "caseInputControlSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "comparisonGroupSha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "providerRequestSha256": "7777777777777777777777777777777777777777777777777777777777777777",
+    "staticPromptSha256": "6666666666666666666666666666666666666666666666666666666666666666",
+    "executionIdentity": {
+      "modelId": "gpt-5.6-luna",
+      "reasoningEffort": "high",
+      "verbosity": "medium",
+      "codexCliVersion": "synthetic-codex-cli-1",
+      "provider": "openai",
+      "usageSchema": "openai.responses",
+      "apiVersion": "2026-08-01",
+      "adapterVersion": "responses-v2-cache-write",
+      "requiredUsageFields": [
+        "cacheReadInputTokens",
+        "cacheWriteInputTokens",
+        "ordinaryInputTokens",
+        "outputTokens",
+        "providerTotalInputTokens"
+      ],
+      "unsupportedUsageFields": [],
+      "canonicalSha256": "be8a3be2c3dc014d2b7cca4130a4ece8ed180ea53c436b02b05ba0251457742c"
+    },
+    "counterfactualRole": null,
+    "session": {
+      "id": "synthetic-session-repeat-1",
+      "fresh": true
+    },
+    "memoryProxyContext": {
+      "id": "synthetic-proxy-context-repeat-1",
+      "fresh": true
+    },
+    "snapshot": {
+      "id": "synthetic-snapshot",
+      "expectedSha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "restoredSha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "restoreSucceeded": true
+    },
+    "visibleAssetsSha256": "5555555555555555555555555555555555555555555555555555555555555555",
+    "localState": {
+      "pathId": "synthetic-local-state-repeat-1",
+      "fresh": true,
+      "inheritedHistory": false
+    },
+    "providerCache": {
+      "cacheLane": "warm",
+      "cacheReadInputTokens": 40,
+      "cacheWriteInputTokens": 10,
+      "cacheReadState": "reported",
+      "cacheWriteState": "reported",
+      "telemetryUsable": true
+    },
+    "isolationStatus": "ready",
+    "blockers": []
+  },
+  "repeatIsolation": {
+    "schemaVersion": 2,
+    "leftRunId": "synthetic-m2-evidence",
+    "rightRunId": "synthetic-m2-evidence-repeat-1",
+    "comparisonPurpose": "repeat",
+    "controls": {
+      "sameCase": true,
+      "sameRepeat": false,
+      "sameVariant": true,
+      "sameCaseInputControl": true,
+      "sameProviderRequest": false,
+      "sameStaticPrompt": true,
+      "distinctStaticPrompt": false,
+      "sameExecutionIdentity": true,
+      "sameComparisonGroup": true,
+      "distinctCounterfactualRole": false,
+      "sameSnapshot": true,
+      "sameVisibleAssets": true,
+      "distinctRunId": true,
+      "distinctRunNamespace": true,
+      "distinctSession": true,
+      "distinctMemoryProxyContext": true,
+      "distinctLocalState": true
+    },
+    "pairStatus": "ready",
+    "blockers": []
+  },
+  "eligibility": {
+    "schemaVersion": 2,
+    "measurementModuleId": "M2",
+    "runId": "synthetic-m2-evidence",
+    "variantId": "V0",
+    "formalDataState": "blocked",
+    "evaluationLayer": "mock-contract",
+    "m2EvidenceStatus": "blocked",
+    "blockers": [
+      "FORMAL_DATA_BLOCKED",
+      "MOCK_LAYER_NOT_FORMAL",
+      "TOKEN_CLASSIFICATION_INTEGRATION_BLOCKED"
+    ],
+    "noModelGate": {
+      "status": "ready",
+      "modelRuns": 0,
+      "codexProcessesStarted": 0,
+      "servicesStarted": false,
+      "authFilesRead": false,
+      "authFilesCopied": false
+    },
+    "requestUsageLedgerCanonicalSha256": "740cce532385734f97c9dfbbca5cfafead1bc1070b2522866997bad8291be592",
+    "usageHorizonCanonicalSha256": "e99815061d2721e04e63244799de47dd3b7da8f0a1b704f7595e4cdaa409cab6",
+    "tokenLedgerCanonicalSha256": "79934293c8bb7a263ff063961f2d1d2859b96e691dd3729dd75ea8d01be029f0",
+    "comparisonPurpose": "none",
+    "m0EvaluationBoundary": {
+      "status": "observed",
+      "runId": "synthetic-m2-evidence",
+      "traceId": "synthetic-m2-trace",
+      "evaluationPrefixSha256": "182b2983f03733c2e5164229ebcd91cb996cc2cc68ab586a07f09c5d747d8f88",
+      "evaluationAttemptPrefix": [
+        {
+          "traceId": "synthetic-m2-trace",
+          "requestId": "synthetic-request-0",
+          "attemptId": "synthetic-attempt-0",
+          "phaseId": "initial"
+        },
+        {
+          "traceId": "synthetic-m2-trace",
+          "requestId": "synthetic-request-1",
+          "attemptId": "synthetic-attempt-1",
+          "phaseId": "executor"
+        }
+      ],
+      "evaluationHorizonRequestId": "synthetic-request-1",
+      "evaluationHorizonPhaseId": "executor",
+      "terminalBoundaryGivenSuccess": {
+        "traceId": "synthetic-m2-trace",
+        "requestId": "synthetic-request-1",
+        "phaseId": "executor",
+        "terminalAttemptId": "synthetic-attempt-1"
+      },
+      "modelRoundsToTerminal": 2,
+      "tdaiCallCount": 2,
+      "timeToTerminalMs": 450,
+      "terminalReached": true
+    },
+    "m0EvaluationBoundaryGate": {
+      "status": "ready",
+      "blockers": []
+    },
+    "finalEligibilityOwner": "Integration",
+    "integrationRequirements": [
+      "M0_EVALUATION_BOUNDARY",
+      "FORMAL_COMPILER_CAPTURE_CONTRACT",
+      "INTEGRATION_OWNS_FINAL_ELIGIBILITY"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "baselineRoot": "../implementations/baseline",
+  "v4Root": "../implementations/final",
+  "proxyConfig": "../evaluation/MemoryProxy/config.example.yaml",
+  "envFile": "../evaluation/.env",
+  "plan": "../evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/manifests/final5-campaign-plan-small-compare-4.json",
+  "workspaceManifest": "../evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/manifests/workspace-resolution-final5-manifest-v2.json",
+  "teamsRoot": "../evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/teams",
+  "skillCatalogBindings": "../evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/skill-catalog/case-skill-catalog.jsonl",
+  "outputRoot": "../runs/final5-small-compare",
+  "timeoutMs": 1800000,
+  "maxRetries": 1,
+  "clients": {
+    "codex": {
+      "concurrency": 1,
+      "providerKeyEnv": "TDAI_CODEX_PROVIDER_API_KEY"
+    },
+    "claude-code": {
+      "concurrency": 1,
+      "providerKeyEnv": "TDAI_CLAUDE_PROVIDER_API_KEY"
+    }
+  }
+}

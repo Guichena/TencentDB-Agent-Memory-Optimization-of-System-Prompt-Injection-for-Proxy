@@ -1,0 +1,10 @@
+{
+  "team": "T01",
+  "files_skill": "changelog-craft",
+  "files_path": "references/changelog-lock.md",
+  "n_cases": 30,
+  "mem_pairs": 9,
+  "skill_pairs": 6,
+  "files_pairs": 1,
+  "notes": "entire CLI 整队重写；files 挂在 changelog-craft。"
+}

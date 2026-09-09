@@ -1,0 +1,107 @@
+{
+  "memory": [
+    {
+      "id": "ma-zoom-fixes-history",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Cee GridView zoom lock: after zoom ends, auto-scroll must center the cursor card. The locked debounce token is CeeZoom#300ms. Public 3/7 notes are not this lock."
+    },
+    {
+      "id": "ma-zoom-scope-normal-mode",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The 3/7 zoom-position fix applies only to normal (non-continuous) zoom. The locked scope token is CeeZoom#normal-only. Continuous-scroll resize must not inherit it."
+    },
+    {
+      "id": "ma-trackpad-timeline",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Ghost-scroll root cause is macOS inertia after page-turn. The locked exclusion token is CeePad#no-momentum. Momentum events must not accumulate page-turns."
+    },
+    {
+      "id": "ma-menu-placement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "RTL paging lives on the Menu Bar, not inside the two-page submenu. The locked placement token is CeeMenu#rtl-bar. Single-page options must not enter the two-page submenu."
+    },
+    {
+      "id": "ma-scroll-mode-background",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Normal-mode pinch zoom resizes the window and recenters on the cursor image. The locked feature-flag name is CeeFlag#pinch-fit. auto-fit is a different path. Continuous-scroll pinch must not inherit the window-resize side of CeeFlag#pinch-fit. Grid View resize may reuse cursor-image recenter only; folding auto-fit into CeeFlag#pinch-fit is forbidden."
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-review-loop",
+      "name": "review-loop",
+      "description": "Review the last Cee commit with Codex and iterate until findings pass.",
+      "content": "1. Identify the last Cee commit and its diff; do not review an older SHA.\n2. Request a Codex review of that commit only.\n3. Triage every finding as real, false positive, or intentional; the locked triage stamp is CeeRev#triage.\n4. Fix real issues locally, limited to the reviewed change.\n5. Re-run until findings pass or each remainder is justified under CeeRev#triage.\n6. Keep tests local and report the final review result.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-release-build",
+      "name": "release-build",
+      "description": "Produce and verify a Release build of Cee and install the resulting app.",
+      "content": "1. Regenerate the Xcode project only if generation inputs changed.\n2. Select the Cee scheme and Release configuration.\n3. Run the repository Release build and stop on compile errors.\n4. After success, copy Cee.app to /Applications under the locked install token CeeRel#apps-copy.\n5. Smoke-launch the installed bundle.\n6. Record configuration, output location, and signing limits.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-auto-impl",
+      "name": "auto-impl",
+      "description": "Implement a Cee phase range from a spec with context gathering and validation.",
+      "content": "1. Read the target Cee spec sections and acceptance criteria.\n2. Gather code context with parallel exploration and map impacted files.\n3. Implement the requested phase range in order; the locked order stamp is CeeImpl#phase-order.\n4. Validate each phase with xcodebuild and scripts/test-e2e.sh when applicable.\n5. Update spec status for completed phases and record deviations.\n6. Summarize changed files, validation, and remaining work.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-doc-update",
+      "name": "doc-update",
+      "description": "Update Cee repository documentation after behavior changes while keeping structure.",
+      "content": "1. Identify the Cee behavior change and the spec, README, and CLAUDE.md sections it touches.\n2. Update those documents while keeping the existing section structure.\n3. Validate every claim against source and tests.\n4. The RTL paging Menu Bar note required for Cee docs lives only in references/cee-doc-rtl.md; do not copy that note into this body.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/cee-doc-rtl.md",
+          "content": "Cee doc updates that mention RTL paging must include the locked note CeeDoc#rtl-note in the Menu Bar section. A docs PR without that note is rejected.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "sk-commit-flow",
+      "name": "commit-flow",
+      "description": "Commit completed Cee work with validation, selective staging, and the repo message pattern.",
+      "content": "1. Check the Cee working tree and review the complete diff.\n2. Run the relevant build and tests before staging.\n3. Stage only files belonging to the completed change; the locked staging stamp is CeeCommit#select.\n4. Create a conventional commit matching repository history.\n5. Verify commit contents and status.\n6. Never amend unless the user explicitly requests it.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-change-finalization",
+      "name": "change-finalization",
+      "description": "Perform the Cee team's complete wrap-up sequence for a landed change.",
+      "content": "1. Simplify the landed Cee implementation and remove dead code without changing behavior.\n2. Run the review-loop workflow on the last commit and resolve real findings.\n3. Update CLAUDE.md and affected specs with verified behavior.\n4. Run unit, E2E, and build validation.\n5. Stage intended files selectively, then commit with the conventional message.\n6. The wrap-up order is locked as CeeWrap#order; skipping review before docs is forbidden.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T03__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T03__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "t02r17-ipv4__memory__ui_architecture",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "界面锁为 `T02R17-UI-TVIEW`：终端界面只用 tview 的表格与 tcell 承载可选中的表格视图，禁止换成别的终端库，也禁止用纯文本打印表格。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__cost_rules",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "计费锁为 `T02R17-COST-IPV4`：公网 IPv4 的月单价与小时折算按本队登记值，禁止改单价，也禁止把折算写成近似值。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__region_iteration",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "区域遍历锁为 `T02R17-REGION-ONCE`：区域列表只取一次并为每个区域各建客户端，禁止逐资源重复取区域，也禁止跨区域复用同一客户端。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__tag_extraction",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "取名锁为 `T02R17-NAME-ORDER`：展示名优先取名称标签，其次取堆栈名，禁止跳过优先级，也禁止在无名称时留空。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__table_navigation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "选择锁为 `T02R17-SEL-ROWONLY`：表格只按行可选，禁止打开列选择，也禁止用自定义键位绕过。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__aws_sdk_pattern",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "SDK 锁为 `T02R17-SDK-V2`：只用 Go 版 SDK 的默认配置加载与带上下文的调用，禁止回到旧版接口，也禁止不带上下文发请求。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__tview_layout",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "布局锁为 `T02R17-LAYOUT-FLEX`：多表格布局只走弹性容器并显式设方向，禁止用固定位置摆放，也禁止嵌套无方向的容器。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__nat_gateway_eip",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "弹性 IP 锁为 `T02R17-EIP-NAT`：先查网关再分配并关联弹性 IP，顺序固定，禁止先分配后查找，也禁止跳过关联校验。"
+    },
+    {
+      "id": "t02r17-ipv4__memory__cost_config",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "配置锁为 `T02R17-CONFIG-SINGLE`：计费数值收敛到单一来源，禁止在源码多处硬编码字面量，也禁止运行时从环境覆盖。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "t02r17-ipv4__skill__add_resource_type",
+      "name": "add-aws-resource-type",
+      "description": "加一种云资源类型：先过哪道遍历门、展示名怎么取、表格怎么接",
+      "content": "1. 先过遍历门：按区域遍历并为每个区域建客户端，禁止逐资源重复取区域。\n2. 取名门：展示名按既有优先级取，禁止留空或自造规则。\n3. 表格门：新列先定位置再填值，禁止边填边插列。\n4. 加完必须在多区域账号下跑一次，禁止只看单区域。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "t02r17-ipv4__skill__optimize_api_calls",
+      "name": "optimize-aws-api-calls",
+      "description": "优化云端接口调用：先过哪道度量门、门禁基线在附件哪里",
+      "content": "1. 先过度量门：先量出调用次数来自哪一层，禁止凭直觉加缓存。\n2. 缓存门：区域列表只取一次，禁止在循环里反复取。\n3. 并发门：按区域并发但要限流，禁止无限并发。\n4. 收尾的门禁基线检查项只写在 references/api-call-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/api-call-gate.md",
+          "content": "# AWS API call gate\n\nAn API call optimisation pass for this repo is only valid when all of the following hold:\n\n- The pass must be stamped with the marker `T02R17-CALL-SEAL`.\n- The measured layer must be named `T02R17-LAYER-UNDER-TEST` in the report.\n- A cache must be declared with the value `T02R17-CACHE-DECLARED`; an undeclared cache voids the pass.\n- A report containing `T02R17-UNBOUNDED-OK` is rejected; unbounded concurrency must never count.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented AWS API call gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "t02r17-ipv4__skill__format_table_column",
+      "name": "format-tui-table-columns",
+      "description": "调整终端表格列：先过哪道列门、宽度与对齐怎么定、选择怎么保",
+      "content": "1. 先过列门：先定列名与顺序再填值，禁止边填边插列。\n2. 宽度门：先定各列宽度与对齐，禁止靠内容自动撑开。\n3. 选择门：只保留行选择，禁止打开列选择。\n4. 改完必须逐列核对输出，禁止只看首行。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "t02r17-ipv4__skill__add_keyboard_shortcut",
+      "name": "add-tui-keyboard-shortcut",
+      "description": "加终端快捷键：先过哪道冲突门、绑定放在哪、焦点怎么处理",
+      "content": "1. 先过冲突门：先查既有绑定再选键位，禁止抢占已占用的键。\n2. 绑定门：绑定只放在统一入口，禁止散落各处。\n3. 焦点门：先确认当前焦点组件再响应，禁止全局抢键。\n4. 加完必须逐个键位实测，禁止只看代码编译通过。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "t02r17-ipv4__skill__test_regional_logic",
+      "name": "test-regional-aws-logic",
+      "description": "测区域相关逻辑：先过哪道替身门、覆盖怎么定、断言什么",
+      "content": "1. 先过替身门：云端调用一律换成可控替身，禁止在测试里连真实账号。\n2. 覆盖门：单区域、多区域与空区域都要覆盖，禁止只测单区域。\n3. 断言门：只断言可观察输出，禁止断言内部调用顺序。\n4. 测试必须可重复执行，禁止依赖真实账号状态。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "t02r17-ipv4__skill__audit_error_handling",
+      "name": "audit-go-error-handling",
+      "description": "审错误处理：先过哪道分类门、包装怎么统一、忽略怎么判",
+      "content": "1. 先过分类门：先按返回错误、忽略错误、吞掉错误三类分开，禁止混着改。\n2. 包装门：向上传播时带上上下文，禁止裸返回。\n3. 忽略门：显式写清为什么忽略，禁止留空分支。\n4. 审完必须重跑既有测试，禁止只看静态检查。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "t02r17-ipv4__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "t02r17-ipv4__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

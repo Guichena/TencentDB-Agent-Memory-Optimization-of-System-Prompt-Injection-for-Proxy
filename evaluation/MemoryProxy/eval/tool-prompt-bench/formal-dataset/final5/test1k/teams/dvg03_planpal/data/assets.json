@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "mem_auth_strategy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "PlanPal Nest/Next JWT must live in an httpOnly cookie named auth-token with Path=/api/auth and maxAge 604800 seconds (7 days). Never write localStorage key pp.jwt."
+    },
+    {
+      "id": "mem_cookie_settings",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "PlanPal must not set a Domain attribute on the auth cookie. The locked cookie-path alias is PpalAuthPath (must match the API auth mount). Public samples may omit Domain; this is the lock."
+    },
+    {
+      "id": "mem_api_pattern",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "PlanPal Nest CORS for the Next auth cookie must set credentials: true and origin only to http://127.0.0.1:3000; never origin *, never http://localhost:3000, and must expose header X-PlanPal-Auth."
+    },
+    {
+      "id": "mem_debug_approach",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Cookie debug order is locked as PpalNetFirst: inspect Set-Cookie on the login response before the Application panel. Skipping Network is forbidden."
+    },
+    {
+      "id": "mem_frontend_structure",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "PlanPal Next App Router pages live under app/, API under app/api/, shared UI under components/. The locked shared-ui folder nickname is PpalKit."
+    },
+    {
+      "id": "mem_backend_pattern",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Nest handlers may not contain business rules. The locked service nickname is PpalWorkService; controllers only route."
+    },
+    {
+      "id": "mem_project_arch",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked product nickname is PpalCampus. Public copy may say student task planner; new modules ship under PpalCampus."
+    },
+    {
+      "id": "mem_auth_flow",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Login POST /api/auth/login must mint the JWT only after PpalGateCheck on the credentials service. Logout must clear the cookie via the same path alias as settings."
+    },
+    {
+      "id": "mem_cookie_policy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Production PlanPal auth cookies must set Secure via flag PpalSecureOn. Dev localhost may omit Secure. httpOnly stays required but is public — the lock is PpalSecureOn for prod."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_cookie_debug",
+      "name": "cookie-debug",
+      "description": "调试浏览器 cookie 问题；httpOnly 探针规则在附件",
+      "content": "1. Reproduce PlanPal login in Network and inspect the Set-Cookie row.\n2. Confirm the cookie flags on that response before concluding it failed.\n3. The httpOnly visibility trap is only in references/httponly-trap.md.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/httponly-trap.md",
+          "content": "PlanPal login-cookie traces must use the DevTools panel labeled Application > Cookies; never call probeAuthToken() from the console; the required cookie-name suffix when filtering is -pp7.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "skill_nextjs_api_setup",
+      "name": "nextjs-api-setup",
+      "description": "配置 Next.js API 路由和认证",
+      "content": "1. Put the PlanPal Nest auth cookie handler in app/api/auth/session/route.ts.\n2. Read the cookie only via cookies().\n3. Write it only by calling writePlanPalAuthCookie; do not call cookies().set inline and do not use localStorage in the route.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_nestjs_auth",
+      "name": "nestjs-auth",
+      "description": "Implement JWT authentication in the PlanPal NestJS API.",
+      "content": "1. Gate PpalJwtGuard: verify the JWT in a Nest guard named PpalJwtGuard before injecting the user onto the request.\n2. Keep credential checks in the credentials service, not in the controller.\n3. Do not name a cookie in this skill; session storage lives in team notes.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_cors_credentials",
+      "name": "cors-credentials",
+      "description": "Configure cross-origin requests that carry credentials for PlanPal.",
+      "content": "1. Gate PpalCredTrue: enable credentials true and a single explicit origin on PlanPal Nest CORS.\n2. Frontend fetch must use credentials include.\n3. Confirm preflight and the real request in Network both carry cookies.\n4. Do not paste a loopback origin here; that origin lock lives in team notes.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_inspect_network",
+      "name": "inspect-network",
+      "description": "Use DevTools to analyze PlanPal network requests.",
+      "content": "1. Open DevTools Network on the PlanPal login request and enable Preserve log.\n2. Gate PpalHdrPass: copy the raw Set-Cookie header into the debug note before concluding the browser dropped the cookie.\n3. Then record Request Headers, Response Headers, and Timing.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_frontend_state",
+      "name": "frontend-state",
+      "description": "Manage PlanPal authentication state in Next.js.",
+      "content": "1. Gate PpalSessionSnap: derive logged-in UI from a server snapshot, not a readable document.cookie.\n2. Load that snapshot when the PlanPal page starts and keep route guards on the same snapshot.\n3. On logout, clear the client snapshot and ask the backend to clear the session cookie.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg03_planpal__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg03_planpal__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "memory": [
+    {
+      "id": "m01_css_flexbox_layout",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Use display: flex with flex-direction: column and flex: 1 on main section to make it grow and fill available space while keeping footer visible. Set min-height: 100vh on body."
+    },
+    {
+      "id": "m02_external_css_linking",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Link external CSS file in HTML <head> using <link rel='stylesheet' href='styles.css'>. This separates styling from structure and makes code more maintainable."
+    },
+    {
+      "id": "m03_color_palette_design",
+      "layer": "l1",
+      "memory_type": "persona",
+      "content": "Use consistent color scheme across elements (e.g., teal #53b5b0 for headers/buttons, light teal #f5fdfd for backgrounds, pink #ff88c2 for accents). Maintain visual coherence."
+    },
+    {
+      "id": "m04_dom_query_selector",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Access DOM elements with document.querySelector('.class-name') or document.querySelector('#id-name'). Always check element exists before calling methods to avoid null reference errors."
+    },
+    {
+      "id": "m05_event_listener_pattern",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Add interactivity with element.addEventListener('click', callback). Ensure element exists and script loads after DOM is ready (DOMContentLoaded or script at end of body)."
+    },
+    {
+      "id": "m06_inline_vs_external_styles",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Inline styles (style attribute) override external CSS. External stylesheets are better for maintainability but inline can be used for dynamic styling via JavaScript (element.style.property)."
+    }
+  ],
+  "skills": [
+    {
+      "id": "s01_flexbox_full_height",
+      "name": "flexbox-full-height",
+      "description": "Apply the page full-height split to a pane so leftover viewport space scrolls internally and the footer stays on screen.",
+      "content": "1. Put the target pane in the leftover viewport slot of the existing column layout.\n2. Let that pane grow instead of pushing the footer off-screen.\n3. Set overflow on the pane so long content scrolls inside it.\n4. Check with short and long content.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s02_css_centering",
+      "name": "css-centering",
+      "description": "Center elements horizontally and vertically with CSS",
+      "content": "1. Horizontal: text-align: center for inline content, margin: 0 auto for blocks\n2. Vertical: flexbox with align-items/justify-content\n3. Use margin: 0 auto with fixed width for block elements\n4. Add text-align: center to parent for inline/text",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s03_random_color_generator",
+      "name": "random-color-generator",
+      "description": "Generate random hex color codes in JavaScript",
+      "content": "1. Generate random number: Math.floor(Math.random() * 16777215)\n2. Convert to hex: .toString(16)\n3. Ensure 6 digits: pad with zeros if needed\n4. Return formatted: '#' + hex",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s04_dom_style_manipulation",
+      "name": "dom-style-manipulation",
+      "description": "Change element styles dynamically with JavaScript",
+      "content": "1. Select the square node after it exists.\n2. Write the generated color with element.style.backgroundColor.\n3. Write the same hex into the label node in the same turn.\n4. Remember those writes are inline and override stylesheet rules.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s05_debug_null_element",
+      "name": "debug-null-element",
+      "description": "Fix 'Cannot read properties of null' errors in DOM manipulation",
+      "content": "1. Treat null as a missed selector, not a missing CSS rule.\n2. Compare the selector with the live class or id in the HTML.\n3. Confirm the script runs after the node exists.\n4. Guard before calling methods.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s06_iterative_css_refinement",
+      "name": "iterative-css-refinement",
+      "description": "Iteratively refine CSS based on visual feedback",
+      "content": "1. Start with base styling\n2. View in browser, identify issues\n3. Make incremental adjustments (colors, spacing, alignment)\n4. Test changes, repeat until satisfied",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_colorpalette__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_colorpalette__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "team_id": "T04",
+  "repo_id": "dayhaysoos/nimbus",
+  "repo_url": "https://github.com/dayhaysoos/nimbus",
+  "case_count": 40,
+  "current_agent_id": "T04__agent__primary",
+  "agent_ids": [
+    "T04__agent__primary",
+    "T04__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "T04__skill__nimbus_review",
+    "T04__skill__workspace_deploy",
+    "T04__skill__phase_planning",
+    "T04__skill__intent_summarization"
+  ],
+  "status": "active"
+}

@@ -1,0 +1,13 @@
+{
+  "team_id": "T09",
+  "repo_id": "nosman/gossamer",
+  "repo_url": "https://github.com/nosman/gossamer",
+  "case_count": 30,
+  "current_agent_id": "T09__agent__primary",
+  "agent_ids": [
+    "T09__agent__primary",
+    "T09__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

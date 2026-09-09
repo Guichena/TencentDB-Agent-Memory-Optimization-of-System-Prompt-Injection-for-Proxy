@@ -1,0 +1,18 @@
+{
+  "team_id": "dvg03_cpp100days",
+  "repo_id": "mhered/cpp_100daysofcode",
+  "repo_url": "https://github.com/mhered/cpp_100daysofcode",
+  "case_count": 40,
+  "current_agent_id": "dvg03_cpp100days__agent__primary",
+  "agent_ids": [
+    "dvg03_cpp100days__agent__primary",
+    "dvg03_cpp100days__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "skill_logging_setup",
+    "skill_web_scraper_cpp",
+    "skill_dependency_verification",
+    "skill_cpp_refactor_class"
+  ],
+  "status": "active"
+}

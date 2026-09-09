@@ -1,0 +1,18 @@
+{
+  "team_id": "t02r17-ipv4",
+  "repo_id": "leanercloud/aws-ipv4-cost-viewer",
+  "repo_url": "https://github.com/LeanerCloud/aws-ipv4-cost-viewer",
+  "case_count": 40,
+  "current_agent_id": "t02r17-ipv4__agent__primary",
+  "agent_ids": [
+    "t02r17-ipv4__agent__primary",
+    "t02r17-ipv4__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "t02r17-ipv4__skill__add_resource_type",
+    "t02r17-ipv4__skill__optimize_api_calls",
+    "t02r17-ipv4__skill__format_table_column",
+    "t02r17-ipv4__skill__add_keyboard_shortcut"
+  ],
+  "status": "active"
+}

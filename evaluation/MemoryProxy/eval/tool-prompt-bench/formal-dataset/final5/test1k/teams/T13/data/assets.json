@@ -1,0 +1,155 @@
+{
+  "memory": [
+    {
+      "id": "T13__memory__streaming",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "流式输出锁为 `T13Q-STREAM-ONE`：主 agent 与子 agent 的回答必须走同一条处理链渐进输出，禁止为某一类 agent 单开一条输出路径。"
+    },
+    {
+      "id": "T13__memory__ask_user",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "提问状态锁为 `T13Q-ASK-STATE`：提问是一等会话状态并支持带可选项的交互，禁止当成一次性文本提示，也禁止绕过状态机直接追问。"
+    },
+    {
+      "id": "T13__memory__conversation_isolation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "会话隔离锁为 `T13Q-ISO-TAB`：每个会话只读自己的消息历史，会话标识按浏览器标签隔离，禁止跨会话读取，也禁止用缓存代替历史。"
+    },
+    {
+      "id": "T13__memory__cross_model",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "模型路由锁为 `T13Q-MODEL-BIFROST`：支持非默认主模型并经 Bifrost 网关统一路由，提示词结构保持一致，禁止为某个模型单开一套提示词。"
+    },
+    {
+      "id": "T13__memory__confirm_first",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "确认锁为 `T13Q-CONFIRM-FIRST`：多步生成任务先规划并让用户反复审阅确认再执行，禁止直接开做，也禁止只确认第一步。"
+    },
+    {
+      "id": "T13__memory__duckdb_sessions",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "DuckDB 会话文件锁为 `T13Q-DUCKDB-PATH`：会话文件只在指定临时路径下按会话标识命名，禁止改路径或改名，也禁止用共享文件代替。"
+    },
+    {
+      "id": "T13__memory__i18n",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "文案锁为 `T13Q-I18N-BOTH`：所有用户可见文案必须同时进 en 与 zh-TW 两份资源，禁止只加一份，也禁止在代码里留字面文案。"
+    },
+    {
+      "id": "T13__memory__container_history",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "容器历史锁为 `T13Q-CTX-PREFIX`：容器回收后新容器必须以约定的文本前置方式带入同一会话的历史，禁止靠会话标识重放，也禁止截断历史。"
+    },
+    {
+      "id": "T13__memory__gateway",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "网关锁为 `T13Q-GW-BIFROST`：模型调用统一走 Bifrost 网关，说明时要讲清与曾试用的 LiteLLM proxy 的边界，禁止混用两者或改回老代理。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T13__skill__e2e_scenario",
+      "name": "e2e-scenario",
+      "description": "写或修端到端场景：先过哪道隔离门、断言什么、失败怎么处理",
+      "content": "1. 先过隔离门：场景必须用独立会话与独立数据，禁止复用既有会话历史。\n2. 环境门：非交互环境要显式声明，禁止依赖默认终端能力。\n3. 断言门：只断言可观察输出与存储状态，禁止断言内部日志文本。\n4. 失败先复现再修，禁止直接放宽断言让场景变绿。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__readme_structure",
+      "name": "readme-structure",
+      "description": "调整 README 结构：先过哪道读者门、顺序怎么定、禁止塞什么",
+      "content": "1. 先过读者门：先定这份文档面向谁，禁止把所有内容堆进一节。\n2. 顺序门：先给最短可跑路径再说细节，禁止先铺背景。\n3. 示例门：命令必须可直接复制运行，禁止写占位路径。\n4. 注意事项单独成节，禁止散落在各段中间。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__linux_setup",
+      "name": "linux-compose",
+      "description": "在 Linux 上用 compose 起环境：先过哪道前置门、门禁基线在附件哪里",
+      "content": "1. 先过前置门：先核对系统依赖与权限，禁止直接拉镜像开跑。\n2. 配置门：端口与卷映射先定再起，禁止用默认值撞环境。\n3. 启动门：按依赖顺序起服务，禁止并行乱起。\n4. 收尾的门禁基线检查项只写在 references/linux-compose.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/linux-compose.md",
+          "content": "# Linux compose gate\n\nA compose bring-up on Linux is only valid when all of the following hold:\n\n- The bring-up must be stamped with the marker `T13Q-COMPOSE-SEAL`.\n- The service set must be named `T13Q-SVC-SET` in the compose file header.\n- Volume mounts must be declared with the value `T13Q-VOL-EXPLICIT`; implicit mounts void the bring-up.\n- A log containing `T13Q-ROOT-OK` is rejected; running as root must never be treated as valid.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented Linux compose gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T13__skill__agent_behavior",
+      "name": "agent-behavior",
+      "description": "调 agent 行为与输出方式：先过哪道链路门、状态怎么处理、多步任务怎么起步",
+      "content": "1. 先过链路门：所有回答走同一条处理链，禁止为某类 agent 单开输出路径。\n2. 状态门：多轮交互的状态显式落盘，禁止只留在内存。\n3. 确认门：多步生成任务先规划并确认，禁止直接开做。\n4. 行为改动必须跑一次端到端场景，禁止只改配置就算完成。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__readme_caveat",
+      "name": "readme-caveat",
+      "description": "写 README 的注意事项：先过哪道来源门、放在哪、过期条目怎么处理",
+      "content": "1. 先过来源门：只写实测过的限制，禁止把猜测当注意事项。\n2. 位置门：注意事项单独成节，禁止散落在各段中间。\n3. 表述门：写清触发条件与规避方式，禁止只写一句请注意。\n4. 已修好的限制必须移除，禁止长期留着过期条目。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__container_debug",
+      "name": "container-debug",
+      "description": "排查容器问题：先过哪道定位门、日志怎么定位、历史怎么带回来",
+      "content": "1. 先过定位门：先确认是哪个容器与哪一次运行，禁止拿最近一份日志当答案。\n2. 日志门：按运行标识定位，禁止按时间相近猜。\n3. 历史门：容器回收后按约定方式带入历史，禁止靠重放会话标识。\n4. 修复必须重跑一次同一场景，禁止只看容器起来了。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__worktree",
+      "name": "worktree",
+      "description": "用工作树并行改代码：先过哪道隔离门、基线怎么定、收尾怎么做",
+      "content": "1. 先过隔离门：一个工作树只做一条改动线，禁止混装多条。\n2. 同步门：开树前先拉到目标基线，禁止在旧基线上开工。\n3. 收尾门：改动合并后即清理工作树，禁止长期挂着。\n4. 冲突必须回到原改动线解决，禁止在工作树里顺手改别人的文件。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__stream_lifecycle",
+      "name": "conversation-stream",
+      "description": "改会话流生命周期：先过哪道统一门、断连怎么续、状态落在哪",
+      "content": "1. 先过统一门：所有回答走同一条处理链，禁止单开路径。\n2. 断连门：重连后按会话标识续接，禁止新建会话冒充续接。\n3. 状态门：多轮状态显式落盘，禁止只留内存。\n4. 改完必须跑一次多轮场景，禁止只看首轮输出。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__i18n_ui",
+      "name": "i18n-ui",
+      "description": "改界面文案与多语言：先过哪道双语门、键怎么定、禁止留什么",
+      "content": "1. 先过双语门：用户可见文案必须同时进两份资源，禁止只加一份。\n2. 键门：先定 key 再写各语言取值，禁止先写文案后补 key。\n3. 占位门：格式化参数个数保持一致，禁止在某一语言里少参数。\n4. 界面不得留字面文案，禁止为省事硬编码。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T13__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T13__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

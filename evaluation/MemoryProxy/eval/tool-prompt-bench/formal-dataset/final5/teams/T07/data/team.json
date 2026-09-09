@@ -1,0 +1,18 @@
+{
+  "team_id": "T07",
+  "repo_id": "obsessiondb/rudel",
+  "repo_url": "https://github.com/obsessiondb/rudel",
+  "case_count": 40,
+  "current_agent_id": "T07__agent__primary",
+  "agent_ids": [
+    "T07__agent__primary",
+    "T07__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "T07__skill__api_testing",
+    "T07__skill__pr_creation",
+    "T07__skill__chkit_migrations",
+    "T07__skill__testing_bun"
+  ],
+  "status": "active"
+}

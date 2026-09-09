@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "dvg06_mspr__memory__jwt_creation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "创建锁为 `MSPR-JWT-BUILDER`：令牌只走本队登记的构建器链并设置签发方与过期，禁止手拼三段结构，也禁止省略签发方。"
+    },
+    {
+      "id": "dvg06_mspr__memory__jwt_verification",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "校验锁为 `MSPR-JWT-VERIFY`：校验器按算法创建并显式声明要校验的声明，禁止跳过校验直接解头，也禁止只校验签名。"
+    },
+    {
+      "id": "dvg06_mspr__memory__spring_autowire_bean",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "装配锁为 `MSPR-BEAN-COMPONENT`：工具类加组件注解暴露成受管对象，调用方用注入，禁止手工实例化，也禁止用静态单例代替注入。"
+    },
+    {
+      "id": "dvg06_mspr__memory__rsa_key_loading",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "密钥加载锁为 `MSPR-RSA-PEM`：公私钥从 PEM 文件按各自密钥规格加载，禁止混入别的编码格式，也禁止在代码里内联密钥。"
+    },
+    {
+      "id": "dvg06_mspr__memory__jwk_provider",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "JWKS 锁为 `MSPR-JWK-BUILDER`：公钥提供方由构建器创建并带缓存与限流，禁止每次请求都拉取，也禁止不限流裸取。"
+    },
+    {
+      "id": "dvg06_mspr__memory__jwt_expiration",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "过期锁为 `MSPR-EXP-FIXED`：过期时间由固定时长常量推算，禁止写死日期或改用可变配置，也禁止给刷新令牌复用同一时长。"
+    },
+    {
+      "id": "dvg06_mspr__memory__jwt_structure",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "结构锁为 `MSPR-STRUCT-THREE`：令牌只认点分隔的三段结构，禁止自定义第四段，也禁止把载荷当可信输入直接解析。"
+    },
+    {
+      "id": "dvg06_mspr__memory__spring_security_jwt",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "安全锁为 `MSPR-SEC-UTILS`：令牌的生成与校验集中在一个工具类，控制器只做注入调用，禁止在控制器里写令牌逻辑。"
+    },
+    {
+      "id": "dvg06_mspr__memory__rsa_vs_hmac",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "算法锁为 `MSPR-ALG-RSA`：签名只用非对称算法与密钥提供方，禁止改用对称算法，也禁止在同一服务里并存两套算法。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg06_mspr__skill__implement_jwtutils",
+      "name": "implement-jwtutils",
+      "description": "实现令牌工具类：先过哪道装配门、生成与校验怎么分、过期怎么定",
+      "content": "1. 先过装配门：工具类先成为受管组件再谈方法，禁止在控制器里手工实例化。\n2. 分工门：生成与校验两个方法各司其职，禁止互相调用。\n3. 过期门：过期时间按固定时长推算，禁止写死日期。\n4. 实现后必须跑一次登录链路，禁止只看编译通过。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__fix_autowire_error",
+      "name": "fix-autowire-error",
+      "description": "修装配失败：先过哪道定位门、注解怎么补、注入怎么改",
+      "content": "1. 先过定位门：先确认是缺组件还是注入方式不对，禁止先加注解试。\n2. 注解门：工具类补组件注解，禁止用静态单例代替。\n3. 注入门：调用方改用注入，禁止保留手工实例化。\n4. 修完必须启动一次并观察日志，禁止只看编辑器不报错。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__generate_rsa_keypair",
+      "name": "generate-rsa-keypair",
+      "description": "生成并落地密钥对：先过哪道存储门、门禁基线在附件哪里",
+      "content": "1. 先过存储门：先定密钥文件落点与命名，禁止内联进代码。\n2. 规格门：公私钥各按自己的密钥规格生成，禁止混用规格。\n3. 权限门：私钥文件权限收紧，禁止随包发布可写副本。\n4. 收尾的门禁基线检查项只写在 references/rsa-keypair.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/rsa-keypair.md",
+          "content": "# RSA keypair gate\n\nA keypair generation pass for this repo is only valid when all of the following hold:\n\n- The pass must be stamped with the marker `MSPR-KEY-SEAL`.\n- The key size must be declared with the value `MSPR-KEYLEN-2048`; any other size voids the pass.\n- The private file must carry the marker `MSPR-PRIV-LOCK`; an unlocked private file is rejected.\n- A plan containing `MSPR-INLINE-KEY` is rejected; keys must never be inlined in source.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented RSA keypair gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "dvg06_mspr__skill__load_rsa_from_file",
+      "name": "load-rsa-from-file",
+      "description": "从文件加载密钥：先过哪道清理门、规格怎么选、报错怎么定",
+      "content": "1. 先过清理门：先去掉 PEM 首尾标记行再构造密钥规格，禁止整段丢进工厂。\n2. 规格门：公钥与私钥各用对应规格，禁止混用。\n3. 编码门：只认一种编码，禁止混用别的编码格式。\n4. 失败必须报出具体原因，禁止笼统抛非法参数。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__setup_jwk_provider",
+      "name": "setup-jwk-provider",
+      "description": "配置公钥提供方：先过哪道缓存门、限流怎么设、失败怎么退",
+      "content": "1. 先过缓存门：先开缓存再谈取钥，禁止每次请求都拉。\n2. 限流门：显式设限流，禁止不限流裸取。\n3. 失败门：取钥失败要有明确回退，禁止静默返回空。\n4. 配完必须连发多次请求观察命中，禁止只看单次成功。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__jwt_auth_integration",
+      "name": "jwt-auth-integration",
+      "description": "把令牌校验接进请求链：先过哪道注入门、校验放在哪、失败怎么返",
+      "content": "1. 先过注入门：控制器只注入工具类，禁止在控制器里写令牌逻辑。\n2. 位置门：校验只在入口处做一次，禁止每个方法各做一遍。\n3. 失败门：校验失败给出明确响应码，禁止放行后补救。\n4. 接完必须带合法与非法令牌各跑一次，禁止只测合法路径。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_mspr__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_mspr__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

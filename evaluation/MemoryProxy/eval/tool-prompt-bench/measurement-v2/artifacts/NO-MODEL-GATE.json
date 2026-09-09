@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 2,
+  "measurementModuleId": "M2",
+  "status": "FORMAL_DATA_BLOCKED",
+  "modelRuns": 0,
+  "codexProcessesStarted": 0,
+  "providerRequestsIssued": 0,
+  "servicesStarted": false,
+  "authFilesRead": false,
+  "authFilesCopied": false,
+  "providerFixtures": "synthetic_only",
+  "finalEligibilityFieldPresent": false,
+  "finalEligibilityOwner": "Integration",
+  "m2EvidenceStatus": "blocked",
+  "blockers": [
+    "FORMAL_DATA_BLOCKED",
+    "MOCK_LAYER_NOT_FORMAL",
+    "TOKEN_CLASSIFICATION_INTEGRATION_BLOCKED"
+  ],
+  "tokenLedgerCanonicalSha256": "79934293c8bb7a263ff063961f2d1d2859b96e691dd3729dd75ea8d01be029f0",
+  "requestUsageLedgerCanonicalSha256": "740cce532385734f97c9dfbbca5cfafead1bc1070b2522866997bad8291be592",
+  "usageHorizonCanonicalSha256": "e99815061d2721e04e63244799de47dd3b7da8f0a1b704f7595e4cdaa409cab6",
+  "unsupportedMetadataForwardableRequestsProduced": 0,
+  "repeatIsolationStatus": "ready"
+}

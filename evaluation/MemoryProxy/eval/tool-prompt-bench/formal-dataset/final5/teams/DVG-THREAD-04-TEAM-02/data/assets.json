@@ -1,0 +1,62 @@
+{
+  "memory": [
+    {
+      "id": "DVG-THREAD-04-TEAM-02__memory__placement_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "该仓库用于软件工程求职准备，覆盖 Git、AWS、Java JDBC、SQL 和系统设计面试主题。"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__memory__aws_context",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "项目讨论过以 Amazon S3 做对象存储、以 EC2 或其他计算服务承载应用，并关注每日约 1000 次请求的规模。"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__memory__interview_context",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "系统设计和机器学习问题需要整理成适合面试表达的分点答案。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG-THREAD-04-TEAM-02__skill__aws_hosting",
+      "name": "aws-hosting-choice",
+      "description": "为小规模 Web 应用选择 AWS 托管与存储组件",
+      "content": "1. 先区分静态文件、对象存储和可执行后端，不要把三者当成同一类服务。\n2. 用 S3 承载对象或静态站点，用 EC2 或其他应用运行时承载服务端逻辑。\n3. 按请求量、可用性、扩展方式和成本比较候选方案。\n4. 说明 S3 免费额度和超额计费必须以当前 AWS 账户与区域为准，不要引用过期数字。\n5. 给出最小可行架构，并写明流量上升后应增加的计算、存储或 CDN 路径。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__skill__jdbc_sql",
+      "name": "jdbc-database-access",
+      "description": "安全地实现 Java JDBC 数据库访问",
+      "content": "1. 加载驱动并建立数据库连接，把 URL、用户名和密码放在配置里而不是拼进业务代码。\n2. 使用 PreparedStatement 绑定参数，禁止用字符串拼接 SQL。\n3. 显式处理 ResultSet、事务提交/回滚和 SQLException。\n4. 在 try-with-resources 或 finally 中关闭 Connection、Statement 和 ResultSet。\n5. 为查询成功路径和失败路径编写可重复测试后再合并改动。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__skill__system_design_interview",
+      "name": "system-design-interview",
+      "description": "按面试顺序分析可扩展系统",
+      "content": "1. 先澄清用户是谁、核心功能是什么，以及 QPS、存储和延迟的规模假设。\n2. 估算请求量、存储容量和带宽，写出粗算过程。\n3. 画出客户端、应用服务、数据库、缓存和对象存储的边界。\n4. 解释分片、负载均衡、一致性和故障处理如何覆盖上述规模。\n5. 比较至少一种替代方案，并总结当前设计的扩展瓶颈。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG-THREAD-04-TEAM-02__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "dvg06_cookies__memory__url_searchparams",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "On snackWikiSearch.jsp, the locked internal name of the query bag is CkQBag. Scripts must read keyword, category, and page only through ckParseQBag; URLSearchParams and new URL(location.href).searchParams.get are forbidden on this page. Public copy may still say search query."
+    },
+    {
+      "id": "dvg06_cookies__memory__checkbox_array_submission",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Allergy checkboxes on the snack-wiki modal must post under the locked field name CkAllergenLane. A shared HTML name that is not CkAllergenLane is rejected even if Spring would bind a List."
+    },
+    {
+      "id": "dvg06_cookies__memory__spring_form_binding",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "When no allergy box is checked, Spring must bind the sentinel token CkEmptyTray rather than null or an empty list. Do not add a dummy hidden field to fake this sentinel."
+    },
+    {
+      "id": "dvg06_cookies__memory__html_table_structure",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Each allergy td keeps a data-ck-cell attribute; checkbox values are not allowed to be the raw td id. The conversion prefix lives in the table-to-checkbox skill files, not in this memory."
+    },
+    {
+      "id": "dvg06_cookies__memory__label_checkbox_association",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Visible allergy labels must use the locked for-prefix CkLbl# plus the option id. Wrapping the input in a bare label without that prefix is forbidden."
+    },
+    {
+      "id": "dvg06_cookies__memory__korean_web_dev",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Hangul request decoding on this wiki must go through the filter bean named CkHangulGate. CharacterEncodingFilter with a generic UTF-8 mapping is not the team lock."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg06_cookies__skill__url_param_extraction",
+      "name": "url-param-extraction",
+      "description": "Read snack-wiki search query fields through the locked query-bag helper, not the browser URL API.",
+      "content": "# URL param extraction\n\n## Purpose\nRead snack-wiki search fields through the locked query-bag helper.\n\n## Use when\n- snackWikiSearch.jsp must reread keyword, category, or page after sort or pagination.\n\n## Do not use when\n- Server-side @RequestParam; path segments; hash fragments.\n\n## Procedure\n1. Treat the query bag as CkQBag; do not treat the public label \"search query\" as the internal bag.\n2. Call ckParseQBag for keyword, category, and page. Do not call URLSearchParams or new URL(location.href).searchParams.get on this page.\n3. If ckParseQBag returns a missing field, skip the dependent sort or page link instead of inventing a default query string.\n\n## Verification\n- Scripts never touch searchParams.get on snackWikiSearch.jsp.\n\n## Constraints\n- Public copy may still say search query; that label is not the bag name.\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg06_cookies__skill__checkbox_form_array",
+      "name": "checkbox-form-array",
+      "description": "Post snack-wiki allergy choices as one named collection with stable option values.",
+      "content": "# Checkbox form array\n\n## Purpose\nPost snack-wiki allergy choices as one named collection with stable option values.\n\n## Use when\n- The allergy modal must submit several checked options together.\n\n## Do not use when\n- A single boolean checkbox; radio groups.\n\n## Procedure\n1. Every allergy checkbox must share the locked field name CkAllergenLane.\n2. Reject a shared HTML name that is not CkAllergenLane even if Spring would bind a List.\n3. Keep stable option values per cell; do not invent a second collection name on submit.\n\n## Verification\n- Posted fields appear only under CkAllergenLane.\n\n## Constraints\n- A public selectedAllergies name is not the team lock.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_cookies__skill__table_to_checkbox_conversion",
+      "name": "table-to-checkbox-conversion",
+      "description": "Convert snack-wiki allergy table cells into checkbox inputs for the modal.",
+      "content": "# Table to checkbox conversion\n\n## Purpose\nConvert snack-wiki allergy table cells into checkbox inputs for the modal.\n\n## Use when\n- Allergy td cells must become checkboxes without losing per-cell identity.\n\n## Do not use when\n- Layout tables unrelated to allergy selection.\n\n## Procedure\n1. Keep a data-ck-cell attribute on each allergy td.\n2. Replace the cell contents with a checkbox; do not use the raw td id as the checkbox value.\n3. The locked conversion value prefix is only in references/ck-cell-seal.md. Read that file; do not invent a prefix.\n4. Pair this conversion with the team's collection field name from memory; this skill does not rename the posted field.\n\n## Verification\n- Each converted checkbox value uses the prefix documented in references/ck-cell-seal.md.\n\n## Constraints\n- Do not paste the prefix token into this body.\n",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/ck-cell-seal.md",
+          "content": "# Ck cell seal\n\nAllergy td-to-checkbox conversion must set value to `CkCellSeal:<original-td-id>` (exact prefix, colon, original id). Do not use the raw td id as the checkbox value.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "dvg06_cookies__skill__spring_checkbox_binding",
+      "name": "spring-checkbox-binding",
+      "description": "Bind the snack-wiki allergy collection in the Spring handler, including the empty-selection sentinel.",
+      "content": "# Spring checkbox binding\n\n## Purpose\nBind the snack-wiki allergy collection in the Spring handler, including the empty-selection sentinel.\n\n## Use when\n- SnackController or the wiki search handler receives the allergy collection.\n\n## Do not use when\n- Binding a scalar keyword or category field.\n\n## Procedure\n1. Bind the posted collection under the locked field name CkAllergenLane.\n2. When no allergy box is checked, bind the sentinel token CkEmptyTray rather than null or an empty list.\n3. Do not add a dummy hidden field to fake this sentinel.\n\n## Verification\n- Empty selection yields CkEmptyTray, not null.\n\n## Constraints\n- required=false empty arrays are not the team lock.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_cookies__skill__label_checkbox_pairing",
+      "name": "label-checkbox-pairing",
+      "description": "Pair visible allergy labels with checkbox ids using the locked for-prefix.",
+      "content": "# Label checkbox pairing\n\n## Purpose\nPair visible allergy labels with checkbox ids using the locked for-prefix.\n\n## Use when\n- Allergy options in the snack-wiki modal need clickable labels.\n\n## Do not use when\n- Non-checkbox inputs.\n\n## Procedure\n1. Visible allergy labels must use the locked for-prefix CkLbl# plus the option id.\n2. Wrapping the input in a bare label without that prefix is forbidden.\n3. Keep the visible Hangul text on the label; do not drop the for attribute in favor of wrapping only.\n\n## Verification\n- Every allergy label for= value starts with CkLbl#.\n\n## Constraints\n- for=egg_allergy without the prefix is not the lock.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_cookies__skill__bulk_html_modification",
+      "name": "bulk-html-modification",
+      "description": "Bulk-replace repeating snack-wiki table markup while preserving per-cell identifiers.",
+      "content": "# Bulk HTML modification\n\n## Purpose\nBulk-replace repeating snack-wiki table markup while preserving per-cell identifiers.\n\n## Use when\n- Many allergy tds must change in one pass.\n\n## Do not use when\n- A one-off edit of a single cell.\n\n## Procedure\n1. Match repeating allergy td markup, including data-ck-cell.\n2. Preserve each cell's original identifier through the replacement.\n3. Do not collapse distinct cells into one value.\n4. After replace, scan for leftover raw-id checkbox values; the conversion prefix itself is owned by the table-to-checkbox skill files, not this bulk pass.\n\n## Verification\n- data-ck-cell values remain unique per cell.\n\n## Constraints\n- Do not overwrite unique identifiers with a global constant.\n",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_cookies__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_cookies__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

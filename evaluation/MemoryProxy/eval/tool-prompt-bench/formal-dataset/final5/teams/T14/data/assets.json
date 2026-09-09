@@ -1,0 +1,112 @@
+{
+  "memory": [
+    {
+      "id": "T14__memory__wal_pipeline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The metricstore WAL write path uses buffered I/O, a memory-capped buffer sized against available server memory, and a configurable checkpoint interval; this design followed review of an isEmpty deadlock risk."
+    },
+    {
+      "id": "T14__memory__shutdown_performance",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Startup checkpoint loading and shutdown are acceptance criteria: shutdown should finish within seconds rather than tens of seconds, and regressions must be traced through WAL and checkpoint changes."
+    },
+    {
+      "id": "T14__memory__checkpoint_lifecycle",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Checkpointing resets WAL journal files; unbounded journal growth indicates checkpoint errors left journals uncleared, so archiving must bound journal size and isolate per-cluster failures."
+    },
+    {
+      "id": "T14__memory__wal_throughput",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Buffered writers and sharded WAL channels address dropped messages during continuous metric streams and bursts; throughput changes must preserve message correctness."
+    },
+    {
+      "id": "T14__memory__rotation_semantics",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Every regular checkpoint must rotate the WAL for all nodes; rotation-skipped warnings for every node indicate a checkpoint-side regression, often a non-blocking send skipped under load."
+    },
+    {
+      "id": "T14__memory__nats_node_state",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "NATS queue-group support was added and then removed; the node-state path remains single-consumer with configurable semaphores and should mirror the REST UpdateNodestate behavior."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T14__skill__config_doc_sync",
+      "name": "configuration-and-documentation-sync",
+      "description": "Keep configuration structs, schemas, example configs, and user documentation consistent.",
+      "content": "1. Update the relevant Go config structs, defaults, and schema definitions together. 2. Update every shipped example configuration and preserve valid illustrative values. 3. Update README or ReleaseNotes when user-facing, then verify the documented options and examples.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__go_toolchain_upgrade",
+      "name": "safe-go-toolchain-upgrade",
+      "description": "Upgrade Go dependencies and regenerate GraphQL code without leaving generated artifacts inconsistent.",
+      "content": "1. Update go.mod and go.sum deliberately. 2. Rebuild the GraphQL generated code with the repository toolchain. 3. Run make test and inspect the generated diff before finishing.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__lint_config",
+      "name": "maintain-lint-configuration",
+      "description": "Repair golangci-lint versions, linter names, and exclusions while validating the resulting configuration.",
+      "content": "1. Check the configuration schema version supported by the installed golangci-lint and migrate outdated keys. 2. Diagnose unknown linters against that version and use a supported equivalent or remove the entry. 3. Run lint over the repository and keep generated-code and test exclusions explicit.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__migration_management",
+      "name": "manage-sqlite-migrations",
+      "description": "Add or consolidate SQLite schema migrations with matching up and down files.",
+      "content": "1. Add the migration under internal/repository/migrations/sqlite3 with paired up and down files. 2. Update the migration constant or registry in the same change. 3. Validate ordering and exercise the migration path before committing.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__readme_feature_docs",
+      "name": "document-tools-and-features",
+      "description": "Document new tools, make targets, and user-facing features with usable installation instructions.",
+      "content": "1. Add a README section describing what the feature does, required tools, and installation. 2. Place it beside related sections and preserve the existing README voice. 3. Verify every documented command, make target, and binary name exists.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__release_prep",
+      "name": "prepare-a-cc-backend-release",
+      "description": "Synchronize ReleaseNotes, versions, goreleaser metadata, and the latest migration for a release.",
+      "content": "1. Draft or review the ReleaseNotes section with version, archive/database version, config changes, behavior changes, and fixes. 2. Bump the Makefile VERSION and frontend package version together. 3. Check .goreleaser.yaml and update the latest-database-migration reference wherever it is stated.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__subsystem_review",
+      "name": "review-a-subsystem-lifecycle",
+      "description": "Review a named pipeline with startup and shutdown interactions, severity classification, and ranked fixes.",
+      "content": "1. Scope the review to the named subsystem plus startup, shutdown, and lifecycle interactions. 2. Classify findings as critical, medium, or minor with concrete file and line references and failure scenarios. 3. Propose ranked fixes and wait for the user to choose before implementing review findings.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T14__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T14__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

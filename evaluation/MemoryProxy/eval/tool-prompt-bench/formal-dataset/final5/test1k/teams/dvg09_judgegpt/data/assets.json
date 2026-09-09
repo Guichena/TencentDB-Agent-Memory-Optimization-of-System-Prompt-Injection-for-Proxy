@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "mem_api_key_handling",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "JudgeGPT must not read process.env.JGPT_SERVER_OPENAI or hardcode the OpenAI key on the Node server; the user types it in the frontend and only client/js/jgptOpenAiKey.js may read that input."
+    },
+    {
+      "id": "mem_audio_processing",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "After a JudgeGPT recording stops, the UI must show the locked size token JgptBlob#bytes beside the file size. Whisper remains the public API name; this token is the team lock."
+    },
+    {
+      "id": "mem_code_style",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "JudgeGPT source must use tab indentation, not spaces; every constructor must begin with the line comment // @jgpt-ctor and parameter notes must be Simplified Chinese, never English JSDoc @param."
+    },
+    {
+      "id": "mem_db_pattern",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked name of the JudgeGPT SQLite catalog is HearingVault. The file must live under server/ as hearing-vault.sqlite; a file named judgegpt.db is forbidden. Public docs may still say SQLite."
+    },
+    {
+      "id": "mem_game_data_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The persistence DTO locked name is HearingSnap. JudgeGPTGame fields persist only after copying into HearingSnap; do not write JudgeGPTGame directly to SQLite."
+    },
+    {
+      "id": "mem_status_updates",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Async status text must land in the locked div id jgpt-status-rail. A generic status-message id is not the lock."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg09_judgegpt__skill__add-api-key-input",
+      "name": "add-api-key-input",
+      "description": "添加 API 密钥输入字段；控件属性在附件",
+      "content": "1. Add a frontend input for the OpenAI key on the JudgeGPT courtroom page.\n2. Read its value in client JS and attach it to subsequent OpenAI requests.\n3. Never hardcode the key on the JudgeGPT Node server.\n4. Widget id, data-attribute, autocomplete, and localStorage bans are only in references/api-key-input.md.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/api-key-input.md",
+          "content": "The JudgeGPT OpenAI key input must use id=jgpt-openai-key, data-jgpt-key-slot=hearing-bearer, and autocomplete=new-password; do not persist the value under localStorage key jgpt_openai_key.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "dvg09_judgegpt__skill__add-status-div",
+      "name": "add-status-div",
+      "description": "Add a JudgeGPT status message display region.",
+      "content": "1. Add a JudgeGPT status message display region in the courtroom HTML.\n2. Only updateStatus may write jgpt-status-rail; other helpers must not.\n3. Set the region's text with textContent, never innerHTML.\n4. Cover Recording, Microphone not accessed, and Transcribing around mic, record, and send.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg09_judgegpt__skill__create-game-data-class",
+      "name": "create-game-data-class",
+      "description": "Create a game-data class used as the database snapshot.",
+      "content": "1. Define class JudgeGPTGameData as the database snapshot taken from the live Server or game object.\n2. Gate JgptSnapCtor: the constructor must take that live game object, not loose globals.\n3. Extract players, roles, prompts, and messages from that object.\n4. Implement toJSON so the snapshot can be saved.\n5. Use tab indentation.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg09_judgegpt__skill__handle-openai-docs",
+      "name": "handle-openai-docs",
+      "description": "Implement JudgeGPT OpenAI calls from the user-supplied API docs.",
+      "content": "1. Read the user-supplied OpenAI API docs and identify the endpoint, method, and body.\n2. Gate JgptDocGate: attach Authorization only after reading the frontend-typed key.\n3. Do not invent extra body fields beyond the docs.\n4. fetch the request, then handle non-2xx before extracting fields.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg09_judgegpt__skill__integrate-whisper-api",
+      "name": "integrate-whisper-api",
+      "description": "Integrate OpenAI Whisper speech transcription on JudgeGPT.",
+      "content": "1. Request microphone permission from the JudgeGPT courtroom page.\n2. Gate JgptMicGate: on mic failure, set status token JgptMicDenied before any fetch.\n3. Record a blob, then POST it as multipart with a Bearer header, and show the transcript.\n4. Update statuses around Recording, send, and Transcribing.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg09_judgegpt__skill__setup-sqlite-db",
+      "name": "setup-sqlite-db",
+      "description": "Set up SQLite persistence for JudgeGPT game snapshots.",
+      "content": "1. Require sqlite3 and create JudgeGPTDBManager.\n2. Open or create hearing-vault.sqlite under server/; open if present, create if missing.\n3. Define a games table and save/load JudgeGPTGameData.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg09_judgegpt__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg09_judgegpt__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "fixtureSchemaVersion": "m1-pair-v2-synthetic-v1",
+  "contract": {
+    "schemaVersion": "2",
+    "pairId": "pair-skill-boundary-001",
+    "positiveCaseId": "pair-skill-positive",
+    "negativeCaseId": "pair-skill-negative",
+    "causalFactorId": "answer-source-saved-vs-present",
+    "allowedChangedPointers": [
+      "/gold/needTdaiTool",
+      "/query"
+    ],
+    "invariantProjectionSchemaVersion": "pair-invariant-projection-v2",
+    "invariantFieldsSha256": "bea7821895ab65d5ca0c55ad67980d9fe3eb1c16247ec90a59d016e99c789d40",
+    "changedPointerCount": 2,
+    "minimalityReviewStatus": "approved",
+    "independenceKey": "team-payments-source-formatter",
+    "split": "dev"
+  },
+  "positiveCase": {
+    "caseId": "pair-skill-positive",
+    "split": "dev",
+    "comparisonDocument": {
+      "query": "Use the saved team formatter for this log output.",
+      "context": {
+        "team": "payments",
+        "language": "ts"
+      },
+      "capabilities": {
+        "memory": true,
+        "skill": true
+      },
+      "gold": {
+        "needTdaiTool": true
+      }
+    }
+  },
+  "negativeCase": {
+    "caseId": "pair-skill-negative",
+    "split": "dev",
+    "comparisonDocument": {
+      "query": "Use the formatter already shown above for this log output.",
+      "context": {
+        "team": "payments",
+        "language": "ts"
+      },
+      "capabilities": {
+        "memory": true,
+        "skill": true
+      },
+      "gold": {
+        "needTdaiTool": false
+      }
+    }
+  },
+  "summaryCampaign": {
+    "schemaVersion": "pair-summary-campaign-v2",
+    "split": "dev",
+    "variantId": "V3",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "provider": "openai",
+    "apiProtocol": "responses-v1",
+    "adapterVersion": "memory-proxy-openai-v1",
+    "executionIdentitySha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "assetSnapshotSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "expectedPairIds": [
+      "pair-skill-boundary-001"
+    ],
+    "expectedRepeatIds": [
+      "repeat-01"
+    ],
+    "frozenPairSetRevision": "synthetic:m1-pair-v2-synthetic-v1",
+    "frozenPairSetSha256": "0c509c532b4710b395567177fb63635ff2a117d1824bcdd357a667df814ddf44",
+    "frozenPairSlotManifest": {
+      "schemaVersion": "frozen-pair-slot-evidence-manifest-v2",
+      "frozenPairSetRevision": "synthetic:m1-pair-v2-synthetic-v1",
+      "frozenPairSetSha256": "0c509c532b4710b395567177fb63635ff2a117d1824bcdd357a667df814ddf44",
+      "split": "dev",
+      "expectedRepeatIds": [
+        "repeat-01"
+      ],
+      "slots": [
+        {
+          "slotOrdinal": 0,
+          "pairId": "pair-skill-boundary-001",
+          "positiveCaseId": "pair-skill-positive",
+          "negativeCaseId": "pair-skill-negative",
+          "independenceKey": "team-payments-source-formatter",
+          "split": "dev",
+          "pairContractSha256": "b1102058cb4eb2d80198c2dd4f56c3531effb5028ef50bf612bdace1fe76d190",
+          "repeats": [
+            {
+              "repeatId": "repeat-01",
+              "positive": {
+                "rawEvidenceArtifactRef": "artifact://pair-skill-boundary-001/positive/repeat-01",
+                "rawEvidenceArtifactSha256": "253d57fe217a0b5c9a0b6aa8a217a51c34a36b45b4f9e5a3a6d40d73e1f62c06",
+                "runId": "pair-skill-boundary-001:positive:repeat-01:run"
+              },
+              "negative": {
+                "rawEvidenceArtifactRef": "artifact://pair-skill-boundary-001/negative/repeat-01",
+                "rawEvidenceArtifactSha256": "7c832611094ff23034d1b6ff3f424ab54be9194bc90e146d39a6e7d32244a256",
+                "runId": "pair-skill-boundary-001:negative:repeat-01:run"
+              }
+            }
+          ]
+        }
+      ],
+      "canonicalSha256": "a23f9937b250297f7ec9ae4e7ba88c025841e171626da6183bc9648cf77587cc"
+    },
+    "frozenPairSlotEvidenceRootSha256": "a23f9937b250297f7ec9ae4e7ba88c025841e171626da6183bc9648cf77587cc",
+    "expectedPairIdsSha256": "3538dbdd3d97f0a19003d90f8eaac85d479dce5ce47c0268213a1bdc743b55be",
+    "strictPairExactEnabled": false,
+    "scoringPolicySha256": "abd2448c425839fcc812f2e335acd86b1bfc22515366f40b8ae16e8e94fb7153"
+  },
+  "outcomes": {
+    "positive": [
+      {
+        "caseId": "pair-skill-positive",
+        "repeatId": "repeat-01",
+        "variantId": "V3",
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "high",
+        "provider": "openai",
+        "apiProtocol": "responses-v1",
+        "adapterVersion": "memory-proxy-openai-v1",
+        "executionIdentitySha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "assetSnapshotSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "rawEvidenceArtifactRef": "artifact://pair-skill-boundary-001/positive/repeat-01",
+        "rawEvidenceArtifactSha256": "253d57fe217a0b5c9a0b6aa8a217a51c34a36b45b4f9e5a3a6d40d73e1f62c06",
+        "runId": "pair-skill-boundary-001:positive:repeat-01:run",
+        "sessionId": "positive-session-01",
+        "localStateId": "positive-state-01",
+        "integrationEligible": true,
+        "traceComplete": true,
+        "completeChainSuccess": true,
+        "strictChainExact": true,
+        "executorBoundAttempt": true,
+        "malformedTdaiDispatchIntent": false
+      }
+    ],
+    "negative": [
+      {
+        "caseId": "pair-skill-negative",
+        "repeatId": "repeat-01",
+        "variantId": "V3",
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "high",
+        "provider": "openai",
+        "apiProtocol": "responses-v1",
+        "adapterVersion": "memory-proxy-openai-v1",
+        "executionIdentitySha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "assetSnapshotSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "rawEvidenceArtifactRef": "artifact://pair-skill-boundary-001/negative/repeat-01",
+        "rawEvidenceArtifactSha256": "7c832611094ff23034d1b6ff3f424ab54be9194bc90e146d39a6e7d32244a256",
+        "runId": "pair-skill-boundary-001:negative:repeat-01:run",
+        "sessionId": "negative-session-01",
+        "localStateId": "negative-state-01",
+        "integrationEligible": true,
+        "traceComplete": true,
+        "completeChainSuccess": false,
+        "executorBoundAttempt": false,
+        "malformedTdaiDispatchIntent": false
+      }
+    ]
+  }
+}

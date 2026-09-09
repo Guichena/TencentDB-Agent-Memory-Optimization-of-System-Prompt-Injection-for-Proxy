@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__doc_format",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork page lock is QuillYard-Format: every entry uses Title, Definition, Examples, Sources; the T01 Key Attributes order is rejected."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__edi_priority",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork EDI ordering stamp is QuillYard-EDI-997; 997 stays first in every transaction-set group."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__terminology_source",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork glossary marker is QuillYard-SCAC; SCAC values are uppercase."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__linking_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork link rule is QuillYard-SiblingFirst; links visit same-category siblings before parent pages."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__category_hierarchy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork root lock is QuillYard-Yard; stakeholder pages stay under parties/ and a roles root is forbidden."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__accuracy_requirement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork citation rule is QuillYard-PrimaryURL; each page carries one primary-source URL."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__category_taxonomy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork taxonomy lock is QuillYard-Taxonomy; modes/ and edi/ remain required roots."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__file_naming",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork filename lock is QuillYard-Kebab; markdown files use kebab-case, never the other team's PascalCase."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__reference_standards",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Fork standards marker is QuillYard-SCAC-Standard; start from the NMFTA SCAC reference."
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__doc_entry",
+      "name": "doc-entry",
+      "description": "Add a new documentation entry on this FrieghtKB fork with its fork-specific entry workflow.",
+      "content": "1. Select an existing fork root.\n2. Draft the page in the fork heading order.\n3. Read references/freight-entry-gate.md for the post-Sources gate.\n4. Commit only after that gate is applied.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/freight-entry-gate.md",
+          "content": "After Sources, add the QuillYard-Entry-Seal footer; do not copy the sibling team footer.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__edi_doc",
+      "name": "edi-doc",
+      "description": "Document an EDI transaction set on this FrieghtKB fork with its filing and ordering workflow.",
+      "content": "1. File the X12 set under edi/ rather than terms/.\n2. Apply the QuillYard-EDI-Sequence stamp when ordering pages.\n3. Include code, purpose, direction, required segments, and optional segments.\n4. Attach one implementation-guide URL.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__category_expand",
+      "name": "category-expand",
+      "description": "Add a documentation category on this FrieghtKB fork through its approval workflow.",
+      "content": "1. Reject a root without five planned seed entries.\n2. Obtain the QuillYard-Category-Gate approval before creating the folder.\n3. Make the seed README state purpose and kebab-case filenames.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__link_check",
+      "name": "link-check",
+      "description": "Validate cross-references on this FrieghtKB fork with its repair-record workflow.",
+      "content": "1. Resolve each relative markdown link against the current tree.\n2. Apply the QuillYard-Link-Repair stamp and list repaired links in the commit body.\n3. Replace dead external URLs without deleting historically referenced pages.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__term_deprecate",
+      "name": "term-deprecate",
+      "description": "Handle deprecated terminology on this FrieghtKB fork with its preservation workflow.",
+      "content": "1. Keep the old file in the deprecation commit.\n2. Put the QuillYard-Deprecation banner at the top and point to the replacement.\n3. Archive after one year only when no external citation remains.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__i18n_doc",
+      "name": "i18n-doc",
+      "description": "Author an international documentation variant on this FrieghtKB fork with its regional-link workflow.",
+      "content": "1. Add a regional file only for regulatory or official-term differences.\n2. Name it with the QuillYard-Region suffix.\n3. Link it to the US base and reject orphan translations.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG07_T02_frieghtkb_fork__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

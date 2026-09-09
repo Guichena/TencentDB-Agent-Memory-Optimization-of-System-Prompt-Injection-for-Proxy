@@ -1,0 +1,32 @@
+{
+  "team": "dvg06_colorpalette",
+  "overlay_skipped": [],
+  "files_skill": "dom-style-manipulation",
+  "files_path": "references/cpal-hex-latch.md",
+  "hole_ids": [
+    "dvg06_colorpalette__c040",
+    "dvg06_colorpalette__c039"
+  ],
+  "cases_rewritten": [
+    "dvg06_colorpalette__c007",
+    "dvg06_colorpalette__c011",
+    "dvg06_colorpalette__c012",
+    "dvg06_colorpalette__c017",
+    "dvg06_colorpalette__c018",
+    "dvg06_colorpalette__c019",
+    "dvg06_colorpalette__c020",
+    "dvg06_colorpalette__c021",
+    "dvg06_colorpalette__c022",
+    "dvg06_colorpalette__c025",
+    "dvg06_colorpalette__c027",
+    "dvg06_colorpalette__c029",
+    "dvg06_colorpalette__c031",
+    "dvg06_colorpalette__c034",
+    "dvg06_colorpalette__c035",
+    "dvg06_colorpalette__c037",
+    "dvg06_colorpalette__c038",
+    "dvg06_colorpalette__c039",
+    "dvg06_colorpalette__c040"
+  ],
+  "notes": "hole mem from shortest naturals; pair_s09 upgraded to files; skill seq by targetVisible"
+}

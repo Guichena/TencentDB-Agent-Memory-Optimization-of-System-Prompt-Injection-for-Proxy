@@ -1,0 +1,13 @@
+{
+  "team_id": "T15",
+  "repo_id": "FSM1/cipher-box",
+  "repo_url": "https://github.com/FSM1/cipher-box",
+  "case_count": 40,
+  "current_agent_id": "T15__agent__primary",
+  "agent_ids": [
+    "T15__agent__primary",
+    "T15__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "task1.final5-campaign-plan.v1",
+  "campaignId": "task1-final5-small-compare-20260907",
+  "datasetDigest": "6522708a8638e51f7ef452201abe577f2805c17136d5b52894b7866bbe1a958c",
+  "allCaseCount": 1560,
+  "selectedCaseIds": [
+    "DVG-T04-T01-C001",
+    "DVG-T04-T01-C002",
+    "DVG-T04-T01-C032",
+    "DVG-T04-T01-C033"
+  ],
+  "variants": [
+    "server_team",
+    "V4"
+  ],
+  "slots": [
+    {
+      "caseId": "DVG-T04-T01-C001",
+      "variant": "server_team",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C001",
+      "variant": "V4",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C002",
+      "variant": "server_team",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C002",
+      "variant": "V4",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C032",
+      "variant": "server_team",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C032",
+      "variant": "V4",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C033",
+      "variant": "server_team",
+      "repeat": 1
+    },
+    {
+      "caseId": "DVG-T04-T01-C033",
+      "variant": "V4",
+      "repeat": 1
+    }
+  ],
+  "planSha256": "2376cec5b8ed56a64198d108c959be6d19b3676c8592221587157cd8e2a43a63"
+}

@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 2,
+  "measurementModuleId": "M2",
+  "formalDataState": "blocked",
+  "requestUsageLedger": {
+    "status": "ready",
+    "blockers": [],
+    "ledger": {
+      "schemaVersion": 2,
+      "measurementModuleId": "M2",
+      "runId": "synthetic-m2-evidence",
+      "traceId": "synthetic-m2-trace",
+      "providerUsageContractSha256": "7441461f5b9cd376ca00efc1603dce6de464b4a0947f73bb7b3aefd77362c82e",
+      "requests": [
+        {
+          "providerToolDefinitionCount": 3,
+          "component": "task_model",
+          "cumulativeProviderUsage": {
+            "cacheReadInputTokens": 40,
+            "cacheWriteInputTokens": 10,
+            "ordinaryInputTokens": 50,
+            "outputTokens": 12,
+            "providerTotalInputTokens": 100,
+            "reasoningOrThinkingTokens": null
+          },
+          "discoveryResultTokens": null,
+          "injectionTokensO200k": 40,
+          "latencyMs": 25,
+          "observedAttemptIds": [
+            "synthetic-attempt-0"
+          ],
+          "phaseId": "initial",
+          "phaseType": "initial",
+          "promptSha256": "3333333333333333333333333333333333333333333333333333333333333333",
+          "providerUsage": {
+            "adapterVersion": "responses-v2-cache-write",
+            "apiVersion": "2026-08-01",
+            "fieldStates": {
+              "cacheReadInputTokens": "reported",
+              "cacheWriteInputTokens": "reported",
+              "ordinaryInputTokens": "derived",
+              "outputTokens": "reported",
+              "providerTotalInputTokens": "reported",
+              "reasoningOrThinkingTokens": "missing"
+            },
+            "normalizationCanonicalSha256": "050f9b2746dea8a54b145f4f0a7c45888484d01bb7303301bba203d5cc49c48e",
+            "normalized": {
+              "cacheReadInputTokens": 40,
+              "cacheWriteInputTokens": 10,
+              "ordinaryInputTokens": 50,
+              "outputTokens": 12,
+              "providerTotalInputTokens": 100,
+              "reasoningOrThinkingTokens": null,
+              "unsupportedOptionalFields": [],
+              "usageCompleteForRequiredFields": true
+            },
+            "provider": "openai",
+            "rawUsageCanonicalClone": {
+              "input_tokens": 100,
+              "input_tokens_details": {
+                "cache_write_tokens": 10,
+                "cached_tokens": 40
+              },
+              "output_tokens": 12
+            },
+            "rawUsageCanonicalizationStatus": "ready",
+            "rawUsageSha256": "03483bc40fbee3134dc1ad07a9431a7e7db890f2d3d08ff7dc055cd95b929f32",
+            "requiredFields": [
+              "providerTotalInputTokens",
+              "ordinaryInputTokens",
+              "cacheReadInputTokens",
+              "cacheWriteInputTokens",
+              "outputTokens"
+            ],
+            "schema": "openai.responses",
+            "unsupportedFields": []
+          },
+          "requestId": "synthetic-request-0",
+          "requestOrdinal": 0,
+          "runId": "synthetic-m2-evidence",
+          "toolResultContextTokens": null,
+          "traceId": "synthetic-m2-trace"
+        },
+        {
+          "providerToolDefinitionCount": 1,
+          "component": "task_model",
+          "cumulativeProviderUsage": {
+            "cacheReadInputTokens": 80,
+            "cacheWriteInputTokens": 20,
+            "ordinaryInputTokens": 100,
+            "outputTokens": 24,
+            "providerTotalInputTokens": 200,
+            "reasoningOrThinkingTokens": null
+          },
+          "discoveryResultTokens": null,
+          "injectionTokensO200k": 40,
+          "latencyMs": 26,
+          "observedAttemptIds": [
+            "synthetic-attempt-1"
+          ],
+          "phaseId": "executor",
+          "phaseType": "executor",
+          "promptSha256": "7777777777777777777777777777777777777777777777777777777777777777",
+          "providerUsage": {
+            "adapterVersion": "responses-v2-cache-write",
+            "apiVersion": "2026-08-01",
+            "fieldStates": {
+              "cacheReadInputTokens": "reported",
+              "cacheWriteInputTokens": "reported",
+              "ordinaryInputTokens": "derived",
+              "outputTokens": "reported",
+              "providerTotalInputTokens": "reported",
+              "reasoningOrThinkingTokens": "missing"
+            },
+            "normalizationCanonicalSha256": "050f9b2746dea8a54b145f4f0a7c45888484d01bb7303301bba203d5cc49c48e",
+            "normalized": {
+              "cacheReadInputTokens": 40,
+              "cacheWriteInputTokens": 10,
+              "ordinaryInputTokens": 50,
+              "outputTokens": 12,
+              "providerTotalInputTokens": 100,
+              "reasoningOrThinkingTokens": null,
+              "unsupportedOptionalFields": [],
+              "usageCompleteForRequiredFields": true
+            },
+            "provider": "openai",
+            "rawUsageCanonicalClone": {
+              "input_tokens": 100,
+              "input_tokens_details": {
+                "cache_write_tokens": 10,
+                "cached_tokens": 40
+              },
+              "output_tokens": 12
+            },
+            "rawUsageCanonicalizationStatus": "ready",
+            "rawUsageSha256": "03483bc40fbee3134dc1ad07a9431a7e7db890f2d3d08ff7dc055cd95b929f32",
+            "requiredFields": [
+              "providerTotalInputTokens",
+              "ordinaryInputTokens",
+              "cacheReadInputTokens",
+              "cacheWriteInputTokens",
+              "outputTokens"
+            ],
+            "schema": "openai.responses",
+            "unsupportedFields": []
+          },
+          "requestId": "synthetic-request-1",
+          "requestOrdinal": 1,
+          "runId": "synthetic-m2-evidence",
+          "toolResultContextTokens": null,
+          "traceId": "synthetic-m2-trace"
+        }
+      ],
+      "aggregateProviderUsage": {
+        "providerTotalInputTokens": 200,
+        "ordinaryInputTokens": 100,
+        "cacheReadInputTokens": 80,
+        "cacheWriteInputTokens": 20,
+        "outputTokens": 24,
+        "reasoningOrThinkingTokens": null
+      },
+      "canonicalSha256": "740cce532385734f97c9dfbbca5cfafead1bc1070b2522866997bad8291be592"
+    }
+  },
+  "m0EvaluationBoundary": {
+    "status": "observed",
+    "runId": "synthetic-m2-evidence",
+    "traceId": "synthetic-m2-trace",
+    "evaluationPrefixSha256": "182b2983f03733c2e5164229ebcd91cb996cc2cc68ab586a07f09c5d747d8f88",
+    "evaluationAttemptPrefix": [
+      {
+        "traceId": "synthetic-m2-trace",
+        "requestId": "synthetic-request-0",
+        "attemptId": "synthetic-attempt-0",
+        "phaseId": "initial"
+      },
+      {
+        "traceId": "synthetic-m2-trace",
+        "requestId": "synthetic-request-1",
+        "attemptId": "synthetic-attempt-1",
+        "phaseId": "executor"
+      }
+    ],
+    "evaluationHorizonRequestId": "synthetic-request-1",
+    "evaluationHorizonPhaseId": "executor",
+    "terminalBoundaryGivenSuccess": {
+      "traceId": "synthetic-m2-trace",
+      "requestId": "synthetic-request-1",
+      "phaseId": "executor",
+      "terminalAttemptId": "synthetic-attempt-1"
+    },
+    "modelRoundsToTerminal": 2,
+    "tdaiCallCount": 2,
+    "timeToTerminalMs": 450,
+    "terminalReached": true
+  },
+  "usageHorizon": {
+    "schemaVersion": 2,
+    "measurementModuleId": "M2",
+    "runId": "synthetic-m2-evidence",
+    "traceId": "synthetic-m2-trace",
+    "status": "ready",
+    "blockers": [],
+    "requestUsageLedgerCanonicalSha256": "740cce532385734f97c9dfbbca5cfafead1bc1070b2522866997bad8291be592",
+    "m0BoundaryFactsSha256": "deb5fdcfde320c9c3f0f69bcb678fc12c122e63bfef425d96a88db030286165e",
+    "evaluationAttemptCount": 2,
+    "evaluationHorizonRequestOrdinal": 1,
+    "accumulatedRequestCount": 2,
+    "terminalReached": true,
+    "aggregatesToEvaluationHorizon": {
+      "providerTotalInputTokens": 200,
+      "ordinaryInputTokens": 100,
+      "cacheReadInputTokens": 80,
+      "cacheWriteInputTokens": 20,
+      "outputTokens": 24,
+      "reasoningOrThinkingTokens": null
+    },
+    "providerInputToEvaluationHorizon": 200,
+    "providerInputToTerminalGivenSuccess": 200,
+    "canonicalSha256": "e99815061d2721e04e63244799de47dd3b7da8f0a1b704f7595e4cdaa409cab6"
+  }
+}

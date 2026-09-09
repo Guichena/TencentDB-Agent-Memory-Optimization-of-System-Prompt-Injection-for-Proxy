@@ -1,0 +1,13 @@
+{
+  "team_id": "DVG-THREAD-04-TEAM-03",
+  "repo_id": "open-learning-exchange/myplanet",
+  "repo_url": "https://github.com/open-learning-exchange/myplanet",
+  "case_count": 40,
+  "current_agent_id": "DVG-THREAD-04-TEAM-03__agent__primary",
+  "agent_ids": [
+    "DVG-THREAD-04-TEAM-03__agent__primary",
+    "DVG-THREAD-04-TEAM-03__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

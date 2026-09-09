@@ -1,0 +1,137 @@
+{
+  "memory": [
+    {
+      "id": "mem_project_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked internal program name is ExilKammer. Public copy may say digital humanities; new GM-DH pages must ship under ExilKammer, not a generic blog."
+    },
+    {
+      "id": "mem_data_structure",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Person CSV locked field order is name, birth, death, exile_stage, geo_exil. A column named country is forbidden."
+    },
+    {
+      "id": "mem_tech_stack",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "New GM-DH pages must keep sticky navigation plus scroll-spy as GmdhNavLock first-class requirements; dropping either is a product violation."
+    },
+    {
+      "id": "mem_prompt_engineering",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Prompt Engineering demos must stamp GmdhPromptSeal on the workshop card before showing extracted fields."
+    },
+    {
+      "id": "mem_csv_protocol",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Large GM-DH exile person CSVs use chunk markers [START CSV \"title\" n/total]; analysis waits until n=total. Do not analyze a non-final chunk even if that chunk already has a header."
+    },
+    {
+      "id": "mem_accessibility",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The GM-DH a11y gate token is GmdhA11y#wcag. Keyboard access and contrast are mandatory, not optional polish."
+    },
+    {
+      "id": "mem_data_cleaning",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Death-before-birth rows must be rejected with token GmdhDateFlip. Do not convert Julian source dates here; that rule lives elsewhere."
+    },
+    {
+      "id": "mem_exile_studies",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked research window is GmdhExile20c: only 20th-century exile biographies; 19th-century rows are out of catalog."
+    },
+    {
+      "id": "mem_llm_dh",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "LLM extracts must be tagged GmdhNeedExpert before ingest; untagged extracts cannot enter the people-and-literature database."
+    },
+    {
+      "id": "mem_website_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "GM-DH intended first-class destinations are locked as Projekt-Home (project home), ExilLitDB (people-and-literature database), Werkstattkoffer (workshop resources), and ExilBegriffsnetz (glossary). Vorträge, Workshopreihe, Blog, and Videos in index.html are not the IA lock; the external llmdh/glossary.html URL is not ExilBegriffsnetz."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_csv_batch_processing",
+      "name": "csv-batch-processing",
+      "description": "按分块协议处理大型人物/历史 CSV：标记、暂缓、拼接后再分析。",
+      "content": "1. Snapshot original headers, column order, and row count into a sidecar before any split of a GM-DH exile person CSV.\n2. Split by rows, keep identical columns, and stamp each part [START CSV \"title\" n/total].\n3. Concatenate stamped parts in n-order with exactly one header row; drop any header that appears in parts after the first.\n4. Verify concatenated row count equals the sidecar; a webinar demo may run only after that verify — never on a partial chunk.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_dh_webinar_prep",
+      "name": "dh-webinar-prep",
+      "description": "Prepare a digital-humanities workshop: theme, cases, data sample, interactive demo, live checks.",
+      "content": "1. Set theme, audience, and live-check goals for the GM-DH digital-humanities workshop.\n2. Choose exile-person cases and a data sample that includes person and exile fields.\n3. Build the interactive demo on that sample.\n4. Gate GmdhDemoWalk: walk the sample end-to-end before the live session; use person/exile fields.\n5. Run the live session only after that walk.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_biographical_data_schema",
+      "name": "biographical-data-schema",
+      "description": "Design the exile-person biographical data architecture: entities, fields, relations, multilingual forms, checks.",
+      "content": "1. Gate GmdhEnt4: use four entity kinds person, event, place, and time.\n2. Store multilingual original plus normalized names on those entities.\n3. Relate the exile person to event, place, and time so routes can be queried.\n4. Add date-order and citation checks on those entities.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_html_accessibility_audit",
+      "name": "html-accessibility-audit",
+      "description": "Audit GM-DH site HTML accessibility: semantics, ARIA, keyboard, contrast, dead links.",
+      "content": "1. Gate GmdhAuditRail: run an HTML validator first.\n2. Then check semantics and ARIA on headings, navigation, and forms.\n3. Then test keyboard access and contrast.\n4. Then check mobile layout against sticky-nav overlap.\n5. Then remove dead links and record leftovers.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_sticky_nav_implementation",
+      "name": "sticky-nav-implementation",
+      "description": "Implement sticky navigation and scroll-spy with CSS sticky, Intersection Observer, and smooth scrolling.",
+      "content": "1. Put CSS position:sticky on the GM-DH year-nav; ancestors must not break sticky overflow.\n2. Observe page sections with Intersection Observer.\n3. Gate GmdhSpyOne: only one nav item may be active.\n4. Sync click smooth-scroll with spy state.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_dh_data_cleaning",
+      "name": "dh-data-cleaning",
+      "description": "清理数字人文人物数据：日期、地名、缺失值、去重；日期标记在附件",
+      "content": "1. Normalize GM-DH exile person CSV place names while keeping source spelling.\n2. Mark missing biographical fields explicitly; do not impute from neighboring rows.\n3. Deduplicate by name plus exile stage before ingest.\n4. The unique date-token table is only in references/date-checks.md.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/date-checks.md",
+          "content": "GM-DH exile person dates must mark uncertainty with circa?EXIL, pair original and canonical forms with ∥, and must not convert Julian source dates to Gregorian.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg03_gmdh__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg03_gmdh__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "team": "dvg03_cryptoproc",
+  "files_skill": "dslx-type-debug",
+  "files_path": "references/type-debug.md",
+  "n_cases": 27,
+  "mem_pairs": 5,
+  "skill_pairs": 3,
+  "files_pairs": 1,
+  "notes": "masc-ai-synthesized-cryptoprocessor 整队重写；files 挂在 dslx-type-debug。"
+}

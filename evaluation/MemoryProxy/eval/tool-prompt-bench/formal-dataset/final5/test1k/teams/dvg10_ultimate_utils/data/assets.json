@@ -1,0 +1,105 @@
+{
+  "memory": [
+    {
+      "id": "mem_documentation_standard",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "ultimate-utils training scripts must comment why a hyperparameter exists and stamp UuWhy#lml on the language-modeling-loss flag comment. Type annotations stay required."
+    },
+    {
+      "id": "mem_error_handling_style",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Functions in this repo must not swallow errors. The locked failure token is UuFailNone: return None only after raising a typed error log; bare except Exception is forbidden."
+    },
+    {
+      "id": "mem_hf_training_preferences",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "HuggingFace Trainer in this repo must set run_name prefix uutils-sft-v3 and hub_model_id uutils-local-ckpt. Do not copy falcon_uu_training_args.py logging_steps=10 or save_steps=10 as the standing lock."
+    },
+    {
+      "id": "mem_research_methodology",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Each research iteration must pick one uncertainty vector named UuVector#1 and run at most two weeks. A second vector cannot start until UuVector#1 is closed. Stanford CS197 wording is public; this name is the lock."
+    },
+    {
+      "id": "mem_tokenizer_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "After adding special tokens, embeddings must be resized and new rows initialized to the mean of existing rows. The locked pad alias is UuPad=eos. Do not invent a new pad token."
+    },
+    {
+      "id": "mem_wandb_setup",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Local wandb sweeps in this repo must export UUTILS_SWEEP_MODE=offline-v2 before wandb.sweep and must name the yaml uutils_local_sweep.yaml. Do not reuse the committed sweep_config.yaml for offline runs."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg10_ultimate_utils__skill__accelerate-distributed-training",
+      "name": "accelerate-distributed-training",
+      "description": "Configure Accelerate distributed training, including config generation and script wrapping.",
+      "content": "1. Run accelerate config to generate default_config.yaml.\n2. Set compute_environment, distributed_type (DDP first), num_processes, mixed_precision.\n3. Gate UuAccWrap: wrap model, optimizer, and dataloader with Accelerator before any backward.\n4. Launch with accelerate launch script.py.\n5. Add FSDP extra keys (fsdp_sharding_strategy, fsdp_auto_wrap_policy) only after a DDP path exists.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg10_ultimate_utils__skill__hf-training-setup",
+      "name": "hf-training-setup",
+      "description": "Set up a HuggingFace Trainer: model/tokenizer init, TrainingArguments, datasets, and train().",
+      "content": "1. Load the model and tokenizer.\n2. Gate UuPadCheck: check tokenizer pad_token before constructing TrainingArguments; do not set run_name prefix (that lock lives in Memory).\n3. Tokenize and format datasets.\n4. Build TrainingArguments (output_dir, logging, save, evaluation).\n5. Instantiate Trainer and call trainer.train().\n6. Save model and tokenizer.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg10_ultimate_utils__skill__ml-patent-writing",
+      "name": "ml-patent-writing",
+      "description": "Write a machine-learning patent: background, invention, implementation, claims.",
+      "content": "1. Gate UuEligApp: eligibility requires a concrete systems application, not an abstract loss formula.\n2. Write background: the existing-art problem.\n3. Write the invention summary and advantages.\n4. Write implementation: algorithm, architecture, training flow.\n5. Drawings: system diagram, flow, results.\n6. Claims: independent plus dependent, layered.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg10_ultimate_utils__skill__vectoring-research-planning",
+      "name": "vectoring-research-planning",
+      "description": "使用 Vectoring in Research 做研究规划和不确定性迭代。",
+      "content": "1. Write the Essential Goal as a single falsifiable claim about this HuggingFace training run, not a topic sentence.\n2. Rank remaining uncertainties by whether they block a wandb-logged Trainer step this week, not by paper-section order.\n3. Run at most one vector; stop when metric uutils_vector_gate is logged, not after a calendar sprint.\n4. Do not start a patent-writing workstream until that metric exists.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg10_ultimate_utils__skill__wandb-sweep-workflow",
+      "name": "wandb-sweep-workflow",
+      "description": "运行 wandb hyperparameter sweeps（config、sweep 初始化、agent）；本地 yaml 键在附件",
+      "content": "1. Place the local sweep yaml next to the train entrypoint, not under tutorials_for_myself.\n2. Call wandb.sweep then wandb.agent from Python with the train callable.\n3. The required yaml key and forbidden project string for a local no-upload sweep are only in references/sweep-local.md.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/sweep-local.md",
+          "content": "For a local no-upload wandb sweep in ultimate-utils, set top-level yaml key uutils_offline_gate to dryrun-v3 and never set project to uutils-live-sync.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg10_ultimate_utils__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg10_ultimate_utils__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

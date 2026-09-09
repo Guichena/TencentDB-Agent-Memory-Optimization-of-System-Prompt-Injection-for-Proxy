@@ -1,0 +1,10 @@
+{
+  "team": "T06",
+  "files_skill": "validate-a-release-change",
+  "files_path": "references/release-gate.md",
+  "n_cases": 29,
+  "mem_pairs": 6,
+  "skill_pairs": 8,
+  "files_pairs": 1,
+  "notes": "SprintSpark 整队重写；files 挂在 validate-a-release-change。"
+}

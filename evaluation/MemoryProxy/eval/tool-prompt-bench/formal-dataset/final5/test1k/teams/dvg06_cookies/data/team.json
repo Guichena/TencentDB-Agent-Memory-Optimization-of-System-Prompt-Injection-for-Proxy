@@ -1,0 +1,18 @@
+{
+  "team_id": "dvg06_cookies",
+  "repo_id": "multi-imcookie/cookies",
+  "repo_url": "https://github.com/multi-imcookie/cookies",
+  "case_count": 17,
+  "current_agent_id": "dvg06_cookies__agent__primary",
+  "agent_ids": [
+    "dvg06_cookies__agent__primary",
+    "dvg06_cookies__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "dvg06_cookies__skill__checkbox_form_array",
+    "dvg06_cookies__skill__table_to_checkbox_conversion",
+    "dvg06_cookies__skill__spring_checkbox_binding",
+    "dvg06_cookies__skill__label_checkbox_pairing"
+  ],
+  "status": "active"
+}

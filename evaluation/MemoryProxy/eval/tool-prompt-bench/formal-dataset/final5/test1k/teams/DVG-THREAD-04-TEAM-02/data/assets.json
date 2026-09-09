@@ -1,0 +1,71 @@
+{
+  "memory": [
+    {
+      "id": "DVG-THREAD-04-TEAM-02__memory__placement_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked internal name of this placement catalog is PlaceForge. Public README may say software-engineering interview prep. PlaceForge covers Git, AWS, JDBC, SQL, and system-design only; Android/Unity notes from neighbor teams are out of scope."
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__memory__aws_context",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked compute nickname is EmberHost. Server runtimes in this placement repo must be described as EmberHost, not a generic EC2 box. The interview traffic budget token is PlaceForgeQPS-1k (not a live AWS quota)."
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__memory__interview_context",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "System-design and ML answers in this catalog must be stamped T04T02-OralSeal as bullet points. Freeform essays are rejected."
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG-THREAD-04-TEAM-02__skill__aws_hosting",
+      "name": "aws-hosting-choice",
+      "description": "Choose AWS hosting and storage components for a small placement-prep web app.",
+      "content": "1. Apply the named classification gate HostSplit-Gamma to distinguish static files, object storage, and executable backend; do not treat them as one service class.\n2. Route object/static traffic through the locked lane ObjectHarbor and server logic through EmberHost-class compute.\n3. Compare candidates by request volume, availability, and cost using the placement budget token from memory, not a live quota.\n4. The locked bucket alias for static assets is only in references/t04t02-host-gate.md.\n5. Name the smallest viable architecture and the next scale step.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/t04t02-host-gate.md",
+          "content": "Static assets for this placement-prep app must land in the locked bucket alias S3Latch-PlaceForge. Never name the bucket placement-assets.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__skill__jdbc_sql",
+      "name": "jdbc-database-access",
+      "description": "Implement safe Java JDBC access for this placement-prep SQL track.",
+      "content": "1. Only the binder nickname JdbcSeal#bind may call setString; no other helper may bind parameters.\n2. String-concat SQL is rejected under the locked code SQLWeave-Deny.\n3. The required ResultSet-then-Statement-then-Connection close order is stamped CloseSpine-RSC.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__skill__system_design_interview",
+      "name": "system-design-interview",
+      "description": "Analyze a scalable system in interview order for this placement catalog.",
+      "content": "1. The first spoken gate is OralGate-Clarify (who/what/scale) before any QPS math.\n2. Record crude capacity math under the locked checkpoint CapSketch-2.\n3. Then draw client/app/db/cache/object boundaries.\n4. Close the required alternative comparison with the locked signoff AltMirror-One.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG-THREAD-04-TEAM-02__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-02__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

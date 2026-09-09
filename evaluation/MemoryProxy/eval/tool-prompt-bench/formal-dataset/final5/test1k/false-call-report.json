@@ -1,0 +1,385 @@
+{
+  "summary": {
+    "call": 464,
+    "repos": 39,
+    "false_call_hits": 28,
+    "clean": 436,
+    "missing_path": 0,
+    "no_manifest": 0
+  },
+  "hits": [
+    {
+      "case_id": "DVG-T04-T01-C010",
+      "team": "DVG-THREAD-04-TEAM-01",
+      "path": "D:/projects/team-migration/teams/DVG-THREAD-04-TEAM-01/source-checked/ecs189l-project",
+      "tokens": [
+        "KindleWisp",
+        "UmbralHull",
+        "OnTriggerStay"
+      ],
+      "target": "DVG-THREAD-04-TEAM-01__skill__enemy_behavior",
+      "matched": [
+        "OnTriggerStay"
+      ]
+    },
+    {
+      "case_id": "DVG-T04-T01-C032",
+      "team": "DVG-THREAD-04-TEAM-01",
+      "path": "D:/projects/team-migration/teams/DVG-THREAD-04-TEAM-01/source-checked/ecs189l-project",
+      "tokens": [
+        "KindleWisp",
+        "UmbralHull",
+        "OnTriggerStay"
+      ],
+      "target": "DVG-THREAD-04-TEAM-01__skill__enemy_behavior",
+      "matched": [
+        "OnTriggerStay"
+      ]
+    },
+    {
+      "case_id": "dvg05_pbrudny_jobsforit__m02_call",
+      "team": "dvg05_pbrudny_jobsforit",
+      "path": "D:/projects/team-migration/teams/dvg05_pbrudny_jobsforit/source/pbrudny_jobsforit-de",
+      "tokens": [
+        "ChatGPT"
+      ],
+      "target": "mem_commit_convention",
+      "matched": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "case_id": "dvg06_banzukesurfing__c001",
+      "team": "dvg06_banzukesurfing",
+      "path": "D:/projects/team-migration/teams/dvg06_banzukesurfing/source/hoshotakamoto_banzukesurfing",
+      "tokens": [
+        "BanzukeSurfing"
+      ],
+      "target": "dvg06_banzukesurfing__memory__localstorage_patterns",
+      "matched": [
+        "BanzukeSurfing"
+      ]
+    },
+    {
+      "case_id": "dvg06_banzukesurfing__c003",
+      "team": "dvg06_banzukesurfing",
+      "path": "D:/projects/team-migration/teams/dvg06_banzukesurfing/source/hoshotakamoto_banzukesurfing",
+      "tokens": [
+        "BanzukeSurfing"
+      ],
+      "target": "dvg06_banzukesurfing__memory__jest_setup",
+      "matched": [
+        "BanzukeSurfing"
+      ]
+    },
+    {
+      "case_id": "dvg06_banzukesurfing__c015",
+      "team": "dvg06_banzukesurfing",
+      "path": "D:/projects/team-migration/teams/dvg06_banzukesurfing/source/hoshotakamoto_banzukesurfing",
+      "tokens": [
+        "BanzukeSurfing",
+        "BzkExtractSeal",
+        "ClassName"
+      ],
+      "target": "dvg06_banzukesurfing__skill__class_extraction",
+      "matched": [
+        "BanzukeSurfing"
+      ]
+    },
+    {
+      "case_id": "dvg06_banzukesurfing__c027",
+      "team": "dvg06_banzukesurfing",
+      "path": "D:/projects/team-migration/teams/dvg06_banzukesurfing/source/hoshotakamoto_banzukesurfing",
+      "tokens": [
+        "rikishiCache",
+        "BanzukeSurfing"
+      ],
+      "target": "dvg06_banzukesurfing__skill__localstorage_debug",
+      "matched": [
+        "BanzukeSurfing"
+      ]
+    },
+    {
+      "case_id": "dvg06_banzukesurfing__c033",
+      "team": "dvg06_banzukesurfing",
+      "path": "D:/projects/team-migration/teams/dvg06_banzukesurfing/source/hoshotakamoto_banzukesurfing",
+      "tokens": [
+        "BzkRed#first",
+        "BanzukeSurfing"
+      ],
+      "target": "dvg06_banzukesurfing__memory__tdd_workflow",
+      "matched": [
+        "BanzukeSurfing"
+      ]
+    },
+    {
+      "case_id": "dvg06_banzukesurfing__c035",
+      "team": "dvg06_banzukesurfing",
+      "path": "D:/projects/team-migration/teams/dvg06_banzukesurfing/source/hoshotakamoto_banzukesurfing",
+      "tokens": [
+        "BzkTestGate#esm",
+        "BanzukeSurfing",
+        "BzkTestGate"
+      ],
+      "target": "dvg06_banzukesurfing__memory__module_import",
+      "matched": [
+        "BanzukeSurfing"
+      ]
+    },
+    {
+      "case_id": "dvg08_temporalio_temporal__s027",
+      "team": "dvg08_temporalio_temporal",
+      "path": "D:/projects/team-migration/teams/dvg08_temporalio_temporal/source-checked/temporal",
+      "tokens": [
+        "TestCase",
+        "TmpUtTmpdir",
+        "TemporaryDirectory"
+      ],
+      "target": "dvg08_temporalio_temporal__skill__python-unittest-writing",
+      "matched": [
+        "TestCase"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__k01_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT",
+        "HearingVault"
+      ],
+      "target": "mem_db_pattern",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__k02_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JgptBlob#bytes",
+        "JudgeGPT",
+        "JgptBlob"
+      ],
+      "target": "mem_audio_processing",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__m01_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT",
+        "HearingVault"
+      ],
+      "target": "mem_db_pattern",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__m02_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT"
+      ],
+      "target": "mem_api_key_handling",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__m03_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JgptBlob#bytes",
+        "JudgeGPT",
+        "JgptBlob"
+      ],
+      "target": "mem_audio_processing",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__m04_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT"
+      ],
+      "target": "mem_code_style",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__s01_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT"
+      ],
+      "target": "dvg09_judgegpt__skill__add-api-key-input",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__s02_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT",
+        "JgptMicGate",
+        "JgptMicDenied"
+      ],
+      "target": "dvg09_judgegpt__skill__integrate-whisper-api",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__s03_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT"
+      ],
+      "target": "dvg09_judgegpt__skill__add-api-key-input",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_judgegpt__s05_call",
+      "team": "dvg09_judgegpt",
+      "path": "D:/projects/team-migration/teams/dvg09_judgegpt/source-checked/judgegpt",
+      "tokens": [
+        "JudgeGPT"
+      ],
+      "target": "dvg09_judgegpt__skill__add-status-div",
+      "matched": [
+        "JudgeGPT"
+      ]
+    },
+    {
+      "case_id": "dvg09_playbilling__m03_call",
+      "team": "dvg09_playbilling",
+      "path": "D:/projects/team-migration/teams/dvg09_playbilling/source-checked/temp_rank81",
+      "tokens": [
+        "ProductType",
+        "InAppProduct"
+      ],
+      "target": "mem_subscription_policy",
+      "matched": [
+        "ProductType",
+        "InAppProduct"
+      ]
+    },
+    {
+      "case_id": "dvg09_playbilling__s01_call",
+      "team": "dvg09_playbilling",
+      "path": "D:/projects/team-migration/teams/dvg09_playbilling/source-checked/temp_rank81",
+      "tokens": [
+        "BillingResponseCode"
+      ],
+      "target": "dvg09_playbilling__skill__add-billing-feature",
+      "matched": [
+        "BillingResponseCode"
+      ]
+    },
+    {
+      "case_id": "dvg09_playbilling__s03_call",
+      "team": "dvg09_playbilling",
+      "path": "D:/projects/team-migration/teams/dvg09_playbilling/source-checked/temp_rank81",
+      "tokens": [
+        "InAppProduct",
+        "BillingFlowParams",
+        "SubscriptionUpdateParams",
+        "BillingResponseCode"
+      ],
+      "target": "dvg09_playbilling__skill__implement-subscription",
+      "matched": [
+        "InAppProduct",
+        "BillingFlowParams",
+        "BillingResponseCode"
+      ]
+    },
+    {
+      "case_id": "dvg09_playbilling__s_pilot01_call",
+      "team": "dvg09_playbilling",
+      "path": "D:/projects/team-migration/teams/dvg09_playbilling/source-checked/temp_rank81",
+      "tokens": [
+        "DispatchBillingJson",
+        "UnityPlayer",
+        "UnitySendMessage"
+      ],
+      "target": "dvg09_playbilling__skill__unity-bridge-setup",
+      "matched": [
+        "UnityPlayer",
+        "UnitySendMessage"
+      ]
+    },
+    {
+      "case_id": "c_43cf68a5332a7c08",
+      "team": "T03",
+      "path": "D:/projects/team-migration/teams/T03/source-checked/T03__pc035860__cee",
+      "tokens": [
+        "CeeZoom#300ms",
+        "GridView",
+        "CeeZoom"
+      ],
+      "target": "ma-zoom-fixes-history",
+      "matched": [
+        "GridView"
+      ]
+    },
+    {
+      "case_id": "c_78ccee9ca60d3f43",
+      "team": "T03",
+      "path": "D:/projects/team-migration/teams/T03/source-checked/T03__pc035860__cee",
+      "tokens": [
+        "CeeZoom#300ms",
+        "GridView",
+        "CeeZoom"
+      ],
+      "target": "ma-zoom-fixes-history",
+      "matched": [
+        "GridView"
+      ]
+    },
+    {
+      "case_id": "c_172feca283fb1749",
+      "team": "T04",
+      "path": "D:/projects/team-migration/teams/T04/source-checked/T04__dayhaysoos__nimbus",
+      "tokens": [
+        "HOLD_FOR_T04Q",
+        "nimbus review create"
+      ],
+      "target": "T04__memory__review_discipline",
+      "matched": [
+        "nimbus review create"
+      ]
+    },
+    {
+      "case_id": "c_49ac1cd385722bf3",
+      "team": "T06",
+      "path": "D:/projects/team-migration/teams/T06/source-checked/T06__anchoo2kewl__SprintSpark",
+      "tokens": [
+        "T06Q-ARCH-EDGE",
+        "SprintSpark"
+      ],
+      "target": "T06__memory__project_architecture",
+      "matched": [
+        "SprintSpark"
+      ]
+    }
+  ],
+  "problems": []
+}

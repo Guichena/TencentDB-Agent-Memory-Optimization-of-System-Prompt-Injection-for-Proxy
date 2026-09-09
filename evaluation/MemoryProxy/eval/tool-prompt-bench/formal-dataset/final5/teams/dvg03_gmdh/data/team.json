@@ -1,0 +1,19 @@
+{
+  "team_id": "dvg03_gmdh",
+  "repo_id": "chpollin/gm-dh",
+  "repo_url": "https://github.com/chpollin/gm-dh",
+  "case_count": 40,
+  "current_agent_id": "dvg03_gmdh__agent__primary",
+  "agent_ids": [
+    "dvg03_gmdh__agent__primary",
+    "dvg03_gmdh__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "skill_csv_batch_processing",
+    "skill_dh_webinar_prep",
+    "skill_biographical_data_schema",
+    "skill_html_accessibility_audit",
+    "skill_sticky_nav_implementation"
+  ],
+  "status": "active"
+}

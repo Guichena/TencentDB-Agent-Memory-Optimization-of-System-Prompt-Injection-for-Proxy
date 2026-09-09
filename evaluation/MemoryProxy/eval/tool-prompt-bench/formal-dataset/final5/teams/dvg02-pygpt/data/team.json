@@ -1,0 +1,15 @@
+{
+  "team_id": "dvg02-pygpt",
+  "repo_id": "gshiva/pygptcourse",
+  "repo_url": "https://github.com/gshiva/pygptcourse",
+  "case_count": 40,
+  "current_agent_id": "dvg02-pygpt__agent__primary",
+  "agent_ids": [
+    "dvg02-pygpt__agent__primary",
+    "dvg02-pygpt__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "skill_unit_test_write"
+  ],
+  "status": "active"
+}

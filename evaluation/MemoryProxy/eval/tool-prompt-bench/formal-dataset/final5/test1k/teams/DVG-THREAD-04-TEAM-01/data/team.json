@@ -1,0 +1,13 @@
+{
+  "team_id": "DVG-THREAD-04-TEAM-01",
+  "repo_id": "justinguan/ecs189l-project",
+  "repo_url": "https://github.com/JustinGuan/ECS189L-Project",
+  "case_count": 17,
+  "current_agent_id": "DVG-THREAD-04-TEAM-01__agent__primary",
+  "agent_ids": [
+    "DVG-THREAD-04-TEAM-01__agent__primary",
+    "DVG-THREAD-04-TEAM-01__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

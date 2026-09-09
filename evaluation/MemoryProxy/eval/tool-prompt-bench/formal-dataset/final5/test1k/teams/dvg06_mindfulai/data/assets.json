@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "dvg06_mindfulai__memory__module_export_syntax",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "导出语法锁为 `MINDFUL-EXPORT-ESM`：只用默认导出或具名导出，禁止混用旧式导出写法，也禁止同一文件里两种风格并存。"
+    },
+    {
+      "id": "dvg06_mindfulai__memory__pm2_process_management",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "进程管理锁为 `MINDFUL-PM2-WATCH`：服务跑在 PM2 下并由生态配置文件管理，文件监听只按登记范围，禁止改监听范围，也禁止绕过进程管理器直接起服务。"
+    },
+    {
+      "id": "dvg06_mindfulai__memory__api_integration_pattern",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "外部接口锁为 `MINDFUL-API-THREE`：只接文本生成、语音合成与转写三家外部服务，禁止新增第四家，也禁止把多家调用并进同一个函数。"
+    },
+    {
+      "id": "dvg06_mindfulai__memory__express_routing",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "路由锁为 `MINDFUL-ROUTE-THREE`：三条路由各对应一个外部能力，禁止合并路由，也禁止给同一能力开第二个路径。"
+    },
+    {
+      "id": "dvg06_mindfulai__memory__audio_cache_pattern",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "音频缓存锁为 `MINDFUL-CACHE-KEY`：缓存键由文本与音色标识共同组成，禁止只按文本做键，也禁止无上限增长。"
+    },
+    {
+      "id": "dvg06_mindfulai__memory__https_server_setup",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "HTTPS 锁为 `MINDFUL-HTTPS-CERT`：证书与私钥路径固定，服务只走 https 方式创建，禁止改成明文监听，也禁止为省事跳过证书。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg06_mindfulai__skill__module_export_debug",
+      "name": "module-export-debug",
+      "description": "排查模块导出报错：先过哪道定位门、统一成哪种写法、引用怎么对齐",
+      "content": "1. 先过定位门：先取真实报错与所在文件，禁止全局替换碰运气。\n2. 风格门：全文件统一成同一种导出写法，禁止两种并存。\n3. 引用门：改动文件的所有引入点同步对齐，禁止只改导出不改引入。\n4. 修完必须重启并跑一次调用，禁止只看语法检查通过。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg06_mindfulai__skill__pm2_error_diagnosis",
+      "name": "pm2-error-diagnosis",
+      "description": "诊断进程管理器下的服务报错：先过哪道日志门、门禁基线在附件哪里",
+      "content": "1. 先过日志门：先取该应用的日志与退出码，禁止凭现象猜原因。\n2. 重启门：只在确认改动已落盘后重启，禁止反复重启试错。\n3. 监听门：先确认文件监听范围，禁止把重启失败当成代码问题。\n4. 收尾的门禁基线检查项只写在 references/pm2-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/pm2-gate.md",
+          "content": "# PM2 diagnosis gate\n\nA diagnosis pass under the process manager is only valid when all of the following hold:\n\n- The pass must be stamped with the marker `MINDFUL-PM2-SEAL`.\n- The inspected app must be named `MINDFUL-APP-UNDER-TEST` in the report.\n- A restart must be declared with the value `MINDFUL-RESTART-DECLARED`; an undeclared restart voids the pass.\n- A report containing `MINDFUL-LOOP-OK` is rejected; restart loops must never be treated as resolved.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented PM2 diagnosis gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "dvg06_mindfulai__skill__openai_api_integration",
+      "name": "openai-api-integration",
+      "description": "接文本生成接口：先过哪道密钥门、请求参数怎么定、失败怎么报",
+      "content": "1. 先过密钥门：凭据只从环境取，禁止写进代码或提交内容。\n2. 请求门：先定模型与参数再发请求，禁止照搬默认值。\n3. 超时门：显式设超时与重试上限，禁止无限等待。\n4. 失败必须原样上报状态码与响应，禁止吞成通用错误。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mindfulai__skill__multer_file_upload",
+      "name": "multer-file-upload",
+      "description": "加文件上传：先过哪道存储门、大小与类型怎么限、临时文件怎么处理",
+      "content": "1. 先过存储门：先定落盘位置与命名，禁止用默认临时目录了事。\n2. 限制门：先定大小与类型白名单，禁止全盘接收。\n3. 清理门：失败或完成后清理临时文件，禁止长期堆积。\n4. 接完必须传一个真实文件验证，禁止只看路由注册成功。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mindfulai__skill__formdata_api_call",
+      "name": "formdata-api-call",
+      "description": "用表单数据调外部接口：先过哪道构造门、响应先判什么",
+      "content": "1. 先过构造门：字段与文件部分按接口要求拼装，禁止用别的内容类型顶替。\n2. 边界门：显式设边界与编码，禁止依赖库默认猜测。\n3. 响应门：先判状态码再解析响应体，禁止直接取字段。\n4. 接完必须用一次真实请求验证，禁止只看代码跑通。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mindfulai__skill__audio_response_handling",
+      "name": "audio-response-handling",
+      "description": "处理语音响应与缓存：先过哪道键门、缓存怎么限、失败怎么退",
+      "content": "1. 先过键门：缓存键必须含文本与音色两项，禁止只按文本做键。\n2. 上限门：先定缓存上限与清理策略，禁止无界增长。\n3. 失败门：取音频失败要有明确回退，禁止返回空响应体。\n4. 改完必须命中与未命中各验一次，禁止只看首次成功。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_mindfulai__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_mindfulai__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

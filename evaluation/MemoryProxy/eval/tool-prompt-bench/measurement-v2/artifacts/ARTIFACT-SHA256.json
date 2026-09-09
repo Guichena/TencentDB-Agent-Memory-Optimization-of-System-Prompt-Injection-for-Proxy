@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 2,
+  "measurementModuleId": "M2",
+  "artifacts": [
+    {
+      "file": "PROVIDER-USAGE-SYNTHETIC.json",
+      "sha256": "15558fa587f7255c139d370530103d93e58094025634fd9f2b16b3fd58abec58"
+    },
+    {
+      "file": "TOKEN-LEDGER-SYNTHETIC.json",
+      "sha256": "0437e2659dbdee94d42f3f48d87f673f8731af32db08976b3fc57baa5bb91eb1"
+    },
+    {
+      "file": "REQUEST-USAGE-LEDGER-SYNTHETIC.json",
+      "sha256": "73abfe5b476fe3646cd058dbad4a1ffe0623d1126b262f33b18ee714461b1d90"
+    },
+    {
+      "file": "ISOLATION-ELIGIBILITY-SYNTHETIC.json",
+      "sha256": "fee97b632f130957bc400ac5a27f1481b2d12b2f57bcadc2de62b4cfee5ca5ab"
+    },
+    {
+      "file": "METADATA-PARITY.json",
+      "sha256": "94dd7771a4e39623bffcf377b93621ad23b54467cbbf196dd4530f711150360f"
+    },
+    {
+      "file": "INTERFACE-MANIFEST.json",
+      "sha256": "939f3724bc7e51b7a99e18ad4a707dc0bcbc45d59fa91a41e85f127432c207f1"
+    },
+    {
+      "file": "NO-MODEL-GATE.json",
+      "sha256": "f7131edd11b346f2c5be7f5aaf8bc62818f09c8a0188f6fb3026a3a3a3f62bfc"
+    }
+  ]
+}

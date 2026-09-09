@@ -1,0 +1,15 @@
+{
+  "team_id": "DVG07_T01_frieghtkb",
+  "repo_id": "uallmight/frieghtkb",
+  "repo_url": "https://github.com/uallmight/FrieghtKB",
+  "case_count": 40,
+  "current_agent_id": "DVG07_T01_frieghtkb__agent__primary",
+  "agent_ids": [
+    "DVG07_T01_frieghtkb__agent__primary",
+    "DVG07_T01_frieghtkb__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "DVG07_T01_frieghtkb__skill__doc_entry"
+  ],
+  "status": "active"
+}

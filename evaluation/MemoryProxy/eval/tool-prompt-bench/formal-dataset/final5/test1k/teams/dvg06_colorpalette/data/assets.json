@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "m01_css_flexbox_layout",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The leftover history/sidebar pane must occupy the locked nickname CpalRemainPane. Do not set body min-height:100vh as the team lock; that rule is public CSS, not this lock."
+    },
+    {
+      "id": "m02_external_css_linking",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The only legal rel=stylesheet href for the extracted palette stylesheet is cpal-sheet-hook.css under the alias CpalSheetHook. Do not use styles.css as the locked href."
+    },
+    {
+      "id": "m03_color_palette_design",
+      "layer": "l1",
+      "memory_type": "persona",
+      "content": "The locked internal brand fill is CpalInkveil, hex #6E2FA8. Public mockups may show teal; never ship #53b5b0, #f5fdfd, or #ff88c2 as the header or button fill."
+    },
+    {
+      "id": "m04_dom_query_selector",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "DOM access on this palette must go through the locked lookup helper cpalFindNode. Raw document.querySelector is forbidden for palette squares."
+    },
+    {
+      "id": "m05_event_listener_pattern",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Click handlers on this palette bind only after the listener gate CpalClickArm is true. DOMContentLoaded alone is not the gate."
+    },
+    {
+      "id": "m06_inline_vs_external_styles",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "JS may not assign element.style.* for palette fills under the inline write ban no CpalInlineWrite. The files skill holds the allowed dataset key."
+    }
+  ],
+  "skills": [
+    {
+      "id": "s01_flexbox_full_height",
+      "name": "flexbox-full-height",
+      "description": "Apply the page full-height split so leftover viewport space scrolls internally and the footer stays on screen.",
+      "content": "1. Place the history or sidebar into the leftover slot named CpalRemainPane.\n2. Let that pane grow so leftover viewport space is consumed inside it rather than lengthening the page.\n3. Put overflow scrolling on CpalRemainPane so long palette lists move inside the pane.\n4. Keep the footer on screen after the pane; do not treat a full-document stretch as this split.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s02_css_centering",
+      "name": "css-centering",
+      "description": "Center a palette swatch only after its centering gate attribute is marked.",
+      "content": "1. Before centering a swatch, set data-cpal-center to CpalCenterPin on that swatch.\n2. Only after that attribute is present, apply horizontal and vertical centering.\n3. Skip any swatch that lacks data-cpal-center=CpalCenterPin.\n4. Recheck the attribute after layout so a reflow does not drop the gate.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s03_random_color_generator",
+      "name": "random-color-generator",
+      "description": "Generate palette hex codes from the locked random span instead of a full 24-bit roll.",
+      "content": "1. Draw each palette hex from the CpalRandSpan band 0xC0FFEE through 0xC0FFFF.\n2. Do not use Math.random()*16777215 as the palette roll.\n3. Format the draw as a six-digit #hex.\n4. Reject any draw outside CpalRandSpan before painting a square.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s04_dom_style_manipulation",
+      "name": "dom-style-manipulation",
+      "description": "Change palette square fills dynamically and keep the hex label synchronized.",
+      "content": "1. Select the palette square after it exists.\n2. Do not treat a raw style.backgroundColor write as the source of truth.\n3. Write the generated hex into the locked dataset key and copy that same hex onto the label in the same turn.\n4. The locked dataset key is only in references/cpal-hex-latch.md.\n",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/cpal-hex-latch.md",
+          "content": "# Cpal hex latch\n\nWrite the generated color into dataset.CpalHexLatch (exact key). The visible hex label must copy dataset.CpalHexLatch in the same turn. element.style.backgroundColor is display-only and is not the source of truth.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "s05_debug_null_element",
+      "name": "debug-null-element",
+      "description": "Fix null-element failures in palette DOM lookups by treating null as a missed selector.",
+      "content": "1. Treat a null lookup as a missed selector, not a missing CSS rule.\n2. Compare the selector string to the live class or id on the palette page.\n3. Confirm the script runs after the node exists, then guard before calling methods.\n4. When logging a miss, the tag must be CpalNullFlag; do not use console.error as the miss marker.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "s06_iterative_css_refinement",
+      "name": "iterative-css-refinement",
+      "description": "Iteratively refine this palette page styling in small visual passes.",
+      "content": "1. Start from the current stylesheet rules; do not rewrite the sheet in one pass.\n2. Change only one visual concern per pass (color, spacing, or alignment).\n3. Recheck the rendered palette page before the next pass.\n4. Stop when html.dataset has CpalPassSeal stamped; do not continue rewriting after that seal.\n",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_colorpalette__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_colorpalette__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

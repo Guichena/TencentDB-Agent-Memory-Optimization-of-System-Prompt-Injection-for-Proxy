@@ -1,0 +1,128 @@
+{
+  "memory": [
+    {
+      "id": "mem_project_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "GM-DH 项目专注数字人文研究，尤其是流亡研究中的人物传记和文献数据管理。"
+    },
+    {
+      "id": "mem_data_structure",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Person records are stored as CSV with fields name, birth/death dates, exile stage, and geography; large files are processed in batches rather than as one dump."
+    },
+    {
+      "id": "mem_tech_stack",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Beyond the HTML/CSS/JS already in the repo, the standing product constraint is that new pages must keep sticky navigation, scroll-spy highlighting, accessibility, and performance as first-class requirements rather than optional polish."
+    },
+    {
+      "id": "mem_prompt_engineering",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "团队探索将 Prompt Engineering 应用于数字人文中的历史数据提取、清理、关系发现和多语言处理。"
+    },
+    {
+      "id": "mem_csv_protocol",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Large historical CSVs use a chunk marker protocol: each part is tagged [START CSV \"title\" n/total]; nothing is analyzed until the last part (n=total) arrives."
+    },
+    {
+      "id": "mem_accessibility",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "项目强调 a11y，关注有效 HTML、语义标签、ARIA、键盘导航、对比度和死链。"
+    },
+    {
+      "id": "mem_data_cleaning",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Date-cleaning rules for person records: unify date formats, treat missing values explicitly, deduplicate, and reject records whose death precedes birth."
+    },
+    {
+      "id": "mem_exile_studies",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "流亡研究关注被迫离开故国的人物、流亡路径和文献资料；GM-DH 用数据库分析 20 世纪流亡人物模式。"
+    },
+    {
+      "id": "mem_llm_dh",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "数字人文中的 LLM 可用于历史文本结构化提取、数据清理、关系发现、文本分析和翻译，但结果需要领域知识校验。"
+    },
+    {
+      "id": "mem_website_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Intended first-class destinations are project home, a people-and-literature database, workshop resources, and a glossary — not only the talks/blog/video sections currently in index.html."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_csv_batch_processing",
+      "name": "csv-batch-processing",
+      "description": "按分块协议处理大型人物/历史 CSV：标记、暂缓、拼接后再分析。",
+      "content": "# CSV batch processing\n\n## Procedure\n1. Record original headers, column order, and total row count.\n2. Split by rows into ordered parts; keep the same columns; tag each part [START CSV \"title\" n/total].\n3. On non-final parts, do not analyze; wait for later chunks.\n4. After n=total, concatenate in order and keep a single header.\n5. Verify concatenated rows, column names, and structure match the original file.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_dh_webinar_prep",
+      "name": "dh-webinar-prep",
+      "description": "准备数字人文研讨会：主题、案例、数据样本、互动演示和现场验证。",
+      "content": "1. 确定研讨会主题、受众和目标产出，例如 Prompt Engineering 在数字人文中的应用。\n2. 设计能展示实际应用的案例，优先使用人物传记或流亡研究数据。\n3. 准备可演示的数据样本，覆盖姓名、生卒日期、流亡阶段和地理位置等字段。\n4. 创建互动演示，串起数据提取、清理、关系发现和多语言处理步骤。\n5. 准备常见问题和现场验证材料，并用样本走一遍演示流程。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_biographical_data_schema",
+      "name": "biographical-data-schema",
+      "description": "设计流亡人物传记数据架构：实体、字段、关系、多语言和校验。",
+      "content": "1. 定义人物、事件、地点和时间四类实体，服务流亡人物传记数据。\n2. 为人物设计姓名、生卒日期、流亡阶段和地理字段，并预留引用信息。\n3. 建立人物与地点、事件、时间的关系，使迁移路径可查询。\n4. 考虑多语言姓名和地名，保留原文与规范化形式。\n5. 加入日期格式校验和引用验证，避免生卒逻辑冲突。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_html_accessibility_audit",
+      "name": "html-accessibility-audit",
+      "description": "审查 GM-DH 网站 HTML 可访问性：语义、ARIA、键盘、对比度和死链。",
+      "content": "1. 用 HTML validator 检查页面是否为有效 HTML。\n2. 检查语义标签和 ARIA，确认标题、导航和表单有正确角色。\n3. 测试键盘导航和颜色对比度，确认可聚焦元素可达。\n4. 检查移动端与响应式布局，避免内容被 sticky 导航遮挡。\n5. 移除死链和重复内容，记录剩余可访问性问题。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_sticky_nav_implementation",
+      "name": "sticky-nav-implementation",
+      "description": "实现 sticky 导航和 scroll-spy：CSS sticky、Intersection Observer 与平滑滚动。",
+      "content": "1. 用 CSS position: sticky 固定主导航，并确认祖先元素没有破坏 sticky 的 overflow。\n2. 用 Intersection Observer 侦测各 section 进入视口。\n3. 根据当前 section 高亮对应导航项，同时只保持一项激活。\n4. 为导航点击添加平滑滚动，并与 scroll-spy 状态同步。\n5. 在桌面和移动端验证响应式行为、键盘可达和对比度。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_dh_data_cleaning",
+      "name": "dh-data-cleaning",
+      "description": "清理数字人文人物数据：日期、地名、缺失值、去重和生卒地理一致性。",
+      "content": "# DH data cleaning\n\n## Procedure\n1. Unify dates, including missing/fuzzy/range dates, and check birth-before-death.\n2. Normalize place names while keeping original spelling plus a canonical form.\n3. Fill missing values only from context; otherwise mark missing explicitly.\n4. Deduplicate by name, dates, and key places; merge confirmed same-person rows.\n5. Check date/geography consistency, then ingest or analyze.\n",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg03_gmdh__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg03_gmdh__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "team": "dvg05_goeko_github_io",
+  "files_skill": "debug-vue-reactivity",
+  "files_path": "references/reactivity-gate.md",
+  "n_cases": 26,
+  "mem_pairs": 2,
+  "skill_pairs": 3,
+  "files_pairs": 1,
+  "notes": "goeko.github.io 整队重写；files 挂在 debug-vue-reactivity。"
+}

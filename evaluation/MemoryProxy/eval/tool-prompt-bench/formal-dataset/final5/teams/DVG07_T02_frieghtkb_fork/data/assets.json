@@ -1,0 +1,125 @@
+{
+  "memory": [
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__doc_format",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "All documentation entries must follow the standard format: Title, Definition, Key Attributes (bulleted list), Related Terms (links), and References section. Each entry should be concise and use industry-standard terminology."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__edi_priority",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "EDI transaction documentation is top priority. All EDI documents (997, 204, 990, 850, 810) must include transaction code, purpose, business use case, and required/optional fields breakdown."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__terminology_source",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Use official industry terminology from NMFTA (National Motor Freight Traffic Association) standards and SCAC (Standard Carrier Alpha Code) guidelines. Avoid colloquial or regional terms."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__linking_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Cross-reference related terms using relative markdown links. Link to parent category in each entry (e.g., LTL entries link to modes/, EDI entries link to edi/)."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__category_hierarchy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Knowledge base organized into 7 top-level categories: modes/ (shipping modes), edi/ (EDI transactions), terms/ (general terminology), parties/ (stakeholders), locations/ (geography), packaging/ (units), financials/ (cost structures). Each new entry must fit one category."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__accuracy_requirement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "All documentation must be verifiable against official sources. Include reference links to NMFTA, ANSI X12, or carrier-specific documentation. No speculative or opinion-based content."
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__category_taxonomy",
+      "layer": "l2",
+      "path": "scenes/category-taxonomy.md",
+      "summary": "How FrieghtKB chooses a top-level documentation folder for a new entry.",
+      "content": "# Categories:\n\n1. modes/ - Transportation methods (LTL, FTL, Parcel, Intermodal, Break Bulk, Air, Ocean)\n2. edi/ - EDI transaction sets (997, 204, 990, 850, 810)\n3. terms/ - General terminology (Stops, Route Optimization, Accessorials, Demurrage, SCAC)\n4. parties/ - Stakeholders (Shipper, Carrier, Consignee, Forwarder, Broker, 3PL)\n5. locations/ - Geographic info (Address Formats, Ports, Terminals, Distribution Centers)\n6. packaging/ - Handling units (Pallets, Containers, Crates, Drums)\n7. financials/ - Cost structures (FTL Charges, LTL Rates, Accessorial Charges, Fuel Surcharges)\n\n# Placement Logic:\n- HOW freight moves? → modes/\n- X12 transaction? → edi/\n- WHO (stakeholder)? → parties/\n- WHERE (location)? → locations/\n- Packaging type? → packaging/\n- Cost/billing? → financials/\n- Otherwise → terms/"
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__file_naming",
+      "layer": "l2",
+      "path": "scenes/file-naming.md",
+      "summary": "Filename and capitalization conventions used when adding FrieghtKB markdown entries.",
+      "content": "# Naming Rules:\n\n## General:\n- Extension: .md\n- Simple terms: no spaces (use PascalCase)\n- Compound industry terms: preserve spaces\n- Match official capitalization\n\n## By Category:\n- edi/: [code].md (e.g., 997.md, 204.md)\n- modes/: [ModeName].md (e.g., LessThanTruckLoad.md)\n- terms/: [Term Name].md (e.g., Route Optimization.md)\n- parties/: [PartyRole].md (e.g., Customs Broker.md)\n- locations/: [LocationType].md (e.g., Formats.md)\n- packaging/: [Unit Name].md (e.g., Handling Units.md)\n- financials/: [Cost Type].md (e.g., FTL Charges)\n\n## Special:\n- Avoid: / \\ : * ? \" < > |\n- Each category has README.md\n- Root has README.md entry point"
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__memory__reference_standards",
+      "layer": "l2",
+      "path": "scenes/reference-standards.md",
+      "summary": "Which authorities FrieghtKB cites and which sources are disallowed.",
+      "content": "# Primary Standards:\n\n1. NMFTA (nmfta.org) - Motor carrier, SCAC codes, classifications\n2. ANSI X12 (x12.org) - EDI transaction standards\n3. IATA (iata.org) - Air freight standards\n4. IMO (imo.org) - Ocean shipping regulations\n\n# Secondary:\n- Carrier documentation (FedEx, UPS, USPS)\n- Trade associations (IANA, TIA)\n- Government agencies (DOT, CBP)\n\n# Process:\n1. Check primary standards body\n2. If not found, check carrier/association docs\n3. If conflicts, note discrepancy\n4. Always cite source with URL\n5. Prefer recent publications\n\n# Prohibited:\n- Wikipedia (verify with authoritative source)\n- General dictionaries\n- Blog posts\n- Outdated docs (>5 years)"
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__doc_entry",
+      "name": "doc-entry",
+      "description": "Standard workflow for adding new documentation entries to FrieghtKB",
+      "content": "# Documentation Entry Workflow\n\n## Purpose\nAdd a new FrieghtKB documentation entry in the correct category with the standard template.\n\n## Use when\n- A new term, mode, party, location, package, financial item, or EDI set needs an entry.\n\n## Do not use when\n- Expanding the category taxonomy itself; deprecating an existing term.\n\n## Inputs\n- The term to document; the seven top-level folders (modes/, edi/, terms/, parties/, locations/, packaging/, financials/).\n\n## Procedure\n1. Identify category: determine which top-level folder fits (HOW freight moves → modes/; X12 transaction → edi/; WHO → parties/; WHERE → locations/; packaging type → packaging/; cost/billing → financials/; otherwise → terms/).\n2. Create the file using the category naming rule: PascalCase for multi-word files, edi uses [code].md, and preserve official capitalization and spaces for compound industry terms.\n3. Apply the template: H1 title, Definition paragraph, Key Attributes section, Related Terms section, References section.\n4. Verify terminology against NMFTA/ANSI (or IATA/IMO when those bodies apply); cite a URL; do not use Wikipedia, blogs, or docs older than five years as the authority.\n5. Link bidirectionally: add at least two related-term links and update those related entries to link back.\n6. Commit with format: Create [TermName].md after the quality checks pass.\n\n## Quality checks\n- File in correct category folder\n- Industry terms properly capitalized\n- At least 2 related terms linked\n- At least 1 authoritative reference\n\n## Constraints\n- No speculative or opinion-based content.\n",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__edi_doc",
+      "name": "edi-doc",
+      "description": "Specialized workflow for documenting EDI transaction sets",
+      "content": "# EDI Documentation Workflow\n\n## Purpose\nDocument an EDI transaction set with the mandatory sections and X12 naming.\n\n## Use when\n- Adding or revising an entry under edi/.\n\n## Do not use when\n- General terminology that is not an X12 transaction.\n\n## Inputs\n- The X12 transaction code, ANSI name, and implementation-guide URL.\n\n## Procedure\n1. Record Transaction Code: the X12 number, and name the file [code].md (for example 997.md, 204.md).\n2. Record Official Name: the ANSI X12 standard name; title the page as EDI [code] - [name].\n3. Record Purpose: the business workflow role of the transaction.\n4. Record Direction: Sender to Receiver.\n5. Record Required Fields as a mandatory segments table, then Optional Fields as common optional segments.\n6. Add 2-3 Business Scenarios and Related Transactions that link the workflow chain.\n7. Link to ANSI X12 documentation and include the implementation guide URL.\n\n## Verification\n- All mandatory sections are present; file name is the X12 code; references resolve.\n\n## Constraints\n- Do not document an EDI set in terms/ or another category.\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__category_expand",
+      "name": "category-expand",
+      "description": "Process for adding new documentation categories",
+      "content": "# Category Expansion Process\n\n## Purpose\nAdd a new top-level documentation category only when the existing seven cannot hold the entries.\n\n## Use when\n- A proposed topic does not fit modes/, edi/, terms/, parties/, locations/, packaging/, or financials/.\n\n## Do not use when\n- The topic fits an existing folder; adding a single entry.\n\n## Inputs\n- The proposed category name, purpose, and candidate entries.\n\n## Procedure\n1. Check whether the topic fits the existing 7 categories using the placement logic (how / X12 / who / where / packaging / cost / otherwise terms).\n2. Verify at least 5 entries would justify a new category.\n3. Propose the category in an issue or discussion and wait for approval.\n4. If approved: create the directory with README.md covering purpose, scope, entry criteria, and naming conventions.\n5. Update the root README.md, seed with 3 initial entries, and update related entries with cross-links.\n6. Commit as: Add [category]/ with [n] entries.\n\n## Verification\n- README states purpose and naming; at least 3 seed entries exist; root README lists the folder.\n\n## Constraints\n- Do not add a category for fewer than 5 justified entries.\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__link_check",
+      "name": "link-check",
+      "description": "Workflow for validating cross-references",
+      "content": "# Link Validation Workflow\n\n## Purpose\nValidate and repair FrieghtKB cross-references.\n\n## Use when\n- After moves, new entries, or a reported broken link.\n\n## Do not use when\n- Writing a first draft that has not been placed yet.\n\n## Inputs\n- The category tree and the changed files.\n\n## Procedure\n1. Check that internal links resolve to existing files.\n2. Check that category backlinks are present.\n3. Check that related-term links are bidirectional.\n4. Check that external references return HTTP 200.\n5. Fix by updating moved file paths, adding missing backlinks, and replacing dead URLs with alternatives from NMFTA/ANSI/carrier docs.\n6. Document the repair in the commit message: Fix broken links in [category]/.\n\n## Verification\n- Internal links resolve; related terms point both ways; external URLs respond.\n\n## Constraints\n- Do not delete a historically referenced file solely because a link broke.\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__term_deprecate",
+      "name": "term-deprecate",
+      "description": "Process for handling deprecated terminology",
+      "content": "# Term Deprecation Workflow\n\n## Purpose\nRetire outdated terminology without losing history or external references.\n\n## Use when\n- A term is replaced by a newer official name.\n\n## Do not use when\n- Correcting a typo in a still-current term.\n\n## Inputs\n- The old term file, the replacement entry, and incoming links.\n\n## Procedure\n1. Keep the old file for history; do not delete it in the deprecation commit.\n2. Add a deprecation notice at the top pointing to the replacement.\n3. Update incoming links to the replacement.\n4. Add a redirect note in the category README.\n5. Remove the old term from main navigation.\n6. Retain the file for 1 year, then move to archive/; never delete if it is externally referenced.\n7. Commit as: Deprecate [OldTerm] in favor of [NewTerm].\n\n## Verification\n- Old file still exists with a notice; navigation no longer lists it; incoming links go to the replacement.\n\n## Constraints\n- Never delete an externally referenced term.\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__skill__i18n_doc",
+      "name": "i18n-doc",
+      "description": "Guidelines for international documentation variants",
+      "content": "# Internationalization Workflow\n\n## Purpose\nAdd a regional documentation variant only when terminology or regulation actually differs.\n\n## Use when\n- Canada, Mexico, EU, or Asia-Pacific usage differs from English (US).\n\n## Do not use when\n- Minor spelling differences (for example color/colour).\n\n## Inputs\n- The base English (US) entry and the regional difference to record.\n\n## Procedure\n1. Confirm a variant is warranted: terminology differs significantly, legal/regulatory requirements differ, or industry practices vary — not minor spelling.\n2. Name the file [Term]_[region].md.\n3. Include the standard template sections and add a Region field.\n4. Highlight a Regional Differences section.\n5. Link to the base entry and to other variants.\n\n## Verification\n- Variant file uses the regional suffix; base and variant link to each other; differences are explicit.\n\n## Constraints\n- Primary language remains English (US); do not fork a page for spelling-only changes.\n",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG07_T02_frieghtkb_fork__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG07_T02_frieghtkb_fork__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

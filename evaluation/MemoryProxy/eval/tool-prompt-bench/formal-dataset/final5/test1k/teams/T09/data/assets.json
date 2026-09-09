@@ -1,0 +1,117 @@
+{
+  "memory": [
+    {
+      "id": "T09__memory__sqlite_prisma",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "持久化锁为 `T09Q-PERSIST-SQLITE`：本地数据只走 SQLite 配 Prisma，禁止换成别的存储引擎，也禁止绕过 ORM 直接改库文件。"
+    },
+    {
+      "id": "T09__memory__electron_react_native",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "端侧锁为 `T09Q-SHARE-TS`：桌面用 Electron、移动用 React Native，业务逻辑共用同一份 TypeScript，禁止为某一端复制一份逻辑，也禁止在端侧代码里重写业务规则。"
+    },
+    {
+      "id": "T09__memory__mantine_ui",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "UI 库锁为 `T09Q-UI-MANTINE`：表单、模态框、表格与图表统一用 Mantine，禁止混用第二套组件库，也禁止为单个页面手写同功能组件。"
+    },
+    {
+      "id": "T09__memory__hook_events",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "hook 事件锁为 `T09Q-HOOK-THREE`：只跟踪已注册 hook 的 pre、post、error 三类事件，禁止新增第四类事件，也禁止把未注册 hook 的调用记进来。"
+    },
+    {
+      "id": "T09__memory__session_analytics",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "分析范围锁为 `T09Q-ANALYTICS-SCOPE`：会话分析只覆盖 checkpoint 创建、commit 信息解析与会话对话流三类，禁止把别的指标塞进分析口径。"
+    },
+    {
+      "id": "T09__memory__local_first",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "数据归属锁为 `T09Q-LOCAL-ONLY`：数据只存本地库不做云同步，禁止加任何同步通道，也禁止把分析数据外发。"
+    },
+    {
+      "id": "T09__memory__checkpoint_commit",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "关联锁为 `T09Q-CKPT-TRAILER`：checkpoint 与 commit 只通过说明文字后的 Entire-Checkpoint 标记关联，禁止改标记名，也禁止靠提交顺序反推关联。"
+    },
+    {
+      "id": "T09__memory__session_ui",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "视图锁为 `T09Q-VIEW-THREE`：分析视图只提供会话时间线、commit graph 与工具使用统计三类，禁止新增第四类视图，也禁止把统计塞进时间线里。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T09__skill__hook_tracking",
+      "name": "claude-code-hook",
+      "description": "登记并跟踪 hook 调用事件：先过哪道注册门、三类事件怎么落、登记基线在附件哪里",
+      "content": "1. 先过注册门：只有已登记的 hook 才进跟踪，禁止把未登记调用也记进事件流。\n2. 分类门：事件只分 pre、post、error 三类，禁止新增第四类或把异常归并成 post。\n3. 落库门：事件写本地库并保留原始载荷，禁止只存聚合数。\n4. 收尾的登记基线检查项只写在 references/hook-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/hook-gate.md",
+          "content": "# Hook registration gate\n\nHook tracking for this repo is only valid when all of the following hold:\n\n- Every tracked hook must be stamped with the registry marker `T09Q-HOOK-REG`.\n- The event stream must declare the source value `T09Q-EVENT-SRC`.\n- An error event must carry the marker `T09Q-ERR-TAG`; untagged errors are dropped, never folded into post events.\n- A stream containing `T09Q-UNREG-OK` is rejected; unregistered calls must never be recorded.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented hook registration gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T09__skill__prisma_sqlite",
+      "name": "prisma-sqlite-schema",
+      "description": "改 SQLite 的 Prisma schema：先过哪道环境门、客户端怎么同步、数据留在哪",
+      "content": "1. 先过环境门：先确认是本地迭代还是落迁移文件，禁止直接改库文件。\n2. 客户端门：schema 改动后必须重新生成客户端，禁止只改 schema。\n3. 数据门：数据只留在本地库，禁止加任何同步或导出通道。\n4. 收尾必须跑一次读写校验，禁止只看生成成功。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T09__skill__session_analytics",
+      "name": "session-analytics",
+      "description": "做会话分析：先过哪道口径门、三类分析怎么分、结果落在哪",
+      "content": "1. 先过口径门：先确认分析属于 checkpoint、commit 解析还是对话流，禁止混成一份总览。\n2. 口径内只取已登记字段，禁止临时加口径外指标。\n3. 结果落本地库，禁止把分析结果外发。\n4. 收尾必须核对样本数，禁止只看图表画出来。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T09__skill__electron_setup",
+      "name": "electron-desktop-setup",
+      "description": "搭桌面端运行环境：先过哪道共享门、主进程与渲染进程怎么分",
+      "content": "1. 先过共享门：业务逻辑只放共用的一份 TypeScript，禁止在桌面端复制一份。\n2. 进程门：主进程只做系统与数据访问，渲染进程只做界面，禁止在渲染进程直接读库。\n3. 依赖门：桌面端依赖按端隔离，禁止把移动端依赖带进来。\n4. 起完必须验证一次窗口与数据通路，禁止只看进程起来了。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T09__skill__mantine_components",
+      "name": "mantine-ui-components",
+      "description": "加或改 Mantine 界面组件：先过哪道库门、状态怎么齐、先复用什么",
+      "content": "1. 先过库门：表单、模态框、表格与图表统一用 Mantine，禁止混第二套组件库。\n2. 状态门：加载、空态与错误态必须各有呈现，禁止只做成功态。\n3. 复用门：先复用既有封装，禁止为单个页面手写同功能组件。\n4. 改完必须核对键盘可达性，禁止只看视觉通过。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T09__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T09__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

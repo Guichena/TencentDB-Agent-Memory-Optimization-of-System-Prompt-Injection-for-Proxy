@@ -1,0 +1,135 @@
+{
+  "memory": [
+    {
+      "id": "T12__memory__three_tier_reasoning",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "推理分层锁为 `T12Q-TIER-THREE`：只分三层，Tier 1 规则引擎处理已知模式、Tier 2 因果推断、Tier 3 处理未知，禁止新增第四层，也禁止让低层越过上层直接下结论。"
+    },
+    {
+      "id": "T12__memory__signal_pipeline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "信号链路锁为 `T12Q-PIPE-ORDER`：链路固定为 connectors → MQTT → 流平台 → 流处理 → 时序库，禁止跳过中间环节，也禁止另开旁路直写时序库。"
+    },
+    {
+      "id": "T12__memory__event_causal_state",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "状态锁为 `T12Q-STATE-EVENT`：生产状态以带时间戳的事件流为主并在其上增量构建因果图，禁止把聚合快照当主状态，也禁止绕过事件流直接写状态。"
+    },
+    {
+      "id": "T12__memory__safety_boundaries",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "写入边界锁为 `T12Q-WRITE-OPCUA`：只能向 Level 2 监控系统写 setpoint，禁止直写 Level 1 PLC，也禁止绕过互锁。"
+    },
+    {
+      "id": "T12__memory__rollback_monitoring",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "回滚锁为 `T12Q-ROLLBACK-KPI`：每次 setpoint 变更先存旧值、应用后监控下游指标再定去留，禁止不存旧值就写，也禁止跳过监控窗口。"
+    },
+    {
+      "id": "T12__memory__ecosystem",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "生态边界锁为 `T12Q-ECO-FOUR`：只对接 Lore、Council、Shipyard、Grafana 四个外部件，禁止新增第五个常驻依赖，也禁止让它们反过来写生产状态。"
+    },
+    {
+      "id": "T12__memory__adaptive_gears",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "档位锁为 `T12Q-GEAR-EVIDENCE`：决策权限按积累证据调整，低置信度结果必须走更谨慎的验证或人工升级，禁止在低置信度下直接提权。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T12__skill__rust_grpc_watch",
+      "name": "rust-grpc-watch-stub",
+      "description": "给 Rust gRPC 接口加 watch 存根：先过哪道契约门、流怎么处理、断连怎么办",
+      "content": "1. 先过契约门：先对齐接口定义再写实现，禁止照着现有调用反推。\n2. 流门：watch 必须处理重连与乱序，禁止假定流不会断。\n3. 背压门：消费端跟不上时按策略丢弃或缓冲，禁止无界堆积。\n4. 接完必须跑一次断连演练，禁止只看首次连接成功。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__signal_path",
+      "name": "signal-path-component",
+      "description": "改信号链路上的组件：先过哪道顺序门、环节怎么接、旁路能不能开",
+      "content": "1. 先过顺序门：先确认组件在链路上的位置，禁止越过上游环节直接取数。\n2. 接口门：上下游各认一处契约，禁止为省事直连时序库。\n3. 时序门：每条信号带时间戳并保持顺序，禁止乱序写入。\n4. 改完必须沿链路跑一次端到端，禁止只测单个组件。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__gear_transition",
+      "name": "adaptive-gear-transition",
+      "description": "调整 gear 档位与决策权限：先过哪道证据门、降档与提权怎么定、换档记什么",
+      "content": "1. 先过证据门：先算积累证据与置信度，禁止凭最近一次结果改档。\n2. 降档门：低置信度必须降到更谨慎的档并走验证或人工升级，禁止在低置信度下提权。\n3. 记录门：每次换档都要记下原因，禁止静默换档。\n4. 换档后必须复核一次决策结果，禁止只看档位变化。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__outcome_enrichment",
+      "name": "outcome-data-enrichment",
+      "description": "给结果数据补上下文：先过哪道来源门、按什么关联、禁止改写什么",
+      "content": "1. 先过来源门：先确认补充信息来自登记来源，禁止临时拉未登记数据。\n2. 关联门：只按事件标识关联，禁止按时间相近猜。\n3. 不可变门：补的是上下文不改原始结果，禁止回写覆盖原值。\n4. 补完必须核对样本覆盖率，禁止只看几条样例。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__safe_schema_migration",
+      "name": "safe-schema-migration",
+      "description": "改时序库结构：先过哪道双写门、回滚怎么做、验证怎么收",
+      "content": "1. 先过双写门：新旧结构并存一段时间，禁止一次性切走。\n2. 回滚门：先留好回退路径再改，禁止改完才想回退。\n3. 校验门：迁移后逐表核对条目数，禁止只看命令退出码。\n4. 生产库不得接收测试数据，验证只走独立环境。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__lore_praxis_cli",
+      "name": "lore-praxis-cli-integration",
+      "description": "接入 Lore 命令行：先过哪道边界门、记录写什么、禁止反向写什么",
+      "content": "1. 先过边界门：只把决策、模式与失败写出去，禁止把生产状态也推过去。\n2. 单向门：这个方向只做记录，禁止让对方反过来改生产状态。\n3. 脱敏门：写出去前去掉凭据与站点标识，禁止原样导出。\n4. 接完必须验证一次写入与读取，禁止只看命令返回零。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__plan_review",
+      "name": "plan-review-and-handoff",
+      "description": "评审并交接一份 agent 计划：先过哪道证据门、结论怎么标、未完成项怎么写",
+      "content": "1. 先过证据门：先核对计划里的已完成项是否有对应产物，禁止只看计划文字。\n2. 结论门：完成、部分完成、未开始分开标，禁止笼统写进行中。\n3. 交接门：未完成项要写明下一步与负责人，禁止留一句待办。\n4. 评审不得替对方改产物，禁止边评边动手。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__just_build_workflow",
+      "name": "just-build-workflow",
+      "description": "用 just 跑构建与校验：先过哪道目标门、顺序怎么定、门禁基线在附件哪里",
+      "content": "1. 先过目标门：先确认要跑的目标，禁止直接跑全量兜底。\n2. 顺序门：按构建、校验、测试的顺序跑，禁止跳步只跑测试。\n3. 判读门：失败先取第一条根因，禁止一次改多处后猜。\n4. 收尾的门禁基线检查项只写在 references/just-build.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/just-build.md",
+          "content": "# just build gate\n\nA build pass for this repo may only be reported as green when all of the following hold:\n\n- The run must be stamped with the gate marker `T12Q-BUILD-SEAL`.\n- The invoked recipe must be named `T12Q-RECIPE` in the log header.\n- A skipped step must be declared with the value `T12Q-SKIP-DECLARED`; an undeclared skip voids the pass.\n- A log containing `T12Q-PARTIAL-OK` is rejected; partial results must never be reported as green.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented just build gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T12__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T12__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "memory": [
+    {
+      "id": "ma-carryforward-intent",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "carry-forward 的语义锁为 `T01FK-CARRY-CHANGE`：暂存携带的是改动本身而不是会话身份，重新应用时不要求来源会话仍在，禁止把来源会话作为恢复前提，也禁止在同一工作树里叠加两份未应用的暂存。"
+    },
+    {
+      "id": "ma-changelog-conventions",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "changelog 锁为 `T01FK-CHANGELOG-HAND`：每个版本的手工条目只从最近合入主干的变更里挑，禁止自动从提交历史生成，外部贡献必须署名，禁止折叠成一句笼统的修复。"
+    },
+    {
+      "id": "ma-commit-splitting",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "提交拆分锁为 `T01FK-SPLIT-ONE`：一次提交只装一个逻辑改动，fix、refactor、test 不得混装；测试与实现同属一个逻辑改动时必须同批提交，禁止为凑数量拆开。"
+    },
+    {
+      "id": "ma-gui-hooks",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "GUI 客户端故障锁为 `T01FK-GUI-BARE`：在 GUI 客户端里失败的根因是裸仓库下的钩子路径，修法只认路径解析修正，禁止改用禁用钩子或让用户换命令行绕过。"
+    },
+    {
+      "id": "ma-hook-chaining",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "钩子安装锁为 `T01FK-HOOK-CHAIN`：安装时必须把既有自定义钩子链起来而不是覆盖，禁止写覆盖式安装，也禁止在没有备份时改用户既有钩子。"
+    },
+    {
+      "id": "ma-mise-tasks",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "mise 任务锁为 `T01FK-MISE-FILE`：多行 shell 脚本一律抽成独立任务文件，禁止把多行脚本文本留在配置文件里，也禁止为了少一个文件把两条任务并回一条。"
+    },
+    {
+      "id": "ma-opencode-plugin",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "OpenCode 插件转储路径锁为 `T01FK-OPENCODE-PATH`：转储只落在自定义会话目录下经 sanitize 的子路径，禁止退回默认位置，也禁止放宽 sanitize 规则省事。"
+    },
+    {
+      "id": "ma-state-design-history",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "会话状态机锁为 `T01FK-STATE-PHASE`：只跟踪 active、idle、ended 三个相位，相位只能由生命周期事件推进，禁止新增第四相位，也禁止用最后交互时间直接改相位。"
+    },
+    {
+      "id": "ma-transition-contract",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "状态迁移契约锁为 `T01FK-TRANSITION-COMMON`：公共动作必须在提前返回分支之前无条件执行，禁止把公共动作挪进某个分支，也禁止用早退跳过它。"
+    },
+    {
+      "id": "ma-tty-semantics",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "TTY 语义锁为 `T01FK-TTY-FAKE`：无头运行只靠环境变量伪造非交互环境，禁止改用检测父进程或改全局输出配置伪造，也禁止把伪造变量写进提交内容。"
+    },
+    {
+      "id": "T01__memory__checkpoint_push",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "checkpoint 推送锁为 `T01FK-CKPT-BRANCH`：checkpoint 走独立的分支命名约定，trailer key 保持稳定，禁止给 trailer 改名，也禁止把 checkpoint 推到主工作分支。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-architecture-doc",
+      "name": "architecture-doc",
+      "description": "为某个微妙机制写或改设计文档：先过哪道证据门、文档落在哪、禁止写成什么",
+      "content": "1. 先过证据门：先把机制的真实调用路径读出来，禁止凭提交信息或口头描述开写。\n2. 过门后才落 docs/architecture 下的文档，禁止写在 README 或提交信息里。\n3. 结构门：先写现状再写不变式，禁止只写理想设计不写当前约束。\n4. 交叉引用只指仓库内路径，禁止链接外部讨论串代替论证。\n5. 机制改动后必须回来更新同一篇文档，禁止另起一篇并列文档。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-branch-review",
+      "name": "branch-review",
+      "description": "对分支与主干的完整差异做分类评审：先过哪道范围门、结论怎么分档、禁止边评边改",
+      "content": "1. 先过范围门：必须取分支与主干的完整差异，禁止只评审最近一次提交。\n2. 分类门：结论按必修、建议、疑问三档分开，禁止混成一段总体感受。\n3. 每条结论必须指到具体文件与行，禁止只用模块名概括。\n4. 评审只出结论不改代码，禁止边评边顺手提交修改。\n5. 有未完成项必须显式列出，禁止默认对方已知而略过。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-changelog-craft",
+      "name": "changelog-craft",
+      "description": "按上一个 tag 梳理已合入条目并撰写变更记录：先过哪道枚举门、条目怎么写、基线检查项在附件哪里",
+      "content": "1. 先过枚举门：以上一个 tag 为起点枚举已合入条目，禁止用手边记得的几条替代。\n2. 写法对齐既有条目句式，禁止另起一套标题层级。\n3. 外部贡献必须署名，禁止折叠成笼统的一句话。\n4. 只写用户可感知的变化，禁止罗列内部重构细节。\n5. 收尾的条目基线检查项只写在 references/changelog-lock.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/changelog-lock.md",
+          "content": "# Changelog entry baseline\n\nA changelog pass for this repo is only valid when all of the following hold:\n\n- The pass must start from the anchor `T01FK-TAG-ANCHOR`; any other start point makes the enumeration incomplete.\n- Every entry line must end with the credit token `T01FK-CREDIT`; an entry without it is rejected.\n- Internal-only refactors must be marked `T01FK-INTERNAL` and kept out of the user-visible section.\n- A pass containing `T01FK-SQUASH-ALL` is rejected; entries must never be collapsed into one line.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented changelog entry baseline for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "sk-commit-splitting",
+      "name": "commit-splitting",
+      "description": "把分支上已完成的工作拆成一串通过校验的约定式提交：先过哪道验证门、怎么切分、汇报什么",
+      "content": "1. 先过验证门：拆分前必须先跑通校验，未跑通不得进入拆分。\n2. 切分门：按逻辑改动切，一次提交只装一个逻辑改动，禁止按文件数量均分。\n3. 测试与实现同属一个逻辑改动时同批提交，禁止为凑提交数拆开。\n4. 提交信息按约定式格式写，禁止省略正文只写标题。\n5. 拆完必须逐条重跑校验并汇报，禁止只在最后一次跑。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-e2e-authoring",
+      "name": "e2e-authoring",
+      "description": "编写或修复跑真实 agent 的端到端场景：先过哪道隔离门、环境与断言怎么定",
+      "content": "1. 先过隔离门：场景必须用独立临时工作区，禁止复用开发者的真实仓库。\n2. 环境门：非交互环境要显式声明，禁止依赖运行时的默认终端能力。\n3. 断言门：只断言可观察的命令行输出与仓库状态，禁止断言内部日志文本。\n4. 失败先复现再修，禁止直接放宽断言让场景变绿。\n5. 场景必须能重复执行，禁止依赖上一次运行的残留状态。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-lint-fix",
+      "name": "lint-fix",
+      "description": "分流并最小修复校验失败：先过哪道分类门、修复落在哪、禁止怎么让校验变绿",
+      "content": "1. 先过分类门：把失败按格式、类型、规则三类分开，禁止一眼看上去全是报错就逐个试。\n2. 分类后只取每类第一条根因，禁止把后续噪声当成独立缺陷一起修。\n3. 最小修复只落在触发失败的那个文件，禁止顺手重排或升级无关依赖。\n4. 修完必须重跑同一条校验命令，禁止改命令或加忽略标记让校验变绿。\n5. 还有残留失败就如实上报并停下，禁止继续做无关改动。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-test-updates",
+      "name": "test-updates",
+      "description": "按仓库约定在正确的层补测试：先过哪道层次门、广度怎么定、什么才算通过",
+      "content": "1. 先过层次门：按改动所在层决定测试层，禁止一律加到最上层。\n2. 广度门：先列受影响的输入分支再补用例，禁止只补报错那一条。\n3. 命名门：用例名要说清场景与预期，禁止用泛化标题。\n4. 实现门：只改测试与必要的导出，禁止为了好测改生产行为。\n5. 通过门：目标用例与既有全量都要跑绿，禁止只跑新增用例。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T01__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T01__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

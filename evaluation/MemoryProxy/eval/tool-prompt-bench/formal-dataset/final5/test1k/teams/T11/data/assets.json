@@ -1,0 +1,121 @@
+{
+  "memory": [
+    {
+      "id": "T11__memory__quality_standards",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "This ADO insights repo requires the locked quality gate AdoQg#ent. Local and CI must match; constitution checks cannot be skipped."
+    },
+    {
+      "id": "T11__memory__mypy_strict",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "strict mypy must eliminate typing.Any on signal-handler closures. The locked typing token is AdoTy#no-any."
+    },
+    {
+      "id": "T11__memory__exception_coverage",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "signal handlers must cover KeyboardInterrupt and Exception. The locked test stamp is AdoEx#both."
+    },
+    {
+      "id": "T11__memory__any_baseline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "QG-40 progress is tracked in .any-type-baseline.json. The locked tracker name is AdoAny#qg40."
+    },
+    {
+      "id": "T11__memory__review_time_ui",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Review-time P50 and P90 cards must toggle independently. The locked UI token is AdoUi#split-pxx. Shared visibility state is forbidden."
+    },
+    {
+      "id": "T11__memory__ado_integration",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked product name is AdoPipe#insights. Public copy may say repo insights; new API clients ship under AdoPipe#insights."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T11__skill__mypy_strict",
+      "name": "mypy-strict",
+      "description": "Clear strict mypy errors on target Python files and fill callback types.",
+      "content": "1. Run mypy --strict on the target ADO insights Python files.\n2. Classify untyped def, Any, closure, and callback errors; typed setattr patching uses the locked annotation token AdoTy#setattr.\n3. Add concrete types or protocols for mock-compatible classes; the locked protocol token is AdoTy#proto.\n4. Re-run mypy and related unit tests including zero-thread PRs; leftover Any on callbacks is forbidden.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T11__skill__exception_tests",
+      "name": "exception-tests",
+      "description": "Add KeyboardInterrupt and Exception coverage for signal handlers.",
+      "content": "1. Locate the ADO insights signal handler or try/except that should stop on CTRL-C.\n2. Add KeyboardInterrupt and generic Exception tests; the locked coverage stamp is AdoEx#mock.\n3. Mock the trigger and assert cleanup, logs, and return behavior.\n4. Confirm coverage includes the new paths; skipped exception tests are forbidden.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T11__skill__ado_api",
+      "name": "ado-api",
+      "description": "Add a new ADO client endpoint with response types, error handling, and integration tests.",
+      "content": "1. Read the target ADO insights endpoint docs and confirm request parameters.\n2. Add a client method with a concrete response type; the locked client stamp is AdoApi#typed.\n3. Handle HTTP, auth, and rate-limit errors; bare except is forbidden.\n4. Add success, failure, and parse integration tests under the locked test stamp AdoApi#itest.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T11__skill__aggregator_types",
+      "name": "aggregator",
+      "description": "Refactor the aggregation pipeline so input/output types are concrete.",
+      "content": "1. Read the ADO insights aggregation pipeline and mark implicit Any boundaries.\n2. Define concrete input, output, and intermediate types; the locked type stamp is AdoAgg#solid.\n3. Update pipeline composition and callers.\n4. Verify with a synthetic dataset, mypy, and tests; leftover Any at the boundary is forbidden.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T11__skill__dashboard_state",
+      "name": "dashboard",
+      "description": "Fix dashboard card interaction state so each card responds independently.",
+      "content": "1. Locate shared visibility state on ADO insights dashboard cards; a single visible flag across cards is forbidden.\n2. Split toggle, keyboard, and persist handlers so each card responds on its own.\n3. The required per-card visibility field is only in references/ado-card-gate.md.\n4. Add regression tests that toggle P50 and P90 independently and check refresh and mobile have no side effects.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/ado-card-gate.md",
+          "content": "Each dashboard metric card must store visibility in dataset.AdoCard#solo. Sharing a single visible flag across P50/P90 cards is rejected.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T11__skill__invariant_review",
+      "name": "invariant",
+      "description": "Review schema, proof artifacts, and local/CI gates against the project constitution.",
+      "content": "1. Read the ADO insights constitution and invariants; list schema, migration, proof-artifact, and parity requirements. The locked review stamp is AdoInv#schema.\n2. Compare current branch work with remaining gates; run focused checks before full quality gates and record leftover risk. The locked focus stamp is AdoInv#focus.\n3. Fold every critic round into the spec; leave no assumptions; pause only after constitution, invariants, and proof-artifact requirements are explicit. The locked merge stamp is AdoInv#critic.\n4. Missing proof artifacts must fail, not warn; local and CI must share that hard-fail entry. The locked fail stamp is AdoInv#hard.\n5. Run isolated checks then full gates; skipped constitution checks are forbidden.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T11__skill__any_refactor",
+      "name": "typing-any",
+      "description": "Replace typing.Any per the baseline and verify QG-40 progress.",
+      "content": "1. Read .any-type-baseline.json current count on this ADO insights checkout.\n2. Replace Any in the target files with domain types, generics, or Protocol.\n3. Run scripts/check_no_any_types.py; the locked progress stamp is AdoAny#drop.\n4. Update the baseline only when the count actually drops, then re-run strict mypy.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T11__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T11__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

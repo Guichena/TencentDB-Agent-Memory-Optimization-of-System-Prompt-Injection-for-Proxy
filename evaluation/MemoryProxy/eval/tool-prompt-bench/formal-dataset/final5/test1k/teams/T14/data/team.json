@@ -1,0 +1,13 @@
+{
+  "team_id": "T14",
+  "repo_id": "ClusterCockpit/cc-backend",
+  "repo_url": "https://github.com/ClusterCockpit/cc-backend",
+  "case_count": 32,
+  "current_agent_id": "T14__agent__primary",
+  "agent_ids": [
+    "T14__agent__primary",
+    "T14__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

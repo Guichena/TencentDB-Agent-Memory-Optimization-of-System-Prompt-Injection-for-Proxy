@@ -1,0 +1,38 @@
+{
+  "team": "dvg06_cookies",
+  "overlay_skipped": [],
+  "files_skill": "table-to-checkbox-conversion",
+  "files_path": "references/ck-cell-seal.md",
+  "hole_ids": [
+    "dvg06_cookies__c001",
+    "dvg06_cookies__c002",
+    "dvg06_cookies__c003",
+    "dvg06_cookies__c004"
+  ],
+  "cases_rewritten": [
+    "dvg06_cookies__c001",
+    "dvg06_cookies__c002",
+    "dvg06_cookies__c003",
+    "dvg06_cookies__c004",
+    "dvg06_cookies__c005",
+    "dvg06_cookies__c007",
+    "dvg06_cookies__c008",
+    "dvg06_cookies__c009",
+    "dvg06_cookies__c010",
+    "dvg06_cookies__c011",
+    "dvg06_cookies__c013",
+    "dvg06_cookies__c015",
+    "dvg06_cookies__c017",
+    "dvg06_cookies__c019",
+    "dvg06_cookies__c020",
+    "dvg06_cookies__c031",
+    "dvg06_cookies__c033"
+  ],
+  "notes": "hole mem+files preserved; remaining 13 distractor/natural cases audited against new locks",
+  "audit_date": "2026-09-08",
+  "audit_fixes": [
+    "Rewrote 13 NO_CALL cases to avoid contradicting locked Memory/Skill requirements.",
+    "Preserved the two required hole pairs, all case IDs, base SHA values, asset IDs, Skill names, visibility values, and the single files attachment.",
+    "Synchronized evidence.original_prompt and refreshed NO_CALL gold reasons."
+  ]
+}

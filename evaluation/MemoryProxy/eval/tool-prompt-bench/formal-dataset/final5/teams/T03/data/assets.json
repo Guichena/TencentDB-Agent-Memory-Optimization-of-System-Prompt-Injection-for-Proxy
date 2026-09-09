@@ -1,0 +1,98 @@
+{
+  "memory": [
+    {
+      "id": "ma-zoom-fixes-history",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "GridView 縮放修正歷史（3 月 7 日）：zoom 結束後自動捲動並將 cursor card 置中、捲動觸發改為 300ms debounce、scroll 動畫 timing 改為 linear；「zoom 後自動置中」因部分使用者只想瀏覽、不希望被重設位置，被藏進 feature flag，預設關閉。"
+    },
+    {
+      "id": "ma-zoom-scope-normal-mode",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "3 月 7 日的 zoom 位置保留修正僅限一般（非連續捲動）模式的 zoom 路徑；連續捲動模式的 resize 定位是另一條程式路徑，一般模式行為不應被連續捲動的修改波及。"
+    },
+    {
+      "id": "ma-trackpad-timeline",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Trackpad 幽靈捲動時間線：3 月 7 日判定根因是 macOS 慣性捲動事件造成換頁後的幽靈捲動；3 月 8 日將 momentum 事件排除於換頁累加之外，使用者回報修正成功，並經 Codex review 確認。"
+    },
+    {
+      "id": "ma-menu-placement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "選單擺放決定（3 月 8 日）：RTL 換頁選項放在 Menu Bar 導覽中，雙頁與單頁各自獨立；單頁導覽選項不得放進雙頁 submenu；Context Menu 選項用語必須與 Menu Bar 一致。"
+    },
+    {
+      "id": "ma-scroll-mode-background",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Cee 既有縮放設計：一般模式下 pinch zoom 會帶動視窗寬高，zoom 後以 cursor 所在圖片為錨定置中；該行為由 feature flag 控管。auto-fitting 必須遵守視窗最小 300×300 且縮放不得飄移的約束。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-review-loop",
+      "name": "review-loop",
+      "description": "Review the last commit with Codex and iterate until all findings pass.",
+      "content": "1. Identify the exact last commit and its diff. 2. Request a Codex review of that commit. 3. Triage every finding into a real issue, false positive, or intentional behavior. 4. Fix real issues locally while keeping scope limited to the reviewed change. 5. Re-run the review and repeat until findings pass or each remaining item is explicitly justified. 6. Keep test execution local and report the final review result.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-release-build",
+      "name": "release-build",
+      "description": "Produce and verify a Release build of Cee and install the resulting application.",
+      "content": "1. Regenerate the Xcode project if project generation inputs changed. 2. Select the Cee scheme and Release configuration. 3. Run the repository's Release build command and stop on compile errors. 4. Locate the built Cee.app and copy it to /Applications only after the build succeeds. 5. Verify the installed application bundle and launch it for a smoke check. 6. Record the build configuration, output location, and any signing or permission limitation.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-auto-impl",
+      "name": "auto-impl",
+      "description": "Implement a phase range from a spec or plan with context gathering, validation, and status updates.",
+      "content": "1. Read the target spec sections and acceptance criteria. 2. Gather code context with parallel exploration and map impacted files. 3. Implement the requested phases in order, preserving the spec's constraints. 4. Validate each phase with xcodebuild build/test and scripts/test-e2e.sh when applicable. 5. Update the spec status for completed phases and record deviations. 6. Summarize changed files, validation results, and remaining work.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-doc-update",
+      "name": "doc-update",
+      "description": "Update repository documentation after behavior changes while keeping specs and bilingual documentation aligned.",
+      "content": "1. Identify the behavior change and the relevant spec, README, and CLAUDE.md sections. 2. Update the affected spec with the actual behavior and status. 3. Synchronize the English and zh-Hant README wording where the behavior is user-visible. 4. Record durable implementation gotchas in CLAUDE.md. 5. Validate every claim against the source and tests. 6. Review the diff for accidental feature claims or language drift.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-commit-flow",
+      "name": "commit-flow",
+      "description": "Commit completed work with validation, selective staging, and the repository's conventional message style.",
+      "content": "1. Check the working tree and review the complete diff. 2. Run the relevant build and tests before staging. 3. Stage only files belonging to the completed change. 4. Create a conventional commit message consistent with repository history. 5. Verify the commit contents and resulting status. 6. Never amend an existing commit unless the user explicitly requests it.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-change-finalization",
+      "name": "change-finalization",
+      "description": "Perform the team's complete wrap-up sequence for a landed change.",
+      "content": "1. Simplify the completed implementation and remove dead code without changing behavior. 2. Run the review-loop workflow on the last commit and resolve real findings. 3. Update CLAUDE.md and affected specs or documentation with verified behavior. 4. Run the relevant unit, E2E, and build validation. 5. Stage the intended files selectively. 6. Commit with the repository's conventional message and report the final validation.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T03__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T03__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

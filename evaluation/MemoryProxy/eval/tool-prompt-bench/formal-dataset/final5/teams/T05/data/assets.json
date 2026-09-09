@@ -1,0 +1,104 @@
+{
+  "memory": [
+    {
+      "id": "T05__memory__architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Code Insights parses Claude Code, Cursor, Codex CLI, and Copilot CLI session history, stores structured data in local SQLite, and exposes terminal analytics plus a Hono browser dashboard; API keys remain server-side."
+    },
+    {
+      "id": "T05__memory__test_runner",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The repository uses Vitest for CLI and server tests; the root test script runs vitest run and the coverage script runs vitest run --coverage with the V8 provider."
+    },
+    {
+      "id": "T05__memory__coverage_priorities",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Coverage work should prioritize pure normalization and export functions first, then provider wrappers, route handlers, and the large server-side LLM analysis orchestration because these areas have different mocking and integration costs."
+    },
+    {
+      "id": "T05__memory__analysis_orchestration",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Server LLM analysis formats session messages, calls the configured client, parses or repairs JSON, handles chunked sessions and facets, converts results to insight rows, and persists insights through the SQLite database layer."
+    },
+    {
+      "id": "T05__memory__provider_transport",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "LLM provider adapters are thin HTTP-oriented wrappers with provider-specific request and response mapping; provider tests should verify outbound fetch payloads, authentication placement, role mapping, and nested response parsing."
+    },
+    {
+      "id": "T05__memory__export_contract",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The server exports analyzed session insights into Agent Rules, Knowledge Brief, Obsidian, and Notion formats; export formatting is deterministic and should preserve empty-state behavior and normalized insight fields."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T05__skill__test_coverage",
+      "name": "expand-vitest-coverage",
+      "description": "Plan and implement high-value Vitest coverage across pure functions, routes, and integration-heavy modules.",
+      "content": "1. Run the existing Vitest suite and coverage command to establish a baseline.\n2. Rank uncovered code by behavior risk and mocking complexity.\n3. Add focused tests for pure normalizers and exporters first.\n4. Add route and provider tests at stable boundaries with explicit fixtures.\n5. Mock LLM and database seams only where integration behavior is not the subject.\n6. Re-run tests and coverage, then record remaining meaningful gaps.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_llm_providers",
+      "name": "test-llm-providers",
+      "description": "Verify provider-specific HTTP request and response behavior without calling live model services.",
+      "content": "1. Identify each provider's request URL, headers, authentication, role mapping, and response path.\n2. Mock fetch at the HTTP boundary and provide representative success, malformed, and error responses.\n3. Assert the exact provider payload including system-message placement and nested content mapping.\n4. Assert normalized response text and usage metadata.\n5. Cover timeout or non-2xx handling.\n6. Run the provider tests and keep fixtures deterministic.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_analysis",
+      "name": "test-llm-analysis-orchestration",
+      "description": "Test session analysis, chunking, JSON repair, persistence, and facet extraction with controlled LLM and database seams.",
+      "content": "1. Map the analysis entry points and early returns for configuration, message count, and input size.\n2. Mock the LLM client with valid, malformed, chunked, and failing responses.\n3. Mock or fixture the SQLite layer at the persistence boundary.\n4. Assert prompt construction, JSON parsing or repair, insight conversion, and deletion/save ordering.\n5. Add cases for facet extraction and partial chunk failures.\n6. Run the focused tests and the full Vitest suite.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_routes",
+      "name": "test-hono-api-routes",
+      "description": "Add request-level tests for Hono server routes using the app factory without starting a real server.",
+      "content": "1. Create the Hono app through createApp or the route's exported test seam.\n2. Mock database, configuration, and external LLM dependencies at module boundaries.\n3. Exercise valid requests, missing parameters, not-found cases, and dependency failures.\n4. Assert status codes, JSON shapes, error messages, and side effects.\n5. Keep each test isolated and reset mocks between cases.\n6. Run the server Vitest project and the complete workspace suite.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_pure_functions",
+      "name": "test-pure-data-transforms",
+      "description": "Build table-driven tests for normalization, aggregation, and export formatting functions with no external services.",
+      "content": "1. Locate the pure function and document its accepted input shapes and invariants.\n2. Build table-driven fixtures for normal, empty, null, malformed, and boundary values.\n3. Assert normalized categories, ordering, defaults, escaping, and deterministic output.\n4. Add regression cases for every discovered edge condition.\n5. Keep the tests independent of SQLite, network, and environment state.\n6. Run the focused file and full Vitest suite.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__coverage_prioritization",
+      "name": "prioritize-test-gaps",
+      "description": "Turn coverage output and file risk into an ordered, actionable testing plan.",
+      "content": "1. Generate a fresh coverage report for CLI and server packages.\n2. Group uncovered lines by pure logic, provider boundary, route, persistence, and orchestration.\n3. Estimate test value and mocking or fixture cost for each group.\n4. Prioritize high-risk behavior with cheap deterministic tests before broad integration work.\n5. Map each proposed test to a concrete file and branch or behavior.\n6. Re-run coverage after implementation and revise the plan from evidence.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T05__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T05__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

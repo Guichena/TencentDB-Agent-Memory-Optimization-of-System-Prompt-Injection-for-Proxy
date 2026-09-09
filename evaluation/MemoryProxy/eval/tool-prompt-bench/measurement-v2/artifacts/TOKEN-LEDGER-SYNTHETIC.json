@@ -1,0 +1,124 @@
+{
+  "formalDataState": "blocked",
+  "ledger": {
+    "schemaVersion": 2,
+    "measurementModuleId": "M2",
+    "variantId": "V0",
+    "runId": "synthetic-m2-evidence",
+    "tokenizer": {
+      "id": "o200k_base",
+      "version": "tiktoken-1.0.22"
+    },
+    "classification": {
+      "contractId": "task1.m2.prompt-unit-classification",
+      "contractVersion": "1",
+      "contractSha256": "978d44d211a4c013fde9e2c93a075bf3f587d734b80c3fa79bd626be21df1afe",
+      "compilerVersion": "c05.1",
+      "segmenterVersion": "capture-profile-artifacts.measureBlock-v1",
+      "trustedSourceManifestSha256": "2e279c9edece75d24653b577c6bc112c5af722bba61bcd4fc88fd787f0c245dc",
+      "captureManifestSha256": "72e0c73de689babd4f621111a302acd81eed783e11908674ef0550c946ab5114",
+      "sourceInventorySha256": "044e32b4eb9ca5d3e7b27080841bcb8ceb13f473c0e23ca9a5511ea6afaa5235",
+      "orderedSourceManifestSha256": "0cca277e6281a5bb8b8887e484b084dc91595878bc2a8b6bffdbefc5b53c79c5",
+      "sourceRootSha256": "60b79dc3089678d8fe7c2b5b3f1ade5bf0a8b8ad8dabfd98c9b77cebbbcccde5",
+      "expectedSourceAttestation": {
+        "authority": "synthetic-self-built",
+        "sourceInventorySha256": "044e32b4eb9ca5d3e7b27080841bcb8ceb13f473c0e23ca9a5511ea6afaa5235",
+        "orderedSourceManifestSha256": "0cca277e6281a5bb8b8887e484b084dc91595878bc2a8b6bffdbefc5b53c79c5",
+        "sourceRootSha256": "60b79dc3089678d8fe7c2b5b3f1ade5bf0a8b8ad8dabfd98c9b77cebbbcccde5"
+      },
+      "orderedSources": [
+        {
+          "compilerFamily": "skill",
+          "compilerSurface": "skill-tools",
+          "injectionBlockId": "synthetic-tool-prompt-block",
+          "order": 0,
+          "provenance": "compiled-tool-prompt-unit",
+          "sourceId": "compiled:skill:skill-tools:synthetic-tool-prompt-block:skill-tools.legacy-body%23static-0",
+          "sourceKind": "legacy-body",
+          "sourceLocalId": "skill-tools.legacy-body#static-0",
+          "sourceSha256": "bc962e6b187fbbff70d287d4f770e497815eca9aad1a8a983c32787f01a013f1"
+        },
+        {
+          "compilerFamily": "skill",
+          "compilerSurface": "skill-tools",
+          "injectionBlockId": "synthetic-tool-prompt-block",
+          "order": 1,
+          "provenance": "compiled-tool-prompt-unit",
+          "sourceId": "compiled:skill:skill-tools:synthetic-tool-prompt-block:shared.execution-grammar",
+          "sourceKind": "execution-grammar",
+          "sourceLocalId": "shared.execution-grammar",
+          "sourceSha256": "316d68def6946ef48d6ccc0f852c50c845dcea5cf29b69e7e24aab2ae79af314"
+        },
+        {
+          "compilerFamily": null,
+          "compilerSurface": null,
+          "injectionBlockId": "synthetic-capture-block",
+          "order": 2,
+          "provenance": "frozen-capture-runtime-binding",
+          "sourceId": "capture:synthetic-capture-block:runtime-binding:skill-tools.legacy-body%23binding-0",
+          "sourceKind": "runtime-binding",
+          "sourceLocalId": "skill-tools.legacy-body#binding-0",
+          "sourceSha256": "8c113d38a73364f5df5ed6230d5b1192f3b746651b9ccabbbbcecddafe6ef122"
+        },
+        {
+          "compilerFamily": null,
+          "compilerSurface": null,
+          "injectionBlockId": "synthetic-capture-block",
+          "order": 3,
+          "provenance": "frozen-capture-dynamic-asset",
+          "sourceId": "capture:synthetic-capture-block:dynamic-asset:skill-listing.dynamic-assets",
+          "sourceKind": "dynamic-assets",
+          "sourceLocalId": "skill-listing.dynamic-assets",
+          "sourceSha256": "c8fc770f54a62cc4883bcd607ea53ea27750a6ab3fe4032072437b5929fe8c27"
+        }
+      ],
+      "sourceKindToComponent": {
+        "legacy-body": "staticTemplate",
+        "policy": "staticTemplate",
+        "execution-grammar": "executionContract",
+        "tool-card": "staticTemplate",
+        "dynamic-assets": "dynamicAsset",
+        "runtime-binding": "runtimeBinding"
+      },
+      "formalCompilerClosure": {
+        "status": "blocked",
+        "blocker": "SELF_BUILT_SOURCE_ATTESTATION_NOT_FORMAL",
+        "owner": "Integration"
+      }
+    },
+    "componentTokenAccounting": "independently_encoded_non_additive",
+    "totalInjectionTokens": 40,
+    "toolDescriptionStaticTokens": 21,
+    "staticTemplateTokens": 11,
+    "executionContractTokens": 11,
+    "runtimeBindingTokens": 7,
+    "dynamicAssetTokens": 13,
+    "totalInjectionUtf8Bytes": 175,
+    "toolDescriptionStaticUtf8Bytes": 90,
+    "totalInjectionSha256": "3df1a3632b6101c8febdf8674d6c267406adad4adbba05be687dc7b4ba47c518",
+    "toolDescriptionStaticSha256": "e4479d66fe512e8a65a10a5870d6d4bf5e20e0ffa73dd1c9e97f3c7a82aece1f",
+    "componentMeasurements": {
+      "staticTemplate": {
+        "tokens": 11,
+        "utf8Bytes": 38,
+        "sha256": "bc962e6b187fbbff70d287d4f770e497815eca9aad1a8a983c32787f01a013f1"
+      },
+      "executionContract": {
+        "tokens": 11,
+        "utf8Bytes": 52,
+        "sha256": "316d68def6946ef48d6ccc0f852c50c845dcea5cf29b69e7e24aab2ae79af314"
+      },
+      "runtimeBinding": {
+        "tokens": 7,
+        "utf8Bytes": 29,
+        "sha256": "8c113d38a73364f5df5ed6230d5b1192f3b746651b9ccabbbbcecddafe6ef122"
+      },
+      "dynamicAsset": {
+        "tokens": 13,
+        "utf8Bytes": 56,
+        "sha256": "c8fc770f54a62cc4883bcd607ea53ea27750a6ab3fe4032072437b5929fe8c27"
+      }
+    },
+    "canonicalSha256": "79934293c8bb7a263ff063961f2d1d2859b96e691dd3729dd75ea8d01be029f0"
+  }
+}

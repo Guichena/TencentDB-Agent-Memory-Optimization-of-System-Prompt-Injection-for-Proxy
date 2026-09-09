@@ -1,0 +1,10 @@
+{
+  "team": "t02r17-ipv4",
+  "files_skill": "optimize-aws-api-calls",
+  "files_path": "references/api-call-gate.md",
+  "n_cases": 28,
+  "mem_pairs": 6,
+  "skill_pairs": 6,
+  "files_pairs": 1,
+  "notes": "aws-ipv4-cost-viewer 整队重写；files 挂在 optimize-aws-api-calls。"
+}

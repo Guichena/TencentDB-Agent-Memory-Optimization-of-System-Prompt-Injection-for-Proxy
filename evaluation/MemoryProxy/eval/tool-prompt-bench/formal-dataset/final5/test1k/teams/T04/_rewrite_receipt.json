@@ -1,0 +1,10 @@
+{
+  "team": "T04",
+  "files_skill": "nimbus-review",
+  "files_path": "references/review-handoff.md",
+  "n_cases": 14,
+  "mem_pairs": 1,
+  "skill_pairs": 3,
+  "files_pairs": 1,
+  "notes": "Nimbus (dayhaysoos/nimbus) 整队重写；files 挂在 nimbus-review。"
+}

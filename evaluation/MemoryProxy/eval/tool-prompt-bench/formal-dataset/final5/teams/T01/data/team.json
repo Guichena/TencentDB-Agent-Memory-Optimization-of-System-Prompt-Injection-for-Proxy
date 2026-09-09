@@ -1,0 +1,18 @@
+{
+  "team_id": "T01",
+  "repo_id": "entireio/cli",
+  "repo_url": "https://github.com/entireio/cli",
+  "case_count": 40,
+  "current_agent_id": "T01__agent__primary",
+  "agent_ids": [
+    "T01__agent__primary",
+    "T01__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "sk-architecture-doc",
+    "sk-branch-review",
+    "sk-commit-splitting",
+    "sk-lint-fix"
+  ],
+  "status": "active"
+}

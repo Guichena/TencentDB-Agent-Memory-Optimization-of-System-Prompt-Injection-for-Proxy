@@ -1,0 +1,146 @@
+{
+  "memory": [
+    {
+      "id": "T13__memory__streaming",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Orchestrator 与 sql_analyst、chart-builder 等 subagent 的回答都必须通过同一条处理链渐进式 streaming，并保持在所属 conversation 中。"
+    },
+    {
+      "id": "T13__memory__ask_user",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "ask_user_question 是一等 conversation state，支持带 selectable options 的交互式问题，而不只是自由文本。"
+    },
+    {
+      "id": "T13__memory__conversation_isolation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "每个 conversation 只读取自己的 message history；X-Session-ID 按 browser tab 隔离，不能跨 conversation 泄漏 session 文件或消息。"
+    },
+    {
+      "id": "T13__memory__cross_model",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "系统支持非 Anthropic orchestrator model，经 Bifrost gateway 路由；system prompt 的结构、示例和重试规则必须 model-agnostic。"
+    },
+    {
+      "id": "T13__memory__confirm_first",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "创建 Skill、设计计划或较大功能等多步生成任务，应先规划并通过 ask_user_question 让用户反复审阅确认，再执行。"
+    },
+    {
+      "id": "T13__memory__duckdb_sessions",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "DuckDB session 文件位于 /tmp/duckdb-data-agent-{session_id}.duckdb，重连和 idle timeout 后保留，仅在明确关闭 tab 时删除。"
+    },
+    {
+      "id": "T13__memory__i18n",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "所有用户可见 UI 文案都必须同时加入 frontend/src/i18n/en.json 和 frontend/src/i18n/zh-TW.json，并通过翻译函数使用。"
+    },
+    {
+      "id": "T13__memory__container_history",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "sidecar container 回收后，新 container 需要把同一 session 的历史以约定的文本前置方式带入，使下一轮问题继续原 conversation。"
+    },
+    {
+      "id": "T13__memory__gateway",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "模型调用通过 Bifrost gateway 统一路由；gateway 相关说明应解释其与曾试用的 LiteLLM proxy 的边界。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T13__skill__e2e_scenario",
+      "name": "e2e-scenario",
+      "description": "根据 Playwright 失败工件修复 skills 相关场景并保持 YAML 与 runner 同步。",
+      "content": "1. 启动 compose 或目标服务并运行 backend pytest 与 Playwright。\n2. 读取 e2e/test-results/<scenario>-<case>/ 失败工件。\n3. 将失败映射回 e2e/scenarios YAML 和 runner spec。\n4. 修复产品代码或 scenario steps，不弱化断言。\n5. 只重跑失败场景，确认两套测试通过且无新工件。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__readme_structure",
+      "name": "readme-structure",
+      "description": "依据真实仓库树更新 README 的项目结构、功能和技术栈描述。",
+      "content": "1. 检查 backend、frontend、sidecar、utils、docs 和 e2e 的真实路径。\n2. 只更新 feature/Agent Mode、Tech Stack 和 Project Structure 对应段落。\n3. 删除已不存在的路径并补齐新增组件。\n4. 核对环境变量、Make targets 和组件名称。\n5. 阅读渲染后的 README，确认没有无关重写。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__linux_setup",
+      "name": "linux-compose",
+      "description": "在新 Linux checkout 上排查 skills 权限、session id 和 compose 启动问题。",
+      "content": "1. 用 fresh clone 启动 compose dev flow 并记录失败操作。\n2. 检查 bind-mount ownership、appuser UID/GID 和 insecure HTTP 下 crypto.randomUUID。\n3. 在 Dockerfile、compose 或 Makefile 层修复，禁止 host-side chmod。\n4. 必要时加入 APP_UID/GID 或前端 polyfill。\n5. 用第二个 fresh clone 验证服务启动和 Skill 写入。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__agent_behavior",
+      "name": "agent-behavior",
+      "description": "在正确的 orchestrator 或 sidecar prompt surface 修改 agent 的能力可见性和回答规则。",
+      "content": "1. 判断目标是 backend/app/agent.py、sidecar/src/server.ts 还是 settings。\n2. 对 capability visibility 用 prompt instruction，PreToolUse 只用于阻止调用。\n3. 每个 concern 添加一条最小指令，不重写整个 prompt。\n4. 在匹配的 backend 或 container runtime 用最小 diff 验证。\n5. 确认无关行为和其他运行模式不变。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__readme_caveat",
+      "name": "readme-caveat",
+      "description": "在 README 合适章节记录限制、后果和相关设计计划，保持文档不自相矛盾。",
+      "content": "1. 在受影响 feature 段落加入简短 Note，说明限制和用户后果。\n2. 引用对应 docs/plans 文档而不是复制长方案；需要时先创建 plan。\n3. 同步修正与 caveat 冲突的 deployment/config 声明。\n4. 保持语气客观、简短、可独立阅读。\n5. 检查 README 链接和 markdown 渲染。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__container_debug",
+      "name": "container-debug",
+      "description": "在 docker-compose 与 k8s 模式中定位 sidecar health、stream 和 round-trip 问题。",
+      "content": "1. 选择 compose 或 k8s 模式启动 stack，确定相关服务日志。\n2. 通过 backend health endpoint 探测 sidecar，并关联 sidecar 日志。\n3. 先定位 stream、session 或容器生命周期边界，再修改代码。\n4. 一次只改一个 mode 的配置。\n5. 在 compose 和 k8s 两个变体验证 health 与 question round-trip 一致。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__worktree",
+      "name": "worktree",
+      "description": "为并行功能建立隔离 git worktree 并保持主分支干净。",
+      "content": "1. 为功能命名并确认当前主分支和目标目录。\n2. 从 main 执行 git worktree add .claude/worktrees/<name>。\n3. 在正确 worktree 中工作，不把临时目录纳入提交。\n4. 用 git worktree list 验证注册。\n5. 提交或清理 worktree 前确认当前活动目录和用户授权。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__stream_lifecycle",
+      "name": "conversation-stream",
+      "description": "处理切换 conversation、abort、container 回收和历史恢复时的 streaming 状态。",
+      "content": "1. 为每个 conversation 维护独立的 abort、generation 和 message state。\n2. 切换 tab 时取消旧 stream，阻止旧 chunk 写入新 conversation。\n3. container 回收后前置该 session 的历史并恢复 stream handler。\n4. 持久化 thinking、tool input/output、SQL result 等需要恢复的状态。\n5. 用快速切换、断线、重连和并发 session 测试竞态。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T13__skill__i18n_ui",
+      "name": "i18n-ui",
+      "description": "为新增用户可见文案同步维护英文和繁体中文翻译。",
+      "content": "1. 在 frontend/src/i18n/en.json 与 zh-TW.json 添加同一 key。\n2. 在组件中通过 t() 使用 key，禁止硬编码文案。\n3. 检查 modal、错误、空状态和移动布局下的长度。\n4. 切换语言验证两边都有自然表达。\n5. 运行前端 lint/test，确认 key 不重复且类型通过。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T13__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T13__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

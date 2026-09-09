@@ -1,0 +1,148 @@
+{
+  "memory": [
+    {
+      "id": "T10__memory__github_artifacts",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "GitHub Copilot 相关产物同时包括 .github/instructions 和 .github/skills 目录。"
+    },
+    {
+      "id": "T10__memory__homepage_coverage",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "首页应突出项目开源状态，并覆盖所有支持的 AI coding agents，而不只提 Claude Code。"
+    },
+    {
+      "id": "T10__memory__remediation_button",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "根据团队决定，remediation 模块移除 Generate Prompts 按钮。"
+    },
+    {
+      "id": "T10__memory__context_labels",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Context tab 使用 Display all 按钮，通用标签加 agent 前缀（如 Claude Rule），Browse 已弃用。"
+    },
+    {
+      "id": "T10__memory__cursor_command",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Remediation 前端运行 Cursor agent 时必须把实际 CLI command 正确展示给用户。"
+    },
+    {
+      "id": "T10__memory__remediation_pipeline",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Remediation 是四阶段 AI 流程：规划并执行 errors，再规划并执行 suggestions；结果包含文件变更和可审查的输出。"
+    },
+    {
+      "id": "T10__memory__cloud_limits",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "云端评估必须限制超大仓库的资源消耗，并在工作变得昂贵之前尽早停止请求；具体阈值、错误文案和测试边界以防护流程为准。"
+    },
+    {
+      "id": "T10__memory__tool_result_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "当前评估围绕 AI coding agent 文档和 remediation 输出，工具调用日志是运行时诊断的重要上下文。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T10__skill__cursor_cli_display",
+      "name": "cursor-cli",
+      "description": "确保 remediation 前端在执行 Cursor agent 前展示完整命令。",
+      "content": "1. 定位 RemediationRunner.tsx 中的 CLI invocation。\n2. 增加命令展示组件。\n3. 对命令做可读格式化并处理长文本换行。\n4. 选择 Cursor agent 目标运行前端测试。\n5. 验证执行前命令可见且内容与实际 invocation 一致。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__evaluator_optimization",
+      "name": "evaluator-optimization",
+      "description": "根据 technical inventory 跳过无关 evaluator 并保持并行执行正确。",
+      "content": "1. 阅读 docs/OPTIMIZATION.md 明确 skip criteria。\n2. 在 evaluator runner 中加入 inventory checks。\n3. 实现并行执行并保持结果顺序和错误隔离。\n4. 将 skip 决策与 cache 利用结合。\n5. 用大型仓库测试跳过、并行和缓存行为。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__prompt_cache",
+      "name": "prompt-cache",
+      "description": "减少 evaluator prompt 体积并安排共享前缀以提高缓存命中率。",
+      "content": "1. 分析各 evaluator 的重复 prompt 内容。\n2. 将公共 file blocks 和 project context 提取到稳定的 cache-friendly prefix。\n3. 仅为 skills 保留必要 metadata，避免重复发送完整内容。\n4. 检查 API 指标中的 cache breakpoint 和命中率。\n5. 运行测试并确认 prompt 顺序与缓存收益。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__project_structure",
+      "name": "project-structure-tree",
+      "description": "让 project-structure remediation 输出带有用途说明的目录树。",
+      "content": "1. 阅读 standards/project-structure.md 的标准。\n2. 在 evaluator 或 remediation prompt 中加入 annotated tree 规则。\n3. 为每个目录生成简短用途描述和示例。\n4. 注册并串联到对应 evaluator。\n5. 用缺少项目结构的样例验证不再输出无说明的裸目录列表。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__action_summary",
+      "name": "action-summary",
+      "description": "把 remediation 历史中的文件动作按 artifact 类型整理成可读表格。",
+      "content": "1. 检查当前 Action Summary 的扁平列表和数据结构。\n2. 按 rules、skills、context、other 设计分组。\n3. 实现带 section header、文件路径、问题摘要和状态的表格行。\n4. 保留 addressed/skipped 计数及 diff 展开。\n5. 用前端测试和窄屏布局检查分组、排序和截断。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__context_tab",
+      "name": "context-tab",
+      "description": "Apply the Context tab terminology standard across modal buttons, badges, and related copy, then verify with frontend tests.",
+      "content": "1. Inspect ContextTab.tsx action labels and ContextTreeView.tsx badges.\n2. Replace deprecated modal-button copy and unprefixed generic badges with the Context tab terminology standard.\n3. Keep modal titles and related copy in sync with the same standard.\n4. Run frontend tests so every entry point uses the standard terms.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__remediation_counts",
+      "name": "remediation-plan-counts",
+      "description": "在 remediation plan 中清晰展示 standards、skills 和输出动作数量。",
+      "content": "1. 定位持久化和执行前 remediation plan 的底部统计区域。\n2. 区分 rules、skills、context updates 等输出类型。\n3. 添加清晰的数量标签并保持空值状态可读。\n4. 在不同目标 agent 和长名称下检查布局。\n5. 运行前端测试并核对计划与实际执行统计一致。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__skill_instruction_nesting",
+      "name": "skill-instructions",
+      "description": "让生成的 SKILL.md 在存在子步骤时使用缩进 bullet 提升可读性。",
+      "content": "1. 定位 skill creation prompt 和 prompt-generator.ts 的 getSkillInstructions 模板。\n2. 要求指令使用动词开头的步骤，并在存在子步骤、行为或细节时使用缩进 sub-bullets。\n3. 保持说明简洁并限制总长度。\n4. 更新相关快照或断言。\n5. 运行 bun run test 和 bun run lint。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__large_repo_guard",
+      "name": "large-repo-guard",
+      "description": "在云端评估前检测超大仓库并返回清晰的拒绝信息。",
+      "content": "1. 确定统计仓库行数的可靠边界和 cloud-mode 判断。\n2. 在任务入队或分析前阻止超过 1M 行的仓库。\n3. 返回稳定、可操作的错误响应并记录原因。\n4. 确保本地模式和正常大小仓库行为不变。\n5. 添加边界值、超过阈值和回归测试。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__file_consolidation",
+      "name": "file-consolidation",
+      "description": "把多个 remediation 文件动作合并为去重且可回退的结果。",
+      "content": "1. 收集同一目标文件的 actions 和原始内容。\n2. 构造包含全部文件内容与合并规则的 AI prompt。\n3. 成功时保留所有唯一内容并去除重复分隔符。\n4. AI 失败时对该 pair 回退到确定性的朴素拼接，其他 pair 继续。\n5. 为成功、空输入、失败回退和已引用文件添加测试。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T10__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T10__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "team_id": "T10",
+  "repo_id": "PackmindHub/context-evaluator",
+  "repo_url": "https://github.com/PackmindHub/context-evaluator.git",
+  "case_count": 40,
+  "current_agent_id": "T10__agent__primary",
+  "agent_ids": [
+    "T10__agent__primary",
+    "T10__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

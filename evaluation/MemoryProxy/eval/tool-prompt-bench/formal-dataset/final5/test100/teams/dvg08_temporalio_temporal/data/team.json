@@ -1,0 +1,19 @@
+{
+  "team_id": "dvg08_temporalio_temporal",
+  "repo_id": "temporalio/temporal",
+  "repo_url": "https://github.com/temporalio/temporal",
+  "case_count": 10,
+  "current_agent_id": "dvg08_temporalio_temporal__agent__primary",
+  "agent_ids": [
+    "dvg08_temporalio_temporal__agent__primary",
+    "dvg08_temporalio_temporal__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "dvg08_temporalio_temporal__skill__camel-to-snake-conversion",
+    "dvg08_temporalio_temporal__skill__git-add-rename-detection",
+    "dvg08_temporalio_temporal__skill__python-file-renaming",
+    "dvg08_temporalio_temporal__skill__python-unittest-writing",
+    "dvg08_temporalio_temporal__skill__regex-file-content-replacement"
+  ],
+  "status": "active"
+}

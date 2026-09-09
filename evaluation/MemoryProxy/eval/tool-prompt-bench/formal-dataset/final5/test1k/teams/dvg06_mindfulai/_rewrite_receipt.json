@@ -1,0 +1,11 @@
+{
+  "team": "dvg06_mindfulai",
+  "files_skill": "pm2-error-diagnosis",
+  "files_path": "references/pm2-gate.md",
+  "n_cases": 22,
+  "mem_pairs": 2,
+  "skill_pairs": 6,
+  "files_pairs": 1,
+  "notes": "mindfulai2.0 整队重写；files 挂在 pm2-error-diagnosis。 | rewrote leftover distractor/natural queries: ['dvg06_mindfulai__c022', 'dvg06_mindfulai__c027', 'dvg06_mindfulai__c034', 'dvg06_mindfulai__c036']",
+  "audit_fix": "rewrote leftover distractor/natural queries: ['dvg06_mindfulai__c022', 'dvg06_mindfulai__c027', 'dvg06_mindfulai__c034', 'dvg06_mindfulai__c036']"
+}

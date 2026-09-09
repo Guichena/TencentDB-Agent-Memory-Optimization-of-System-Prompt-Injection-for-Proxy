@@ -1,0 +1,88 @@
+{
+  "memory": [
+    {
+      "id": "mem_pytest_fixture",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Use pytest fixtures for test setup - define @pytest.fixture for shared test resources, pass as function params."
+    },
+    {
+      "id": "mem_mock_extensive",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Mock external dependencies extensively - use unittest.mock.MagicMock for isolating units, never instantiate real cameras/hardware in tests."
+    },
+    {
+      "id": "mem_test_pyramid",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Follow test pyramid - many unit tests (fast, isolated), fewer integration tests (component interaction), fewest system tests (end-to-end)."
+    },
+    {
+      "id": "mem_otel_noop",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "OpenTelemetry calls should become noops when not configured - use conditional initialization, avoid crashes when metrics/traces unavailable."
+    },
+    {
+      "id": "mem_assertion_specific",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Test assertions must be specific to actual method calls - verify exact method names and parameters, not generic mocks."
+    },
+    {
+      "id": "mem_otel_architecture",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Metrics use PeriodicExportingMetricReader with OTLPMetricExporter, Resource attributes identify the service, and Meter instruments such as Counter and Histogram record measurements for the configured collector."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_unit_test_write",
+      "name": "unit-test-write",
+      "description": "Identify class/function to test 2. Mock all external dependencies 3. Write test cases for happy path and edge cases 4. Verify method calls with assert_called_with 5. Run pytest to ",
+      "content": "1. Identify class/function to test 2. Mock all external dependencies 3. Write test cases for happy path and edge cases 4. Verify method calls with assert_called_with 5. Run pytest to confirm",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_integration_test",
+      "name": "integration-test",
+      "description": "Identify component boundaries 2. Mock only external systems (DB, APIs) 3. Let real internal components interact 4. Test data flow across components 5. Verify end-to-end behavior",
+      "content": "1. Identify component boundaries 2. Mock only external systems (DB, APIs) 3. Let real internal components interact 4. Test data flow across components 5. Verify end-to-end behavior",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_solid_refactor",
+      "name": "solid-refactor",
+      "description": "Identify violation (SRP, OCP, LSP, ISP, DIP) 2. Extract interface/abstract class 3. Inject dependencies via constructor 4. Update existing code to use new structure 5. Verify tests",
+      "content": "1. Identify violation (SRP, OCP, LSP, ISP, DIP) 2. Extract interface/abstract class 3. Inject dependencies via constructor 4. Update existing code to use new structure 5. Verify tests still pass",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_file_system_injection",
+      "name": "file-system-injection",
+      "description": "Create FileSystemImageLoader interface 2. Implement RealFileSystemLoader and TestFileSystemLoader 3. Inject loader via constructor to dependent classes 4. Update main.py to use Rea",
+      "content": "1. Create FileSystemImageLoader interface 2. Implement RealFileSystemLoader and TestFileSystemLoader 3. Inject loader via constructor to dependent classes 4. Update main.py to use RealFileSystemLoader 5. Update tests to use TestFileSystemLoader",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg02-pygpt__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg02-pygpt__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

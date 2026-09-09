@@ -1,0 +1,13 @@
+{
+  "team_id": "T11",
+  "repo_id": "oddessentials/ado-git-repo-insights",
+  "repo_url": "https://github.com/oddessentials/ado-git-repo-insights.git",
+  "case_count": 31,
+  "current_agent_id": "T11__agent__primary",
+  "agent_ids": [
+    "T11__agent__primary",
+    "T11__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

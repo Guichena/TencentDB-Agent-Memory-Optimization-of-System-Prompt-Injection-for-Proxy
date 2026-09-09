@@ -1,0 +1,157 @@
+{
+  "memory": [
+    {
+      "id": "T10__memory__github_artifacts",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "产物范围锁为 `T10Q-ART-BOTH`：相关产物同时包括 .github/instructions 与 .github/skills 两个目录，禁止只认其中一个，也禁止把 skills 并进 instructions。"
+    },
+    {
+      "id": "T10__memory__homepage_coverage",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "首页口径锁为 `T10Q-HOME-ALL`：首页要突出开源状态并覆盖所有受支持的 agent，禁止只提其中一个，也禁止弱化开源状态。"
+    },
+    {
+      "id": "T10__memory__remediation_button",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "按钮锁为 `T10Q-BTN-DROP`：remediation 模块不保留 Generate Prompts 按钮，禁止加回，也禁止换个名字再提供同一功能。"
+    },
+    {
+      "id": "T10__memory__context_labels",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "标签锁为 `T10Q-CTX-PREFIX`：Context tab 用 Display all，通用标签加 agent 前缀，Browse 已弃用，禁止恢复 Browse 或去掉前缀。"
+    },
+    {
+      "id": "T10__memory__cursor_command",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "命令展示锁为 `T10Q-CURSOR-SHOWCMD`：运行 Cursor agent 时必须把实际 CLI 命令原样展示给用户，禁止只显示改写后的描述或隐藏参数。"
+    },
+    {
+      "id": "T10__memory__remediation_pipeline",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "流程锁为 `T10Q-REMED-FOUR`：remediation 是规划并执行 errors、再规划并执行 suggestions 的四阶段流程，禁止合并阶段，也禁止只跑 suggestions。"
+    },
+    {
+      "id": "T10__memory__cloud_limits",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "云端限额锁为 `T10Q-CLOUD-STOP`：超大仓库必须在开销变大前尽早停止请求，具体阈值、文案与测试边界只以防务流程为准，禁止自定数值。"
+    },
+    {
+      "id": "T10__memory__tool_result_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "评估范围锁为 `T10Q-SCOPE-DOCREMED`：当前评估只围绕 agent 文档与 remediation 输出，工具调用日志只作运行时诊断上下文，禁止把它当评分依据。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T10__skill__cursor_cli_display",
+      "name": "cursor-cli",
+      "description": "在前端展示 agent 运行命令：先过哪道原样门、何时展示、敏感参数怎么处理",
+      "content": "1. 先过原样门：展示的必须是实际执行的命令原文，禁止改写或省略参数。\n2. 时序门：命令在发起前就展示，禁止执行完才补显示。\n3. 敏感门：展示前去掉凭据类参数，禁止为了原样把密钥也带上。\n4. 失败时命令与错误一起呈现，禁止只报错误不报错命令。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__evaluator_optimization",
+      "name": "evaluator-optimization",
+      "description": "优化评估器开销：先过哪道度量门、缓存与批处理怎么用、结果怎么比对",
+      "content": "1. 先过度量门：先量出开销来自哪一步，禁止凭直觉先改模型调用。\n2. 缓存门：可复用结果先加缓存，禁止对每次请求重复同一计算。\n3. 批处理门：同类请求合并处理，禁止逐条串行调用。\n4. 优化后必须比对优化前后结果，禁止只看耗时下降。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__prompt_cache",
+      "name": "prompt-cache",
+      "description": "给提示词加缓存：先过哪道键门、命中条件是什么、失效怎么判",
+      "content": "1. 先过键门：缓存键必须覆盖影响输出的全部输入，禁止只按提示词文本做键。\n2. 命中门：命中只在同一模型与同一配置下生效，禁止跨模型复用。\n3. 失效门：输入任一组成变化即失效，禁止靠时间粗放过期。\n4. 上线后必须比对命中率与结果一致性，禁止只看命中率。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__project_structure",
+      "name": "project-structure-tree",
+      "description": "生成项目结构树：先过哪道裁剪门、深度怎么定、输出怎么排",
+      "content": "1. 先过裁剪门：先定忽略规则再生成，禁止把依赖与产物目录也列进来。\n2. 深度门：按目标深度截断，禁止无限制递归。\n3. 排序门：目录与文件分开排序，禁止按原始遍历顺序输出。\n4. 生成后必须核对条目数，禁止只看开头几行。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__action_summary",
+      "name": "action-summary",
+      "description": "汇总一次评估动作的结果：先过哪道口径门、必含哪几项、禁止改写什么",
+      "content": "1. 先过口径门：先定这次汇总面向谁，禁止把所有细节堆成一份。\n2. 必含门：改动文件、结论与待办都要出现，禁止只写结论。\n3. 证据门：每条结论指向具体文件，禁止用笼统描述。\n4. 汇总不得改写原始输出，禁止为了好看调整数据。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__context_tab",
+      "name": "context-tab",
+      "description": "改 Context tab 的标签与展示：先过哪道前缀门、默认展示多少、弃用项怎么处理",
+      "content": "1. 先过前缀门：通用标签必须带 agent 前缀，禁止裸标签。\n2. 展示门：默认只展示部分并给出展开入口，禁止一次性全量铺开。\n3. 弃用门：已弃用的入口不再出现在界面上，禁止保留隐藏入口。\n4. 改完必须核对每个标签来源，禁止只看界面渲染成功。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__remediation_counts",
+      "name": "remediation-plan-counts",
+      "description": "核对 remediation 计划的条目数：先过哪道来源门、口径怎么统一",
+      "content": "1. 先过来源门：先确定计数取自计划还是执行结果，禁止两边混用。\n2. 口径门：errors 与 suggestions 分开计数，禁止合并成一个总数。\n3. 校验门：界面数字与数据源必须一致，禁止只信界面缓存。\n4. 不一致必须原样上报，禁止取较大值了事。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__skill_instruction_nesting",
+      "name": "skill-instructions",
+      "description": "组织 skill 与 instructions 的嵌套关系：先过哪道目录门、嵌套基线在附件哪里",
+      "content": "1. 先过目录门：两类产物分属不同目录，禁止把 skills 并进 instructions。\n2. 嵌套门：子条目只能挂在所属父目录下，禁止跨目录引用。\n3. 命名门：条目名与目录名保持一致，禁止另起别名。\n4. 收尾的嵌套基线检查项只写在 references/skill-nest.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/skill-nest.md",
+          "content": "# Skill / instruction nesting baseline\n\nA nesting pass for this repo is only valid when all of the following hold:\n\n- The pass must be stamped with the nesting marker `T10Q-NEST-SEAL`.\n- A nested entry must name its parent with the prefix `T10Q-PARENT-`.\n- Cross-directory references must be declared with the value `T10Q-XREF-OFF`; any other value voids the pass.\n- A pass containing `T10Q-FLAT-OK` is rejected; entries must never be flattened into one directory.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented skill nesting baseline for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T10__skill__large_repo_guard",
+      "name": "large-repo-guard",
+      "description": "给超大仓库评估加资源防护：先过哪道估算门、早停怎么触发、阈值从哪来",
+      "content": "1. 先过估算门：请求前先估算仓库规模，禁止直接开跑。\n2. 早停门：超过规模就尽早停止请求，禁止靠超时兜底。\n3. 阈值门：具体阈值与文案只以防护流程为准，禁止自定数值。\n4. 触发后必须给出可解释的停止原因，禁止静默中断。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T10__skill__file_consolidation",
+      "name": "file-consolidation",
+      "description": "合并散落的同类文件：先过哪道不动门、怎么分步、旧文件怎么处理",
+      "content": "1. 先过不动门：先把当前行为固定住，禁止边合并边改行为。\n2. 分步门：一次只合并一类文件，禁止一次重排整个目录。\n3. 引用门：所有引用同步改完再删旧文件，禁止留双份。\n4. 合并后必须重跑受影响校验，禁止只看编译通过。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T10__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T10__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

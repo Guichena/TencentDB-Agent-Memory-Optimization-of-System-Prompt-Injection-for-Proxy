@@ -1,0 +1,132 @@
+{
+  "memory": [
+    {
+      "id": "T15__memory__release_gate",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Staging deploys are gated: only tagged, verified release commits may deploy, and the release-gate check is required on both the release-please PR and staging tags."
+    },
+    {
+      "id": "T15__memory__desktop_e2e_logs",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Desktop E2E CI must copy failure logs into the workspace before artifact upload, especially on Windows; upload errors over that copied bundle are infrastructure noise rather than test failures."
+    },
+    {
+      "id": "T15__memory__release_labels",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Release-please label negation was found unreliable and broad label configuration caused unnecessary version-bump cascades; release labels must remain explicit and minimal."
+    },
+    {
+      "id": "T15__memory__workflow_tags",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Staging and release tags are created only by release-please and tag-staging workflows from a resolved main SHA; manual tags caused staging/main drift, so workflow retries are preferred."
+    },
+    {
+      "id": "T15__memory__local_ui_staging",
+      "layer": "l1",
+      "memory_type": "persona",
+      "content": "For UI debugging the team prefers a local UI dev server pointed at the staging API, or Playwright against staging, rather than reproducing everything on a fully local backend."
+    },
+    {
+      "id": "T15__memory__feature_branch_tests",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Test changes belong on a feature branch and never directly on the checkout being tested, keeping the tested state reproducible."
+    },
+    {
+      "id": "T15__memory__local_first_e2e",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "E2E 的第一次接触应在本地完整拉起的栈上完成；CI-E2E 只做确认，不作为发现失败的第一现场。"
+    },
+    {
+      "id": "T15__memory__ipns_service_role",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The IPNS service is a thin application-level orchestration layer over lower-level IPFS/IPNS dependencies: it owns the repository's identity-to-name binding and service-specific validation rather than duplicating the SDK."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T15__skill__pr_workflow",
+      "name": "cipherbox-pr-workflow",
+      "description": "Turn finished changes into a correctly branched, committed, labeled, and pushed pull request.",
+      "content": "1. Confirm the working tree and branch contain only the intended finished changes. 2. Create or rename a feature/chore branch, commit with the repository convention, and push it. 3. Apply the required labels and open or update the pull request, reporting the branch and commit.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__load_test",
+      "name": "run-load-tests",
+      "description": "Run the repository's tests/load scenarios and interpret their results.",
+      "content": "1. Inspect the requested scenario and its required services and fixtures. 2. Bring up the supported environment and run the load test with captured output. 3. Separate application failures from environment noise and report the reproducible findings.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__local_e2e",
+      "name": "local-and-ci-e2e-runbook",
+      "description": "Run web and desktop E2E suites against the full local stack and then use CI-E2E for confirmation.",
+      "content": "1. Start the full local stack and run the relevant web and desktop suites.\n2. Preserve screenshots, logs, and failure artifacts; separate flaky infrastructure from product failures.\n3. Push the tested branch and launch CI-E2E, comparing its results with the local run.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__phase_planning",
+      "name": "plan-a-project-phase",
+      "description": "Scope a new planning phase with concrete deliverables and dependencies.",
+      "content": "1. Inspect existing phase conventions and related shipped work. 2. Define the phase objective, boundaries, dependencies, and acceptance criteria under .planning/phases. 3. Review the plan for testability and consistency before implementation.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__phase_summary",
+      "name": "backfill-phase-summaries",
+      "description": "Create missing phase summaries from the phase's merged pull requests in the established format.",
+      "content": "1. Gather the merged PRs and identify the phase's intended scope. 2. Write the NN-SUMMARY.md using the repository's established headings and concise outcomes. 3. Check links, dates, and implementation details against the merged changes.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__review_resolution",
+      "name": "resolve-pr-review-findings",
+      "description": "Verify reviewer findings, make only justified fixes, and leave a PR branch ready for re-review.",
+      "content": "1. Reproduce and verify every finding against the current code. 2. Fix only findings that remain valid, preserving platform-specific behavior and adding focused tests where needed. 3. Run the relevant checks, commit the changes, push the branch, and summarize each resolution.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__release_tag_ops",
+      "name": "operate-release-tag-workflows",
+      "description": "Inspect and retry release or staging tag workflow runs without creating tags manually.",
+      "content": "1. Inspect the workflow run, resolved main SHA, and existing release/tag state. 2. Correct the workflow input or prerequisite when needed and retry the workflow from the intended SHA. 3. Verify the resulting tag and staging deployment, recording any drift or failure.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__security_followup",
+      "name": "follow-up-a-security-review",
+      "description": "Land a completed security review report and drive its findings to traceable fixes.",
+      "content": "1. Import the completed report and map each finding to current code. 2. Implement and test fixes with traceable commits, preserving evidence for accepted risks. 3. Re-run the relevant security checks and summarize closure status.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T15__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T15__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

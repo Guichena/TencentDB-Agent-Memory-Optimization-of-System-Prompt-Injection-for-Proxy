@@ -1,0 +1,174 @@
+{
+  "memory": [
+    {
+      "id": "ma-author-card",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "作者卡组件的内部锁定名是 `T02FK-AUTHCARD`，对外文案仍写 author card；禁止用 bio-card、profile-card 之类名字替换它或并行新增第二套作者卡，移动端二维码居中与分隔线只在这套组件里维护。"
+    },
+    {
+      "id": "ma-comments-optional",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "评论是可选能力，整站缺 Provider 时的锁定态为 `T02FK-COMMENTS-OFF`；页面级开关只能叠加在它之上，禁止把缺 Provider 当成配置错误去填一个默认 Provider。"
+    },
+    {
+      "id": "ma-deps-minimalism",
+      "layer": "l1",
+      "memory_type": "persona",
+      "content": "新增依赖必须先过 `T02FK-DEPS-GATE`：先证明现有依赖或一小段自研实现做不到，再逐个说明每个包的必要性，禁止直接引入推荐包，也禁止用加依赖的方式绕过校验失败。"
+    },
+    {
+      "id": "ma-feed-defaults",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "feed 默认全文输出，锁定名 `T02FK-FEED-FULL`；格式与条数可在 site config 调，禁止把默认改成摘要输出，禁止给 RSS/Atom 之外的第三种格式单开一套默认值。"
+    },
+    {
+      "id": "ma-feed-reader-test",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "feed 生效判定锁为 `T02FK-READER-CHECK`：构建并部署后用真实阅读器订阅、确认新条目出现，只看生成的输出不算通过。"
+    },
+    {
+      "id": "ma-i18n-disable",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "单语站点整站关闭 i18n 的锁定名是 `T02FK-I18N-OFF`；关闭后语言切换器隐藏且不再读写 localStorage，禁止保留切换器或继续写语言偏好。"
+    },
+    {
+      "id": "ma-issue-recording",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "非阻塞的环境或工具缺陷必须落成 issue，锁定名 `T02FK-ISSUE-LOCK`；只在本轮对话里记过不算数，禁止用别的记录方式代替，也禁止并进业务改动的 issue。"
+    },
+    {
+      "id": "ma-jsonld-types",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "结构化数据按内容类型映射，锁定名 `T02FK-JSONLD`：文章 BlogPosting、书章 Article、书 Book，BreadcrumbList 评估后弃用，禁止再引入它或改用别的类型兜底。"
+    },
+    {
+      "id": "ma-l0-create-amytis-plan",
+      "layer": "l0",
+      "session_id": "163302c1-854d-4c1f-b63b-d551d8cecf46",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Implement the following plan:\n\n# Plan: create-amytis CLI (Model A)\n\n## Context\n\nUsers want to start a new Amytis-based site without forking/cloning the repo manually.\nThe CLI (`bunx create-amytis my-blog`) will scaffold a full Amytis project by downloading\nthe latest GitHub release tarball, then asking two setup questions (site title, description)\nbefore patching `site.config.ts` and running `bun install`.\n\nModel A: user gets the full source — `src/`, `scripts/`, `content/`, `site.config.ts`.\nThey own all the code; only `content/` and `site.config.ts` need to be touched day-to-day.\n\n---\n\n## Package structure\n\n```\npackages/\n  create-amytis/\n    package.json      ← name: \"create-amytis\", bin: \"dist/index.js\"\n    src/\n      index.ts        ← CLI entry point\n    dist/             ← compiled output (gitignored, published to npm)\n    tsconfig.json\n    .gitignore\n```\n\nRoot `package.json` gets a bun workspace entry:\n```json\n\"workspaces\": [\"packages/*\"]\n```\n\n---\n\n## CLI flow\n\n```\nbunx create-amytis [project-name]\n```\n\n1. Read `project-name` from `process.argv[2]`; if missing, prompt for it\n2. Call GitHub API to get latest release tag:\n   `GET https://api.github.com/repos/hutusi/amytis/releases/latest`\n3. Download tarball:\n   `https://github.com/hutusi/amytis/archive/refs/tags/{tag}.tar.gz`\n4. Extract into `./{project-name}/`  (tarball root dir is `amytis-{version}/`, rename it)\n5. Prompt for **Site title** (default: project-name)\n6. Prompt for **Site description** (default: \"My digital garden\")\n7. Patch `site.config.ts`:\n   - Replace `title: { en: \"Amytis\", zh: \"Amytis\" }` with user title\n   - Replace `description: { en: \"...\", zh: \"...\" }` with user description\n8. Patch `package.json` in scaffolded dir:\n   - Set `\"name\"` to project-name\n   - Set `\"private\": true` (they're not publishing this)\n   - Remove `\"repository\"`, `\"bugs\"`, `\"homepage\"` fields\n9. Run `bun install` in the new directory\n10. Print success + next steps\n\n---\n\n## Critical files to create\n\n### `packages/create-amytis/package.json`\n```json\n{\n  \"name\": \"create-amytis\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Create a new Amytis digital garden\",\n  \"license\": \"MIT\",\n  \"bin\": { \"create-amytis\": \"./dist/index.js\" },\n  \"scripts\": {\n    \"build\": \"bun build src/index.ts --outfile dist/index.js --target node --sourcemap=none\",\n    \"dev\": \"bun src/index.ts\"\n  },\n  \"files\": [\"dist\"]\n}\n```\n\n### `packages/create-a"
+        }
+      ]
+    },
+    {
+      "id": "ma-relative-images",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "相对图片路径锁为 `T02FK-RELIMG`：内容文件旁的 images/ 相对路径必须对 posts、books、flows、series、自定义页与任何新增内容类型都生效，禁止为某一类型单独写一套解析。"
+    },
+    {
+      "id": "ma-social-label",
+      "layer": "l1",
+      "memory_type": "persona",
+      "content": "社交标签锁为 `T02FK-SOCIAL-LABEL`：前 Twitter 账号只显示为 X (Twitter) 或 X/Twitter，单独的 Twitter 与 Twitter/X 一律不用。"
+    },
+    {
+      "id": "ma-ui-consistency",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "UI 一致性锁为 `T02FK-UI-ONE`：同类交互只保留一套实现，新增组件前必须先消除冗余实现，禁止为某一页面再抄一份变体。"
+    },
+    {
+      "id": "T02__memory__static_export",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "静态导出锁为 `T02FK-REDIRECT-ENUM`：output: export 下 generateStaticParams 必须枚举重定向目标，redirectFrom 路由才会生成，禁止用运行时重定向代替枚举。"
+    },
+    {
+      "id": "T02__memory__url_seo_posture",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "URL 稳定性锁为 `T02FK-URL-PERMALINK`：文章 URL 是永久 SEO 身份，引入 collection 或系列视图时不得改变它，禁止为系列视图另发一套 URL。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-build-triage",
+      "name": "build-triage",
+      "description": "按错误类别分流构建校验失败：先过哪道分类门、最小修复落在哪、禁止顺手做什么",
+      "content": "1. 先过分类门：把失败按类型、校验、依赖三类分开，禁止混成一条构建挂了再逐个试。\n2. 分类后只取每类的第一条根因，禁止把后续噪声当成独立缺陷一起修。\n3. 最小修复只落在触发失败的那个文件，禁止顺手重排目录或升级无关依赖。\n4. 修完必须重跑同一条校验命令，禁止改命令或加忽略标记让校验变绿。\n5. 还有残留失败就如实上报并停下，禁止继续往下做新改动。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-feed-standards",
+      "name": "feed-standards",
+      "description": "改动本站 RSS/Atom 输出的核对清单：内容类型先定、两种格式怎么同源、改完验什么",
+      "content": "1. 先过内容类型门：posts、books、flows 各自是否进 feed 必须先定，禁止默认全量。\n2. 输出字段只改已登记的那几项，禁止临时塞新字段而不改默认配置。\n3. 格式门：RSS 与 Atom 走同一份来源，禁止为其中一种单开生成路径。\n4. 回归门：改完必须重新构建并比对条目数与链接，禁止只看构建成功。\n5. 新鲜度只认真实阅读器订阅的结果，只看生成的输出不算通过。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-image-perf-audit",
+      "name": "image-perf-audit",
+      "description": "审计页面图片体积：先过哪道覆盖门、eager/lazy 怎么判、基线检查项在附件哪里",
+      "content": "1. 先过覆盖门：先统计 WebP 覆盖率，覆盖率没算出来不得下体积结论。\n2. eager/lazy 只按首屏判定，禁止给整站统一加 lazy 了事。\n3. 尺寸门：先核对源图与渲染尺寸，禁止不改源图直接压参数。\n4. 结论只写进审计报告，禁止顺手批量改图而不出报告。\n5. 收尾的基线检查项只写在 references/image-baseline.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/image-baseline.md",
+          "content": "# Page weight audit baseline\n\nAn image audit for this static site is only valid when all of the following hold:\n\n- The report must be stamped with the baseline marker `T02FK-WEIGHT-BASE`.\n- The per-page budget is fixed at `T02FK-BUDGET-180KB`; any other budget makes the report incomparable.\n- Images flagged `T02FK-NEVER-LAZY` must stay eager even when they sit below the fold.\n- A report containing `T02FK-SKIP-WEBP` is rejected; WebP coverage must always be measured.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented page weight audit baseline for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "sk-obsidian-import",
+      "name": "obsidian-import",
+      "description": "把 Obsidian 库的日记与笔记导入成本站 flows 与 notes：映射怎么定、冲突和链接怎么处理",
+      "content": "1. 先过映射门：journals 归 flows、notes 归 notes，映射没定不得开导。\n2. 导入前先做一次干跑并列出冲突，禁止边导边改名。\n3. 链接门：内部双链必须改写成站内路径，禁止保留库内绝对路径。\n4. 导入后必须重新构建一次，禁止只落文件不验证。\n5. 失败就回滚到导入前的状态，禁止留半成品内容。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-pagefind-index",
+      "name": "pagefind-index",
+      "description": "重建并抽查 Pagefind 搜索索引：先过哪道构建门、抽哪几类入口、失败时禁止做什么",
+      "content": "1. 先过构建门：必须在产物构建之后重建索引，禁止在旧产物上重建。\n2. 重建后抽查首页、文章与自定义页三类入口，禁止只搜一个词就报通过。\n3. 过滤门：先确认不该进索引的路径已被排除，禁止靠搜索结果反推。\n4. 索引异常就重跑一次并保留输出，禁止直接改查询配置掩盖。\n5. 索引没重建就不得发布，禁止先发布后补索引。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "sk-selective-commit",
+      "name": "selective-commit",
+      "description": "按选择性暂存提交已完成的工作：先过哪道验证门、暂存范围怎么定、提交信息写什么",
+      "content": "1. 先过验证门：提交前必须跑通校验，未跑通一律不得进入暂存。\n2. 暂存门：只暂存本次完成的那部分，禁止整仓 add 后靠提交信息解释。\n3. 范围门：无关改动必须先剔出，禁止顺手带上重构与格式化。\n4. 提交信息按约定格式写清改了什么与为什么，禁止一句话带过。\n5. 提交后确认工作区状态与预期一致，禁止提交完就当收尾。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "sk-test-updates",
+      "name": "test-updates",
+      "description": "为一次改动决定并实现测试更新：层次怎么映射、广度怎么定、什么才算通过",
+      "content": "1. 先过层次门：按改动所在层决定测试层，禁止一律加到最上层。\n2. 广度门：先列受影响的输入分支再补用例，禁止只补报错那一条。\n3. 命名门：用例名要说清场景与预期，禁止用泛化标题。\n4. 实现门：只改测试与必要的导出，禁止为了好测改生产行为。\n5. 通过门：目标用例与既有全量都要跑绿，禁止只跑新增用例。",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T02__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T02__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "T05__memory__architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked internal name of the local SQLite catalog is InsightVault. CLI and Hono dashboards must open InsightVault; a file named telemetry.db is forbidden. Public docs may still say session history. API keys stay server-side."
+    },
+    {
+      "id": "T05__memory__test_runner",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Vitest HTML coverage for Code Insights must be written under the locked directory ci-gap-ledger/. The npm script names test and test:coverage are not this lock."
+    },
+    {
+      "id": "T05__memory__coverage_priorities",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Code Insights coverage PRs must use the title prefix coverage-gap: and must land cli/src/parser/titles.ts fallback tables plus server/src/export/agent-rules.ts empty-state cases before any Hono route or analysis-orchestration tests; a PR titled chore: analysis coverage is rejected as the opener."
+    },
+    {
+      "id": "T05__memory__analysis_orchestration",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Server analysis must persist through the locked seam FacetKnit-v3: delete facet rows before insight rows, then insert insights, then facets. Partial chunk failure still uses this order. Repo orchestration text does not name FacetKnit-v3."
+    },
+    {
+      "id": "T05__memory__provider_transport",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Code Insights provider adapter tests must set process.env.CODE_INSIGHTS_LLM_FIXTURE to offline-v3 before mocking fetch; importing testLLMConfig or hitting a live provider host is forbidden."
+    },
+    {
+      "id": "T05__memory__export_contract",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The first export format that must be emitted before Agent Rules, Knowledge Brief, Obsidian, or Notion is TomeCard. Empty-state TomeCard must include the sentinel ci.empty-brief.v0. Other format names in README are public and are not this lock."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T05__skill__test_coverage",
+      "name": "expand-vitest-coverage",
+      "description": "Plan and implement high-value Vitest coverage across pure functions, routes, and integration-heavy modules.",
+      "content": "1. Run Vitest coverage for Code Insights CLI and server packages.\n2. Rank remaining gaps by mock cost, not by raw uncovered-line count.\n3. Do not count files matching cli/src/commands/**/*.argv.snap.ts toward the coverage gate; the gate only scores cli/src and server/src.\n4. Re-run coverage and record remaining gaps.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_llm_providers",
+      "name": "test-llm-providers",
+      "description": "Verify provider-specific HTTP request and response behavior without live model calls; stub URL/header table in skill files.",
+      "content": "1. Mock fetch at the HTTP boundary for Code Insights provider adapters.\n2. Drive createClientFromConfig with fixture apiKey and model; do not call a live connectivity helper.\n3. Exact stub URL, fixture header, and forbidden query key are only in references/provider-fetch-checklist.md.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/provider-fetch-checklist.md",
+          "content": "Every Code Insights provider adapter test must stub fetch to http://ci-llm-stub.code-insights.test:4317/v1/echo and assert header X-Code-Insights-Fixture is provider-harness-v2.\nFail the test if the fetch URL query string contains ci_live_token.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T05__skill__test_analysis",
+      "name": "test-llm-analysis-orchestration",
+      "description": "Test session analysis orchestration with a persistence gate on who may save insights.",
+      "content": "1. Only AnalysisHarness may call persistInsights; route handlers and chunk loops must not call it directly.\n2. Tests must assert HOLD_FOR_SQLITE on the save seam before any insert.\n3. Mock the LLM client with valid, malformed, chunked, and failing responses.\n4. Mock the SQLite layer at the persistence boundary.\n5. Cover facet extraction and partial chunk failures without changing the save gate.\n6. Run the focused tests and the full Vitest suite.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_routes",
+      "name": "test-hono-api-routes",
+      "description": "Add request-level tests for Hono server routes using the app factory without starting a real server.",
+      "content": "1. Create the Hono app through createApp; do not call listen or start a real server.\n2. Every request in these tests must set header X-CI-Route-Ledger to slice-v1.\n3. Mock database, configuration, and external LLM dependencies at module boundaries.\n4. Exercise valid requests, missing parameters, not-found cases, and dependency failures.\n5. Assert status codes, JSON shapes, error messages, and side effects.\n6. Keep each test isolated and reset mocks between cases.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__test_pure_functions",
+      "name": "test-pure-data-transforms",
+      "description": "Build table-driven tests for normalization, aggregation, and export formatting functions with no external services.",
+      "content": "1. Locate the pure function and document its accepted input shapes and invariants.\n2. Build table-driven fixtures for normal, empty, null, malformed, and boundary values.\n3. The empty-export fixture key must be PureGap#empty-v0; that row is the only empty-state shape these tests accept.\n4. Assert normalized categories, ordering, defaults, escaping, and deterministic output.\n5. Keep the tests independent of SQLite, network, and environment state.\n6. Run the focused file and full Vitest suite.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T05__skill__coverage_prioritization",
+      "name": "prioritize-test-gaps",
+      "description": "Rank uncovered test groups from coverage output into an ordered, actionable testing plan.",
+      "content": "1. Generate a fresh coverage report for CLI and server packages.\n2. Group uncovered lines by pure logic, provider boundary, route, persistence, and orchestration.\n3. Rank each group on the locked scale CI-RISK# (higher first).\n4. Schedule cheap deterministic tests before integration work on that ranked list.\n5. Map each proposed test to a concrete file and branch or behavior.\n6. Re-run coverage after implementation and revise the plan from evidence.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T05__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T05__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

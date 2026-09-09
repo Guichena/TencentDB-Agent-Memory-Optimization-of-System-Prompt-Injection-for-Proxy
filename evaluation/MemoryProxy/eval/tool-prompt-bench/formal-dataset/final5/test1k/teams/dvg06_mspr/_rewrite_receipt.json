@@ -1,0 +1,10 @@
+{
+  "team": "dvg06_mspr",
+  "files_skill": "generate-rsa-keypair",
+  "files_path": "references/rsa-keypair.md",
+  "n_cases": 26,
+  "mem_pairs": 1,
+  "skill_pairs": 2,
+  "files_pairs": 1,
+  "notes": "mspr 整队重写（瘦队，只改现有 keep 行）；files 挂在 generate-rsa-keypair。"
+}

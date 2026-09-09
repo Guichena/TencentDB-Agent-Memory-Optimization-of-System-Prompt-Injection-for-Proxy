@@ -1,0 +1,10 @@
+{
+  "team": "dvg01-junior",
+  "files_skill": "route-move",
+  "files_path": "references/route-move.md",
+  "n_cases": 21,
+  "mem_pairs": 8,
+  "skill_pairs": 2,
+  "files_pairs": 1,
+  "notes": "Junior (tisztamo/junior) 整队重写；files 挂在 route-move。"
+}

@@ -1,0 +1,13 @@
+{
+  "team_id": "T13",
+  "repo_id": "cyyeh/duckdb-data-agent",
+  "repo_url": "https://github.com/cyyeh/duckdb-data-agent",
+  "case_count": 40,
+  "current_agent_id": "T13__agent__primary",
+  "agent_ids": [
+    "T13__agent__primary",
+    "T13__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "T06__memory__project_architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "SprintSpark 的模块边界锁为 `T06Q-ARCH-EDGE`：领域逻辑只在本队登记的三层内流转，跨层调用只能走登记过的入口，禁止新增第四层，也禁止从展示层直连持久化。"
+    },
+    {
+      "id": "T06__memory__test_baseline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "测试基线锁为 `T06Q-TEST-BASE`：改动前必须跑既有测试套件并把结果记为基线，禁止用「我记得之前是绿的」代替跑基线，也禁止在未跑基线前先改测试。"
+    },
+    {
+      "id": "T06__memory__data_model",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "数据模型锁为 `T06Q-DATA-OWNER`：实体关系与持久化假设只认本队登记的归属，禁止为省事新增并行表，也禁止在领域层直接写存储细节。"
+    },
+    {
+      "id": "T06__memory__release_constraints",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "发布约束锁为 `T06Q-RELEASE-KEEP`：构建与部署产物路径保持不变，禁止为一次改动调整产物布局，也禁止改构建脚本绕过既有校验。"
+    },
+    {
+      "id": "T06__memory__integration_boundaries",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "集成分界锁为 `T06Q-BOUNDARY-LOCAL`：本地确定性测试与依赖外部服务的测试必须分开，禁止把外部服务调用塞进本地套件，也禁止用真实外部服务替代本地替身。"
+    },
+    {
+      "id": "T06__memory__historical_decision",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "历史决策留存锁为 `T06Q-DECISION-KEEP`：历史实现讨论只以会话上下文留存，禁止把结论直接写进代码注释充当依据，也禁止在没有新决策时改写既有结论。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T06__skill__test_strategy",
+      "name": "test-implementation-slices",
+      "description": "按切片补回归覆盖：先过哪道基线门、用例落在哪层、断言什么",
+      "content": "1. 先过基线门：补用例前先跑既有套件并把结果记下来，禁止在不看基线时直接写新用例。\n2. 切片门：一次只补一个切片的覆盖，禁止把多个切片的用例混进一次改动。\n3. 用例只落在被测行为所在的层，禁止为了好测把逻辑上移。\n4. 断言只针对可观察结果，禁止断言内部调用顺序。\n5. 收尾必须目标用例与既有套件一起跑，禁止只跑新增用例。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__integration_testing",
+      "name": "test-integration-boundaries",
+      "description": "测试跨网络、存储或进程边界的代码：先过哪道替身门、确定性怎么保证",
+      "content": "1. 先过替身门：外部边界必须换成可控替身，禁止在测试里连真实外部服务。\n2. 时间门：涉及时序的地方注入可控时钟，禁止靠睡眠等待结果。\n3. 数据门：每个用例自带数据并在结束后清理，禁止依赖上一条用例的残留。\n4. 失败先复现再修，禁止直接放宽超时让用例变绿。\n5. 边界用例与本地套件分目录存放，禁止混进本地快速套件。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__regression_fix",
+      "name": "implement-a-regression-fix",
+      "description": "追一个已报告的回归并做最小安全改动：先过哪道复现门、改动范围怎么定",
+      "content": "1. 先过复现门：先跑出一个稳定复现，禁止凭报告描述直接改代码。\n2. 定位门：把范围收敛到引入回归的那次改动，禁止顺手重构周边代码。\n3. 最小改动只修根因，禁止同时改行为与接口。\n4. 修完先补一条覆盖该回归的用例，再跑既有套件。\n5. 还有关联缺陷就另开一条并如实上报，禁止塞进本次改动。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__refactor_safely",
+      "name": "refactor-shared-code-safely",
+      "description": "在不改变可观察行为的前提下重构共享代码：先过哪道不动门、怎么分步、调用点怎么收",
+      "content": "1. 先过不动门：先把当前可观察行为固定成用例，行为没固定不得动结构。\n2. 分步门：一次只搬一个概念，禁止一次重排整个目录。\n3. 调用点门：所有调用点同步改完再删旧实现，禁止留双份实现并存。\n4. 每步跑既有套件，禁止攒到最后一次跑。\n5. 行为有变化就停下并上报，禁止把行为调整藏进重构提交。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__release_validation",
+      "name": "validate-a-release-change",
+      "description": "对照构建、测试与产物 expectation 校验一次已完成改动：先过哪道范围门、放行基线在附件哪里",
+      "content": "1. 先过范围门：只校验本次改动涉及的部分，禁止顺手复查无关模块。\n2. 构建门：先确认构建产物能按既有路径产出，禁止改路径让校验通过。\n3. 测试门：既有套件必须全绿，禁止跳过失败用例后报完成。\n4. 产物门：核对产物清单与体积是否和上一次一致，异常必须说明原因。\n5. 收尾的放行基线检查项只写在 references/release-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/release-gate.md",
+          "content": "# Release validation gate\n\nA release change for this repo may only be signed off when all of the following hold:\n\n- The validation record must carry the gate marker `T06Q-RELEASE-SEAL`.\n- The artifact manifest must name the checker `T06Q-SIGN-OFF`; any other value voids the record.\n- The artifact size delta must be reported against the value `T06Q-SIZE-BASE`; an unreported delta is a failure.\n- A record containing `T06Q-SKIP-SUITE` is rejected; the existing suite must always run.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented release validation gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T06__skill__debug_async_flow",
+      "name": "debug-asynchronous-flow",
+      "description": "追异步状态流转里的漏 await、顺序错乱与状态竞争：先过哪道可观察门",
+      "content": "1. 先过可观察门：先把状态流转记成可观察探针，禁止凭猜测加 await。\n2. 顺序门：先确认每一步的触发者，禁止只按代码先后顺序推断实际顺序。\n3. 竞争门：先枚举并发入口再判断共享状态，禁止单点加锁就当修好。\n4. 修复只改流转本身，禁止靠扩大超时掩盖顺序问题。\n5. 修完必须补一条能在本地稳定复现的用例，禁止只在调试环境验证。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T06__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T06__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

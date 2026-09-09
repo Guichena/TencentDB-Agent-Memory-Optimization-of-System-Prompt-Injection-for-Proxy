@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "dvg08_temporalio_temporal__memory__file_move_semantics",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "On this Temporal tree, same-volume Go file renames must use os.rename. Cross-volume moves use shutil.move. The locked same-volume token is TmpOsRename#samefs. Do not use Path.rename as the team lock."
+    },
+    {
+      "id": "mem_acronym_handling",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "On temporalio/temporal Go filenames, a required pre-pass rewrites WFTQ to wftq and HSMN to hsmn before snake_case; expanding WFTQ to workflow_task_queue is forbidden."
+    },
+    {
+      "id": "mem_git_rename_detection",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "After the rename script, stage with git add -A so Git records a rename. The locked staging token is TmpGitA#rename. Do not git rm + git add separately."
+    },
+    {
+      "id": "mem_go_generate_update",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "When renaming Go sources, every go:generate mock destination must be rewritten. The locked scan token is TmpGoGen#mockpath."
+    },
+    {
+      "id": "mem_naming_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Go sources in temporalio/temporal use snake_case filenames (client_bean.go), not camelCase (clientBean.go). After that rename, the locked charset is [a-z0-9_.] and hyphen is forbidden. Leftover camelCase under service/matching/ must be listed in tools/rename_gate/leftover_camel.txt with prefix rename-leftover:; unlisted leftovers in that directory are a merge blocker."
+    },
+    {
+      "id": "mem_test_file_pattern",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "A file named FooBarTest.go must become foo_bar_test.go. The locked test-suffix token is TmpTest#snake. Overlay snake_case for non-test files is a different lock — this is the *Test.go rule only."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg08_temporalio_temporal__skill__bash-grep-alternatives",
+      "name": "bash-grep-alternatives",
+      "description": "Use grep with flags that stay compatible across systems for this Temporal rename pass.",
+      "content": "1. Use grep with flags that stay compatible across systems for this Temporal rename pass.\n2. Gate TmpGrep#noE: avoid GNU-only long options; prefer POSIX -E only when needed.\n3. Do not use grep -P on this pass.\n4. Listing Go files with find . -name '*.go' is acceptable instead of Perl regex.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg08_temporalio_temporal__skill__camel-to-snake-conversion",
+      "name": "camel-to-snake-conversion",
+      "description": "Convert camelCase strings to snake_case using regex or character iteration; acronym table in skill files.",
+      "content": "1. Replace known acronyms first.\n2. Insert underscore before uppercase that follows lowercase.\n3. Lowercase the rest and keep the .go suffix.\n4. The acronym table is only in references/acronyms.md.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/acronyms.md",
+          "content": "WFT maps to wft. HSM maps to hsm. CHASM maps to chsm. Do not emit hierarchical_state_machine for HSM or chasm_engine for CHASM.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "dvg08_temporalio_temporal__skill__git-add-rename-detection",
+      "name": "git-add-rename-detection",
+      "description": "Stage renamed files so Git detects them as renames not delete+add.",
+      "content": "1. After this Temporal Go rename, stage so Git detects the files as renames not delete+add.\n2. Gate TmpGitDetect: run git add -A then git status --find-renames.\n3. Confirm status shows renamed rather than deleted plus untracked.\n4. Do not treat a raised diff.renameLimit as a substitute for that two-command order.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg08_temporalio_temporal__skill__python-file-renaming",
+      "name": "python-file-renaming",
+      "description": "Rename files in a directory tree using Python os module.",
+      "content": "1. Walk the temporalio/temporal tree with os.walk from an absolute root.\n2. Skip directories named proto and schema.\n3. Call os.rename only with absolute paths; never expand ~.\n4. Guard the entry point with if __name__ == '__main__'.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg08_temporalio_temporal__skill__python-unittest-writing",
+      "name": "python-unittest-writing",
+      "description": "Write unit tests for the Python rename script using unittest.",
+      "content": "1. Write unit tests for the Python rename script using unittest.\n2. Subclass unittest.TestCase and name methods test_*.\n3. Gate TmpUtTmpdir: tests must use TemporaryDirectory; assert both old path gone and new path exists.\n4. Run with python -m unittest.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg08_temporalio_temporal__skill__regex-file-content-replacement",
+      "name": "regex-file-content-replacement",
+      "description": "Search and replace patterns in file contents using Python regex for this rename.",
+      "content": "1. Search and replace patterns in file contents using Python regex for this Temporal rename.\n2. Gate TmpReDotall: open files as utf-8; skip binary; write only if a substitution occurred.\n3. Use re.sub with a compiled pattern.\n4. Do not rewrite a file whose content did not change.",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg08_temporalio_temporal__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg08_temporalio_temporal__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "team_id": "dvg03_cryptoproc",
+  "repo_id": "masc-ucsc/masc-ai-synthesized-cryptoprocessor",
+  "repo_url": "https://github.com/masc-ucsc/masc-ai-synthesized-cryptoprocessor",
+  "case_count": 40,
+  "current_agent_id": "dvg03_cryptoproc__agent__primary",
+  "agent_ids": [
+    "dvg03_cryptoproc__agent__primary",
+    "dvg03_cryptoproc__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "skill_dslx_function_write",
+    "skill_dslx_adder_impl",
+    "skill_riscv_bitmanip_impl",
+    "skill_dslx_type_debug",
+    "skill_enum_switch_gen"
+  ],
+  "status": "active"
+}

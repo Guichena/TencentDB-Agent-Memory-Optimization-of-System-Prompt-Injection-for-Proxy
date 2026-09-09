@@ -1,0 +1,10 @@
+{
+  "team": "T10",
+  "files_skill": "skill-instructions",
+  "files_path": "references/skill-nest.md",
+  "n_cases": 30,
+  "mem_pairs": 7,
+  "skill_pairs": 8,
+  "files_pairs": 1,
+  "notes": "context-evaluator 整队重写；files 挂在 skill-instructions。"
+}

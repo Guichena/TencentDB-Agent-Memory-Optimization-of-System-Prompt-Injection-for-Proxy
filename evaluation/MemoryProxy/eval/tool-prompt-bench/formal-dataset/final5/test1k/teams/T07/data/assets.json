@@ -1,0 +1,135 @@
+{
+  "memory": [
+    {
+      "id": "T07__memory__verification_gate",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "推送前的校验门为 `T07Q-VERIFY-ALL`：lint、类型与测试必须整轮都过，禁止只跑其中一项就推送，也禁止加忽略标记让门变绿。"
+    },
+    {
+      "id": "T07__memory__run_modes",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "本地运行模式锁为 `T07Q-RUNMODE-TWO`：standalone 用本地容器库、dev 用托管服务，两种模式不得混用配置，禁止在 standalone 下读托管环境变量。"
+    },
+    {
+      "id": "T07__memory__doppler_boundary",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "凭据边界锁为 `T07Q-DOPPLER-CORE`：生产凭据只归核心团队，外部贡献者不得取用，禁止把生产凭据写进本地配置或提交内容。"
+    },
+    {
+      "id": "T07__memory__release_boundary",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "发布边界锁为 `T07Q-RELEASE-SPLIT`：发布 PR、changelog、版本与 tag 由工具准备，实际发布动作仍由人执行，禁止自动化代发，也禁止跳过 tag 直接发版。"
+    },
+    {
+      "id": "T07__memory__hook_scope",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "钩子作用域锁为 `T07Q-HOOK-PROJECT`：钩子配置只落在项目内解析，禁止写到用户主目录的配置里，也禁止用全局配置代替项目内解析。"
+    },
+    {
+      "id": "T07__memory__migration_policy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "迁移执行锁为 `T07Q-MIGRATE-MANUAL`：迁移手工执行而不是服务启动时自动跑，数据迁移与结构迁移分开，禁止把两者并在一次自动执行里。"
+    },
+    {
+      "id": "T07__memory__package_naming",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "包名锁为 `T07Q-NPM-UNSCOPED`：对外发布用不带 scope 的名字，仓库内部可保留不同标识，禁止给对外包改名或同时发两个名字。"
+    },
+    {
+      "id": "T07__memory__ci_history",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "CI 修复锁为 `T07Q-CI-LOCALFIRST`：修复必须本地验过再提交并推送，禁止直接推到远端靠 CI 试，也禁止连续推多次碰运气。"
+    },
+    {
+      "id": "T07__memory__postgres_env",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "连接变量锁为 `T07Q-PG-VAR`：全仓库只认一个标准连接变量名，禁止并存第二个等价变量，也禁止为某个模块改用另一套名字。"
+    },
+    {
+      "id": "T07__memory__clickhouse_safety",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "测试隔离锁为 `T07Q-CH-NO-TESTDATA`：生产实例不得接收测试数据，测试只走 CI 配置，禁止把测试指向生产实例。"
+    },
+    {
+      "id": "T07__memory__cli_hooks",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "CLI 钩子命名空间锁为 `T07Q-HOOK-NS`：钩子命令按固定三段式命名空间组织，禁止新增别名，也禁止把子命令挪到别的层级。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T07__skill__environment_variables",
+      "name": "rudel-environment-variables",
+      "description": "配置与排查本地、CI、托管三处环境变量：先过哪道来源门、缺失时怎么报、敏感值落在哪",
+      "content": "1. 先过来源门：先确认变量来自本地、CI 还是托管配置，禁止混读三处后取最后一个。\n2. 缺失门：变量缺失必须明说是哪一处缺，禁止用空串或默认值顶替。\n3. 命名门：同一用途只认全仓库统一的那一个变量名，禁止为某个模块另起别名。\n4. 敏感值只留在对应环境里，禁止写进提交内容或日志输出。\n5. 改完必须在该环境重跑一次校验，禁止只在本地验过就当三处都好。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T07__skill__api_testing",
+      "name": "rudel-api-endpoint-testing",
+      "description": "校验 oRPC 契约与带鉴权端点行为：先过哪道契约门、鉴权与数据怎么造、断言什么",
+      "content": "1. 先过契约门：先对齐接口契约再写用例，禁止照着当前实现反推契约。\n2. 鉴权门：带鉴权端点必须造显式凭证，禁止复用上一个用例的会话。\n3. 数据门：用例自带数据并在结束后清理，禁止依赖共享库里的既有数据。\n4. 断言只针对契约字段与状态码，禁止断言内部实现细节。\n5. 契约变更必须先改契约再改用例，禁止先放宽断言让用例变绿。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T07__skill__pr_creation",
+      "name": "rudel-pull-request-workflow",
+      "description": "准备、提交、推送并开一个符合本仓库要求的 PR：先过哪道校验门、门禁基线在附件哪里",
+      "content": "1. 先过校验门：推送前必须整轮校验通过，未通过不得进入提交。\n2. 提交门：一次提交只装一个逻辑改动，禁止把修复与格式化混在一起。\n3. 分支门：分支名与提交信息按仓库约定写，禁止临时起名。\n4. 描述门：PR 描述说清改动与验证方式，禁止只贴一句修好了。\n5. 收尾的门禁基线检查项只写在 references/pr-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/pr-gate.md",
+          "content": "# Pull request gate\n\nA pull request for this repo may only be opened when all of the following hold:\n\n- The branch name must carry the prefix `T07Q-BRANCH-`.\n- The PR description must include the marker `T07Q-PR-SEAL`.\n- The reviewer field accepts exactly one value: `T07Q-REVIEWER`.\n- A PR body containing `T07Q-DRAFT-HOLD` stays draft and must never be marked ready.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented pull request gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T07__skill__chkit_migrations",
+      "name": "clickhouse-chkit-migration-workflow",
+      "description": "生成、排序、应用并验证 ClickHouse 结构迁移：先过哪道排序门、数据迁移怎么分开",
+      "content": "1. 先过排序门：迁移按生成顺序严格排序，禁止跳过中间版本直接应用。\n2. 结构门：结构迁移与数据迁移分开成两条，禁止并在一次执行里。\n3. 应用门：迁移手工执行，禁止配成服务启动时自动跑。\n4. 验证门：应用后必须核对目标库结构，禁止只看命令退出码。\n5. 生产库不得接收测试数据，验证只走 CI 配置。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T07__skill__testing_bun",
+      "name": "rudel-bun-verification",
+      "description": "在分享或推送改动前跑本仓库的校验：先过哪道顺序门、失败怎么收敛",
+      "content": "1. 先过顺序门：按 lint、类型、测试的顺序跑，禁止跳步只跑测试。\n2. 范围门：先跑受影响包的校验，再跑全量，禁止只跑全量后看第一条。\n3. 失败门：先修第一条根因再重跑，禁止一次改多处后猜。\n4. 修完必须整轮重跑，禁止只重跑失败那一项。\n5. 还有残留就如实上报并停下，禁止加忽略标记让校验变绿。",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T07__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T07__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

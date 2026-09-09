@@ -1,0 +1,110 @@
+{
+  "memory": [
+    {
+      "id": "dvg05_goeko_github_io__memory__vue_setup",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Das Projekt verwendet Vue.js 2.x für reaktive UI-Komponenten; Vue-Instanzen sind mit data(), methods, computed und Lifecycle-Hooks strukturiert."
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__jquery_legacy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Das Projekt enthält Legacy-jQuery-Code. Neue Features sollen in Vue.js entstehen; bestehenden jQuery-Code nicht ohne Rücksprache vollständig entfernen."
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__credit_calc",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Die Hauptseite des statischen Projekts ist kreditrechner.html und implementiert einen Kreditrechner; Berechnungen müssen präzise und mit deutschen Finanzregeln verträglich sein."
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__german_ui",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "UI-Texte und Fehlermeldungen sind deutsch; Zahlen verwenden Komma als Dezimaltrennzeichen und Punkt als Tausendertrennzeichen."
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__select_sync",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Die Linklisten-Auswahl verwendet zwei synchronisierte Mehrfachauswahl-Elemente; eine Auswahländerung wird im jeweils anderen Select gespiegelt."
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__localstorage_state",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Benutzereingaben und UI-Zustände werden im localStorage persistiert; für Linklisten werden *_data-Schlüssel wie select_left_data und select_right_data verwendet."
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__project_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Das Repository ist eine statische GitHub-Pages-Seite ohne Build-Pipeline; der Kreditrechner liegt in kreditrechner.html und lädt Vue.js sowie Legacy-jQuery im Browser."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg05_goeko_github_io__skill__vue_component_refactor",
+      "name": "vue-component-refactor",
+      "description": "jQuery-Code schrittweise in Vue-Komponenten migrieren.",
+      "content": "1. Identifiziere jQuery-DOM-Manipulationen.\n2. Extrahiere den Zustand in data().\n3. Überführe Event-Handler in methods.\n4. Ersetze DOM-Updates durch v-bind oder v-model.\n5. Verwende Vue refs anstelle von Selektoren.\n6. Prüfe reaktive Aktualisierungen.\n7. Entferne Legacy-Code schrittweise und teste nach jedem Schritt.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__select_sync",
+      "name": "select-sync",
+      "description": "Zwei synchronisierte Select-Elemente für die Linklisten implementieren.",
+      "content": "1. Erzeuge ein gemeinsames Optionsmodell.\n2. Binde beide Selects an den Auswahlzustand.\n3. Implementiere Änderungs-Handler für beide Richtungen.\n4. Verhindere doppelte Auswahl derselben Linkliste.\n5. Aktualisiere die beiden Container aus der Auswahl.\n6. Persistiere und lade den Zustand aus localStorage.\n7. Teste Initialisierung, Hin- und Rückrichtung sowie leeren Zustand.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__german_number_format",
+      "name": "german-number-format",
+      "description": "Zahlen im deutschen Format verarbeiten und anzeigen.",
+      "content": "1. Verwende Intl.NumberFormat('de-DE') für die Anzeige.\n2. Nutze Komma als Dezimal- und Punkt als Tausendertrennzeichen.\n3. Parse Eingaben mit der passenden Trennzeichen-Konvertierung.\n4. Validiere numerische Eingaben einschließlich 0, negativer und großer Werte.\n5. Runde Geldbeträge auf zwei Dezimalstellen.\n6. Prüfe die formatierten Werte mit Grenzfällen.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__localstorage_persist",
+      "name": "localstorage-persist",
+      "description": "Vue-Zustand zuverlässig in localStorage persistieren.",
+      "content": "1. Definiere die projektspezifischen Storage-Schlüssel.\n2. Serialisiere komplexe Zustände mit JSON.stringify.\n3. Speichere bei relevanten Zustandsänderungen.\n4. Lade beim Initialisieren mit localStorage.getItem und JSON.parse.\n5. Fange leere oder ungültige Daten mit einem Fallback ab.\n6. Implementiere einen Reset/Clear-Handler.\n7. Teste Speichern, Neuladen, ungültige Daten und Zurücksetzen.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__credit_calculation",
+      "name": "credit-calculation",
+      "description": "Kreditrechner-Berechnungen mit Tilgungsplan prüfen und anpassen.",
+      "content": "1. Validiere Betrag, Laufzeit, Zinssatz und Tilgung.\n2. Berechne monatliche und jährliche Raten.\n3. Berechne Zinsen, Restschuld und getilgten Betrag.\n4. Berücksichtige Sondertilgungen im Tilgungsplan.\n5. Runde Geldwerte auf zwei Dezimalstellen.\n6. Begrenze ungültige Werte und behandle eine vollständig getilgte Schuld.\n7. Prüfe Ergebnisse mit kleinen und realistischen Beispielen.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__debug_vue_reactivity",
+      "name": "debug-vue-reactivity",
+      "description": "Fehler in Vue-Reaktivität, v-model und berechneten Werten diagnostizieren.",
+      "content": "1. Inspiziere den Component-State mit Vue DevTools.\n2. Prüfe, dass data() alle benötigten Felder liefert.\n3. Kontrolliere v-model-Bindings und Event-Flows.\n4. Ergänze gezielte Logs in computed und watch.\n5. Verwende this.$set für neue verschachtelte Eigenschaften.\n6. Prüfe Schlüssel bei Listen-Rendering und erzwinge nur bei Bedarf ein Re-Render.\n7. Reproduziere den Fehler nach jeder Änderung.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg05_goeko_github_io__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg05_goeko_github_io__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

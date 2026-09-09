@@ -1,0 +1,125 @@
+{
+  "memory": [
+    {
+      "id": "mem_refactor_style",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "组件重构必须把 class 组件改成函数组件并使用 React Hooks，保持相同的 props 接口和用户可见行为。"
+    },
+    {
+      "id": "mem_commit_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Every jobsforit commit that used ChatGPT must start with JFDE-GPT: then a space and the summary, then a pipe and share= immediately before the chat.openai.com/share URL, then a space and the exact trailer reviewed-with-gpt. A README 'share chat' sentence or a bare share URL is not enough."
+    },
+    {
+      "id": "mem_ui_migration",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "jobsforit standing UI lock for new job-board controls is @material-ui/core exactly 4.9.10; leftover antd and mdbreact must not stay mixed on the same screen. package.json listing both antd and @material-ui/core is not the lock."
+    },
+    {
+      "id": "mem_contentful_config",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Contentful space ID 是 f6zwhql64w01，environment 是 master；内容查询必须用这对配置。"
+    },
+    {
+      "id": "mem_test_requirement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "新增或重构的组件必须有 Jest 单元测试；测试文件与组件同目录，命名 ComponentName.test.js。"
+    },
+    {
+      "id": "mem_markdown_format",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Markdown 只用标准标记：一级 #、二级 ##、列表数字或 -、代码块三个反引号；不加 GitHub 特有语法。"
+    },
+    {
+      "id": "mem_refactor_constraints",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "重构保持公共 API 和用户可见行为，必须通过现有测试，单个 PR 只动一个模块。"
+    },
+    {
+      "id": "mem_env_policy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "前端环境变量用 REACT_APP_ 前缀和 process.env；.env 不进 git，.env.sample 才是仓库模板。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "component-refactor",
+      "name": "component-refactor",
+      "description": "将 React class 组件重构为函数式组件；hooks 映射在附件",
+      "content": "1. List class state and lifecycle.\n2. Replace with useState/useEffect and drop this.\n3. Keep props and run tests.\n4. The jobsforit hook-name, leftover-comment ban, and test helper are only in references/hooks-conversion.md.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/hooks-conversion.md",
+          "content": "jobsforit class-to-hooks: extract mount fetch into the named custom hook useJobsforitMountFetch; leave a leftover this.state only if the comment token KEEP_CLASS_STATE_SHIM is present; wrap the converted component with the test helper mountWithJobsforitTheme.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "package-cleanup",
+      "name": "package-cleanup",
+      "description": "清理未使用的 npm 包并更新依赖",
+      "content": "1. depcheck unused packages.\n2. Search the repo before delete.\n3. Refresh yarn.lock with yarn install --ignore-engines only; do not use npm install.\n4. After yarn, write DEPCHECK.jobsforit.md with header JFDE-REMOVED listing each dropped package; skip this sidecar and the cleanup is incomplete.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "ui-library-migration",
+      "name": "ui-library-migration",
+      "description": "从一个 UI 库迁移到另一个的流程",
+      "content": "1. 找出旧库全部引用。2. 建旧组件→新组件映射。3. 逐文件换 import。4. 映射 props。5. 改 className/样式。6. 测每个替换。7. 删旧依赖。8. 回归。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "markdown-doc",
+      "name": "markdown-doc",
+      "description": "编写和格式化 Markdown 文档的标准",
+      "content": "1. # 一级标题。2. ##/### 子标题。3. 有序 1. 无序 -。4. 代码块 ```language。5. 链接 [文本](url)。6. 粗体 **text**。7. 目录锚点。8. 表格用 |。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "contentful-query",
+      "name": "contentful-query",
+      "description": "查询 Contentful CMS 数据的标准方法",
+      "content": "1. 从环境变量读 space 和 token。2. 初始化 client。3. client.getEntries()。4. 过滤 content_type 和 fields。5. order=sys.createdAt。6. limit/skip 分页。7. 处理网络错误。8. 可缓存响应。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "react-testing",
+      "name": "react-testing",
+      "description": "使用 Jest 和 React Testing Library 测试组件",
+      "content": "1. 导入组件和 RTL。2. describe 套件。3. test/it。4. render()。5. screen.getByText/Role。6. fireEvent。7. expect。8. afterEach cleanup。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg05_pbrudny_jobsforit__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg05_pbrudny_jobsforit__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

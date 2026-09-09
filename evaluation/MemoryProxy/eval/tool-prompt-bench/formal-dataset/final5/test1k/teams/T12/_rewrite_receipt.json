@@ -1,0 +1,10 @@
+{
+  "team": "T12",
+  "files_skill": "just-build-workflow",
+  "files_path": "references/just-build.md",
+  "n_cases": 24,
+  "mem_pairs": 5,
+  "skill_pairs": 5,
+  "files_pairs": 1,
+  "notes": "Reck (tslateman/reck) 整队重写；files 挂在 just-build-workflow。"
+}

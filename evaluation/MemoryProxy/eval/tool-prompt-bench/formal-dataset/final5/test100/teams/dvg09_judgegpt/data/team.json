@@ -1,0 +1,13 @@
+{
+  "team_id": "dvg09_judgegpt",
+  "repo_id": "bh679/judgegpt",
+  "repo_url": "https://github.com/bh679/judgegpt",
+  "case_count": 10,
+  "current_agent_id": "dvg09_judgegpt__agent__primary",
+  "agent_ids": [
+    "dvg09_judgegpt__agent__primary",
+    "dvg09_judgegpt__agent__shared"
+  ],
+  "bound_skill_ids": [],
+  "status": "active"
+}

@@ -1,0 +1,126 @@
+{
+  "memory": [
+    {
+      "id": "T12__memory__three_tier_reasoning",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Reck 使用三层 reasoning：Tier 1 Rust rule engine 处理已知模式，Tier 2 Python causal inference 处理新异常，Tier 3 Python/Ollama LLM 处理解释和边界情况；低层失败时才升级。"
+    },
+    {
+      "id": "T12__memory__signal_pipeline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "信号链路为 PLC4X connectors → EMQX MQTT UNS → Redpanda → Flink → TimescaleDB；Rust hot path 与 Python reasoning path 通过 gRPC 通信。"
+    },
+    {
+      "id": "T12__memory__event_causal_state",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "生产状态以 timestamped event stream 为主，并在其上增量构建 causal graph；该设计支持从 cold start 运行并逐步学习。"
+    },
+    {
+      "id": "T12__memory__safety_boundaries",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Reck 只能通过 OPC-UA 向 Level 2 supervisory systems 写 setpoint，绝不直接写 Level 1 PLC、绕过 interlock、启动停止设备或覆盖 E-stop。"
+    },
+    {
+      "id": "T12__memory__rollback_monitoring",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "每次 setpoint 变更都先保存旧值，应用后监控下游 KPI 30-300 秒，若退化则自动回滚并记录失败。"
+    },
+    {
+      "id": "T12__memory__ecosystem",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Reck 独立运行，并可通过 Lore 记录决策/模式/失败、Council 处理升级、Shipyard 注册 agent、Grafana 展示 TimescaleDB 数据。"
+    },
+    {
+      "id": "T12__memory__adaptive_gears",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Reck 的 gear 概念按积累证据调整决策权限和 autonomy level，低置信度结果必须进入更谨慎的验证或人工升级路径。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "T12__skill__rust_grpc_watch",
+      "name": "rust-grpc-watch-stub",
+      "description": "实现 Rust watch hot path 到 Python reasoning path 的 gRPC WatchService stub。",
+      "content": "# Rust gRPC watch stub\n\n## Purpose\n实现 Rust watch hot path 到 Python reasoning path 的 gRPC WatchService stub。\n\n## Use when\n- 需要把 watch/rust 接到 Python reasoning，并按 proto 转发 signal。\n\n## Do not use when\n- 只改 Python reasoning 内部逻辑，不涉及 gRPC 边界。\n\n## Inputs\n- proto/reck.proto、现有 shared event types、watch/rust 工程。\n\n## Procedure\n1. 阅读 proto/reck.proto 与现有 shared event types，确认 WatchService.ForwardSignal 的字段、版本和错误约定。\n2. 在 watch/rust 中生成并实现 WatchService.ForwardSignal stub，保持与 proto 一致。\n3. 将输入 signal 映射为 protobuf event；失败时返回明确的 Result 错误，不在 hot-path panic。\n4. 增加 cargo build、cargo test 和跨语言 smoke test，覆盖正常转发与错误路径。\n5. 核对 hot-path 不 panic、边界字段完整，以及 gRPC 错误能传播到 Python reasoning 侧。\n\n## Verification\n- cargo build / cargo test 通过；跨语言 smoke test 能转发 signal 并看到明确错误。\n\n## Constraints\n- 不绕过现有 event 契约；不在 hot-path 吞掉错误。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__signal_path",
+      "name": "signal-path-component",
+      "description": "按 event schema 构建检测到行动的 signal-path 组件并保持事件契约稳定。",
+      "content": "# Signal path component\n\n## Purpose\n按 event schema 构建检测到行动的 signal-path 组件并保持事件契约稳定。\n\n## Use when\n- 需要接线 ingestion、normalization 与 anomaly handoff。\n\n## Do not use when\n- 只调整 UI 或文档，不改事件路径。\n\n## Inputs\n- reck/events.py、proto 契约、Python reasoning 与 Rust watch 两侧类型。\n\n## Procedure\n1. 读取 reck/events.py 与 proto 契约，确认字段、版本和序列化边界。\n2. 实现 signal ingestion、normalization 与 anomaly handoff，保持 source、timestamp、state transition 和 context 可追溯。\n3. 为 Python reasoning 和 Rust watch 分别补具体类型，避免两侧字段漂移。\n4. 添加正常、未知和 malformed signal 测试。\n5. 验证发出的事件仍可追溯到 source、timestamp、state transition 和 context。\n\n## Verification\n- 正常/未知/malformed 测试通过；事件字段与 proto 契约一致。\n\n## Constraints\n- 不破坏现有 event schema 版本；不把无关事件类型复用到同一路径。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__gear_transition",
+      "name": "adaptive-gear-transition",
+      "description": "根据证据和置信度接线 gear transition，并验证决策权限逐级变化。",
+      "content": "# Adaptive gear transition\n\n## Purpose\n根据证据和置信度接线 gear transition，并验证决策权限逐级变化。\n\n## Use when\n- 需要按积累证据调整 autonomy / decision permission。\n\n## Do not use when\n- 直接改 setpoint 写入或绕过 safety gate。\n\n## Inputs\n- 现有 Beta distribution tracker、current_gear、confidence 计算、orchestrator 与 ledger/TimescaleDB sink。\n\n## Procedure\n1. 阅读现有 Beta distribution tracker、current_gear 和 confidence 计算，弄清当前权限如何随证据变化。\n2. 定义每个 gear 的进入、退出和最低证据条件；低置信度必须进入更谨慎的验证或人工升级路径。\n3. 把 transition 事件写入 ledger/TimescaleDB，并在 orchestrator 中调用 sink，保证可追溯。\n4. 对低置信度、边界样本和回退路径添加测试。\n5. 运行 pyright、pytest，并确认 gear 不会绕过 safety gate（不得直接写 Level 1 PLC、绕过 interlock 或覆盖 E-stop）。\n\n## Verification\n- pyright 与 pytest 通过；低置信度路径不会跳过 safety gate。\n\n## Constraints\n- Reck 只能通过 OPC-UA 向 Level 2 supervisory systems 写 setpoint。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__outcome_enrichment",
+      "name": "outcome-data-enrichment",
+      "description": "让事件、monitor 和 ledger 共享可追踪的 action outcome 字段。",
+      "content": "# Outcome data enrichment\n\n## Purpose\n让事件、monitor 和 ledger 共享可追踪的 action outcome 字段。\n\n## Use when\n- 需要在完成、回滚和失败路径记录 outcome。\n\n## Do not use when\n- 只改展示文案，不改序列化字段。\n\n## Inputs\n- 现有 event、monitor、ledger 的 outcome 字段和 protobuf/JSON 边界。\n\n## Procedure\n1. 列出现有 event、monitor、ledger 的 outcome 字段和序列化边界。\n2. 扩展共享类型并保持 protobuf/JSON 向后兼容，避免旧消费者读失败。\n3. 在 action 完成、回滚和失败路径写入 outcome（含超时）。\n4. 更新 TimescaleDB sink 与查询，使新字段可被检索。\n5. 添加成功、失败、超时和缺失字段的测试。\n\n## Verification\n- 成功/失败/超时/缺失字段测试通过；旧 payload 仍可解析。\n\n## Constraints\n- 不破坏既有 protobuf/JSON 字段编号与兼容性。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__safe_schema_migration",
+      "name": "safe-schema-migration",
+      "description": "为 Reck 的数据 schema 增加可回滚、可验证且不破坏旧数据的迁移。",
+      "content": "# Safe schema migration\n\n## Purpose\n为 Reck 的数据 schema 增加可回滚、可验证且不破坏旧数据的迁移。\n\n## Use when\n- schema_version 或数据库访问层需要变更。\n\n## Do not use when\n- 仅改内存结构、不落库。\n\n## Inputs\n- 现有 schema_version、数据库访问层、dev database 与旧版本 fixture。\n\n## Procedure\n1. 对照现有 schema_version 和数据库访问层列出变更。\n2. 编写带版本号的 up/down migration，避免假设 ALTER TABLE 会自动完成或不可逆。\n3. 在 dev database 上执行升级、重启恢复和 rollback。\n4. 用旧版本 fixture 验证读写兼容。\n5. 将 migration、parity 和失败恢复纳入全套测试。\n\n## Verification\n- 升级、重启恢复和 rollback 都成功；旧 fixture 仍能读写。\n\n## Constraints\n- 不原地改已发布 schema；不丢旧数据。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__lore_praxis_cli",
+      "name": "lore-praxis-cli-integration",
+      "description": "通过非阻塞 CLI 与 Lore/Praxis 交换决策、模式和失败记录。",
+      "content": "# Lore/Praxis CLI integration\n\n## Purpose\n通过非阻塞 CLI 与 Lore/Praxis 交换决策、模式和失败记录。\n\n## Use when\n- 需要记录 decisions/patterns/failures/observations，或在 planning 时读取历史上下文。\n\n## Do not use when\n- 在 Rust hot path 同步阻塞等待 CLI。\n\n## Inputs\n- Lore CLI、project reck、MCP advisory 使用边界。\n\n## Procedure\n1. 确定 decisions、patterns、failures 和 observations 的字段与 tag。\n2. 用异步 subprocess 写入 Lore，并设置 project reck，避免阻塞 hot path。\n3. 用 30 秒 TTL cache 读取历史上下文，避免 hot path 文件抖动。\n4. 仅在 Tier 2/3 planning 或 cold start 使用 MCP advisory，不在 Tier 1 规则热路径调用。\n5. 为 CLI 失败、超时、重复写入和缓存过期添加测试。\n\n## Verification\n- 失败/超时/重复写入/缓存过期测试通过；hot path 不被 CLI 阻塞。\n\n## Constraints\n- 不把 MCP advisory 放进 hot path；写入失败必须可观测。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__plan_review",
+      "name": "plan-review-and-handoff",
+      "description": "审查连续计划、反馈和架构决定，形成可执行且无隐含假设的 spec。",
+      "content": "# Plan review and handoff\n\n## Purpose\n审查连续计划、反馈和架构决定，形成可执行且无隐含假设的 spec。\n\n## Use when\n- 需要审查 spike/计划取舍并决定 handoff。\n\n## Do not use when\n- 已有可执行 spec、只需实现。\n\n## Inputs\n- 计划编号、上下文、依赖、已实现提交、安全边界。\n\n## Procedure\n1. 按计划编号读取上下文、依赖和已实现提交。\n2. 标出冲突的架构假设、未覆盖的安全边界和缺失测试。\n3. 将 feedback 转成可验收的 work items。\n4. 决定计划是 sequential 还是 independent，并明确 handoff。\n5. 生成可供审阅的 spec，验证发现后再进入实现。\n\n## Verification\n- spec 列出验收项、安全边界和 handoff；无未说明的隐含假设。\n\n## Constraints\n- 未验证发现前不开始实现。\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T12__skill__just_build_workflow",
+      "name": "just-build-workflow",
+      "description": "把 Reck 的构建、仿真、测试和开发命令统一迁移到 just。",
+      "content": "# Just build workflow\n\n## Purpose\n把 Reck 的构建、仿真、测试和开发命令统一迁移到 just。\n\n## Use when\n- 需要把 Makefile 目标迁到 justfile，或核对 CI/文档引用。\n\n## Do not use when\n- 只跑一次现有 make 目标、不改入口。\n\n## Inputs\n- Makefile 中的 build、test、sim、dev 目标；justfile；文档与 CI。\n\n## Procedure\n1. 盘点 Makefile 中 build、test、sim 和 dev 目标，记下参数和环境变量。\n2. 在 justfile 中逐项建立等价 recipe，保留参数和环境变量。\n3. 更新文档、CI 和开发脚本引用，使其指向 just recipe。\n4. 在干净 checkout 运行 build、test、sim 和 check。\n5. 删除过时引用前核对每个 recipe 的输出和失败码。\n\n## Verification\n- 干净 checkout 上 build/test/sim/check 成功；旧 Makefile 引用已更新或仍有明确对照。\n\n## Constraints\n- 不在核对输出和失败码之前删除旧目标。\n",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T12__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T12__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

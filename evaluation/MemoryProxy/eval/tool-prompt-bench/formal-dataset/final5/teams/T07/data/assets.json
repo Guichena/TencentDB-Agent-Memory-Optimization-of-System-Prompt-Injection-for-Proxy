@@ -1,0 +1,126 @@
+{
+  "memory": [
+    {
+      "id": "T07__memory__verification_gate",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Before pushing changes, the repository verification gate is `bun run verify`, which runs lint, type checking, tests, and builds through Turborepo; a failing verify blocks pushing or opening a PR."
+    },
+    {
+      "id": "T07__memory__run_modes",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Rudel has two local run modes: standalone uses local Docker Postgres and ClickHouse, while dev runs the API and web locally against Neon and ObsessionDB production databases through the `prd_local` Doppler configuration."
+    },
+    {
+      "id": "T07__memory__doppler_boundary",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Doppler production credentials are for the ObsessionDB core team; external contributors should use standalone mode with local infrastructure, and this distinction belongs in CLAUDE.md."
+    },
+    {
+      "id": "T07__memory__release_boundary",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Release Please prepares the release PR, changelog, version, and tag, but npm publishing still requires a manual `npm publish` step because interactive OTP is required."
+    },
+    {
+      "id": "T07__memory__hook_scope",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Claude settings hooks must never be written to the user's home `.claude` directory; resolve the nearest project `.claude` directory from the working directory, falling back to the git root."
+    },
+    {
+      "id": "T07__memory__migration_policy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Database migrations are run manually rather than automatically on server start, and data migrations are generated as real Drizzle CLI migration files instead of hand-written standalone scripts."
+    },
+    {
+      "id": "T07__memory__package_naming",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The CLI package is published under the unscoped npm name `rudel`; the repository can keep internal workspace packages scoped while the user-facing CLI retains its short public name."
+    },
+    {
+      "id": "T07__memory__ci_history",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "CI fixes in this repository are expected to be verified locally and then committed and pushed so GitHub Actions can confirm the result; the current source history is the authority for whether that happened."
+    },
+    {
+      "id": "T07__memory__postgres_env",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The standard Postgres connection variable across the repository is `PG_CONNECTION_STRING`, not `DATABASE_URL` or another variant."
+    },
+    {
+      "id": "T07__memory__clickhouse_safety",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Production ClickHouse must never receive test data; tests use the CI ClickHouse configuration."
+    },
+    {
+      "id": "T07__memory__cli_hooks",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "CLI hooks are namespaced as `rudel hooks <agent> <hook>`, such as `rudel hooks claude session-end`, and the hidden hooks command stays out of `--help` output."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T07__skill__environment_variables",
+      "name": "rudel-environment-variables",
+      "description": "Configure and troubleshoot local, CI, and hosted environment variables without mixing production credentials into contributor workflows.",
+      "content": "1. Inspect `.env.example` and the package or app that consumes the variable. 2. Use the exact repository names, especially `PG_CONNECTION_STRING` for Postgres and the documented ClickHouse variables. 3. For core-team hosted development, run through the documented Doppler `prd_local` configuration. 4. For external or isolated work, use standalone mode with local Docker services. 5. Never copy real secrets into committed files; update `.env.example` with placeholders and comments. 6. Re-run the relevant service or verification command and report which mode was used.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T07__skill__api_testing",
+      "name": "rudel-api-endpoint-testing",
+      "description": "Validate oRPC API contracts and authenticated endpoint behavior against the correct local server mode.",
+      "content": "1. Start the API in standalone mode or the authorized Doppler-backed dev mode. 2. Read the contract in `packages/api-routes` and locate the registered handler. 3. Check the server health endpoint first. 4. Exercise the endpoint with curl or httpie using the documented method, payload, and bearer token. 5. Compare the response with the contract and inspect route registration when a path is missing. 6. Keep test traffic on local or CI infrastructure and re-run focused tests after fixing the handler.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T07__skill__pr_creation",
+      "name": "rudel-pull-request-workflow",
+      "description": "Prepare, commit, push, and open a GitHub pull request that satisfies this repository's CI and title rules.",
+      "content": "1. Inspect `git status` and review the diff. 2. Run `bun run verify` and stop if it fails. 3. Create a focused conventional commit on the feature branch. 4. Push with `git push -u origin <branch-name>`. 5. Open the PR with `gh pr create`, using a conventional title such as `fix: ...` and a concise summary and test plan. 6. Check the PR checks and update the branch or title if CI reports a failure.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T07__skill__chkit_migrations",
+      "name": "clickhouse-chkit-migration-workflow",
+      "description": "Generate, order, apply, and verify ClickHouse schema migrations safely in Rudel.",
+      "content": "1. Preview schema changes with `bun run --cwd packages/ch-schema ch:preview`. 2. Generate the migration with `ch:generate`. 3. Inspect the generated SQL and move base-table creation before dependent materialized views. 4. Regenerate types with `ch:codegen` when schema types changed. 5. Apply to the CI ClickHouse instance with `ch:apply:ci` and verify with `ch:status`. 6. Only after CI passes, apply to production with `ch:apply:prd`; never send test data to production.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T07__skill__testing_bun",
+      "name": "rudel-bun-verification",
+      "description": "Run the repository's Bun and Turborepo checks before sharing or pushing a change.",
+      "content": "1. Ensure Bun and dependencies are installed. 2. Run `bun run verify` for lint, type checking, tests, and build. 3. Use `turbo run lint`, `turbo run check-types`, `turbo run test`, or `turbo run build` for focused diagnosis. 4. Run package-specific tests with `bun test --cwd packages/<package-name>` when needed. 5. Fix failures before pushing or creating a PR, then repeat the full verification.",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T07__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T07__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

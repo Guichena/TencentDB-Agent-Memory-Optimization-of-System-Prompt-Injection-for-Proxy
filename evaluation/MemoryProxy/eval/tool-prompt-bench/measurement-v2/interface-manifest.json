@@ -1,0 +1,114 @@
+{
+  "manifestSchemaVersion": 1,
+  "candidateId": "M0",
+  "evaluationSchemaVersion": 2,
+  "publicEntrypoint": "m0-index.ts",
+  "publicFunctions": [
+    "scoreCaseChain",
+    "aggregateCaseChainFacts"
+  ],
+  "publicSignatures": [
+    {
+      "function": "scoreCaseChain",
+      "inputContracts": [
+        "RawTraceObservationV2",
+        "PrivateChainGoldV2",
+        "RuntimeToolContractV2[]"
+      ],
+      "outputContract": "CaseChainScoreV2",
+      "outputFields": [
+        "evaluationSchemaVersion",
+        "caseId",
+        "runId",
+        "variantId",
+        "rawTraceStatus",
+        "traceCompleteness",
+        "rawInfrastructureFailure",
+        "triggeredAttempt",
+        "firstActionSelectionCorrect",
+        "terminalSelectionCorrect",
+        "completeChainSuccess",
+        "runtimeAcceptedChain",
+        "strictChainExact",
+        "falseCallAttempt",
+        "falseCallAccepted",
+        "malformedFalseIntent",
+        "positiveOvercall",
+        "matchedSequenceId",
+        "shortestAllowedLength",
+        "matchedSequenceLength",
+        "observedAttemptCount",
+        "evaluationPrefixAttemptCount",
+        "behaviorValidTerminalAttemptIndex",
+        "terminalAttemptIndex",
+        "toolSplContribution",
+        "shortestExact",
+        "failureLayer"
+      ]
+    },
+    {
+      "function": "aggregateCaseChainFacts",
+      "inputContracts": [
+        "CaseChainScoreV2[]"
+      ],
+      "outputContract": "CaseChainAggregateV2",
+      "outputFields": [
+        "evaluationSchemaVersion",
+        "aggregationScope",
+        "caseCount",
+        "toolPositiveCount",
+        "noToolCount",
+        "triggerRecall",
+        "firstActionSelectionAccuracy",
+        "terminalSelectionRate",
+        "completeChainSuccessRate",
+        "runtimeAcceptedChainRate",
+        "conditionalTerminalAccuracy",
+        "strictChainExactRate",
+        "positiveOvercallRate",
+        "falseCallAttemptRate",
+        "falseCallAcceptedRate",
+        "malformedFalseIntentRate",
+        "toolSpl",
+        "shortestExactRate",
+        "incompleteTraceCount",
+        "rawInfrastructureFailureCaseCount",
+        "failureLayerCounts"
+      ]
+    }
+  ],
+  "inputPreconditions": [
+    "Observation and Gold use evaluationSchemaVersion 2 and have the same caseId.",
+    "attemptBudget is a non-negative integer; no-tool Gold has no allowed sequences.",
+    "Tool-positive Gold has unique non-empty sequences; each has unique step IDs and exactly one final terminal step.",
+    "Every prior-output binding references an earlier step in the same sequence.",
+    "Runtime contract IDs are unique; every Gold step references a present identity/operation-compatible contract with frozen integer acceptance statuses.",
+    "The public scorer throws on an input-precondition violation instead of turning bad data into a model outcome."
+  ],
+  "semanticInvariants": [
+    "Only executor-bound attempts contribute to triggeredAttempt, observedAttemptCount, and FCR_attempt facts.",
+    "A complete chain is an ordered allowed-sequence match with per-step identity, operation, arguments, prior-output binding, exact referenced-contract identity, and terminal semantics; HTTP acceptance is not part of behavioral success.",
+    "Operation normalization distinguishes none, value, conflict, and invalid results; a present non-string argument selector is invalid, and conflict or invalid operations never match a Gold none/exact operation.",
+    "Unexpected, duplicate, or over-budget attempts can preserve completeChainSuccess but make strictChainExact false, positiveOvercall true, and ToolSPL smaller.",
+    "A forbidden wrong-family, typed wrong-terminal, or genuinely premature behavior-valid terminal before a correct terminal prevents later repair from creating terminalSelectionCorrect or completeChainSuccess.",
+    "The evaluation prefix stops at the earliest Gold terminal whose own arguments, binding, and exact referenced RuntimeToolContract identity are valid; a corrected prerequisite before that horizon may complete the chain, while a retry after the horizon cannot repair it.",
+    "runtimeAcceptedChain and runtimeAcceptedChainRate preserve HTTP/RuntimeToolContract acceptance as descriptive diagnostics and never change completeChainSuccess.",
+    "Without a terminal horizon, failed positives stop at budget or turn completion.",
+    "behaviorValidTerminalAttemptIndex is the sole executor-bound evaluation, usage, cache, and run-level infrastructure horizon ordinal; it is independent of complete-chain success and HTTP acceptance.",
+    "terminalAttemptIndex is a diagnostic executor-bound ordinal identifying the scored horizon/complete terminal, otherwise the Qi match, otherwise an in-prefix raw terminal candidate.",
+    "Post-terminal behavior does not change decision metrics, but raw trace and infrastructure facts remain preserved for Integration.",
+    "M0 never produces final formal metric eligibility."
+  ],
+  "ownsFormalMetricEligible": false,
+  "formalDataStatus": "FORMAL_DATA_V1_1_AVAILABLE_METRIC_INELIGIBLE",
+  "formalDataBlockers": [
+    "The exact task1-data-formal-v1.1 freeze is available, but M0 alone cannot make a run formalMetricEligible; R04 Integration must combine scorer facts with runtime, usage, isolation, and infrastructure evidence."
+  ],
+  "syntheticFixture": {
+    "path": "synthetic-fixtures.ts",
+    "canonicalization": "raw UTF-8 file bytes",
+    "bytes": 15720,
+    "sha256": "aab4f994b9fb8aaacbd840977fc651823223aace44c0f3de7a1a219fe2b2bd53"
+  },
+  "modelRuns": 0
+}

@@ -1,0 +1,10 @@
+{
+  "team": "T08",
+  "files_skill": "sandbox-integration-testing",
+  "files_path": "references/sandbox-fixtures.md",
+  "n_cases": 30,
+  "mem_pairs": 2,
+  "skill_pairs": 13,
+  "files_pairs": 1,
+  "notes": "tpmjs 整队重写；files 挂在 sandbox-integration-testing。"
+}

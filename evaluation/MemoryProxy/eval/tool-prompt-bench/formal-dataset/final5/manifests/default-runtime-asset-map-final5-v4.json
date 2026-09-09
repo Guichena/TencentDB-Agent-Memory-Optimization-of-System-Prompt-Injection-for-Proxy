@@ -1,0 +1,4315 @@
+{
+  "identity": {
+    "user_id": "usr-8g2qye929l",
+    "team_id": "team-8hnxkjf9wb",
+    "agent_id": "agt-8hpdgmjtjr",
+    "task_id": "task-8iv2c8y4ig"
+  },
+  "teams": [
+    "DVG-THREAD-04-TEAM-01",
+    "DVG-THREAD-04-TEAM-02",
+    "DVG-THREAD-04-TEAM-03",
+    "dvg01-junior",
+    "dvg02-pygpt",
+    "dvg03_cpp100days",
+    "dvg03_cryptoproc",
+    "dvg03_cse491",
+    "dvg03_gmdh",
+    "dvg03_planpal",
+    "dvg05_goeko_github_io",
+    "dvg05_pbrudny_jobsforit",
+    "dvg06_banzukesurfing",
+    "dvg06_colorpalette",
+    "dvg06_cookies",
+    "dvg06_mindfulai",
+    "dvg06_mspr",
+    "DVG07_T01_frieghtkb",
+    "DVG07_T02_frieghtkb_fork",
+    "dvg08_temporalio_temporal",
+    "dvg09_judgegpt",
+    "dvg09_playbilling",
+    "dvg10_ultimate_utils",
+    "T01",
+    "T02",
+    "t02r17-ipv4",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15"
+  ],
+  "assets": [
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-01",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-01__memory__game_concept",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-01:DVG-THREAD-04-TEAM-01__memory__game_concept",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-01",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-01__memory__enemy_architecture",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-01:DVG-THREAD-04-TEAM-01__memory__enemy_architecture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-01",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-01__memory__terrain_design",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-01:DVG-THREAD-04-TEAM-01__memory__terrain_design",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-01",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-01__skill__enemy_behavior",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-01:DVG-THREAD-04-TEAM-01__skill__enemy_behavior",
+      "runtimeName": "unity-enemy-behavior",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-01",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-01__skill__patrol_navmesh",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-01:DVG-THREAD-04-TEAM-01__skill__patrol_navmesh",
+      "runtimeName": "unity-navmesh-patrol",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-01",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-01__skill__procedural_terrain",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-01:DVG-THREAD-04-TEAM-01__skill__procedural_terrain",
+      "runtimeName": "unity-procedural-terrain",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-02",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-02__memory__placement_scope",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-02:DVG-THREAD-04-TEAM-02__memory__placement_scope",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-02",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-02__memory__aws_context",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-02:DVG-THREAD-04-TEAM-02__memory__aws_context",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-02",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-02__memory__interview_context",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-02:DVG-THREAD-04-TEAM-02__memory__interview_context",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-02",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-02__skill__aws_hosting",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-02:DVG-THREAD-04-TEAM-02__skill__aws_hosting",
+      "runtimeName": "aws-hosting-choice",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-02",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-02__skill__jdbc_sql",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-02:DVG-THREAD-04-TEAM-02__skill__jdbc_sql",
+      "runtimeName": "jdbc-database-access",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-02",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-02__skill__system_design_interview",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-02:DVG-THREAD-04-TEAM-02__skill__system_design_interview",
+      "runtimeName": "system-design-interview",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-03",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-03__memory__app_scope",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-03:DVG-THREAD-04-TEAM-03__memory__app_scope",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-03",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-03__memory__resource_localization",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-03:DVG-THREAD-04-TEAM-03__memory__resource_localization",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG-THREAD-04-TEAM-03",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-03__memory__locale_convention",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-03:DVG-THREAD-04-TEAM-03__memory__locale_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-03",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-03__skill__android_i18n",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-03:DVG-THREAD-04-TEAM-03__skill__android_i18n",
+      "runtimeName": "android-internationalization",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-03",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-03__skill__xml_resources",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-03:DVG-THREAD-04-TEAM-03__skill__xml_resources",
+      "runtimeName": "android-xml-resources",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG-THREAD-04-TEAM-03",
+      "logicalAssetId": "DVG-THREAD-04-TEAM-03__skill__resource_audit",
+      "runtimeAssetId": "runtime-default:DVG-THREAD-04-TEAM-03:DVG-THREAD-04-TEAM-03__skill__resource_audit",
+      "runtimeName": "android-resource-audit",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_no_backup_files",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_no_backup_files",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_handler_naming",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_handler_naming",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_single_websocket",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_single_websocket",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_fetch_to_store",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_fetch_to_store",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_alert_errors",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_alert_errors",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_docsify_sidebar",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_docsify_sidebar",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_http_error_contract",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_http_error_contract",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_dedicated_websocket_paths",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_dedicated_websocket_paths",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "mem_prompt_pipeline_order",
+      "runtimeAssetId": "runtime-default:dvg01-junior:mem_prompt_pipeline_order",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "skill_route_move",
+      "runtimeAssetId": "runtime-default:dvg01-junior:skill_route_move",
+      "runtimeName": "route-move",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "skill_solid_store_refactor",
+      "runtimeAssetId": "runtime-default:dvg01-junior:skill_solid_store_refactor",
+      "runtimeName": "solid-store-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "skill_docs_update",
+      "runtimeAssetId": "runtime-default:dvg01-junior:skill_docs_update",
+      "runtimeName": "docs-update",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg01-junior",
+      "logicalAssetId": "skill_file_move_refactor",
+      "runtimeAssetId": "runtime-default:dvg01-junior:skill_file_move_refactor",
+      "runtimeName": "file-move-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "mem_pytest_fixture",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:mem_pytest_fixture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "mem_mock_extensive",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:mem_mock_extensive",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "mem_test_pyramid",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:mem_test_pyramid",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "mem_otel_noop",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:mem_otel_noop",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "mem_assertion_specific",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:mem_assertion_specific",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "mem_otel_architecture",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:mem_otel_architecture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "skill_unit_test_write",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:skill_unit_test_write",
+      "runtimeName": "unit-test-write",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "skill_integration_test",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:skill_integration_test",
+      "runtimeName": "integration-test",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "skill_solid_refactor",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:skill_solid_refactor",
+      "runtimeName": "solid-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg02-pygpt",
+      "logicalAssetId": "skill_file_system_injection",
+      "runtimeAssetId": "runtime-default:dvg02-pygpt:skill_file_system_injection",
+      "runtimeName": "file-system-injection",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_log_design",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_log_design",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_lib_policy",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_lib_policy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_code_style",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_code_style",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_output_format",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_output_format",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_project_structure",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_project_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_dependency_check",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_dependency_check",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_cpp_macros",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_cpp_macros",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_raii_pattern",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_raii_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "mem_smart_pointers",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:mem_smart_pointers",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "skill_logging_setup",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:skill_logging_setup",
+      "runtimeName": "logging-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "skill_web_scraper_cpp",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:skill_web_scraper_cpp",
+      "runtimeName": "web-scraper-cpp",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "skill_cpp_challenge_setup",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:skill_cpp_challenge_setup",
+      "runtimeName": "cpp-challenge-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "skill_dependency_verification",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:skill_dependency_verification",
+      "runtimeName": "dependency-verification",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "skill_markdown_formatter",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:skill_markdown_formatter",
+      "runtimeName": "markdown-formatter",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cpp100days",
+      "logicalAssetId": "skill_cpp_refactor_class",
+      "runtimeAssetId": "runtime-default:dvg03_cpp100days:skill_cpp_refactor_class",
+      "runtimeName": "cpp-refactor-class",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_dslx_syntax",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_dslx_syntax",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_reserved_keywords",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_reserved_keywords",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_type_constraints",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_type_constraints",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_risc_opcodes",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_risc_opcodes",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_testing_convention",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_testing_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_parametric_functions",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_parametric_functions",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_dslx_arithmetic",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_dslx_arithmetic",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_dslx_type_system",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_dslx_type_system",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_riscv_pack_ops",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_riscv_pack_ops",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "mem_dslx_type_forms",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:mem_dslx_type_forms",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "skill_dslx_function_write",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:skill_dslx_function_write",
+      "runtimeName": "dslx-function-write",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "skill_dslx_adder_impl",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:skill_dslx_adder_impl",
+      "runtimeName": "dslx-adder-impl",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "skill_riscv_bitmanip_impl",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:skill_riscv_bitmanip_impl",
+      "runtimeName": "riscv-bitmanip-impl",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "skill_dslx_type_debug",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:skill_dslx_type_debug",
+      "runtimeName": "dslx-type-debug",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "skill_dslx_test_write",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:skill_dslx_test_write",
+      "runtimeName": "dslx-test-write",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cryptoproc",
+      "logicalAssetId": "skill_enum_switch_gen",
+      "runtimeAssetId": "runtime-default:dvg03_cryptoproc:skill_enum_switch_gen",
+      "runtimeName": "enum-switch-gen",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_project_scope",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_project_scope",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_combat_system",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_combat_system",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_coding_style",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_coding_style",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_team_structure",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_team_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_simulation_approach",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_simulation_approach",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_debugging_practice",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_debugging_practice",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_course_context",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_course_context",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_tick_knowledge",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_tick_knowledge",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "mem_cpp_random_knowledge",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:mem_cpp_random_knowledge",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "skill_combat_sim_setup",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:skill_combat_sim_setup",
+      "runtimeName": "combat-sim-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "skill_tick_based_timing",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:skill_tick_based_timing",
+      "runtimeName": "tick-based-timing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "skill_random_damage_calc",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:skill_random_damage_calc",
+      "runtimeName": "random-damage-calc",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "skill_cpp_syntax_debug",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:skill_cpp_syntax_debug",
+      "runtimeName": "cpp-syntax-debug",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "skill_game_state_logging",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:skill_game_state_logging",
+      "runtimeName": "game-state-logging",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_cse491",
+      "logicalAssetId": "skill_oop_refactor",
+      "runtimeAssetId": "runtime-default:dvg03_cse491:skill_oop_refactor",
+      "runtimeName": "oop-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_project_scope",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_project_scope",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_data_structure",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_data_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_tech_stack",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_tech_stack",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_prompt_engineering",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_prompt_engineering",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_csv_protocol",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_csv_protocol",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_accessibility",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_accessibility",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_data_cleaning",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_data_cleaning",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_exile_studies",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_exile_studies",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_llm_dh",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_llm_dh",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "mem_website_structure",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:mem_website_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "skill_csv_batch_processing",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:skill_csv_batch_processing",
+      "runtimeName": "csv-batch-processing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "skill_dh_webinar_prep",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:skill_dh_webinar_prep",
+      "runtimeName": "dh-webinar-prep",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "skill_biographical_data_schema",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:skill_biographical_data_schema",
+      "runtimeName": "biographical-data-schema",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "skill_html_accessibility_audit",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:skill_html_accessibility_audit",
+      "runtimeName": "html-accessibility-audit",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "skill_sticky_nav_implementation",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:skill_sticky_nav_implementation",
+      "runtimeName": "sticky-nav-implementation",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_gmdh",
+      "logicalAssetId": "skill_dh_data_cleaning",
+      "runtimeAssetId": "runtime-default:dvg03_gmdh:skill_dh_data_cleaning",
+      "runtimeName": "dh-data-cleaning",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_auth_strategy",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_auth_strategy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_cookie_settings",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_cookie_settings",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_api_pattern",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_api_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_debug_approach",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_debug_approach",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_frontend_structure",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_frontend_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_backend_pattern",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_backend_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_project_arch",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_project_arch",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_auth_flow",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_auth_flow",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "mem_cookie_policy",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:mem_cookie_policy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "skill_cookie_debug",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:skill_cookie_debug",
+      "runtimeName": "cookie-debug",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "skill_nextjs_api_setup",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:skill_nextjs_api_setup",
+      "runtimeName": "nextjs-api-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "skill_nestjs_auth",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:skill_nestjs_auth",
+      "runtimeName": "nestjs-auth",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "skill_cors_credentials",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:skill_cors_credentials",
+      "runtimeName": "cors-credentials",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "skill_inspect_network",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:skill_inspect_network",
+      "runtimeName": "inspect-network",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg03_planpal",
+      "logicalAssetId": "skill_frontend_state",
+      "runtimeAssetId": "runtime-default:dvg03_planpal:skill_frontend_state",
+      "runtimeName": "frontend-state",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__vue_setup",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__vue_setup",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__jquery_legacy",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__jquery_legacy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__credit_calc",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__credit_calc",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__german_ui",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__german_ui",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__select_sync",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__select_sync",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__localstorage_state",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__localstorage_state",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__memory__project_structure",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__memory__project_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__skill__vue_component_refactor",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__skill__vue_component_refactor",
+      "runtimeName": "vue-component-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__skill__select_sync",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__skill__select_sync",
+      "runtimeName": "select-sync",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__skill__german_number_format",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__skill__german_number_format",
+      "runtimeName": "german-number-format",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__skill__localstorage_persist",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__skill__localstorage_persist",
+      "runtimeName": "localstorage-persist",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__skill__credit_calculation",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__skill__credit_calculation",
+      "runtimeName": "credit-calculation",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_goeko_github_io",
+      "logicalAssetId": "dvg05_goeko_github_io__skill__debug_vue_reactivity",
+      "runtimeAssetId": "runtime-default:dvg05_goeko_github_io:dvg05_goeko_github_io__skill__debug_vue_reactivity",
+      "runtimeName": "debug-vue-reactivity",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_refactor_style",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_refactor_style",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_commit_convention",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_commit_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_ui_migration",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_ui_migration",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_contentful_config",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_contentful_config",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_test_requirement",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_test_requirement",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_markdown_format",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_markdown_format",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_refactor_constraints",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_refactor_constraints",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "mem_env_policy",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:mem_env_policy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "component-refactor",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:component-refactor",
+      "runtimeName": "component-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "package-cleanup",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:package-cleanup",
+      "runtimeName": "package-cleanup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "ui-library-migration",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:ui-library-migration",
+      "runtimeName": "ui-library-migration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "markdown-doc",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:markdown-doc",
+      "runtimeName": "markdown-doc",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "contentful-query",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:contentful-query",
+      "runtimeName": "contentful-query",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg05_pbrudny_jobsforit",
+      "logicalAssetId": "react-testing",
+      "runtimeAssetId": "runtime-default:dvg05_pbrudny_jobsforit:react-testing",
+      "runtimeName": "react-testing",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__memory__localstorage_patterns",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__memory__localstorage_patterns",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__memory__jest_setup",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__memory__jest_setup",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__memory__game_class_structure",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__memory__game_class_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__memory__module_import",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__memory__module_import",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__memory__object_model",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__memory__object_model",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__memory__tdd_workflow",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__memory__tdd_workflow",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__skill__localstorage_debug",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__skill__localstorage_debug",
+      "runtimeName": "localstorage-debug",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__skill__jest_test_refactor",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__skill__jest_test_refactor",
+      "runtimeName": "jest-test-refactor",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__skill__class_extraction",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__skill__class_extraction",
+      "runtimeName": "class-extraction",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__skill__module_export_fix",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__skill__module_export_fix",
+      "runtimeName": "module-export-fix",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__skill__dom_rendering",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__skill__dom_rendering",
+      "runtimeName": "dom-rendering",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_banzukesurfing",
+      "logicalAssetId": "dvg06_banzukesurfing__skill__initialize_lifecycle",
+      "runtimeAssetId": "runtime-default:dvg06_banzukesurfing:dvg06_banzukesurfing__skill__initialize_lifecycle",
+      "runtimeName": "initialize-lifecycle",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "m01_css_flexbox_layout",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:m01_css_flexbox_layout",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "m02_external_css_linking",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:m02_external_css_linking",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "m03_color_palette_design",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:m03_color_palette_design",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "m04_dom_query_selector",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:m04_dom_query_selector",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "m05_event_listener_pattern",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:m05_event_listener_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "m06_inline_vs_external_styles",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:m06_inline_vs_external_styles",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "s01_flexbox_full_height",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:s01_flexbox_full_height",
+      "runtimeName": "flexbox-full-height",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "s02_css_centering",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:s02_css_centering",
+      "runtimeName": "css-centering",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "s03_random_color_generator",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:s03_random_color_generator",
+      "runtimeName": "random-color-generator",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "s04_dom_style_manipulation",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:s04_dom_style_manipulation",
+      "runtimeName": "dom-style-manipulation",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "s05_debug_null_element",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:s05_debug_null_element",
+      "runtimeName": "debug-null-element",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_colorpalette",
+      "logicalAssetId": "s06_iterative_css_refinement",
+      "runtimeAssetId": "runtime-default:dvg06_colorpalette:s06_iterative_css_refinement",
+      "runtimeName": "iterative-css-refinement",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__memory__url_searchparams",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__memory__url_searchparams",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__memory__checkbox_array_submission",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__memory__checkbox_array_submission",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__memory__spring_form_binding",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__memory__spring_form_binding",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__memory__html_table_structure",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__memory__html_table_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__memory__label_checkbox_association",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__memory__label_checkbox_association",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__memory__korean_web_dev",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__memory__korean_web_dev",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__skill__url_param_extraction",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__skill__url_param_extraction",
+      "runtimeName": "url-param-extraction",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__skill__checkbox_form_array",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__skill__checkbox_form_array",
+      "runtimeName": "checkbox-form-array",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__skill__table_to_checkbox_conversion",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__skill__table_to_checkbox_conversion",
+      "runtimeName": "table-to-checkbox-conversion",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__skill__spring_checkbox_binding",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__skill__spring_checkbox_binding",
+      "runtimeName": "spring-checkbox-binding",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__skill__label_checkbox_pairing",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__skill__label_checkbox_pairing",
+      "runtimeName": "label-checkbox-pairing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_cookies",
+      "logicalAssetId": "dvg06_cookies__skill__bulk_html_modification",
+      "runtimeAssetId": "runtime-default:dvg06_cookies:dvg06_cookies__skill__bulk_html_modification",
+      "runtimeName": "bulk-html-modification",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__memory__module_export_syntax",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__memory__module_export_syntax",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__memory__pm2_process_management",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__memory__pm2_process_management",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__memory__api_integration_pattern",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__memory__api_integration_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__memory__express_routing",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__memory__express_routing",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__memory__audio_cache_pattern",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__memory__audio_cache_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__memory__https_server_setup",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__memory__https_server_setup",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__skill__module_export_debug",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__skill__module_export_debug",
+      "runtimeName": "module-export-debug",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__skill__pm2_error_diagnosis",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__skill__pm2_error_diagnosis",
+      "runtimeName": "pm2-error-diagnosis",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__skill__openai_api_integration",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__skill__openai_api_integration",
+      "runtimeName": "openai-api-integration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__skill__multer_file_upload",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__skill__multer_file_upload",
+      "runtimeName": "multer-file-upload",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__skill__formdata_api_call",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__skill__formdata_api_call",
+      "runtimeName": "formdata-api-call",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mindfulai",
+      "logicalAssetId": "dvg06_mindfulai__skill__audio_response_handling",
+      "runtimeAssetId": "runtime-default:dvg06_mindfulai:dvg06_mindfulai__skill__audio_response_handling",
+      "runtimeName": "audio-response-handling",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__jwt_creation",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__jwt_creation",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__jwt_verification",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__jwt_verification",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__spring_autowire_bean",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__spring_autowire_bean",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__rsa_key_loading",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__rsa_key_loading",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__jwk_provider",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__jwk_provider",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__jwt_expiration",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__jwt_expiration",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__jwt_structure",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__jwt_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__spring_security_jwt",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__spring_security_jwt",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__memory__rsa_vs_hmac",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__memory__rsa_vs_hmac",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__skill__implement_jwtutils",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__skill__implement_jwtutils",
+      "runtimeName": "implement-jwtutils",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__skill__fix_autowire_error",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__skill__fix_autowire_error",
+      "runtimeName": "fix-autowire-error",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__skill__generate_rsa_keypair",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__skill__generate_rsa_keypair",
+      "runtimeName": "generate-rsa-keypair",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__skill__load_rsa_from_file",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__skill__load_rsa_from_file",
+      "runtimeName": "load-rsa-from-file",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__skill__setup_jwk_provider",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__skill__setup_jwk_provider",
+      "runtimeName": "setup-jwk-provider",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg06_mspr",
+      "logicalAssetId": "dvg06_mspr__skill__jwt_auth_integration",
+      "runtimeAssetId": "runtime-default:dvg06_mspr:dvg06_mspr__skill__jwt_auth_integration",
+      "runtimeName": "jwt-auth-integration",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__doc_format",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__doc_format",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__edi_priority",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__edi_priority",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__terminology_source",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__terminology_source",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__linking_convention",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__linking_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__category_hierarchy",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__category_hierarchy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__accuracy_requirement",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__accuracy_requirement",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__category_taxonomy",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__category_taxonomy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__file_naming",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__file_naming",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__memory__reference_standards",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__memory__reference_standards",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__skill__doc_entry",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__skill__doc_entry",
+      "runtimeName": "dvg07-t01-frieghtkb-doc-entry",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__skill__edi_doc",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__skill__edi_doc",
+      "runtimeName": "dvg07-t01-frieghtkb-edi-doc",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__skill__category_expand",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__skill__category_expand",
+      "runtimeName": "dvg07-t01-frieghtkb-category-expand",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__skill__link_check",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__skill__link_check",
+      "runtimeName": "dvg07-t01-frieghtkb-link-check",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__skill__term_deprecate",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__skill__term_deprecate",
+      "runtimeName": "dvg07-t01-frieghtkb-term-deprecate",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T01_frieghtkb",
+      "logicalAssetId": "DVG07_T01_frieghtkb__skill__i18n_doc",
+      "runtimeAssetId": "runtime-default:DVG07_T01_frieghtkb:DVG07_T01_frieghtkb__skill__i18n_doc",
+      "runtimeName": "dvg07-t01-frieghtkb-i18n-doc",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__doc_format",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__doc_format",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__edi_priority",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__edi_priority",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__terminology_source",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__terminology_source",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__linking_convention",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__linking_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__category_hierarchy",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__category_hierarchy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__accuracy_requirement",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__accuracy_requirement",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__category_taxonomy",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__category_taxonomy",
+      "runtimeName": null,
+      "runtimePath": "category-taxonomy.md"
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__file_naming",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__file_naming",
+      "runtimeName": null,
+      "runtimePath": "file-naming.md"
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__memory__reference_standards",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__memory__reference_standards",
+      "runtimeName": null,
+      "runtimePath": "reference-standards.md"
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__skill__doc_entry",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__skill__doc_entry",
+      "runtimeName": "dvg07-t02-frieghtkb-fork-doc-entry",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__skill__edi_doc",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__skill__edi_doc",
+      "runtimeName": "dvg07-t02-frieghtkb-fork-edi-doc",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__skill__category_expand",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__skill__category_expand",
+      "runtimeName": "dvg07-t02-frieghtkb-fork-category-expand",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__skill__link_check",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__skill__link_check",
+      "runtimeName": "dvg07-t02-frieghtkb-fork-link-check",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__skill__term_deprecate",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__skill__term_deprecate",
+      "runtimeName": "dvg07-t02-frieghtkb-fork-term-deprecate",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "DVG07_T02_frieghtkb_fork",
+      "logicalAssetId": "DVG07_T02_frieghtkb_fork__skill__i18n_doc",
+      "runtimeAssetId": "runtime-default:DVG07_T02_frieghtkb_fork:DVG07_T02_frieghtkb_fork__skill__i18n_doc",
+      "runtimeName": "dvg07-t02-frieghtkb-fork-i18n-doc",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__memory__file_move_semantics",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__memory__file_move_semantics",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "mem_acronym_handling",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:mem_acronym_handling",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "mem_git_rename_detection",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:mem_git_rename_detection",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "mem_go_generate_update",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:mem_go_generate_update",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "mem_naming_convention",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:mem_naming_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "mem_test_file_pattern",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:mem_test_file_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__skill__bash-grep-alternatives",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__skill__bash-grep-alternatives",
+      "runtimeName": "bash-grep-alternatives",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__skill__camel-to-snake-conversion",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__skill__camel-to-snake-conversion",
+      "runtimeName": "camel-to-snake-conversion",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__skill__git-add-rename-detection",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__skill__git-add-rename-detection",
+      "runtimeName": "git-add-rename-detection",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__skill__python-file-renaming",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__skill__python-file-renaming",
+      "runtimeName": "python-file-renaming",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__skill__python-unittest-writing",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__skill__python-unittest-writing",
+      "runtimeName": "python-unittest-writing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg08_temporalio_temporal",
+      "logicalAssetId": "dvg08_temporalio_temporal__skill__regex-file-content-replacement",
+      "runtimeAssetId": "runtime-default:dvg08_temporalio_temporal:dvg08_temporalio_temporal__skill__regex-file-content-replacement",
+      "runtimeName": "regex-file-content-replacement",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "mem_api_key_handling",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:mem_api_key_handling",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "mem_audio_processing",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:mem_audio_processing",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "mem_code_style",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:mem_code_style",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "mem_db_pattern",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:mem_db_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "mem_game_data_structure",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:mem_game_data_structure",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "mem_status_updates",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:mem_status_updates",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "dvg09_judgegpt__skill__add-api-key-input",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:dvg09_judgegpt__skill__add-api-key-input",
+      "runtimeName": "add-api-key-input",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "dvg09_judgegpt__skill__add-status-div",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:dvg09_judgegpt__skill__add-status-div",
+      "runtimeName": "add-status-div",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "dvg09_judgegpt__skill__create-game-data-class",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:dvg09_judgegpt__skill__create-game-data-class",
+      "runtimeName": "create-game-data-class",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "dvg09_judgegpt__skill__handle-openai-docs",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:dvg09_judgegpt__skill__handle-openai-docs",
+      "runtimeName": "handle-openai-docs",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "dvg09_judgegpt__skill__integrate-whisper-api",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:dvg09_judgegpt__skill__integrate-whisper-api",
+      "runtimeName": "integrate-whisper-api",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_judgegpt",
+      "logicalAssetId": "dvg09_judgegpt__skill__setup-sqlite-db",
+      "runtimeAssetId": "runtime-default:dvg09_judgegpt:dvg09_judgegpt__skill__setup-sqlite-db",
+      "runtimeName": "setup-sqlite-db",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "mem_billing_setup",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:mem_billing_setup",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "mem_error_handling",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:mem_error_handling",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "mem_gradle_config",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:mem_gradle_config",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "mem_security_practice",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:mem_security_practice",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "mem_subscription_policy",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:mem_subscription_policy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "mem_unity_integration",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:mem_unity_integration",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "dvg09_playbilling__skill__add-acknowledgement",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:dvg09_playbilling__skill__add-acknowledgement",
+      "runtimeName": "add-acknowledgement",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "dvg09_playbilling__skill__add-billing-feature",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:dvg09_playbilling__skill__add-billing-feature",
+      "runtimeName": "add-billing-feature",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "dvg09_playbilling__skill__debug-unresolved-reference",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:dvg09_playbilling__skill__debug-unresolved-reference",
+      "runtimeName": "debug-unresolved-reference",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "dvg09_playbilling__skill__fix-gradle-dependency",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:dvg09_playbilling__skill__fix-gradle-dependency",
+      "runtimeName": "fix-gradle-dependency",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "dvg09_playbilling__skill__implement-subscription",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:dvg09_playbilling__skill__implement-subscription",
+      "runtimeName": "implement-subscription",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg09_playbilling",
+      "logicalAssetId": "dvg09_playbilling__skill__unity-bridge-setup",
+      "runtimeAssetId": "runtime-default:dvg09_playbilling:dvg09_playbilling__skill__unity-bridge-setup",
+      "runtimeName": "unity-bridge-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "mem_documentation_standard",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:mem_documentation_standard",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "mem_error_handling_style",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:mem_error_handling_style",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "mem_hf_training_preferences",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:mem_hf_training_preferences",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "mem_research_methodology",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:mem_research_methodology",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "mem_tokenizer_convention",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:mem_tokenizer_convention",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "mem_wandb_setup",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:mem_wandb_setup",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "dvg10_ultimate_utils__skill__accelerate-distributed-training",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:dvg10_ultimate_utils__skill__accelerate-distributed-training",
+      "runtimeName": "accelerate-distributed-training",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "dvg10_ultimate_utils__skill__hf-training-setup",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:dvg10_ultimate_utils__skill__hf-training-setup",
+      "runtimeName": "hf-training-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "dvg10_ultimate_utils__skill__ml-patent-writing",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:dvg10_ultimate_utils__skill__ml-patent-writing",
+      "runtimeName": "ml-patent-writing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "dvg10_ultimate_utils__skill__vectoring-research-planning",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:dvg10_ultimate_utils__skill__vectoring-research-planning",
+      "runtimeName": "vectoring-research-planning",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "dvg10_ultimate_utils",
+      "logicalAssetId": "dvg10_ultimate_utils__skill__wandb-sweep-workflow",
+      "runtimeAssetId": "runtime-default:dvg10_ultimate_utils:dvg10_ultimate_utils__skill__wandb-sweep-workflow",
+      "runtimeName": "wandb-sweep-workflow",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-carryforward-intent",
+      "runtimeAssetId": "runtime-default:T01:ma-carryforward-intent",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-changelog-conventions",
+      "runtimeAssetId": "runtime-default:T01:ma-changelog-conventions",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-commit-splitting",
+      "runtimeAssetId": "runtime-default:T01:ma-commit-splitting",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-gui-hooks",
+      "runtimeAssetId": "runtime-default:T01:ma-gui-hooks",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-hook-chaining",
+      "runtimeAssetId": "runtime-default:T01:ma-hook-chaining",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-mise-tasks",
+      "runtimeAssetId": "runtime-default:T01:ma-mise-tasks",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-opencode-plugin",
+      "runtimeAssetId": "runtime-default:T01:ma-opencode-plugin",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-state-design-history",
+      "runtimeAssetId": "runtime-default:T01:ma-state-design-history",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-transition-contract",
+      "runtimeAssetId": "runtime-default:T01:ma-transition-contract",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "ma-tty-semantics",
+      "runtimeAssetId": "runtime-default:T01:ma-tty-semantics",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T01",
+      "logicalAssetId": "T01__memory__checkpoint_push",
+      "runtimeAssetId": "runtime-default:T01:T01__memory__checkpoint_push",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-architecture-doc",
+      "runtimeAssetId": "runtime-default:T01:sk-architecture-doc",
+      "runtimeName": "architecture-doc",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-branch-review",
+      "runtimeAssetId": "runtime-default:T01:sk-branch-review",
+      "runtimeName": "branch-review",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-changelog-craft",
+      "runtimeAssetId": "runtime-default:T01:sk-changelog-craft",
+      "runtimeName": "changelog-craft",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-commit-splitting",
+      "runtimeAssetId": "runtime-default:T01:sk-commit-splitting",
+      "runtimeName": "commit-splitting",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-e2e-authoring",
+      "runtimeAssetId": "runtime-default:T01:sk-e2e-authoring",
+      "runtimeName": "e2e-authoring",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-lint-fix",
+      "runtimeAssetId": "runtime-default:T01:sk-lint-fix",
+      "runtimeName": "lint-fix",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T01",
+      "logicalAssetId": "sk-test-updates",
+      "runtimeAssetId": "runtime-default:T01:sk-test-updates",
+      "runtimeName": "t01-test-updates",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-author-card",
+      "runtimeAssetId": "runtime-default:T02:ma-author-card",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-comments-optional",
+      "runtimeAssetId": "runtime-default:T02:ma-comments-optional",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-deps-minimalism",
+      "runtimeAssetId": "runtime-default:T02:ma-deps-minimalism",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-feed-defaults",
+      "runtimeAssetId": "runtime-default:T02:ma-feed-defaults",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-feed-reader-test",
+      "runtimeAssetId": "runtime-default:T02:ma-feed-reader-test",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-i18n-disable",
+      "runtimeAssetId": "runtime-default:T02:ma-i18n-disable",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-issue-recording",
+      "runtimeAssetId": "runtime-default:T02:ma-issue-recording",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-jsonld-types",
+      "runtimeAssetId": "runtime-default:T02:ma-jsonld-types",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-l0-create-amytis-plan",
+      "runtimeAssetId": "runtime-default:T02:ma-l0-create-amytis-plan",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-relative-images",
+      "runtimeAssetId": "runtime-default:T02:ma-relative-images",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-social-label",
+      "runtimeAssetId": "runtime-default:T02:ma-social-label",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "ma-ui-consistency",
+      "runtimeAssetId": "runtime-default:T02:ma-ui-consistency",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "T02__memory__static_export",
+      "runtimeAssetId": "runtime-default:T02:T02__memory__static_export",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T02",
+      "logicalAssetId": "T02__memory__url_seo_posture",
+      "runtimeAssetId": "runtime-default:T02:T02__memory__url_seo_posture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-build-triage",
+      "runtimeAssetId": "runtime-default:T02:sk-build-triage",
+      "runtimeName": "build-triage",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-feed-standards",
+      "runtimeAssetId": "runtime-default:T02:sk-feed-standards",
+      "runtimeName": "feed-standards",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-image-perf-audit",
+      "runtimeAssetId": "runtime-default:T02:sk-image-perf-audit",
+      "runtimeName": "image-perf-audit",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-obsidian-import",
+      "runtimeAssetId": "runtime-default:T02:sk-obsidian-import",
+      "runtimeName": "obsidian-import",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-pagefind-index",
+      "runtimeAssetId": "runtime-default:T02:sk-pagefind-index",
+      "runtimeName": "pagefind-index",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-selective-commit",
+      "runtimeAssetId": "runtime-default:T02:sk-selective-commit",
+      "runtimeName": "selective-commit",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T02",
+      "logicalAssetId": "sk-test-updates",
+      "runtimeAssetId": "runtime-default:T02:sk-test-updates",
+      "runtimeName": "t02-test-updates",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__ui_architecture",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__ui_architecture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__cost_rules",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__cost_rules",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__region_iteration",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__region_iteration",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__tag_extraction",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__tag_extraction",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__table_navigation",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__table_navigation",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__aws_sdk_pattern",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__aws_sdk_pattern",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__tview_layout",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__tview_layout",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__nat_gateway_eip",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__nat_gateway_eip",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__memory__cost_config",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__memory__cost_config",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__skill__add_resource_type",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__skill__add_resource_type",
+      "runtimeName": "add-aws-resource-type",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__skill__optimize_api_calls",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__skill__optimize_api_calls",
+      "runtimeName": "optimize-aws-api-calls",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__skill__format_table_column",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__skill__format_table_column",
+      "runtimeName": "format-tui-table-columns",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__skill__add_keyboard_shortcut",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__skill__add_keyboard_shortcut",
+      "runtimeName": "add-tui-keyboard-shortcut",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__skill__test_regional_logic",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__skill__test_regional_logic",
+      "runtimeName": "test-regional-aws-logic",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "t02r17-ipv4",
+      "logicalAssetId": "t02r17-ipv4__skill__audit_error_handling",
+      "runtimeAssetId": "runtime-default:t02r17-ipv4:t02r17-ipv4__skill__audit_error_handling",
+      "runtimeName": "audit-go-error-handling",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T03",
+      "logicalAssetId": "ma-zoom-fixes-history",
+      "runtimeAssetId": "runtime-default:T03:ma-zoom-fixes-history",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T03",
+      "logicalAssetId": "ma-zoom-scope-normal-mode",
+      "runtimeAssetId": "runtime-default:T03:ma-zoom-scope-normal-mode",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T03",
+      "logicalAssetId": "ma-trackpad-timeline",
+      "runtimeAssetId": "runtime-default:T03:ma-trackpad-timeline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T03",
+      "logicalAssetId": "ma-menu-placement",
+      "runtimeAssetId": "runtime-default:T03:ma-menu-placement",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T03",
+      "logicalAssetId": "ma-scroll-mode-background",
+      "runtimeAssetId": "runtime-default:T03:ma-scroll-mode-background",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T03",
+      "logicalAssetId": "sk-review-loop",
+      "runtimeAssetId": "runtime-default:T03:sk-review-loop",
+      "runtimeName": "review-loop",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T03",
+      "logicalAssetId": "sk-release-build",
+      "runtimeAssetId": "runtime-default:T03:sk-release-build",
+      "runtimeName": "release-build",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T03",
+      "logicalAssetId": "sk-auto-impl",
+      "runtimeAssetId": "runtime-default:T03:sk-auto-impl",
+      "runtimeName": "auto-impl",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T03",
+      "logicalAssetId": "sk-doc-update",
+      "runtimeAssetId": "runtime-default:T03:sk-doc-update",
+      "runtimeName": "doc-update",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T03",
+      "logicalAssetId": "sk-commit-flow",
+      "runtimeAssetId": "runtime-default:T03:sk-commit-flow",
+      "runtimeName": "commit-flow",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T03",
+      "logicalAssetId": "sk-change-finalization",
+      "runtimeAssetId": "runtime-default:T03:sk-change-finalization",
+      "runtimeName": "change-finalization",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__memory__review_discipline",
+      "runtimeAssetId": "runtime-default:T04:T04__memory__review_discipline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__memory__commit_timing",
+      "runtimeAssetId": "runtime-default:T04:T04__memory__commit_timing",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__memory__github_auth",
+      "runtimeAssetId": "runtime-default:T04:T04__memory__github_auth",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__memory__preflight",
+      "runtimeAssetId": "runtime-default:T04:T04__memory__preflight",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__memory__intent_context",
+      "runtimeAssetId": "runtime-default:T04:T04__memory__intent_context",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__memory__entire_checkpoint",
+      "runtimeAssetId": "runtime-default:T04:T04__memory__entire_checkpoint",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__skill__nimbus_review",
+      "runtimeAssetId": "runtime-default:T04:T04__skill__nimbus_review",
+      "runtimeName": "nimbus-review",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__skill__workspace_deploy",
+      "runtimeAssetId": "runtime-default:T04:T04__skill__workspace_deploy",
+      "runtimeName": "workspace-deploy",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__skill__repo_register",
+      "runtimeAssetId": "runtime-default:T04:T04__skill__repo_register",
+      "runtimeName": "repo-register",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__skill__phase_planning",
+      "runtimeAssetId": "runtime-default:T04:T04__skill__phase_planning",
+      "runtimeName": "phase-planning",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__skill__intent_summarization",
+      "runtimeAssetId": "runtime-default:T04:T04__skill__intent_summarization",
+      "runtimeName": "intent-summarization",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T04",
+      "logicalAssetId": "T04__skill__cochange_cache",
+      "runtimeAssetId": "runtime-default:T04:T04__skill__cochange_cache",
+      "runtimeName": "cochange-cache",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__memory__architecture",
+      "runtimeAssetId": "runtime-default:T05:T05__memory__architecture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__memory__test_runner",
+      "runtimeAssetId": "runtime-default:T05:T05__memory__test_runner",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__memory__coverage_priorities",
+      "runtimeAssetId": "runtime-default:T05:T05__memory__coverage_priorities",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__memory__analysis_orchestration",
+      "runtimeAssetId": "runtime-default:T05:T05__memory__analysis_orchestration",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__memory__provider_transport",
+      "runtimeAssetId": "runtime-default:T05:T05__memory__provider_transport",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__memory__export_contract",
+      "runtimeAssetId": "runtime-default:T05:T05__memory__export_contract",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__skill__test_coverage",
+      "runtimeAssetId": "runtime-default:T05:T05__skill__test_coverage",
+      "runtimeName": "expand-vitest-coverage",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__skill__test_llm_providers",
+      "runtimeAssetId": "runtime-default:T05:T05__skill__test_llm_providers",
+      "runtimeName": "test-llm-providers",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__skill__test_analysis",
+      "runtimeAssetId": "runtime-default:T05:T05__skill__test_analysis",
+      "runtimeName": "test-llm-analysis-orchestration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__skill__test_routes",
+      "runtimeAssetId": "runtime-default:T05:T05__skill__test_routes",
+      "runtimeName": "test-hono-api-routes",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__skill__test_pure_functions",
+      "runtimeAssetId": "runtime-default:T05:T05__skill__test_pure_functions",
+      "runtimeName": "test-pure-data-transforms",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T05",
+      "logicalAssetId": "T05__skill__coverage_prioritization",
+      "runtimeAssetId": "runtime-default:T05:T05__skill__coverage_prioritization",
+      "runtimeName": "prioritize-test-gaps",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__memory__project_architecture",
+      "runtimeAssetId": "runtime-default:T06:T06__memory__project_architecture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__memory__test_baseline",
+      "runtimeAssetId": "runtime-default:T06:T06__memory__test_baseline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__memory__data_model",
+      "runtimeAssetId": "runtime-default:T06:T06__memory__data_model",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__memory__release_constraints",
+      "runtimeAssetId": "runtime-default:T06:T06__memory__release_constraints",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__memory__integration_boundaries",
+      "runtimeAssetId": "runtime-default:T06:T06__memory__integration_boundaries",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__memory__historical_decision",
+      "runtimeAssetId": "runtime-default:T06:T06__memory__historical_decision",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__skill__test_strategy",
+      "runtimeAssetId": "runtime-default:T06:T06__skill__test_strategy",
+      "runtimeName": "test-implementation-slices",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__skill__integration_testing",
+      "runtimeAssetId": "runtime-default:T06:T06__skill__integration_testing",
+      "runtimeName": "test-integration-boundaries",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__skill__regression_fix",
+      "runtimeAssetId": "runtime-default:T06:T06__skill__regression_fix",
+      "runtimeName": "implement-a-regression-fix",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__skill__refactor_safely",
+      "runtimeAssetId": "runtime-default:T06:T06__skill__refactor_safely",
+      "runtimeName": "refactor-shared-code-safely",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__skill__release_validation",
+      "runtimeAssetId": "runtime-default:T06:T06__skill__release_validation",
+      "runtimeName": "validate-a-release-change",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T06",
+      "logicalAssetId": "T06__skill__debug_async_flow",
+      "runtimeAssetId": "runtime-default:T06:T06__skill__debug_async_flow",
+      "runtimeName": "debug-asynchronous-flow",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__verification_gate",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__verification_gate",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__run_modes",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__run_modes",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__doppler_boundary",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__doppler_boundary",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__release_boundary",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__release_boundary",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__hook_scope",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__hook_scope",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__migration_policy",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__migration_policy",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__package_naming",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__package_naming",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__ci_history",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__ci_history",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__postgres_env",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__postgres_env",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__clickhouse_safety",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__clickhouse_safety",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__memory__cli_hooks",
+      "runtimeAssetId": "runtime-default:T07:T07__memory__cli_hooks",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__skill__environment_variables",
+      "runtimeAssetId": "runtime-default:T07:T07__skill__environment_variables",
+      "runtimeName": "rudel-environment-variables",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__skill__api_testing",
+      "runtimeAssetId": "runtime-default:T07:T07__skill__api_testing",
+      "runtimeName": "rudel-api-endpoint-testing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__skill__pr_creation",
+      "runtimeAssetId": "runtime-default:T07:T07__skill__pr_creation",
+      "runtimeName": "rudel-pull-request-workflow",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__skill__chkit_migrations",
+      "runtimeAssetId": "runtime-default:T07:T07__skill__chkit_migrations",
+      "runtimeName": "clickhouse-chkit-migration-workflow",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T07",
+      "logicalAssetId": "T07__skill__testing_bun",
+      "runtimeAssetId": "runtime-default:T07:T07__skill__testing_bun",
+      "runtimeName": "rudel-bun-verification",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__prisma_orm",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__prisma_orm",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__workspace_filters",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__workspace_filters",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__schema_environments",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__schema_environments",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__tracking_architecture",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__tracking_architecture",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__memory_embeddings",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__memory_embeddings",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__mcp_transport",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__mcp_transport",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__env_validation",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__env_validation",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__signup_webhook",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__signup_webhook",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__install_idempotence",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__install_idempotence",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__omega_design",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__omega_design",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__tool_approval",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__tool_approval",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__memory__timeline_ci",
+      "runtimeAssetId": "runtime-default:T08:T08__memory__timeline_ci",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__environment_variables",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__environment_variables",
+      "runtimeName": "tpmjs-environment-validation",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__mcp_server_integration",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__mcp_server_integration",
+      "runtimeName": "tpmjs-mcp-server-integration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__omega_ui",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__omega_ui",
+      "runtimeName": "omega-command-center-ui",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__prisma_workflow",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__prisma_workflow",
+      "runtimeName": "tpmjs-prisma-schema-workflow",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__tool_permissions",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__tool_permissions",
+      "runtimeName": "tpmjs-tool-permission-flow",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__bulk_collection_tools",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__bulk_collection_tools",
+      "runtimeName": "bulk-collection-tool-addition",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__execution_tracking",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__execution_tracking",
+      "runtimeName": "unified-execution-tracking",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__sentry_pipeline",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__sentry_pipeline",
+      "runtimeName": "sentry-auto-fix-pipeline",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__sentry_frontend",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__sentry_frontend",
+      "runtimeName": "sentry-frontend-instrumentation",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__performance_checks",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__performance_checks",
+      "runtimeName": "fast-workspace-verification",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__sandbox_tools",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__sandbox_tools",
+      "runtimeName": "agent-sandbox-tools",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__sandbox_testing",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__sandbox_testing",
+      "runtimeName": "sandbox-integration-testing",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T08",
+      "logicalAssetId": "T08__skill__sandbox_logs",
+      "runtimeAssetId": "runtime-default:T08:T08__skill__sandbox_logs",
+      "runtimeName": "sandbox-execution-logs",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__sqlite_prisma",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__sqlite_prisma",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__electron_react_native",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__electron_react_native",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__mantine_ui",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__mantine_ui",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__hook_events",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__hook_events",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__session_analytics",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__session_analytics",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__local_first",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__local_first",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__checkpoint_commit",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__checkpoint_commit",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__memory__session_ui",
+      "runtimeAssetId": "runtime-default:T09:T09__memory__session_ui",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__skill__hook_tracking",
+      "runtimeAssetId": "runtime-default:T09:T09__skill__hook_tracking",
+      "runtimeName": "claude-code-hook",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__skill__prisma_sqlite",
+      "runtimeAssetId": "runtime-default:T09:T09__skill__prisma_sqlite",
+      "runtimeName": "prisma-sqlite-schema",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__skill__session_analytics",
+      "runtimeAssetId": "runtime-default:T09:T09__skill__session_analytics",
+      "runtimeName": "session-analytics",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__skill__electron_setup",
+      "runtimeAssetId": "runtime-default:T09:T09__skill__electron_setup",
+      "runtimeName": "electron-desktop-setup",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T09",
+      "logicalAssetId": "T09__skill__mantine_components",
+      "runtimeAssetId": "runtime-default:T09:T09__skill__mantine_components",
+      "runtimeName": "mantine-ui-components",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__github_artifacts",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__github_artifacts",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__homepage_coverage",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__homepage_coverage",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__remediation_button",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__remediation_button",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__context_labels",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__context_labels",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__cursor_command",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__cursor_command",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__remediation_pipeline",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__remediation_pipeline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__cloud_limits",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__cloud_limits",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__memory__tool_result_scope",
+      "runtimeAssetId": "runtime-default:T10:T10__memory__tool_result_scope",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__cursor_cli_display",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__cursor_cli_display",
+      "runtimeName": "cursor-cli",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__evaluator_optimization",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__evaluator_optimization",
+      "runtimeName": "evaluator-optimization",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__prompt_cache",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__prompt_cache",
+      "runtimeName": "prompt-cache",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__project_structure",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__project_structure",
+      "runtimeName": "project-structure-tree",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__action_summary",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__action_summary",
+      "runtimeName": "action-summary",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__context_tab",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__context_tab",
+      "runtimeName": "context-tab",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__remediation_counts",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__remediation_counts",
+      "runtimeName": "remediation-plan-counts",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__skill_instruction_nesting",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__skill_instruction_nesting",
+      "runtimeName": "skill-instructions",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__large_repo_guard",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__large_repo_guard",
+      "runtimeName": "large-repo-guard",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T10",
+      "logicalAssetId": "T10__skill__file_consolidation",
+      "runtimeAssetId": "runtime-default:T10:T10__skill__file_consolidation",
+      "runtimeName": "file-consolidation",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__memory__quality_standards",
+      "runtimeAssetId": "runtime-default:T11:T11__memory__quality_standards",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__memory__mypy_strict",
+      "runtimeAssetId": "runtime-default:T11:T11__memory__mypy_strict",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__memory__exception_coverage",
+      "runtimeAssetId": "runtime-default:T11:T11__memory__exception_coverage",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__memory__any_baseline",
+      "runtimeAssetId": "runtime-default:T11:T11__memory__any_baseline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__memory__review_time_ui",
+      "runtimeAssetId": "runtime-default:T11:T11__memory__review_time_ui",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__memory__ado_integration",
+      "runtimeAssetId": "runtime-default:T11:T11__memory__ado_integration",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__mypy_strict",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__mypy_strict",
+      "runtimeName": "mypy-strict",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__exception_tests",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__exception_tests",
+      "runtimeName": "exception-tests",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__ado_api",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__ado_api",
+      "runtimeName": "ado-api",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__aggregator_types",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__aggregator_types",
+      "runtimeName": "aggregator",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__dashboard_state",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__dashboard_state",
+      "runtimeName": "dashboard",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__invariant_review",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__invariant_review",
+      "runtimeName": "invariant",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T11",
+      "logicalAssetId": "T11__skill__any_refactor",
+      "runtimeAssetId": "runtime-default:T11:T11__skill__any_refactor",
+      "runtimeName": "typing-any",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__three_tier_reasoning",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__three_tier_reasoning",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__signal_pipeline",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__signal_pipeline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__event_causal_state",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__event_causal_state",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__safety_boundaries",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__safety_boundaries",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__rollback_monitoring",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__rollback_monitoring",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__ecosystem",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__ecosystem",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__memory__adaptive_gears",
+      "runtimeAssetId": "runtime-default:T12:T12__memory__adaptive_gears",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__rust_grpc_watch",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__rust_grpc_watch",
+      "runtimeName": "rust-grpc-watch-stub",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__signal_path",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__signal_path",
+      "runtimeName": "signal-path-component",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__gear_transition",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__gear_transition",
+      "runtimeName": "adaptive-gear-transition",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__outcome_enrichment",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__outcome_enrichment",
+      "runtimeName": "outcome-data-enrichment",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__safe_schema_migration",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__safe_schema_migration",
+      "runtimeName": "safe-schema-migration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__lore_praxis_cli",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__lore_praxis_cli",
+      "runtimeName": "lore-praxis-cli-integration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__plan_review",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__plan_review",
+      "runtimeName": "plan-review-and-handoff",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T12",
+      "logicalAssetId": "T12__skill__just_build_workflow",
+      "runtimeAssetId": "runtime-default:T12:T12__skill__just_build_workflow",
+      "runtimeName": "just-build-workflow",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__streaming",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__streaming",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__ask_user",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__ask_user",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__conversation_isolation",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__conversation_isolation",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__cross_model",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__cross_model",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__confirm_first",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__confirm_first",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__duckdb_sessions",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__duckdb_sessions",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__i18n",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__i18n",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__container_history",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__container_history",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__memory__gateway",
+      "runtimeAssetId": "runtime-default:T13:T13__memory__gateway",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__e2e_scenario",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__e2e_scenario",
+      "runtimeName": "e2e-scenario",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__readme_structure",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__readme_structure",
+      "runtimeName": "readme-structure",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__linux_setup",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__linux_setup",
+      "runtimeName": "linux-compose",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__agent_behavior",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__agent_behavior",
+      "runtimeName": "agent-behavior",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__readme_caveat",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__readme_caveat",
+      "runtimeName": "readme-caveat",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__container_debug",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__container_debug",
+      "runtimeName": "container-debug",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__worktree",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__worktree",
+      "runtimeName": "worktree",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__stream_lifecycle",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__stream_lifecycle",
+      "runtimeName": "conversation-stream",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T13",
+      "logicalAssetId": "T13__skill__i18n_ui",
+      "runtimeAssetId": "runtime-default:T13:T13__skill__i18n_ui",
+      "runtimeName": "i18n-ui",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__memory__wal_pipeline",
+      "runtimeAssetId": "runtime-default:T14:T14__memory__wal_pipeline",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__memory__shutdown_performance",
+      "runtimeAssetId": "runtime-default:T14:T14__memory__shutdown_performance",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__memory__checkpoint_lifecycle",
+      "runtimeAssetId": "runtime-default:T14:T14__memory__checkpoint_lifecycle",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__memory__wal_throughput",
+      "runtimeAssetId": "runtime-default:T14:T14__memory__wal_throughput",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__memory__rotation_semantics",
+      "runtimeAssetId": "runtime-default:T14:T14__memory__rotation_semantics",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__memory__nats_node_state",
+      "runtimeAssetId": "runtime-default:T14:T14__memory__nats_node_state",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__config_doc_sync",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__config_doc_sync",
+      "runtimeName": "configuration-and-documentation-sync",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__go_toolchain_upgrade",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__go_toolchain_upgrade",
+      "runtimeName": "safe-go-toolchain-upgrade",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__lint_config",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__lint_config",
+      "runtimeName": "maintain-lint-configuration",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__migration_management",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__migration_management",
+      "runtimeName": "manage-sqlite-migrations",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__readme_feature_docs",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__readme_feature_docs",
+      "runtimeName": "document-tools-and-features",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__release_prep",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__release_prep",
+      "runtimeName": "prepare-a-cc-backend-release",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T14",
+      "logicalAssetId": "T14__skill__subsystem_review",
+      "runtimeAssetId": "runtime-default:T14:T14__skill__subsystem_review",
+      "runtimeName": "review-a-subsystem-lifecycle",
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__release_gate",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__release_gate",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__desktop_e2e_logs",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__desktop_e2e_logs",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__release_labels",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__release_labels",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__workflow_tags",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__workflow_tags",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__local_ui_staging",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__local_ui_staging",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__feature_branch_tests",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__feature_branch_tests",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__local_first_e2e",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__local_first_e2e",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "memory",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__memory__ipns_service_role",
+      "runtimeAssetId": "runtime-default:T15:T15__memory__ipns_service_role",
+      "runtimeName": null,
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__pr_workflow",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__pr_workflow",
+      "runtimeName": "cipherbox-pr-workflow",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__load_test",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__load_test",
+      "runtimeName": "run-load-tests",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__local_e2e",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__local_e2e",
+      "runtimeName": "local-and-ci-e2e-runbook",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__phase_planning",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__phase_planning",
+      "runtimeName": "plan-a-project-phase",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__phase_summary",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__phase_summary",
+      "runtimeName": "backfill-phase-summaries",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__review_resolution",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__review_resolution",
+      "runtimeName": "resolve-pr-review-findings",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__release_tag_ops",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__release_tag_ops",
+      "runtimeName": "operate-release-tag-workflows",
+      "runtimePath": null
+    },
+    {
+      "kind": "skill",
+      "originTeamId": "T15",
+      "logicalAssetId": "T15__skill__security_followup",
+      "runtimeAssetId": "runtime-default:T15:T15__skill__security_followup",
+      "runtimeName": "follow-up-a-security-review",
+      "runtimePath": null
+    }
+  ]
+}

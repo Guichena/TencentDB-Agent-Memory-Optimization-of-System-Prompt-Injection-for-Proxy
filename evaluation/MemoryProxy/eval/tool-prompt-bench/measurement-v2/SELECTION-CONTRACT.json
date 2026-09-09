@@ -1,0 +1,299 @@
+{
+  "schemaVersion": "task1.selection-contract.v1",
+  "contractId": "task1.static-prompt-selection.v1",
+  "evaluationSchemaVersion": 2,
+  "taskBoundary": {
+    "optimize": [
+      "correct tool versus no-tool decision",
+      "correct memory, skill, or knowledge family and terminal decision chain",
+      "minimal provider-visible static tool-description tokens",
+      "complete provider usage and cache telemetry"
+    ],
+    "exclude": [
+      "asset answer quality",
+      "tool-result HTTP acceptance and asset-side execution success",
+      "final coding-task correctness",
+      "post-terminal model behavior"
+    ]
+  },
+  "references": {
+    "historical": {
+      "variantId": "V0",
+      "profile": "legacy",
+      "role": "always_report"
+    },
+    "behavior": {
+      "variantId": "V0-C",
+      "profile": "contract-corrected",
+      "role": "fixed_noninferiority_reference"
+    },
+    "directParent": {
+      "role": "single_factor_attribution_only",
+      "mustNotReplaceBehaviorReference": true
+    },
+    "frozenVariants": [
+      "V0",
+      "V0-C",
+      "V1a",
+      "V1",
+      "V2",
+      "V3"
+    ]
+  },
+  "formalData": {
+    "tag": "task1-data-formal-v2.1",
+    "tagObject": "6dcb766b0d9d831fe06cd45176da4d8d59cd0a78",
+    "peeledCommit": "a8ae02e376f07ea7baa6a13f66aa4fb560b95ce6",
+    "dev": {
+      "caseCount": 320,
+      "toolPositiveCount": 120,
+      "noToolCount": 200,
+      "pairCount": 120,
+      "naturalCodingNegativeCount": 80,
+      "familyPositiveCounts": {
+        "memory": 48,
+        "skill": 48,
+        "knowledge": 24
+      },
+      "independenceKey": "split:teamId",
+      "independenceClusterCount": 8
+    },
+    "hidden": {
+      "caseCount": 480,
+      "toolPositiveCount": 180,
+      "noToolCount": 300,
+      "pairCount": 180,
+      "naturalCodingNegativeCount": 120,
+      "familyPositiveCounts": {
+        "memory": 72,
+        "skill": 72,
+        "knowledge": 36
+      },
+      "independenceKey": "split:teamId",
+      "independenceClusterCount": 12
+    }
+  },
+  "metricBindings": {
+    "effectiveCallRate": "CaseChainAggregateV2.completeChainSuccessRate",
+    "falseCallAttemptRate": "CaseChainAggregateV2.falseCallAttemptRate",
+    "terminalSelectionRate": "CaseChainAggregateV2.terminalSelectionRate",
+    "runtimeAcceptedChainRate": "CaseChainAggregateV2.runtimeAcceptedChainRate",
+    "conditionalTerminalAccuracy": "CaseChainAggregateV2.conditionalTerminalAccuracy",
+    "shortestExactRate": "CaseChainAggregateV2.shortestExactRate",
+    "positiveOvercallRate": "CaseChainAggregateV2.positiveOvercallRate",
+    "pairExact": "PairScoreSummaryV2.pairExact",
+    "otherDescriptiveMetrics": [
+      "triggerRecall",
+      "firstActionSelectionAccuracy",
+      "strictChainExactRate",
+      "toolSpl",
+      "runtimeAcceptedChainRate",
+      "falseCallAcceptedRate",
+      "malformedFalseIntentRate"
+    ]
+  },
+  "metricRoles": {
+    "conditionalTerminalAccuracy": {
+      "reportingRole": "required_tool_selection_companion",
+      "selectionRole": "descriptive_only",
+      "mustReportNumeratorAndDenominator": true,
+      "zeroDenominatorValue": null,
+      "reason": "its triggered-positive denominator may vary by Variant"
+    },
+    "shortestExactRate": {
+      "reportingRole": "chain_efficiency_diagnostic",
+      "selectionRole": "descriptive_only",
+      "reason": "an exact longer allowed branch remains a valid complete chain"
+    },
+    "runtimeAcceptedChainRate": {
+      "reportingRole": "runtime_http_diagnostic",
+      "selectionRole": "descriptive_only",
+      "denominator": "behavior-valid complete chains only",
+      "reason": "Task 1 measures the model's tool decision; HTTP acceptance belongs to runtime diagnostics"
+    }
+  },
+  "behaviorBoundary": {
+    "completeChainSuccess": "ordered allowed tool chain with correct family, tool, endpoint, operation, required arguments, prior-output binding, and terminal; independent of HTTP status",
+    "runtimeAcceptedChain": "descriptive RuntimeToolContract status acceptance for an otherwise behavior-valid chain; never changes completeChainSuccess",
+    "runtimeInfrastructure": "observer failure or HTTP 5xx within the evaluation horizon excludes the run before behavior aggregation; HTTP 4xx and post-terminal failures do not",
+    "wrongArgumentsRemainBehaviorFailure": true
+  },
+  "pairPolicy": {
+    "repeatAggregationPolicyId": "all-repeats-pass-v1",
+    "strictPairExactEnabled": false,
+    "scoringPolicySha256": "abd2448c425839fcc812f2e335acd86b1bfc22515366f40b8ae16e8e94fb7153",
+    "positiveRule": "M0.completeChainSuccess",
+    "negativeRule": "no executor-bound TDAI attempt and no malformed unbound TDAI dispatch intent",
+    "formalObservableNegativeRule": "no executor-bound TDAI attempt",
+    "malformedUnboundRole": "synthetic_diagnostic_only_not_observable_from_formal_bridge_trace",
+    "repeatRowsAreIndependentPairs": false
+  },
+  "hardBehaviorGates": {
+    "completeChainSuccessRate": {
+      "direction": "higher_is_better",
+      "reference": "V0-C",
+      "denominatorPerRepeat": "formalData.dev.toolPositiveCount",
+      "maxCorrectCaseRegressionPerRepeat": 1
+    },
+    "falseCallAttemptRate": {
+      "direction": "lower_is_better",
+      "reference": "V0-C",
+      "denominatorPerRepeat": "formalData.dev.noToolCount",
+      "maxFalseCallIncreasePerRepeat": 1
+    },
+    "terminalSelectionRate": {
+      "direction": "higher_is_better",
+      "reference": "V0-C",
+      "denominatorPerRepeat": "formalData.dev.toolPositiveCount",
+      "maxCorrectCaseRegressionPerRepeat": 1
+    },
+    "pairExact": {
+      "direction": "higher_is_better",
+      "reference": "V0-C",
+      "denominator": "formalData.dev.pairCount",
+      "maxPassingPairRegression": 1,
+      "repeatAggregationPolicyId": "all-repeats-pass-v1"
+    },
+    "positiveOvercallRate": {
+      "direction": "lower_is_better",
+      "reference": "V0-C",
+      "denominatorPerRepeat": "formalData.dev.toolPositiveCount",
+      "maxOvercallIncreasePerRepeat": 1
+    }
+  },
+  "familyFloors": {
+    "reference": "V0-C",
+    "metrics": [
+      "completeChainSuccess",
+      "terminalSelectionCorrect"
+    ],
+    "maxCorrectCaseRegressionPerFamilyPerRepeat": 1,
+    "families": {
+      "memory": {
+        "devDenominatorPerRepeat": 48
+      },
+      "skill": {
+        "devDenominatorPerRepeat": 48
+      },
+      "knowledge": {
+        "devDenominatorPerRepeat": 24
+      }
+    }
+  },
+  "naturalCodingNegativeGate": {
+    "reference": "V0-C",
+    "devDenominatorPerRepeat": 80,
+    "maxFalseCallIncreasePerRepeat": 0,
+    "idealTargetFalseCalls": 0
+  },
+  "repeatPolicy": {
+    "devDiscovery": {
+      "repeatIds": [
+        "r01"
+      ],
+      "selectionUse": "screen_all_frozen_variants"
+    },
+    "devFinalistConfirmation": {
+      "repeatIds": [
+        "r01",
+        "r02",
+        "r03"
+      ],
+      "selectionUse": "confirm_at_most_two_candidates_plus_V0_and_V0-C",
+      "caseMetricRule": "apply_every_per-repeat hard gate; pooled values are diagnostic",
+      "pairMetricRule": "all-repeats-pass-v1"
+    },
+    "hidden": {
+      "repeatIds": [
+        "r01",
+        "r02",
+        "r03"
+      ],
+      "variants": [
+        "V0",
+        "V0-C",
+        "DEV_FROZEN_FINAL"
+      ],
+      "openOnce": true,
+      "reselectionForbidden": true
+    }
+  },
+  "tokenSelection": {
+    "tokenizer": "o200k_base",
+    "eligibilityFirst": true,
+    "primaryObjective": "minimize sum of toolDescriptionStaticTokens on the same frozen case set",
+    "hardRequirement": "candidate static tool-description token sum must be lower than V0-C",
+    "tieBreak": "minimize sum of totalInjectionTokens on the same frozen case set",
+    "aspirationalStaticReductionVersusV0C": 0.25,
+    "aspirationalTargetIsHardGate": false,
+    "componentTokensMustNotReplaceWholePromptTokens": true
+  },
+  "formalEligibility": {
+    "requiredChain": "real MemoryProxy production path",
+    "mockContractEligible": false,
+    "requiredEvidence": [
+      "complete provider-visible request and Prompt hash",
+      "complete executor-bound TDAI trace through the evaluation horizon",
+      "exact executor-bound tool identity, arguments, and chain-binding evidence",
+      "runtime HTTP status retained as descriptive diagnostic evidence",
+      "no runtime infrastructure failure within the evaluation horizon",
+      "fresh run, session, and local-state identity",
+      "unchanged frozen asset and configuration fingerprints",
+      "complete required provider usage fields"
+    ],
+    "fixedDenominators": true,
+    "silentCaseOrPairRemovalForbidden": true
+  },
+  "executionCohort": {
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "verbosity": "medium",
+    "provider": "openai",
+    "usageSchema": "openai.responses",
+    "apiVersion": "v1",
+    "adapterVersion": "memory-proxy-provider-observer-v1",
+    "providerObserverUsageAuthority": "response.completed.response.usage",
+    "codexStdoutUsageRole": "diagnostic_only",
+    "nodeMajor": 22,
+    "codexCliVersionBinding": "bind once in E01 V0 runtime-smoke manifest, then require exact equality",
+    "officialAuthenticationReuseOnly": true,
+    "mustNotCopyOrModifyCodexAuthentication": true
+  },
+  "selectionOrder": [
+    "formal eligibility and complete frozen membership",
+    "contract, capability, provenance, and cache-control lint",
+    "all hard behavior and family gates",
+    "minimum static tool-description token sum",
+    "minimum whole-prompt total injection token sum",
+    "retain all non-dominated intermediate artifacts in the report"
+  ],
+  "reusePolicy": {
+    "publicPreparationBuiltOnce": [
+      "C00-C07",
+      "R01-R05",
+      "R05 support",
+      "M0-M2",
+      "Measurement-v2",
+      "formal dataset and asset snapshot"
+    ],
+    "ordinaryPromptMethodRebuildsPublicPreparation": false,
+    "ordinaryPromptMethodMustCreateFresh": [
+      "branch and worktree",
+      "campaign",
+      "run, session, and local-state namespaces",
+      "provider-visible Prompt and hashes",
+      "usage, trace, score, and result artifacts"
+    ],
+    "rerunPublicGateOnlyIfChanged": [
+      "adapter",
+      "runner",
+      "scorer",
+      "restore or inspection path",
+      "preflight",
+      "production injection contract"
+    ]
+  },
+  "noWeightedCompositeScore": true,
+  "noTaskAnswerQualityJudge": true,
+  "modelRunsAtFreeze": 0
+}

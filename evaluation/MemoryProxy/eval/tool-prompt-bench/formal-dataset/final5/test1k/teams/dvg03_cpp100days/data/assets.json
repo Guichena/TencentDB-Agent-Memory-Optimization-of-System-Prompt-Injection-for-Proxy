@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "mem_log_design",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "日志设计锁为 `CPP100-LOG-BOTH`：日志同时支持文件与标准输出且默认走标准输出，级别与轮转按本队登记项，禁止只用一种输出或改掉默认。"
+    },
+    {
+      "id": "mem_lib_policy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "库选型锁为 `CPP100-LIB-CURLXML`：抓取只用 libcurl 取 HTTP、libxml2 解析 HTML，禁止引入第三个库，也禁止用正则代替解析器。"
+    },
+    {
+      "id": "mem_code_style",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "风格锁为 `CPP100-STYLE-RAII`：遵循 RAII、const 正确、优先 STL 与规范异常处理，禁止裸资源管理，也禁止为省事放弃异常安全。"
+    },
+    {
+      "id": "mem_output_format",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "输出格式锁为 `CPP100-OUT-MDTABLE`：结构化抽取结果一律输出成 Markdown 表格，禁止改成制表符分隔或自由文本。"
+    },
+    {
+      "id": "mem_project_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "目录锁为 `CPP100-DIR-DAILY`：每日挑战各自一个带编号目录，含源码、说明与构建文件，禁止跨目录共用源码或多天塞进一个目录。"
+    },
+    {
+      "id": "mem_dependency_check",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "依赖检查锁为 `CPP100-DEP-PKGCONFIG`：库可用性用包查询工具核对并按需安装，禁止跳过检查直接构建，也禁止只靠编译报错反推。"
+    },
+    {
+      "id": "mem_cpp_macros",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "宏位锁为 `CPP100-MACRO-THREE`：三个宏分别给源文件路径、行号与函数名，日志用它们定位，禁止用其中一个代替另一个或自行拼字符串。"
+    },
+    {
+      "id": "mem_raii_pattern",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "RAII 锁为 `CPP100-RAII-CTOR`：资源在构造时获取、析构时释放，生命周期绑到对象，禁止手工释放，也禁止把获取挪进普通方法。"
+    },
+    {
+      "id": "mem_smart_pointers",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "智能指针锁为 `CPP100-PTR-UNIQUE`：独占所有权用 unique_ptr，shared_ptr 只在真正共享时用，禁止一律用 shared_ptr，也禁止用裸指针持有所有权。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_logging_setup",
+      "name": "logging-setup",
+      "description": "搭日志输出：先过哪道双输出门、定位字段怎么来、级别怎么定",
+      "content": "1. 先过双输出门：文件与标准输出都要接上并定好默认，禁止只接一种。\n2. 定位门：每行的文件、行号与函数三个字段各取其位，禁止互相代替或手工拼串。\n3. 级别门：先定级别再写日志点，禁止全用同一个级别。\n4. 接完必须两种输出各验一次，禁止只看其中一种。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_web_scraper_cpp",
+      "name": "web-scraper-cpp",
+      "description": "写 C++ 抓取程序：先过哪道库门、失败怎么处理、正文编码与输出怎么定",
+      "content": "1. 先过库门：取页面与解析各认一个库，禁止引入第三个库或改用正则。\n2. 传输门：先处理取回失败再谈解析，失败要有明确退出码。\n3. 编码门：正文保持原编码，禁止中途转码丢字符。\n4. 输出按登记的结构化格式，禁止自由文本。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_cpp_challenge_setup",
+      "name": "cpp-challenge-setup",
+      "description": "起一个每日挑战目录：先过哪道目录门、必含哪几样、构建怎么配",
+      "content": "1. 先过目录门：每天一个带编号目录，禁止跨天共用或多天塞一个目录。\n2. 清单门：源码、说明与构建文件三样齐，禁止缺说明就开工。\n3. 构建门：构建脚本显式列出依赖库，禁止靠环境已有配置。\n4. 起完必须本地构建并跑一次，禁止只落文件。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_dependency_verification",
+      "name": "dependency-verification",
+      "description": "核对并装依赖库：先过哪道检查门、门禁基线在附件哪里",
+      "content": "1. 先过检查门：先用包查询工具核对可用性，禁止跳过检查直接构建。\n2. 安装门：缺失才装且装完复检，禁止凭编译报错反推缺什么。\n3. 版本门：记录实际版本，禁止只看有没有装。\n4. 收尾的门禁基线检查项只写在 references/dep-verify.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/dep-verify.md",
+          "content": "# Dependency verification gate\n\nA dependency check for this repo is only valid when all of the following hold:\n\n- The check must be stamped with the marker `CPP100-DEP-SEAL`.\n- The queried package set must be named `CPP100-PKG-SET` in the log header.\n- A missing library must be declared with the value `CPP100-MISSING-DECLARED`; an undeclared miss voids the check.\n- A log containing `CPP100-BUILD-GUESS` is rejected; guessing from build errors must never count.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented dependency verification gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "skill_markdown_formatter",
+      "name": "markdown-formatter",
+      "description": "把抽取结果格式化成 Markdown：先过哪道表门、列怎么定、转义怎么做",
+      "content": "1. 先过表门：结构化结果一律输出成表格，禁止制表符分隔或自由文本。\n2. 列门：先定列名与顺序再填值，禁止边填边加列。\n3. 转义门：内容里的竖线与换行先转义，禁止直接拼接。\n4. 输出后必须核对行数与列数，禁止只看开头几行。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_cpp_refactor_class",
+      "name": "cpp-refactor-class",
+      "description": "重构 C++ 类：先过哪道不动门、所有权怎么收、资源怎么管",
+      "content": "1. 先过不动门：先把当前可观察行为固定成用例，禁止边重构边改行为。\n2. 所有权门：独占所有权用独占指针，禁止一律用共享指针。\n3. 资源门：资源获取放构造、释放放析构，禁止手工释放。\n4. 每步都要构建并跑用例，禁止攒到最后一次。",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg03_cpp100days__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg03_cpp100days__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

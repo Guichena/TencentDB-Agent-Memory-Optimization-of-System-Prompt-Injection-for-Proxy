@@ -1,0 +1,119 @@
+{
+  "memory": [
+    {
+      "id": "dvg05_goeko_github_io__memory__vue_setup",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "技术栈锁为 `GOEKO-VUE2-DATA`：项目用 Vue 2 的响应式组件，实例状态一律放在 data 函数里，禁止把状态挂在实例外部，也禁止部分组件先行升级到别的框架版本。"
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__jquery_legacy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "遗留锁为 `GOEKO-JQ-NO-NEW`：新功能只写在 Vue 里，既有遗留脚本就地保留，禁止在遗留代码里加新功能，也禁止为省事混写两套实现。"
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__credit_calc",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "计算器锁为 `GOEKO-CALC-PAGE`：主页面固定为 kreditrechner.html 并实现贷款计算，金额取整按本队登记规则，禁止另开页面或改取整规则。"
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__german_ui",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "德语呈现锁为 `GOEKO-DE-COMMA`：界面文案与报错一律德语，数字用逗号作小数分隔，禁止出现英文文案，也禁止用点作小数分隔。"
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__select_sync",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "列表选择锁为 `GOEKO-SELECT-SYNC`：两个多选元素保持同步，一侧选中另一侧必须跟随，禁止只改一侧，也禁止两侧各存一份选中集合。"
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__localstorage_state",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "持久化锁为 `GOEKO-LS-KEY`：用户输入与界面状态存 localStorage 且键名按约定，禁止改名或并存两套键，也禁止把状态只留在内存。"
+    },
+    {
+      "id": "dvg05_goeko_github_io__memory__project_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "仓库形态锁为 `GOEKO-STATIC-NOBUILD`：这是无构建管线的静态站点，禁止引入打包步骤，也禁止让页面依赖构建产物。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg05_goeko_github_io__skill__vue_component_refactor",
+      "name": "vue-component-refactor",
+      "description": "重构 Vue 组件：先过哪道不动门、状态与派生值怎么分、遗留代码怎么处理",
+      "content": "1. 先过不动门：先把当前可观察行为固定住，禁止边重构边改行为。\n2. 数据门：状态一律放进 data 函数，禁止挂到实例外部。\n3. 计算门：派生值只放计算属性，禁止在模板里写运算。\n4. 遗留脚本就地保留，禁止在迁移中顺手改写业务逻辑。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__select_sync",
+      "name": "select-sync",
+      "description": "同步两个多选元素：先过哪道单向门、选中集合存几份、怎么验",
+      "content": "1. 先过单向门：先定谁是被跟随的一方，禁止两边互相同步。\n2. 状态门：选中集合只存一份，禁止两侧各存一份。\n3. 顺序门：变更先落状态再刷界面，禁止直接改另一侧控件。\n4. 改完必须两侧各操作一次验证，禁止只测一侧。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__german_number_format",
+      "name": "german-number-format",
+      "description": "德语数字格式化：先过哪道分隔符门、取整怎么定、输入怎么解析",
+      "content": "1. 先过分隔符门：显示一律逗号作小数分隔，禁止出现点分隔。\n2. 取整门：金额按登记位数取整再显示，禁止直接截断。\n3. 解析门：输入先按德语格式解析再参与计算，禁止混用两种写法。\n4. 改完必须逐个字段核对，禁止只看一个样例。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__localstorage_persist",
+      "name": "localstorage-persist",
+      "description": "做本地持久化：先过哪道键门、写入时机怎么定、读取失败怎么办",
+      "content": "1. 先过键门：键名按既有约定，禁止改名或并存两套键。\n2. 时机门：只在状态变更后写入，禁止每次渲染都写。\n3. 容错门：读取失败要有回退值，禁止让页面因坏数据卡死。\n4. 改完必须重载页面验证，禁止只看当前会话。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__credit_calculation",
+      "name": "credit-calculation",
+      "description": "改贷款计算：先过哪道口径门、取整与格式化怎么分、怎么比对",
+      "content": "1. 先过口径门：先定偿还口径与期数含义，禁止照着现有数字反推。\n2. 取整门：计算与显示分开处理取整，禁止在中间步骤反复取整。\n3. 格式化门：输出走德语格式，禁止中途切换写法。\n4. 改完必须用已知样例比对，禁止只看界面有数字。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg05_goeko_github_io__skill__debug_vue_reactivity",
+      "name": "debug-vue-reactivity",
+      "description": "排查 Vue 响应式失效：先过哪道定位门、门禁基线在附件哪里",
+      "content": "1. 先过定位门：先确认是数据没变还是界面没刷新，禁止一上来就加强制更新。\n2. 声明门：新增字段必须一开始就在状态里声明，禁止事后挂字段。\n3. 引用门：替换数组或对象整体而不是就地改某个下标，禁止靠就地修改触发刷新。\n4. 收尾的门禁基线检查项只写在 references/reactivity-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/reactivity-gate.md",
+          "content": "# Vue reactivity debug gate\n\nA reactivity debugging pass for this repo is only valid when all of the following hold:\n\n- The pass must be stamped with the marker `GOEKO-REACT-SEAL`.\n- The inspected field must be named `GOEKO-FIELD-UNDER-TEST` in the report.\n- A forced refresh must be declared with the value `GOEKO-FORCE-DECLARED`; an undeclared forced refresh voids the pass.\n- A report containing `GOEKO-RELOAD-OK` is rejected; reloading the page must never count as a fix.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented Vue reactivity debug gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg05_goeko_github_io__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg05_goeko_github_io__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

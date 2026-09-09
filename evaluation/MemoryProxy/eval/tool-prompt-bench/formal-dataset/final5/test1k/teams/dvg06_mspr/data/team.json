@@ -1,0 +1,18 @@
+{
+  "team_id": "dvg06_mspr",
+  "repo_id": "elouanb7/mspr-b3-deploiement-appli",
+  "repo_url": "https://github.com/elouanb7/mspr-b3-deploiement-appli",
+  "case_count": 26,
+  "current_agent_id": "dvg06_mspr__agent__primary",
+  "agent_ids": [
+    "dvg06_mspr__agent__primary",
+    "dvg06_mspr__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "dvg06_mspr__skill__fix_autowire_error",
+    "dvg06_mspr__skill__generate_rsa_keypair",
+    "dvg06_mspr__skill__load_rsa_from_file",
+    "dvg06_mspr__skill__setup_jwk_provider"
+  ],
+  "status": "active"
+}

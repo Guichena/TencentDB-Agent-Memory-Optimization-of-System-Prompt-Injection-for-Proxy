@@ -1,0 +1,115 @@
+{
+  "memory": [
+    {
+      "id": "mem_no_backup_files",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "备份文件锁为 `JR01-NO-BAK`：项目不产生任何备份文件，禁止生成 .bak 或波浪号结尾的副本，也禁止把旧版本另存留档。"
+    },
+    {
+      "id": "mem_handler_naming",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "处理器命名锁为 `JR01-HANDLER-NAME`：后端处理器按 <verb><Thing>Handler.js 命名并按特性目录组织，禁止另起命名风格或平铺在根目录。"
+    },
+    {
+      "id": "mem_single_websocket",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "WebSocket 工具锁为 `JR01-WS-CREATE`：每条 WebSocket 路径都用 createWebSocket 工具并确保单一连接，禁止自行新建连接，也禁止一条路径开多个连接。"
+    },
+    {
+      "id": "mem_fetch_to_store",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "取数落点锁为 `JR01-FETCH-STORE`：前端取数函数把结果直接写入 store，禁止把结果当返回值层层传回组件，也禁止在组件里再存一份。"
+    },
+    {
+      "id": "mem_alert_errors",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "错误呈现锁为 `JR01-ERR-ALERT`：面向用户的错误只走 alert 呈现，禁止只写控制台，也禁止把错误静默吞掉。"
+    },
+    {
+      "id": "mem_docsify_sidebar",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "文档侧栏锁为 `JR01-SIDEBAR-CUSTOM`：文档站用自定义侧栏配置，新增页必须同步进侧栏，禁止只加文件不登记。"
+    },
+    {
+      "id": "mem_http_error_contract",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "错误码锁为 `JR01-HTTP-CONTRACT`：后端对不存在返回 404、其它失败返回 500，前端按这个契约处理，禁止改成统一码或自定码。"
+    },
+    {
+      "id": "mem_dedicated_websocket_paths",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "WebSocket 路径锁为 `JR01-WS-DEDICATED`：每个需要实时更新的后端特性各用一条专用 WebSocket 路径，禁止复用一条通用路径广播所有特性。"
+    },
+    {
+      "id": "mem_prompt_pipeline_order",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "提示词流水线锁为 `JR01-PROMPT-ORDER`：顺序为 descriptor 获取、attention 文件列表注入、再组装，禁止调换顺序，也禁止跳过中间注入。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_route_move",
+      "name": "route-move",
+      "description": "移动或改名一条路由：先过哪道引用门、旧路径怎么退、门禁基线在附件哪里",
+      "content": "1. 先过引用门：先把所有引用点列全再动手，禁止边搬边找。\n2. 命名门：新路径按既有命名规则，禁止临时起名。\n3. 兼容门：旧路径要么保留跳转要么一次改净，禁止留半改状态。\n4. 收尾的门禁基线检查项只写在 references/route-move.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/route-move.md",
+          "content": "# Route move gate\n\nA route move in this repo is only valid when all of the following hold:\n\n- The move must be stamped with the marker `JR01-ROUTE-SEAL`.\n- The old path must be retired with the value `JR01-OLD-RETIRED`; a lingering old path voids the move.\n- Handler files must keep the suffix `JR01-FILE-TAG`; any other suffix breaks the convention.\n- A plan containing `JR01-KEEP-BOTH` is rejected; dual paths must never stay in place.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented route move gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "skill_solid_store_refactor",
+      "name": "solid-store-refactor",
+      "description": "重构 store：先过哪道不动门、拆分怎么分步、订阅怎么收",
+      "content": "1. 先过不动门：先把当前可观察行为固定住，禁止边拆边改行为。\n2. 拆分门：一次只拆一个职责，禁止一次重排整个 store。\n3. 订阅门：所有订阅同步改完再删旧实现，禁止留双份。\n4. 拆完必须逐条跑受影响校验，禁止只看编译通过。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_docs_update",
+      "name": "docs-update",
+      "description": "更新文档：先过哪道登记门、侧栏与正文怎么同步、改完怎么验",
+      "content": "1. 先过登记门：新增页必须同步进侧栏配置，禁止只加文件。\n2. 同步门：正文与侧栏标题保持一致，禁止两边各写一套。\n3. 示例门：命令必须可直接复制运行，禁止写占位路径。\n4. 改完必须本地起一次文档站核对，禁止只看文件落盘。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_file_move_refactor",
+      "name": "file-move-refactor",
+      "description": "搬文件与改引用：先过哪道清单门、备份怎么禁、收尾怎么验",
+      "content": "1. 先过清单门：先列全引用点再搬，禁止边搬边找。\n2. 备份门：搬运过程不产生任何备份副本，禁止留备份文件。\n3. 引用门：所有引用同步改完再删旧文件，禁止留双份。\n4. 搬完必须重跑受影响校验，禁止只看文件到位。",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg01-junior__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg01-junior__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

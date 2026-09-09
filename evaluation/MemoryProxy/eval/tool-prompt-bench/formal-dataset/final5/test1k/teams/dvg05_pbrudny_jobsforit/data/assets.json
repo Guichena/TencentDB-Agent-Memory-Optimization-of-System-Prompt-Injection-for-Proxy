@@ -1,0 +1,125 @@
+{
+  "memory": [
+    {
+      "id": "mem_refactor_style",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "jobsforit class-to-function refactors must stamp JfdeHookSeal on the converted component file before any hook is added. Props and visible behavior stay identical."
+    },
+    {
+      "id": "mem_commit_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Every jobsforit commit that used ChatGPT must start with JFDE-GPT: then a space and the summary, then a pipe and share= immediately before the chat.openai.com/share URL, then a space and the exact trailer reviewed-with-gpt. A README 'share chat' sentence or a bare share URL is not enough."
+    },
+    {
+      "id": "mem_ui_migration",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "jobsforit standing UI lock for new job-board controls is @material-ui/core exactly 4.9.10; leftover antd and mdbreact must not stay mixed on the same screen. package.json listing both antd and @material-ui/core is not the lock."
+    },
+    {
+      "id": "mem_contentful_config",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "jobsforit Contentful queries must use locked space alias JfdeSpace#jobsboard and environment jfde-master. Do not use the numeric space id from README."
+    },
+    {
+      "id": "mem_test_requirement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "New or refactored jobsforit components must add a Jest file named ComponentName.test.js beside the component and stamp JfdeTestTwin on the first describe()."
+    },
+    {
+      "id": "mem_markdown_format",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "jobsforit Markdown may use only #, ##, numbered lists, - lists, and fenced code. GitHub-only syntax is forbidden. Docs must stamp JfdeMdPlain at the top."
+    },
+    {
+      "id": "mem_refactor_constraints",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "A jobsforit refactor PR may touch only one module and must keep the public API. The PR title prefix is JfdeOneMod: (not JFDE-GPT:)."
+    },
+    {
+      "id": "mem_env_policy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Frontend env vars must use prefix REACT_APP_JFDE_ (not bare REACT_APP_). .env stays untracked; .env.sample is the template."
+    }
+  ],
+  "skills": [
+    {
+      "id": "component-refactor",
+      "name": "component-refactor",
+      "description": "将 React class 组件重构为函数式组件；hooks 映射在附件",
+      "content": "1. List class state and lifecycle.\n2. Replace with useState/useEffect and drop this.\n3. Keep props and run tests.\n4. The jobsforit hook-name, leftover-comment ban, and test helper are only in references/hooks-conversion.md.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/hooks-conversion.md",
+          "content": "jobsforit class-to-hooks: extract mount fetch into the named custom hook useJobsforitMountFetch; leave a leftover this.state only if the comment token KEEP_CLASS_STATE_SHIM is present; wrap the converted component with the test helper mountWithJobsforitTheme.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "package-cleanup",
+      "name": "package-cleanup",
+      "description": "清理未使用的 npm 包并更新依赖",
+      "content": "1. depcheck unused packages.\n2. Search the repo before delete.\n3. Refresh yarn.lock with yarn install --ignore-engines only; do not use npm install.\n4. After yarn, write DEPCHECK.jobsforit.md with header JFDE-REMOVED listing each dropped package; skip this sidecar and the cleanup is incomplete.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "ui-library-migration",
+      "name": "ui-library-migration",
+      "description": "Migrate jobsforit job-board controls from one UI library to another.",
+      "content": "1. Inventory jobsforit job-board screens still on the old UI library.\n2. Gate JfdeUiCutover: migrate one screen at a time.\n3. Do not mix leftover antd on a screen already on the standing UI lock.\n4. Swap imports and props on that screen only, then regression-test it before the next screen.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "markdown-doc",
+      "name": "markdown-doc",
+      "description": "Write and format jobsforit Markdown documents to the team standard.",
+      "content": "1. Use only standard jobsforit Markdown markers for headings and lists.\n2. Gate JfdeFence3: code fences must be three backticks; indented code blocks are forbidden.\n3. Do not add GitHub-only callouts as a substitute for those fences.\n4. The top-of-doc stamp lives in Memory, not in this skill.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "contentful-query",
+      "name": "contentful-query",
+      "description": "Query Contentful CMS data for the jobsforit job board.",
+      "content": "1. Create the Contentful client from env credentials.\n2. Gate JfdeCtfEnv: bind environment jfde-master before any getEntries.\n3. Then call getEntries with content_type filter and paging.\n4. Handle network errors. Do not treat the numeric space id from README as this skill's lock.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "react-testing",
+      "name": "react-testing",
+      "description": "Test jobsforit components with Jest and React Testing Library.",
+      "content": "1. Add one Jest file per jobsforit component beside it.\n2. Gate JfdeRtlScreen: render via screen queries, not container.firstChild.\n3. Use describe/test, fireEvent, and expect.\n4. afterEach cleanup.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg05_pbrudny_jobsforit__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg05_pbrudny_jobsforit__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "team_id": "dvg05_goeko_github_io",
+  "repo_id": "goeko/goeko.github.io",
+  "repo_url": "https://github.com/goeko/goeko.github.io",
+  "case_count": 40,
+  "current_agent_id": "dvg05_goeko_github_io__agent__primary",
+  "agent_ids": [
+    "dvg05_goeko_github_io__agent__primary",
+    "dvg05_goeko_github_io__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "dvg05_goeko_github_io__skill__select_sync",
+    "dvg05_goeko_github_io__skill__german_number_format",
+    "dvg05_goeko_github_io__skill__localstorage_persist",
+    "dvg05_goeko_github_io__skill__credit_calculation"
+  ],
+  "status": "active"
+}

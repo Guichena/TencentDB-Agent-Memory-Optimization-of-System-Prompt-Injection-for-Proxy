@@ -1,0 +1,113 @@
+{
+  "memory": [
+    {
+      "id": "dvg06_banzukesurfing__memory__localstorage_patterns",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "BanzukeSurfing forbids the literal localStorage key banzukePicks as a shared picks bucket; a user's picks JSON must never contain a _rikishiMeta field. Do not namespace keys as picks: plus username."
+    },
+    {
+      "id": "dvg06_banzukesurfing__memory__jest_setup",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "BanzukeSurfing Jest must clear localStorage in afterEach, not only beforeEach. Do not add fake-indexeddb to package.json."
+    },
+    {
+      "id": "dvg06_banzukesurfing__memory__game_class_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked Game coordinator nickname is BzkWaveClerk. Only BzkWaveClerk may call startPlaying; User, Pick, Wave, and Basho helpers must not write the active-user key. README may still say Game."
+    },
+    {
+      "id": "dvg06_banzukesurfing__memory__module_import",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "BanzukeSurfing Jest files must begin with the exact comment // BzkTestGate#esm and default-import Game from ./Game.js; require() and named imports are forbidden."
+    },
+    {
+      "id": "dvg06_banzukesurfing__memory__object_model",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked split roster is User, Pick, Wave, and Basho. A fifth helper named RikishiCache is forbidden as a first-class domain class."
+    },
+    {
+      "id": "dvg06_banzukesurfing__memory__tdd_workflow",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "New BanzukeSurfing classes must land a failing test stamped BzkRed#first before any production method body."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg06_banzukesurfing__skill__localstorage_debug",
+      "name": "localstorage-debug",
+      "description": "Trace localStorage key and JSON mismatches between the browser and Jest; trace prefix in skill files.",
+      "content": "1. Confirm Jest has localStorage before asserting keys.\n2. Watch getItem/setItem arguments.\n3. The required debug prefix and forbidden probe key are only in references/key-trace.md.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/key-trace.md",
+          "content": "BanzukeSurfing localStorage traces must print the exact prefix BZLS# immediately before the key; never probe getItem(\"rikishiCache\").\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Adapted from public project docs. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "dvg06_banzukesurfing__skill__jest_test_refactor",
+      "name": "jest-test-refactor",
+      "description": "Create or refactor Jest tests for BanzukeSurfing Game components.",
+      "content": "1. Build only DOM nodes the Game method reads; do not paste the full index.html body.\n2. Isolate with a fresh Game instance; do not use jest.resetModules() between cases.\n3. One test per public Game method; assert through querySelector.\n4. Prove a persisted pick by reading getItem after the call, never by spyOn(localStorage.setItem).\n5. Do not import the production HTML document.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_banzukesurfing__skill__class_extraction",
+      "name": "class-extraction",
+      "description": "Extract specialized classes from the BanzukeSurfing Game class.",
+      "content": "1. Identify cohesive behavior still living on the BanzukeSurfing Game class.\n2. Gate BzkExtractSeal: the extracted file must export default, a matching ClassName.test.js must exist, and Game must compose the new class.\n3. Move the behavior without changing the public contract.\n4. Run the matching test file and the remaining Game tests.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_banzukesurfing__skill__module_export_fix",
+      "name": "module-export-fix",
+      "description": "Fix ES module import, export, and browser-loading issues for BanzukeSurfing.",
+      "content": "1. Export the class with export default and default-import it from tests.\n2. Mark the HTML script tag as type=module.\n3. Gate BzkWinGuard: wrap every browser-only side effect behind globalThis.BzkWinGuard so a Jest import stays inert.\n4. Confirm the page load and the test import as two separate checks.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_banzukesurfing__skill__dom_rendering",
+      "name": "dom-rendering",
+      "description": "Render all persisted BanzukeSurfing user data into the page.",
+      "content": "1. Gate BzkRenderAll: render every persisted user into the page.\n2. Parse JSON per user before painting.\n3. Append a result element for each stored record to the results container.\n4. When storage is empty, show the sentinel BzkEmptyTray.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_banzukesurfing__skill__initialize_lifecycle",
+      "name": "initialize-lifecycle",
+      "description": "Keep BanzukeSurfing page initialization out of test imports while retaining browser startup.",
+      "content": "1. Add initialize() on the class; the constructor must not call it.\n2. Gate BzkInitOut: the HTML entry calls initialize(); importing the class must not mutate the test DOM.\n3. Keep browser startup by invoking initialize() only from the page entry, never as an import side effect.\n4. Verify browser startup and Jest imports separately.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_banzukesurfing__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_banzukesurfing__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "team": "T13",
+  "files_skill": "linux-compose",
+  "files_path": "references/linux-compose.md",
+  "n_cases": 28,
+  "mem_pairs": 7,
+  "skill_pairs": 7,
+  "files_pairs": 1,
+  "notes": "duckdb-data-agent 整队重写；files 挂在 linux-compose。"
+}

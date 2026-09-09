@@ -1,0 +1,141 @@
+{
+  "memory": [
+    {
+      "id": "T15__memory__release_gate",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Cipher-box staging deploys may ship only commits stamped CbxGate#tagged. Untagged main SHAs are forbidden even if tests passed."
+    },
+    {
+      "id": "T15__memory__desktop_e2e_logs",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Desktop E2E CI must copy failure logs into the workspace before artifact upload. The locked log bundle name is CbxWinLog#e2e."
+    },
+    {
+      "id": "T15__memory__release_labels",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Release-please labels must stay explicit. The locked allow-list token is CbxLbl#min. Broad label negation is forbidden."
+    },
+    {
+      "id": "T15__memory__workflow_tags",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Staging/release tags are created only by release-please and tag-staging. The locked tag-source token is CbxTag#wf. Manual git tag is forbidden."
+    },
+    {
+      "id": "T15__memory__local_ui_staging",
+      "layer": "l1",
+      "memory_type": "persona",
+      "content": "UI debug prefers local UI against staging API. The locked debug mode name is CbxUi#stage-api."
+    },
+    {
+      "id": "T15__memory__feature_branch_tests",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Test changes belong on a feature branch named CbxFeat#tests, never on the checkout under test."
+    },
+    {
+      "id": "T15__memory__local_first_e2e",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "First E2E contact must be the full local stack. The locked first-pass token is CbxE2e#local-first. CI-E2E is confirmation only."
+    },
+    {
+      "id": "T15__memory__ipns_service_role",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The IPNS service is a thin orchestration layer. The locked internal name is CbxIpns#thin. It must not reimplement IPFS bitswap."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T15__skill__pr_workflow",
+      "name": "cipherbox-pr-workflow",
+      "description": "Turn finished cipher-box changes into a correctly branched, committed, labeled, and pushed PR.",
+      "content": "1. Confirm the working tree holds only the intended finished cipher-box changes; mixed WIP is forbidden.\n2. Create or rename a feature/chore branch, then commit with the conventional type, then push; the locked branch-first gate is CbxBr#first.\n3. The required PR label before push is only in references/cbx-pr-label.md.\n4. Open or update the pull request and report the branch and commit.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/cbx-pr-label.md",
+          "content": "Cipher-box PRs must apply label CbxPr#autolabel before push. A PR without that label must not be merged even if review-please is green.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T15__skill__load_test",
+      "name": "run-load-tests",
+      "description": "Run cipher-box tests/load scenarios and interpret their results.",
+      "content": "1. Inspect the requested cipher-box tests/load scenario and its required services and fixtures before any run.\n2. Bring up the supported environment and capture output under the locked capture name CbxLoad#cap.\n3. Separate application failures from environment noise; environment noise must not be filed as product bugs.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__local_e2e",
+      "name": "local-and-ci-e2e-runbook",
+      "description": "Run web and desktop E2E against the full local stack, then use CI-E2E only as confirmation.",
+      "content": "1. Start the full local cipher-box stack before any web or desktop E2E; skipped local bring-up is forbidden.\n2. Preserve screenshots and logs under the locked artifact stem CbxE2e#arts; separate flaky infrastructure from product failures.\n3. Push the tested branch and launch CI-E2E only as confirmation, comparing results with the local run.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__phase_planning",
+      "name": "plan-a-project-phase",
+      "description": "Scope a new cipher-box planning phase with concrete deliverables and dependencies.",
+      "content": "1. Inspect existing cipher-box phase conventions and related shipped work under .planning/phases.\n2. Define the phase objective, boundaries, dependencies, and acceptance under the locked phase stamp CbxPhase#plan.\n3. Review the plan for testability; untestable deliverables are forbidden.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__phase_summary",
+      "name": "backfill-phase-summaries",
+      "description": "Create missing phase summaries from the phase's merged pull requests.",
+      "content": "1. Gather the phase's merged cipher-box pull requests and identify intended scope.\n2. Write NN-SUMMARY.md using the locked heading token CbxSum#nn and concise outcomes.\n3. Check links, dates, and implementation details against the merged changes.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__review_resolution",
+      "name": "resolve-pr-review-findings",
+      "description": "Verify reviewer findings, make only justified fixes, and leave the PR branch ready.",
+      "content": "1. Reproduce and verify every reviewer finding against current cipher-box code; stale findings must not be applied.\n2. Fix only findings that remain valid, preserving platform-specific behavior; unjustified rewrites are forbidden.\n3. Run focused checks, commit, push the PR branch, and summarize each resolution under the locked note token CbxRev#note.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__release_tag_ops",
+      "name": "operate-release-tag-workflows",
+      "description": "Diagnose release and staging tag workflow runs, then retry the approved automation path without manual tag creation.",
+      "content": "1. Inspect the workflow run, resolved main SHA, and existing release/tag state before any retry.\n2. Correct the workflow input when needed and retry from the intended SHA; the locked retry token is CbxRetry#wf.\n3. Verify the resulting tag and staging deployment; never create tags by hand.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T15__skill__security_followup",
+      "name": "follow-up-a-security-review",
+      "description": "Land a completed security review report and drive findings to traceable fixes.",
+      "content": "1. Import the completed report and map each finding to current cipher-box code.\n2. Implement and test fixes with traceable commits under the locked evidence token CbxSec#trace.\n3. Re-run relevant security checks and summarize closure; accepted risks need preserved evidence.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T15__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T15__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "memory": [
+    {
+      "id": "T06__memory__project_architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "SprintSpark is the checked repository for this Team; its source and existing test workflow are the authoritative local context for changes."
+    },
+    {
+      "id": "T06__memory__test_baseline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The recorded testing baseline for SprintSpark is to run the repository's existing test suite before moving to the next implementation slice and to keep test evidence tied to the changed behavior."
+    },
+    {
+      "id": "T06__memory__data_model",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The project-specific data model and persistence assumptions are defined by the checked SprintSpark source and its existing fixtures; new behavior should reuse those contracts rather than introduce parallel shapes."
+    },
+    {
+      "id": "T06__memory__release_constraints",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The recorded release constraint for SprintSpark is to preserve the existing build and deployment surface while making focused changes, and to validate the resulting artifact with the repository's own commands."
+    },
+    {
+      "id": "T06__memory__integration_boundaries",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The project separates local deterministic tests from external-service integration; tests should mock or fixture network boundaries when the behavior under test is local logic."
+    },
+    {
+      "id": "T06__memory__historical_decision",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The historical implementation discussions for SprintSpark are retained as conversation context; use them only when the requested decision or rationale is not present in the current source and messages."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T06__skill__test_strategy",
+      "name": "test-implementation-slices",
+      "description": "Add focused regression coverage while preserving the repository's existing test-first progression.",
+      "content": "1. Inspect the affected code path and existing tests. 2. Identify the smallest behavior contract and failure cases. 3. Add a focused regression test before or alongside the implementation. 4. Run the relevant test target and fix failures. 5. Run the broader repository suite before moving to another slice. 6. Record any environment-dependent checks separately from deterministic results.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__integration_testing",
+      "name": "test-integration-boundaries",
+      "description": "Test code that crosses network, storage, or process boundaries with deterministic fixtures and explicit failure cases.",
+      "content": "1. Locate the external boundary and the adapter used by production code. 2. Define fixtures for success, empty, malformed, timeout, and error responses. 3. Stub the boundary without hiding the behavior under test. 4. Assert request parameters, transformation, persistence, and user-visible errors. 5. Reset state between cases. 6. Run focused and full test commands and document any unavailable external service.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__regression_fix",
+      "name": "implement-a-regression-fix",
+      "description": "Trace a reported SprintSpark regression, make the smallest safe change, and verify adjacent behavior.",
+      "content": "1. Reproduce the reported symptom from the current source and test fixtures. 2. Trace the state and data flow to the first incorrect assumption. 3. Add a failing regression test that captures the symptom. 4. Implement the smallest fix consistent with existing contracts. 5. Run targeted tests and then the full suite. 6. Inspect the diff for unrelated changes and summarize residual risk.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__refactor_safely",
+      "name": "refactor-shared-code-safely",
+      "description": "Restructure duplicated or coupled code without changing the observable SprintSpark behavior.",
+      "content": "1. Map callers, data shapes, and tests for the code being refactored. 2. Identify a single seam that reduces duplication without broad redesign. 3. Move code while preserving public names or update all callers atomically. 4. Add characterization tests for behavior that lacks coverage. 5. Run formatting, type checks, targeted tests, and the full suite. 6. Review the final diff for scope creep.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__release_validation",
+      "name": "validate-a-release-change",
+      "description": "Verify a completed change against the repository's build, tests, and artifact expectations.",
+      "content": "1. Check the working tree and identify the intended release scope. 2. Run the repository's relevant unit and integration tests. 3. Run the configured build or packaging command. 4. Inspect the produced artifact or output for expected files and metadata. 5. Perform a smoke check of the changed behavior. 6. Report exact commands, results, and any environment limitation.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T06__skill__debug_async_flow",
+      "name": "debug-asynchronous-flow",
+      "description": "Trace asynchronous state transitions to find missing awaits, ordering bugs, or stale updates.",
+      "content": "1. Follow the initiating event through each async call and state update. 2. Mark promise, callback, queue, and cancellation boundaries. 3. Reproduce the failure with controlled timing or fixtures. 4. Add a regression test around the ordering invariant. 5. Fix ownership, awaiting, cancellation, or synchronization at the narrowest boundary. 6. Run targeted and full tests, then remove temporary diagnostics.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T06__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T06__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

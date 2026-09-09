@@ -1,0 +1,104 @@
+{
+  "memory": [
+    {
+      "id": "T04__memory__review_discipline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Nimbus review runs are user-driven: the user runs nimbus review create manually, the agent presents results and waits for explicit continuation, and the agent must not continue autonomously after a review."
+    },
+    {
+      "id": "T04__memory__commit_timing",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Nimbus commits are created only after the feature or slice passes review; the preferred sequence is implement, review, fix findings, review again, then commit, with detailed messages that explain what changed and why."
+    },
+    {
+      "id": "T04__memory__github_auth",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Nimbus v1 supports GitHub only and uses GitHub App installation authentication rather than personal access tokens; the design also keeps seven-day artifact retention, 15-minute signed URLs, and prohibits force-push operations."
+    },
+    {
+      "id": "T04__memory__preflight",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Workspace deployment preflight checks workspace_ready, git_baseline, secret_scan, toolchain_detect, toolchain_bootstrap, and validation_tooling; --preflight-only validates without deploying and --auto-fix attempts recoverable remediation such as rehydrating a missing git baseline."
+    },
+    {
+      "id": "T04__memory__intent_context",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Nimbus review context can include intent summarized from Entire checkpoint sessions, including goal, prohibitions, riskFocus, and constraints; the intent summary is supplementary to diff-based code evidence."
+    },
+    {
+      "id": "T04__memory__entire_checkpoint",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Entire records session transcripts, code changes, and checkpoints; committed checkpoints are linked to commits through Entire-Checkpoint trailers, while checkpoint metadata is kept on the entire/checkpoints/v1 branch."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T04__skill__nimbus_review",
+      "name": "nimbus-review",
+      "description": "Create and manage Nimbus diff-based code review runs for workspace deployments.",
+      "content": "1. Resolve the workspace and deployment identifiers. 2. Confirm the review target is the intended commit diff and that the workspace is ready. 3. Choose validation flags based on whether tests and build have already passed. 4. Create the review and monitor its structured status. 5. Inspect findings with severity, category, locations, and suggested fixes. 6. Present the results and wait for the user's explicit continuation before doing more work.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__workspace_deploy",
+      "name": "workspace-deploy",
+      "description": "Deploy a workspace to the Cloudflare sandbox after preflight validation.",
+      "content": "1. Validate the workspace or deployment input and resolve its context. 2. Run preflight checks for workspace state, git baseline, secrets, toolchain, and validation tooling. 3. Use --auto-fix only for recoverable preflight failures and record the remediation. 4. Bootstrap the detected package manager when required. 5. Deploy to the sandbox and stream or poll structured events. 6. Verify the exit status and deployment metadata, then report any permission or quota limitation.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__repo_register",
+      "name": "repo-register",
+      "description": "Register a GitHub repository for Nimbus's OIDC authentication flow.",
+      "content": "# Repository registration and OIDC exchange\n\n1. Validate the owner/name repository identifier and resolve the hosted Nimbus worker and account context.\n2. Confirm a regular Nimbus API key is available for local registration; local registration does not use an nmb_jwt_ token.\n3. Register through the CLI or API and handle existing ownership explicitly.\n4. Verify the registration metadata in nimbus_repo_registrations.\n5. For the later GitHub Actions exchange, confirm ACTIONS_ID_TOKEN_REQUEST_URL and ACTIONS_ID_TOKEN_REQUEST_TOKEN are available and verify the OIDC_CACHE JWKS entry with its configured TTL.\n6. Exercise the exchange path and report failures without exposing token values.\n",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T04__skill__phase_planning",
+      "name": "phase-planning",
+      "description": "Structure feature work into numbered phase specs with documented design decisions.",
+      "content": "1. Conduct a short system-design interview to establish defaults and constraints. 2. Break the feature into numbered, independently testable phases. 3. Document decisions and acceptance criteria in specs/phases/<nn>-<slug>.md. 4. Capture supporting design notes and context in llm-docs/. 5. Order dependencies and identify validation gates for each phase. 6. Review the plan for scope, risks, and consistency before implementation begins.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__intent_summarization",
+      "name": "intent-summarization",
+      "description": "Extract review goal, prohibitions, risks, and constraints from Entire session prompts.",
+      "content": "1. Resolve the relevant Entire session or checkpoint context. 2. Bound raw prompt input to 6000 characters before summarization. 3. Use the configured lightweight summarization model and request only structured intent fields. 4. Parse goal, prohibitions, riskFocus, and constraints, or return null on failure. 5. Redact sensitive values before persisting or displaying the summary. 6. Validate that the summary supports review prioritization without replacing direct diff evidence.",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "T04__skill__cochange_cache",
+      "name": "cochange-cache",
+      "description": "Cache co-change signals from Entire checkpoint history for review-context retrieval.",
+      "content": "1. Resolve the repository slug in owner/name form and fail clearly if it is unavailable. 2. Read co-change signals from the relevant Entire checkpoint history. 3. Store entries using the review_cochange_cache composite key of file_path and repo. 4. Preserve repo scoping and avoid silently accepting partial context. 5. Invalidate or refresh stale entries according to the cache policy. 6. Verify retrieval for representative files and run the relevant worker tests.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T04__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T04__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

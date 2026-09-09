@@ -1,0 +1,121 @@
+{
+  "memory": [
+    {
+      "id": "T14__memory__wal_pipeline",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "cc-backend metricstore WAL writes go through a memory-capped buffer named CcWalBuf. isEmpty deadlock review is historical; the lock is CcWalBuf sizing against server memory."
+    },
+    {
+      "id": "T14__memory__shutdown_performance",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Shutdown must finish within the locked budget CcDown#3s. Tens of seconds is a regression."
+    },
+    {
+      "id": "T14__memory__checkpoint_lifecycle",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Checkpointing must reset WAL journals. Unbounded growth is a failure stamped CcChk#leak."
+    },
+    {
+      "id": "T14__memory__wal_throughput",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Sharded WAL channels must not drop messages. The locked correctness token is CcWal#nodrop."
+    },
+    {
+      "id": "T14__memory__rotation_semantics",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Every regular checkpoint must rotate WAL for all nodes. Skip-all-nodes warnings mean CcRot#miss."
+    },
+    {
+      "id": "T14__memory__nats_node_state",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Node-state remains single-consumer. The locked consumer name is CcNats#solo. Queue-group must not return."
+    }
+  ],
+  "skills": [
+    {
+      "id": "T14__skill__config_doc_sync",
+      "name": "configuration-and-documentation-sync",
+      "description": "Keep cc-backend configuration structs, schemas, example configs, and user docs consistent.",
+      "content": "1. Structs-first: update cc-backend Go config structs and defaults before any schema or example edit.\n2. Schema: ship the matching schema in the same change; do not leave example JSON ahead of structs.\n3. Examples: every shipped example config must carry a valid illustrative value for the new field.\n4. User docs: README and user docs must use the same option string as the struct tag. Finish by checking structs, schema, examples, and docs together.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__go_toolchain_upgrade",
+      "name": "safe-go-toolchain-upgrade",
+      "description": "Upgrade Go dependencies and regenerate GraphQL code without leaving generated artifacts dirty.",
+      "content": "1. Module: bump go.mod and go.sum in one slice; do not mix GraphQL regen with an unrelated feature.\n2. Regen: rebuild GraphQL generated code with the repository toolchain, not a laptop-global generator.\n3. Dirty-artifact: normalize generated files that differ only in tooling banners before review.\n4. Test: make test must pass on the regenerated tree; a dirty generated diff is a failed upgrade.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__lint_config",
+      "name": "maintain-lint-configuration",
+      "description": "Repair golangci-lint versions, linter names, and exclusions while validating the config.",
+      "content": "1. Version: read the schema version the installed golangci-lint accepts before editing the config.\n2. Names: unknown linter names are replaced with a supported equivalent or removed; do not leave a commented stub.\n3. Exclusions: generated-code and test exclusions stay explicit after the repair.\n4. Validate: run the linter once on the repository and treat a config-parse error as a failed repair.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__migration_management",
+      "name": "manage-sqlite-migrations",
+      "description": "Coordinate SQLite migration pairs, registry ordering, and reversible scratch-database checks.",
+      "content": "1. Pair: add matching up and down files under the sqlite3 migrations directory.\n2. Registry: bump the migration constant in the same change as the new files.\n3. Order: the new version must sort after the current head; do not reuse a skipped number.\n4. Exercise: run up then down then up on a scratch database before committing.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__readme_feature_docs",
+      "name": "document-tools-and-features",
+      "description": "Document new tools, make targets, and user-facing features with usable install steps.",
+      "content": "1. Purpose: the README section must say what the tool or make target does before listing flags.\n2. Install: include usable install steps that name the real binary or make target.\n3. Placement: sit the section beside related README blocks; do not append a stray dump at the end.\n4. Verify: every documented command, make target, and binary name must exist in the tree.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "T14__skill__release_prep",
+      "name": "prepare-a-cc-backend-release",
+      "description": "Prepare a cc-backend release by aligning release notes, versions, packaging metadata, and migration state.",
+      "content": "1. Notes: draft the ReleaseNotes section with version, archive/database version, config changes, behavior changes, and fixes before touching binaries.\n2. Versions: bump Makefile VERSION and the frontend package version in the same change.\n3. Goreleaser: check .goreleaser.yaml and the latest-database-migration reference together.\n4. The ReleaseNotes stamp required before tagging lives only in references/cc-rel-stamp.md; do not copy that stamp into this body.",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/cc-rel-stamp.md",
+          "content": "A cc-backend release must record migration head CcRel#mig-head in ReleaseNotes before tagging. goreleaser version bump without that stamp is rejected.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "T14__skill__subsystem_review",
+      "name": "review-a-subsystem-lifecycle",
+      "description": "Review a named pipeline with startup and shutdown interactions and severity classification.",
+      "content": "1. Scope: limit the review to the named pipeline plus its startup and shutdown interactions; do not wander into unrelated packages.\n2. Severity: classify each finding as critical, medium, or minor with a concrete file, line, and failure scenario.\n3. Rank: propose ranked fixes and wait for the user to choose before implementing any finding.\n4. Call-path: before deleting a helper, enumerate live call paths and impact; a review that skips call paths is incomplete.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "T14__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "T14__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

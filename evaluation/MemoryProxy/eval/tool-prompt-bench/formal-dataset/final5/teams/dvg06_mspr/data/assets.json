@@ -1,0 +1,122 @@
+{
+  "memory": [
+    {
+      "id": "dvg06_mspr__memory__jwt_creation",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Use JWT.create() to build a token, configure claims with .withIssuer(), .withClaim(), .withExpiresAt(), then sign with .sign(algorithm). Algorithm typically RSA256 or HMAC256."
+    },
+    {
+      "id": "dvg06_mspr__memory__jwt_verification",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Create a JWTVerifier with JWT.require(algorithm), specify claim validations like .withIssuer(), then call .build() and .verify(token). Throws JWTVerificationException on invalid signature or claims."
+    },
+    {
+      "id": "dvg06_mspr__memory__spring_autowire_bean",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Annotate utility classes with @Component to make them Spring beans. Then use @Autowired to inject them into controllers or services. Fixes 'No beans of type found' errors."
+    },
+    {
+      "id": "dvg06_mspr__memory__rsa_key_loading",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Load RSA keys from PEM files using KeyFactory and X509EncodedKeySpec (public) or PKCS8EncodedKeySpec (private). Read file bytes, remove PEM headers, Base64 decode, then generate key."
+    },
+    {
+      "id": "dvg06_mspr__memory__jwk_provider",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "JwkProviderBuilder creates a provider that fetches public keys from a JWKS endpoint. Use with RSAKeyProvider to implement getPublicKeyById() and getPrivateKey() for Algorithm.RSA256(keyProvider)."
+    },
+    {
+      "id": "dvg06_mspr__memory__jwt_expiration",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Set token expiration with .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_MS)). Common values: 1 hour = 3600000ms, 24 hours = 86400000ms, 7 days = 604800000ms."
+    },
+    {
+      "id": "dvg06_mspr__memory__jwt_structure",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "# JWT (JSON Web Token) Structure\n\n## Three Parts (Base64-encoded, dot-separated)\n1. **Header**: Algorithm and token type\n   ```json\n   {\"alg\": \"RS256\", \"typ\": \"JWT\"}\n   ```\n\n2. **Payload**: Claims (data)\n   ```json\n   {\"iss\": \"auth0\", \"userId\": 123, \"exp\": 1234567890}\n   ```\n\n3. **Signature**: Verify integrity\n   ```\n   RSASHA256(base64UrlEncode(header) + \".\" + base64UrlEncode(payload), secret)\n   ```\n\n## Common Claims\n- `iss`: Issuer\n- `sub`: Subject\n- `exp`: Expiration time\n- `iat`: Issued at\n- Custom: `userId`, `roles`, etc."
+    },
+    {
+      "id": "dvg06_mspr__memory__spring_security_jwt",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "# Spring Security with JWT\n\n## Key Components\n\n### 1. JwtUtils\n- Generate tokens\n- Verify tokens\n- Extract claims\n\n### 2. JwtAuthenticationFilter\n- Intercept requests\n- Extract JWT from Authorization header\n- Validate and set authentication\n\n### 3. SecurityConfig\n- Configure HTTP security\n- Add JWT filter before UsernamePasswordAuthenticationFilter\n- Define protected/public endpoints\n\n## Flow\n1. User logs in → generates JWT\n2. Client stores JWT (localStorage/cookie)\n3. Client sends JWT in `Authorization: Bearer <token>` header\n4. Filter validates JWT and authenticates request"
+    },
+    {
+      "id": "dvg06_mspr__memory__rsa_vs_hmac",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "# JWT Signing Algorithms\n\n## HMAC (HS256, HS384, HS512)\n- **Symmetric**: Same secret for signing and verifying\n- **Pros**: Fast, simple\n- **Cons**: Secret must be shared, less secure for distributed systems\n- **Use case**: Single server, internal APIs\n\n## RSA (RS256, RS384, RS512)\n- **Asymmetric**: Private key signs, public key verifies\n- **Pros**: Public key can be shared safely, better for microservices\n- **Cons**: Slower, more complex key management\n- **Use case**: Multiple services, third-party verification\n\n## Algorithm Choice\n```java\n// HMAC\nAlgorithm algorithm = Algorithm.HMAC256(\"secret\");\n\n// RSA\nAlgorithm algorithm = Algorithm.RSA256(publicKey, privateKey);\n```"
+    }
+  ],
+  "skills": [
+    {
+      "id": "dvg06_mspr__skill__implement_jwtutils",
+      "name": "implement-jwtutils",
+      "description": "Create a JwtUtils class for JWT token operations",
+      "content": "1. Create JwtUtils.java and annotate with @Component\n2. Add fields for RSA keys and expiration time\n3. Implement createJwtToken(User user) with JWT.create()\n4. Implement verifyToken(String token) with JWTVerifier",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__fix_autowire_error",
+      "name": "fix-autowire-error",
+      "description": "Fix 'Could not autowire. No beans found' error",
+      "content": "1. Add @Component annotation to the class\n2. Ensure class is in Spring component scan path\n3. Check @SpringBootApplication or @ComponentScan includes package\n4. Rebuild project to refresh Spring context",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__generate_rsa_keypair",
+      "name": "generate-rsa-keypair",
+      "description": "Generate RSA public/private key pair for JWT",
+      "content": "1. Use KeyPairGenerator.getInstance('RSA')\n2. Initialize with key size (2048 or 4096 bits)\n3. Call generateKeyPair() to get KeyPair object\n4. Extract publicKey and privateKey from KeyPair",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__load_rsa_from_file",
+      "name": "load-rsa-from-file",
+      "description": "Load RSA keys from PEM files",
+      "content": "1. Read PEM file content as String\n2. Remove '-----BEGIN/END...' headers and whitespace\n3. Base64 decode the content\n4. Use KeyFactory with X509EncodedKeySpec (public) or PKCS8EncodedKeySpec (private)",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__setup_jwk_provider",
+      "name": "setup-jwk-provider",
+      "description": "Configure JWK provider with caching and rate limiting",
+      "content": "1. Create JwkProvider with JwkProviderBuilder(jwksUrl)\n2. Add .cached(10, 24, TimeUnit.HOURS)\n3. Add .rateLimited(10, 1, TimeUnit.MINUTES)\n4. Call .build() and use in RSAKeyProvider implementation",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "dvg06_mspr__skill__jwt_auth_integration",
+      "name": "jwt-auth-integration",
+      "description": "Integrate JWT authentication into Spring Security",
+      "content": "1. Create JwtAuthenticationFilter extends OncePerRequestFilter\n2. Extract token from Authorization header\n3. Verify token with JwtUtils.verifyToken()\n4. Set SecurityContextHolder authentication if valid",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg06_mspr__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg06_mspr__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 2,
+  "measurementModuleId": "M2",
+  "formalDataState": "blocked",
+  "formalDataGate": {
+    "status": "FORMAL_DATA_BLOCKED",
+    "owner": "Integration",
+    "reason": "formal Worlds, real-chain adapter, and frozen compiler/capture attestation are not integrated"
+  },
+  "finalEligibilityOwner": "Integration",
+  "identitySeparation": {
+    "measurementModuleId": "M2",
+    "variantId": "per-run Prompt candidate such as V0, V0-C, V1, V2, or V3",
+    "rule": "measurementModuleId and variantId are independent identities"
+  },
+  "providerContracts": [
+    {
+      "fixtureId": "openai-responses-cache-write-unsupported",
+      "provider": "openai",
+      "schema": "openai.responses",
+      "apiVersion": "2026-08-01",
+      "adapterVersion": "responses-v1",
+      "requiredFields": [
+        "providerTotalInputTokens",
+        "ordinaryInputTokens",
+        "cacheReadInputTokens",
+        "outputTokens"
+      ],
+      "unsupportedFields": [
+        "cacheWriteInputTokens"
+      ]
+    },
+    {
+      "fixtureId": "openai-responses-cache-write-reported",
+      "provider": "openai",
+      "schema": "openai.responses",
+      "apiVersion": "2026-08-01",
+      "adapterVersion": "responses-v2-cache-write",
+      "requiredFields": [
+        "providerTotalInputTokens",
+        "ordinaryInputTokens",
+        "cacheReadInputTokens",
+        "cacheWriteInputTokens",
+        "outputTokens"
+      ],
+      "unsupportedFields": []
+    },
+    {
+      "fixtureId": "openai-chat-cache-write-unsupported",
+      "provider": "openai",
+      "schema": "openai.chat-completions",
+      "apiVersion": "2026-08-01",
+      "adapterVersion": "chat-v1",
+      "requiredFields": [
+        "providerTotalInputTokens",
+        "ordinaryInputTokens",
+        "cacheReadInputTokens",
+        "outputTokens"
+      ],
+      "unsupportedFields": [
+        "cacheWriteInputTokens"
+      ]
+    },
+    {
+      "fixtureId": "openai-codex-jsonl-complete",
+      "provider": "openai",
+      "schema": "openai.codex-jsonl",
+      "apiVersion": "codex-jsonl-v1",
+      "adapterVersion": "codex-runner-v1",
+      "requiredFields": [
+        "providerTotalInputTokens",
+        "ordinaryInputTokens",
+        "cacheReadInputTokens",
+        "cacheWriteInputTokens",
+        "outputTokens",
+        "reasoningOrThinkingTokens"
+      ],
+      "unsupportedFields": []
+    },
+    {
+      "fixtureId": "anthropic-messages-complete",
+      "provider": "anthropic",
+      "schema": "anthropic.messages",
+      "apiVersion": "2023-06-01",
+      "adapterVersion": "messages-v1",
+      "requiredFields": [
+        "providerTotalInputTokens",
+        "ordinaryInputTokens",
+        "cacheReadInputTokens",
+        "cacheWriteInputTokens",
+        "outputTokens"
+      ],
+      "unsupportedFields": [
+        "reasoningOrThinkingTokens"
+      ]
+    }
+  ],
+  "tokenAccounting": {
+    "authoritative": [
+      "totalInjectionTokens",
+      "toolDescriptionStaticTokens"
+    ],
+    "diagnostics": [
+      "staticTemplateTokens",
+      "executionContractTokens",
+      "runtimeBindingTokens",
+      "dynamicAssetTokens"
+    ],
+    "componentRule": "independently_encoded_non_additive",
+    "providerUsageRule": "never add local token estimates to provider totals",
+    "classificationContract": {
+      "contractId": "task1.m2.prompt-unit-classification",
+      "contractVersion": "1",
+      "contractSha256": "978d44d211a4c013fde9e2c93a075bf3f587d734b80c3fa79bd626be21df1afe",
+      "compilerVersion": "c05.1",
+      "segmenterVersion": "capture-profile-artifacts.measureBlock-v1",
+      "sourceKindToComponent": {
+        "legacy-body": "staticTemplate",
+        "policy": "staticTemplate",
+        "execution-grammar": "executionContract",
+        "tool-card": "staticTemplate",
+        "dynamic-assets": "dynamicAsset",
+        "runtime-binding": "runtimeBinding"
+      }
+    },
+    "trustedSourceManifest": {
+      "canonicalSha256": "2e279c9edece75d24653b577c6bc112c5af722bba61bcd4fc88fd787f0c245dc",
+      "sourceInventorySha256": "044e32b4eb9ca5d3e7b27080841bcb8ceb13f473c0e23ca9a5511ea6afaa5235",
+      "orderedSources": [
+        {
+          "compilerFamily": "skill",
+          "compilerSurface": "skill-tools",
+          "injectionBlockId": "synthetic-tool-prompt-block",
+          "order": 0,
+          "provenance": "compiled-tool-prompt-unit",
+          "sourceId": "compiled:skill:skill-tools:synthetic-tool-prompt-block:skill-tools.legacy-body%23static-0",
+          "sourceKind": "legacy-body",
+          "sourceLocalId": "skill-tools.legacy-body#static-0",
+          "sourceSha256": "bc962e6b187fbbff70d287d4f770e497815eca9aad1a8a983c32787f01a013f1"
+        },
+        {
+          "compilerFamily": "skill",
+          "compilerSurface": "skill-tools",
+          "injectionBlockId": "synthetic-tool-prompt-block",
+          "order": 1,
+          "provenance": "compiled-tool-prompt-unit",
+          "sourceId": "compiled:skill:skill-tools:synthetic-tool-prompt-block:shared.execution-grammar",
+          "sourceKind": "execution-grammar",
+          "sourceLocalId": "shared.execution-grammar",
+          "sourceSha256": "316d68def6946ef48d6ccc0f852c50c845dcea5cf29b69e7e24aab2ae79af314"
+        },
+        {
+          "compilerFamily": null,
+          "compilerSurface": null,
+          "injectionBlockId": "synthetic-capture-block",
+          "order": 2,
+          "provenance": "frozen-capture-runtime-binding",
+          "sourceId": "capture:synthetic-capture-block:runtime-binding:skill-tools.legacy-body%23binding-0",
+          "sourceKind": "runtime-binding",
+          "sourceLocalId": "skill-tools.legacy-body#binding-0",
+          "sourceSha256": "8c113d38a73364f5df5ed6230d5b1192f3b746651b9ccabbbbcecddafe6ef122"
+        },
+        {
+          "compilerFamily": null,
+          "compilerSurface": null,
+          "injectionBlockId": "synthetic-capture-block",
+          "order": 3,
+          "provenance": "frozen-capture-dynamic-asset",
+          "sourceId": "capture:synthetic-capture-block:dynamic-asset:skill-listing.dynamic-assets",
+          "sourceKind": "dynamic-assets",
+          "sourceLocalId": "skill-listing.dynamic-assets",
+          "sourceSha256": "c8fc770f54a62cc4883bcd607ea53ea27750a6ab3fe4032072437b5929fe8c27"
+        }
+      ]
+    },
+    "formalCompilerClosure": {
+      "status": "blocked",
+      "blocker": "SELF_BUILT_SOURCE_ATTESTATION_NOT_FORMAL",
+      "owner": "Integration"
+    }
+  },
+  "hashSemantics": {
+    "caseInputControlSha256": "Frozen case/query/context control; excludes Variant prompt text.",
+    "comparisonGroupSha256": "Binds planned variant, counterfactual, or repeat comparison members.",
+    "providerRequestSha256": "Complete provider request for diagnostics; never an equality Gate because fresh runtime bindings may differ.",
+    "staticPromptSha256": "Frozen model-visible Variant/static Prompt before fresh runtime bindings.",
+    "executionIdentitySha256": "Frozen model, reasoning effort, verbosity, Codex CLI version, provider, usage schema, API/adapter versions, and usage-field contract.",
+    "requestUsageLedgerSha256": "M2-owned ordered request/attempt/trace/phase usage evidence plus deterministic cumulative totals.",
+    "snapshotSha256": "Expected and restored MemoryProxy asset snapshot identity.",
+    "visibleAssetsSha256": "Exact provider-visible asset-set identity."
+  },
+  "comparisonPurposes": {
+    "variant": "Same case input, repeat, execution identity, snapshot, and assets; Variant id and static Prompt hash must differ, while the full provider request is diagnostic.",
+    "counterfactual": "Same Variant/static Prompt, repeat, execution identity, snapshot, and assets; paired positive/negative case inputs and full requests differ.",
+    "repeat": "Same case input, Variant/static Prompt, execution identity, snapshot, and assets; repeat index and fresh run state differ, so full provider request equality is diagnostic only.",
+    "none": "Ordinary run; paired evidence is not required."
+  },
+  "comparisonControlManifest": {
+    "universalEqual": [
+      "comparisonGroupSha256",
+      "executionIdentity.canonicalSha256",
+      "snapshot.id+expectedSha256+restoredSha256",
+      "visibleAssetsSha256"
+    ],
+    "universalDistinct": [
+      "runId",
+      "runNamespace",
+      "session.id",
+      "memoryProxyContext.id",
+      "localState.pathId"
+    ],
+    "variant": {
+      "equal": [
+        "caseId",
+        "repeatIndex",
+        "caseInputControlSha256"
+      ],
+      "distinct": [
+        "variantId",
+        "staticPromptSha256"
+      ],
+      "diagnosticOnly": [
+        "providerRequestSha256"
+      ]
+    },
+    "counterfactual": {
+      "equal": [
+        "repeatIndex",
+        "variantId",
+        "staticPromptSha256"
+      ],
+      "distinct": [
+        "caseInputControlSha256",
+        "counterfactualRole"
+      ],
+      "diagnosticOnly": [
+        "providerRequestSha256",
+        "caseId"
+      ]
+    },
+    "repeat": {
+      "equal": [
+        "caseId",
+        "variantId",
+        "caseInputControlSha256",
+        "staticPromptSha256"
+      ],
+      "distinct": [
+        "repeatIndex"
+      ],
+      "diagnosticOnly": [
+        "providerRequestSha256"
+      ]
+    }
+  },
+  "requestUsageAccounting": {
+    "owner": "M2",
+    "granularity": "request_and_phase",
+    "identity": [
+      "runId",
+      "traceId",
+      "requestId",
+      "observedAttemptIds",
+      "phaseId"
+    ],
+    "cumulativeFields": [
+      "providerInputToEvaluationHorizon",
+      "providerInputToTerminalGivenSuccess",
+      "providerTotalInputTokens",
+      "ordinaryInputTokens",
+      "cacheReadInputTokens",
+      "cacheWriteInputTokens",
+      "outputTokens",
+      "reasoningOrThinkingTokens"
+    ],
+    "successfulTerminalRule": "providerInputToTerminalGivenSuccess equals providerInputToEvaluationHorizon exactly",
+    "failedTerminalRule": "providerInputToTerminalGivenSuccess is null"
+  },
+  "m0Integration": {
+    "owner": "M0",
+    "requiredInterface": "M0_EVALUATION_BOUNDARY",
+    "boundaryFactsOnly": [
+      "traceId",
+      "evaluationPrefixSha256",
+      "evaluationAttemptPrefix.requestId",
+      "attemptId",
+      "evaluationAttemptPrefix.phaseId",
+      "evaluationHorizonRequestId",
+      "evaluationHorizonPhaseId",
+      "terminalBoundaryGivenSuccess.terminalAttemptId",
+      "modelRoundsToTerminal",
+      "tdaiCallCount",
+      "timeToTerminalMs"
+    ],
+    "usageTotalsOwnedByM0": false
+  },
+  "metadataParityScope": "Single text blocks and multi-text-block insertion-only rebuilds whose original blocks remain exact ordered substrings. Unsupported rewrites raise a typed infrastructure failure before a forwardable provider request exists."
+}

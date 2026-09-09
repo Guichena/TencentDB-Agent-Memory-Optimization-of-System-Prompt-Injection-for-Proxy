@@ -1,0 +1,137 @@
+{
+  "memory": [
+    {
+      "id": "mem_dslx_syntax",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "语法锁为 `CRYPROC-SYN-IMPLICIT`：这门语言用隐式返回、u<N> 位类型与显式宽度转换，禁止写显式返回语句，也禁止隐式宽度混用。"
+    },
+    {
+      "id": "mem_reserved_keywords",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "保留字锁为 `CRYPROC-KW-CARRY`：变量名避开保留字，进位一律用描述性名字，禁止直接用保留字当标识符，也禁止靠大小写变形绕过。"
+    },
+    {
+      "id": "mem_type_constraints",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "类型约束锁为 `CRYPROC-TYPE-MATCH`：标注的返回类型必须匹配，位宽混用必须显式转换，禁止靠推断蒙混，也禁止静默截断。"
+    },
+    {
+      "id": "mem_risc_opcodes",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "指令集锁为 `CRYPROC-ISA-FIVE`：本轮只讨论 ror、rol、andn、orn 与其余已登记指令，禁止把未登记的扩展指令混进列表。"
+    },
+    {
+      "id": "mem_testing_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "测试锁为 `CRYPROC-TEST-EXHAUST`：测试用相等断言并覆盖边界，小输入空间要穷举，禁止只跑一个样例，也禁止跳过边界。"
+    },
+    {
+      "id": "mem_parametric_functions",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "参数化锁为 `CRYPROC-PARAM-ANGLE`：参数化用尖括号声明并可带默认值，禁止用别的形式声明参数，也禁止省略必要参数。"
+    },
+    {
+      "id": "mem_dslx_arithmetic",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "算术锁为 `CRYPROC-ARITH-WIDTH`：运算必须显式处理结果宽度与溢出，禁止依赖默认截断，也禁止静默丢弃高位。"
+    },
+    {
+      "id": "mem_dslx_type_system",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "类型系统锁为 `CRYPROC-TS-UN`：uN 表示 N 位无符号值，数组、元组与结构体各有明确写法，禁止把 uN 当任意精度整数，也禁止混用写法。"
+    },
+    {
+      "id": "mem_riscv_pack_ops",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "pack 锁为 `CRYPROC-PACK-HALF`：pack 类操作按寄存器半字组合，不同变体各选不同半字，禁止用移位拼接代替，也禁止混用变体语义。"
+    },
+    {
+      "id": "mem_dslx_type_forms",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "类型写法锁为 `CRYPROC-FORM-ALIAS`：类型表达式区分别名与泛型位宽，禁止把别名当泛型用，也禁止给同一含义并存两套写法。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_dslx_function_write",
+      "name": "dslx-function-write",
+      "description": "写这门硬件描述语言的函数：先过哪道返回门、宽度怎么处理、结构怎么建",
+      "content": "1. 先过返回门：只用隐式返回，禁止写显式返回语句。\n2. 宽度门：先定入参与返回宽度再写表达式，禁止靠推断蒙混。\n3. 结构门：复合结构按登记写法声明，禁止混用写法。\n4. 写完必须跑一次单元测试，禁止只看解释通过。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_dslx_adder_impl",
+      "name": "dslx-adder-impl",
+      "description": "实现加法器：先过哪道命名门、进位怎么表达、测试怎么覆盖",
+      "content": "1. 先过命名门：局部变量避开保留字，进位用描述性名字。\n2. 宽度门：结果宽度要容得下进位，禁止静默截断。\n3. 运算门：按登记方式处理结果宽度与溢出，禁止依赖默认行为。\n4. 实现后必须覆盖边界输入，禁止只跑中间值。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_riscv_bitmanip_impl",
+      "name": "riscv-bitmanip-impl",
+      "description": "实现位操作指令：先过哪道清单门、位序怎么处理、测试怎么做",
+      "content": "1. 先过清单门：先确认指令在登记列表内，禁止混入未登记扩展。\n2. 位序门：旋转与取反先定位序再写表达式，禁止凭直觉拼位。\n3. 宽度门：显式处理结果与中间宽度，禁止静默截断。\n4. 每条指令都要有穷举或边界测试，禁止只写实现。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_dslx_type_debug",
+      "name": "dslx-type-debug",
+      "description": "排查类型与宽度报错：先过哪道定位门、门禁基线在附件哪里",
+      "content": "1. 先过定位门：先取第一条真实报错与所在表达式，禁止凭经验猜。\n2. 宽度门：先核对入参与返回宽度是否匹配，禁止先改语义。\n3. 转换门：位宽混用只走显式转换，禁止依赖推断。\n4. 收尾的门禁基线检查项只写在 references/type-debug.md，不要把检查项抄进本步骤。",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/type-debug.md",
+          "content": "# DSLX type debug gate\n\nA type debugging pass for this repo is only valid when all of the following hold:\n\n- The pass must be stamped with the marker `CRYPROC-TYPE-SEAL`.\n- The width report must name the checked expression `CRYPROC-EXPR-UNDER-TEST`.\n- A truncation must be declared with the value `CRYPROC-TRUNC-DECLARED`; silent truncation voids the pass.\n- A report containing `CRYPROC-INFER-OK` is rejected; relying on inference must never count as fixed.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented DSLX type debug gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "skill_dslx_test_write",
+      "name": "dslx-test-write",
+      "description": "写单元测试：先过哪道断言门、覆盖怎么定、小空间怎么做",
+      "content": "1. 先过断言门：只用登记过的相等断言，禁止自造比较写法。\n2. 覆盖门：先列边界再列常规值，禁止只跑一个样例。\n3. 穷举门：输入空间够小就穷举，禁止抽样了事。\n4. 测试必须能独立重跑，禁止依赖上一次运行的残留。",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_enum_switch_gen",
+      "name": "enum-switch-gen",
+      "description": "生成枚举与分支：先过哪道清单门、分支怎么齐、未登记取值怎么处理",
+      "content": "1. 先过清单门：先定完整取值清单再生成，禁止边生成边想。\n2. 分支门：每个取值一个分支，禁止合并或漏项。\n3. 默认门：未登记取值要有明确落点，禁止静默忽略。\n4. 生成后必须逐个取值跑一次，禁止只编译通过。",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg03_cryptoproc__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg03_cryptoproc__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

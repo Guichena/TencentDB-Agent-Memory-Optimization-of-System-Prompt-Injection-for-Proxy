@@ -1,0 +1,11 @@
+{
+  "team": "T07",
+  "files_skill": "rudel-pull-request-workflow",
+  "files_path": "references/pr-gate.md",
+  "n_cases": 25,
+  "mem_pairs": 7,
+  "skill_pairs": 5,
+  "files_pairs": 1,
+  "notes": "Rudel (obsessiondb/rudel) 整队重写；files 挂在 rudel-pull-request-workflow。 | rewrote leftover distractor/natural queries: ['case_39f0b9268a17f4']",
+  "audit_fix": "rewrote leftover distractor/natural queries: ['case_39f0b9268a17f4']"
+}

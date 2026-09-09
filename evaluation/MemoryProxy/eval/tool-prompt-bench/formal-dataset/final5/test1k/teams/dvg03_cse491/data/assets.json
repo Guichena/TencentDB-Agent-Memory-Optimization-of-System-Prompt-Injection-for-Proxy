@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "mem_project_scope",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "项目范围锁为 `CSE491-SCOPE-TURN`：这是回合制战斗模拟项目，只含角色、战斗系统与 AI 代理三类模块，禁止把渲染或网络算进项目范围。"
+    },
+    {
+      "id": "mem_combat_system",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "战斗锁为 `CSE491-COMBAT-TICK`：伤害按攻击速度与每击伤害计算，攻击推进只按游戏 tick，禁止用真实时钟推进战斗。"
+    },
+    {
+      "id": "mem_coding_style",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "风格锁为 `CSE491-STYLE-NOSLEEP`：用 C++17 与面向对象设计、现代随机数，禁止用 sleep 推进模拟，也禁止用旧的随机接口。"
+    },
+    {
+      "id": "mem_team_structure",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "分工锁为 `CSE491-TEAM-FOUR`：按角色、物品、AI、界面四条线分工并用 Git 协作，禁止跨线直接改别人的模块而不走评审。"
+    },
+    {
+      "id": "mem_simulation_approach",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "模拟锁为 `CSE491-SIM-DECOUPLE`：用 ticksPerSecond 配置离散时间并与真实时钟解耦，禁止把模拟绑到墙上时间。"
+    },
+    {
+      "id": "mem_debugging_practice",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "调试锁为 `CSE491-DEBUG-FOUR`：重点只放在括号、变量初始化、时间计算与状态日志四项，禁止发散到无关排查。"
+    },
+    {
+      "id": "mem_course_context",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "课程锁为 `CSE491-COURSE-FOUR`：这门课只强调团队协作、代码审查、测试与性能优化四项，禁止把它当泛型语言教程。"
+    },
+    {
+      "id": "mem_tick_knowledge",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "tick 锁为 `CSE491-TICK-FIXED`：逻辑按离散时间步执行，显示秒数按 ticksPerSecond 换算，禁止引入真实时钟或破坏可复现性。"
+    },
+    {
+      "id": "mem_cpp_random_knowledge",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "随机数锁为 `CSE491-RAND-SEED`：只用标准随机设施里的引擎与分布并支持固定种子复现，禁止用旧的随机接口，也禁止为省事每次换种子。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_combat_sim_setup",
+      "name": "combat-sim-setup",
+      "description": "搭战斗模拟：先过哪道 tick 门、属性怎么配、推进放在哪",
+      "content": "1. 先过 tick 门：先定离散时间配置再写战斗循环，禁止用真实时钟推进。\n2. 属性门：角色只暴露已登记的战斗属性，禁止临时加字段。\n3. 推进门：每轮只在一个地方推进 tick，禁止多处各自推进。\n4. 起完必须跑一次完整对局，禁止只看首轮输出。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_tick_based_timing",
+      "name": "tick-based-timing",
+      "description": "改基于 tick 的时序：先过哪道解耦门、换算怎么定、可复现怎么保",
+      "content": "1. 先过解耦门：时序不与真实时钟绑定，禁止引入等待调用。\n2. 换算门：显示秒数只按配置速率换算，禁止另写一套换算。\n3. 复现门：固定配置下多次运行结果一致，禁止引入不可控来源。\n4. 改完必须跑两次比对结果，禁止只看一次跑通。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_random_damage_calc",
+      "name": "random-damage-calc",
+      "description": "改随机伤害计算：先过哪道分布门、种子怎么定、边界怎么收",
+      "content": "1. 先过分布门：只用标准随机设施里的引擎与分布，禁止用旧随机接口。\n2. 种子门：可复现场景必须固定种子，禁止每次换种子。\n3. 边界门：先定伤害上下界再实现，禁止出现负值或溢出。\n4. 改完必须同种子重跑比对，禁止只看一次输出。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_cpp_syntax_debug",
+      "name": "cpp-syntax-debug",
+      "description": "排查 C++ 编译与语法问题：先过哪道定位门、按什么顺序查",
+      "content": "1. 先过定位门：先取第一条真实报错与所在文件，禁止凭经验猜位置。\n2. 顺序门：先括号与分号，再变量初始化，禁止跳着改。\n3. 范围门：只改报错相关处，禁止顺手重排无关代码。\n4. 修完必须重新完整编译，禁止只编译单个文件。",
+      "visibility": "private",
+      "files": []
+    },
+    {
+      "id": "skill_game_state_logging",
+      "name": "game-state-logging",
+      "description": "加游戏状态日志：先过哪道口径门、日志点放在哪、门禁基线在附件哪里",
+      "content": "1. 先过口径门：先定每个 tick 要记哪些字段，禁止想到什么记什么。\n2. 位置门：日志点只放在状态变更处，禁止散落各处。\n3. 体积门：先定保留策略再写，禁止无上限落盘。\n4. 收尾的门禁基线检查项只写在 references/game-log.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/game-log.md",
+          "content": "# Game state log gate\n\nA state logging pass for this repo is only valid when all of the following hold:\n\n- The pass must be stamped with the marker `CSE491-LOG-SEAL`.\n- The field set must be named `CSE491-FIELD-SET` in the log header.\n- A retained window must be declared with the value `CSE491-RETAIN-N`; unbounded retention voids the pass.\n- A log containing `CSE491-WALL-CLOCK` is rejected; wall-clock timing must never enter the state log.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented game state log gate for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "skill_oop_refactor",
+      "name": "oop-refactor",
+      "description": "做面向对象重构：先过哪道不动门、职责怎么分、旧接口怎么处理",
+      "content": "1. 先过不动门：先把当前可观察行为固定成用例，禁止边重构边改行为。\n2. 职责门：一次只搬一个职责，禁止一次重排整个类层级。\n3. 接口门：所有调用点同步改完再删旧接口，禁止留双份。\n4. 每步都要编译并跑用例，禁止攒到最后一次。",
+      "visibility": "private",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg03_cse491__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg03_cse491__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+# Frozen benchmark inputs must hash to the same bytes on every platform.
+cases/*.jsonl text eol=lf
+cases/*.json text eol=lf
+fixtures/*.jsonl text eol=lf
+sources/*.json text eol=lf
+dataset-manifest.json text eol=lf
+variants/**/*.json text eol=lf
+variants/**/*.txt text eol=lf

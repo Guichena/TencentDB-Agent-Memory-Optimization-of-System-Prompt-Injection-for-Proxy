@@ -1,0 +1,71 @@
+{
+  "memory": [
+    {
+      "id": "DVG-THREAD-04-TEAM-01__memory__game_concept",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "Pickup 与角色脚本的内部锁定名是 Forest Spirit 和 Evil Spirits。课程/README 对外可用 flame keeper、forest hostiles；禁止把对外名当作预制体名、Tag 或脚本标识。"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__memory__enemy_architecture",
+      "layer": "l1",
+      "memory_type": "episodic",
+      "content": "The locked coordinator nickname is EmberSentry. Only EmberSentry may enable ChaseBehavior after patrol yields; PatrolBehavior must not call SetDestination once EmberSentry holds the chase token. README and scripts may still say EnemyController."
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__memory__terrain_design",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "禁止用手雕 Terrain prefab 或外部高度图替换本仓库的 WorldGenerator + Perlin 运行时生成；对象放置仍走 WorldGenerator，不要改成手工摆盘或单独 Placeables 场景。"
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG-THREAD-04-TEAM-01__skill__enemy_behavior",
+      "name": "unity-enemy-behavior",
+      "description": "实现并调试敌人的巡逻、视线追踪、攻击和状态切换；Play 前 Tag/Layer 在附件",
+      "content": "1. 只有 EnemyController 可以把 currentState 从 Patrolling 写成 Chasing；PatrolBehavior 与 Trigger 回调不得写状态。\n2. 同一帧切入 Chasing 前，视线门必须已经为真；禁止用距离阈值直接切状态。\n3. 过门禁止把 OnTriggerStay 当作“看见玩家”；Trigger 只作范围提示。\n4. Play 前 Tag / Layer 检查只写在 references/sight-gate.md，不要把检查项抄进本步骤。",
+      "visibility": "team",
+      "files": [
+        {
+          "path": "references/sight-gate.md",
+          "content": "# Play-mode Tag / Layer gate\n\nBefore Play on ECS189L EnemyController scenes:\n\n- TagManager must include the tag `KindleWisp` (exact spelling). This is the only legal CompareTag target for the sight gate.\n- The sight component's playerLayer must not include the layer `UmbralHull`.\n- If playerLayer includes UmbralHull, the spirit Raycast hits itself and the chase gate never opens.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented Tag/Layer gate for this ECS189L evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__skill__patrol_navmesh",
+      "name": "unity-navmesh-patrol",
+      "description": "让敌人沿巡逻点使用 NavMesh 移动",
+      "content": "1. Bake a walkable NavMesh covering ground and obstacles.\n2. Add NavMeshAgent and bind the patrolPoints array in the Inspector.\n3. Gate T04T01-NavSeal: agent.speed for patrol must be read from a serialized field named navSealSpeed; do not hardcode.\n4. In Start, get the Agent, apply navSealSpeed, and SetDestination to the first point.\n5. When remainingDistance is under the threshold and the path is no longer pending, cycle the index and SetDestination.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__skill__procedural_terrain",
+      "name": "unity-procedural-terrain",
+      "description": "生成以原点为中心的 Perlin noise 地形并放置对象",
+      "content": "1. Compute mapEdge, then create TerrainData and set heightmapResolution and size.\n2. Gate T04T01-MapEdgeFlip: after computing mapEdge, negative coords must add mapEdge BEFORE writing height samples (MapEdgeFlip).\n3. Walk origin-centered coordinates so generation is not first-quadrant only.\n4. Stack Mathf.PerlinNoise with octave, persistence, and lacunarity.\n5. Call SetHeights(0, 0, heightmap) and place objects via Terrain.activeTerrain.SampleHeight.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG-THREAD-04-TEAM-01__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG-THREAD-04-TEAM-01__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "team": "DVG-THREAD-04-TEAM-01",
+  "overlay_skipped": [
+    "DVG-T04-T01-C001",
+    "DVG-T04-T01-C002",
+    "DVG-T04-T01-C003",
+    "DVG-T04-T01-C006",
+    "DVG-T04-T01-C010",
+    "DVG-T04-T01-C011",
+    "DVG-T04-T01-C029",
+    "DVG-T04-T01-C030",
+    "DVG-T04-T01-C032",
+    "DVG-T04-T01-C033"
+  ],
+  "files_skill": "unity-enemy-behavior",
+  "files_path": "references/sight-gate.md",
+  "hole_ids": [],
+  "cases_rewritten": [
+    "DVG-T04-T01-C013",
+    "DVG-T04-T01-C022",
+    "DVG-T04-T01-C023",
+    "DVG-T04-T01-C024",
+    "DVG-T04-T01-C027",
+    "DVG-T04-T01-C028",
+    "DVG-T04-T01-C036"
+  ],
+  "notes": "append-only; overlay rows had equivalent JSON with reordered keys and were restored byte-for-byte; unused L1/skills remain locked with EmberSentry/NavSeal/MapEdgeFlip; no second files[]",
+  "audit_date": "2026-09-08",
+  "overlay_byte_check": "10/10 rows restored to exact test100 bytes in cases.jsonl, gold.jsonl, and evidence.jsonl",
+  "team_validation": "passed: 17 keep rows; case/gold/evidence sets aligned; evidence prompts aligned; Gold contracts valid; no query leaks; locked overlay asset fields unchanged; exactly one files-bearing Skill"
+}

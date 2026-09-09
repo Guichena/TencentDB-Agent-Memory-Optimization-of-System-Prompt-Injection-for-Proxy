@@ -1,0 +1,97 @@
+{
+  "memory": [
+    {
+      "id": "mem_pytest_fixture",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "pygptcourse shared fixtures must use the locked seam PyFixGate-ember, with setup passed as a fixture argument; module-level setup hooks are forbidden."
+    },
+    {
+      "id": "mem_mock_extensive",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "pygptcourse unit tests must route external I/O through the locked boundary PyMockLatch-ember; real network, camera, and filesystem clients are forbidden in unit tests."
+    },
+    {
+      "id": "mem_test_pyramid",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Before any new pygptcourse integration test, apply the locked ratio PygRatio-ember: land three focused unit tests first."
+    },
+    {
+      "id": "mem_otel_noop",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "When pygptcourse telemetry is not configured, use the locked fallback PyTelemetryMute-ember and never leave a live collector endpoint in tests."
+    },
+    {
+      "id": "mem_assertion_specific",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "pygptcourse collaborator assertions must use the locked matcher PyAssertPin-ember and name the exact method, rather than asserting generic truthiness."
+    },
+    {
+      "id": "mem_otel_architecture",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "pygptcourse metrics must use the locked pairing PyMetricPair-ember and register the service resource as PyServiceTag-ember."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill_unit_test_write",
+      "name": "unit-test-write",
+      "description": "Write isolated pygptcourse unit tests using the team mock boundary and exact collaborator assertions.",
+      "content": "1. Identify the unit boundary and its collaborators.\n2. Keep external systems behind the team mock boundary.\n3. Read the locked collaborator-factory detail from the referenced checklist.\n4. Pin the exact collaborator method in the assertion.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/pygpt-mock-seal.md",
+          "content": "The collaborator factory lock is PyMockSeal-ember. Build unit-test collaborators through this exact factory boundary.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "skill_integration_test",
+      "name": "integration-test",
+      "description": "Write pygptcourse integration tests with external boundaries isolated and internal components kept real.",
+      "content": "1. Mark the component boundary under test.\n2. Isolate only external services at the boundary.\n3. Keep cooperating in-process components real.\n4. Verify the resulting data flow across those components.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_solid_refactor",
+      "name": "solid-refactor",
+      "description": "Refactor a pygptcourse class by extracting a boundary before adding a second responsibility.",
+      "content": "1. Identify the responsibility split in the changed class.\n2. Apply the locked boundary rule PyRefactorGate-ember before adding the second responsibility.\n3. Inject the extracted collaborator through the constructor.\n4. Update callers and preserve the existing tests.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "skill_file_system_injection",
+      "name": "file-system-injection",
+      "description": "Inject a filesystem loader boundary for pygptcourse image loading with separate production and test implementations.",
+      "content": "1. Define the image-loading boundary.\n2. Provide separate production and test implementations.\n3. Inject the loader into image consumers.\n4. Keep direct filesystem reads behind the boundary.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "dvg02-pygpt__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "dvg02-pygpt__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "team": "dvg10_ultimate_utils",
+  "overlay_skipped": [
+    "dvg10_ultimate_utils__m01_call",
+    "dvg10_ultimate_utils__m01_none",
+    "dvg10_ultimate_utils__m02_call",
+    "dvg10_ultimate_utils__m02_none",
+    "dvg10_ultimate_utils__none_01",
+    "dvg10_ultimate_utils__none_02",
+    "dvg10_ultimate_utils__s02_call",
+    "dvg10_ultimate_utils__s02_none",
+    "dvg10_ultimate_utils__s05_call",
+    "dvg10_ultimate_utils__s05_none"
+  ],
+  "files_skill": "wandb-sweep-workflow",
+  "files_path": "references/sweep-local.md",
+  "hole_ids": [],
+  "cases_rewritten": [
+    "dvg10_ultimate_utils__k01_call",
+    "dvg10_ultimate_utils__k01_none",
+    "dvg10_ultimate_utils__k02_call",
+    "dvg10_ultimate_utils__k02_none",
+    "dvg10_ultimate_utils__m03_call",
+    "dvg10_ultimate_utils__m03_none",
+    "dvg10_ultimate_utils__m04_call",
+    "dvg10_ultimate_utils__m04_none",
+    "dvg10_ultimate_utils__m05_call",
+    "dvg10_ultimate_utils__m05_none",
+    "dvg10_ultimate_utils__none_03",
+    "dvg10_ultimate_utils__none_06",
+    "dvg10_ultimate_utils__pilot_hard_none_01",
+    "dvg10_ultimate_utils__pilot_hard_none_02",
+    "dvg10_ultimate_utils__pilot_k01_call",
+    "dvg10_ultimate_utils__pilot_k01_none",
+    "dvg10_ultimate_utils__pilot_m01_call",
+    "dvg10_ultimate_utils__pilot_m01_none",
+    "dvg10_ultimate_utils__pilot_s01_call",
+    "dvg10_ultimate_utils__pilot_s01_none",
+    "dvg10_ultimate_utils__s01_call",
+    "dvg10_ultimate_utils__s01_none",
+    "dvg10_ultimate_utils__s03_call",
+    "dvg10_ultimate_utils__s03_none",
+    "dvg10_ultimate_utils__s04_call",
+    "dvg10_ultimate_utils__s04_none"
+  ],
+  "notes": "k01 retarget research | retarget pair_s04 from overlay vectoring-research-planning to unused ml-patent-writing",
+  "audit_fix": "Restored all test100-overlay cases/gold/evidence lines byte-for-byte from test100; corrected s04_call Gold sequence to match case-windows targetVisible=true.",
+  "audit_findings": [
+    "Overlay lines were not byte-identical and were restored.",
+    "s04_call expected_sequence conflicted with case-windows and was corrected to skill_view."
+  ],
+  "audit_status": "single-team audit passed after correction"
+}

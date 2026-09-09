@@ -1,0 +1,19 @@
+{
+  "team_id": "dvg09_playbilling",
+  "repo_id": "uralstech/play-billing-v6-for-unity",
+  "repo_url": "https://github.com/uralstech/play-billing-v6-for-unity",
+  "case_count": 10,
+  "current_agent_id": "dvg09_playbilling__agent__primary",
+  "agent_ids": [
+    "dvg09_playbilling__agent__primary",
+    "dvg09_playbilling__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "dvg09_playbilling__skill__add-acknowledgement",
+    "dvg09_playbilling__skill__add-billing-feature",
+    "dvg09_playbilling__skill__debug-unresolved-reference",
+    "dvg09_playbilling__skill__fix-gradle-dependency",
+    "dvg09_playbilling__skill__implement-subscription"
+  ],
+  "status": "active"
+}

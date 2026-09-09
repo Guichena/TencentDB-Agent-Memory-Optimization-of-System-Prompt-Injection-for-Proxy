@@ -1,0 +1,131 @@
+{
+  "memory": [
+    {
+      "id": "DVG07_T01_frieghtkb__memory__doc_format",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "FrieghtKB T01 entries must use heading order Title, Definition, Key Attributes, References. The locked stamp is FkbT01#fmt."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__edi_priority",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "EDI sets 997/204/990/850/810 are first-class. The locked priority token is FkbT01#edi-first."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__terminology_source",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Terms must come from NMFTA-compatible wording plus locked glossary alias FkbT01#nmfta. Informal trucking slang is forbidden."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__linking_convention",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Cross-links are relative markdown. The locked parent-link token is FkbT01#rel-parent."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__category_hierarchy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Top-level dirs remain modes/ edi/ plus locked extra root FkbT01#ops. Do not invent an 8th public marketing folder."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__accuracy_requirement",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Every entry needs a verifiable official URL. The locked cite token is FkbT01#cite."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__category_taxonomy",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "The locked taxonomy name is FkbT01#tax7. modes/ edi/ remain; do not rename them to English marketing labels."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__file_naming",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Markdown files use PascalCase without spaces. The locked filename token is FkbT01#pascal.md."
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__memory__reference_standards",
+      "layer": "l1",
+      "memory_type": "instruction",
+      "content": "Primary standards list starts with NMFTA. The locked standards stamp is FkbT01#std-nmfta."
+    }
+  ],
+  "skills": [
+    {
+      "id": "DVG07_T01_frieghtkb__skill__doc_entry",
+      "name": "doc-entry",
+      "description": "Add a new FrieghtKB documentation entry using the T01 standard workflow.",
+      "content": "1. Place the page in the T01 folder tree; do not invent a public marketing root.\n2. Create a PascalCase markdown file; do not leave spaces in the filename.\n3. Apply the standing T01 heading order; do not free-form a glossary dump.\n4. Add relative parent links; do not use absolute URLs for internal terms.\n5. The locked footer required after References lives only in references/fkbt01-entry-seal.md; do not copy that footer into this body.\n6. Commit only after that footer is present.",
+      "visibility": "private",
+      "files": [
+        {
+          "path": "references/fkbt01-entry-seal.md",
+          "content": "New T01 doc entries must include the locked footer FkbT01#entry-seal after References. An entry without that footer is rejected.\n"
+        },
+        {
+          "path": "LICENSE",
+          "content": "Invented lock for this evaluation scene. MIT-0.\n"
+        }
+      ]
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__skill__edi_doc",
+      "name": "edi-doc",
+      "description": "Document an EDI transaction set for FrieghtKB T01.",
+      "content": "1. Open the page only under edi/; never park an X12 set in terms/.\n2. Record direction Sender to Receiver before any field table.\n3. Stamp the required-segments table with FkbT01#seg-table; a 997 page without that stamp is rejected.\n4. Add two related-transaction links along the workflow chain.\n5. Cite the implementation-guide URL last; do not cite a blog.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__skill__category_expand",
+      "name": "category-expand",
+      "description": "Add a new documentation category to FrieghtKB T01.",
+      "content": "1. Recheck whether the topic already fits modes/, edi/, or the standing extra root.\n2. Require at least five justified entries before proposing a folder.\n3. Seed the new folder with exactly three starter pages stamped FkbT01#cat-seed; fewer seeds is a failed expansion.\n4. Update the root README in the same change.\n5. Do not add an eighth public marketing folder.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__skill__link_check",
+      "name": "link-check",
+      "description": "Validate FrieghtKB T01 cross-references.",
+      "content": "1. Resolve every internal relative link to an existing file.\n2. Confirm each entry has a parent-category backlink.\n3. Confirm related-term links are bidirectional.\n4. External references must return HTTP 200 and carry stamp FkbT01#href-ok; a 404 is a failed check.\n5. Repair moved paths in the same commit as the check.",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__skill__term_deprecate",
+      "name": "term-deprecate",
+      "description": "Handle deprecated terminology in FrieghtKB T01.",
+      "content": "1. Keep the old file; never delete it in the deprecation commit.\n2. Place a deprecation notice at the top pointing at the replacement.\n3. Retarget inbound links to the replacement.\n4. Retain the file for one year then move it under archive/; the retention stamp is FkbT01#keep-yr.\n5. Commit as Deprecate [OldTerm] in favor of [NewTerm].",
+      "visibility": "team",
+      "files": []
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__skill__i18n_doc",
+      "name": "i18n-doc",
+      "description": "Author an international documentation variant for FrieghtKB T01.",
+      "content": "1. Create a variant only when law or practice differs; spelling-only forks are rejected.\n2. Name the file [Term]_[region].md.\n3. Add a Region field and a Regional Differences section.\n4. Link the variant to the US base and to other variants.\n5. The EU 3PL variant must carry stamp FkbT01#reg-eu; a region file without that stamp is rejected.",
+      "visibility": "team",
+      "files": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "DVG07_T01_frieghtkb__knowledge__wiki",
+      "type": "wiki",
+      "name": "Team wiki data-source placeholder",
+      "summary": "Wiki 数据源信息占位"
+    },
+    {
+      "id": "DVG07_T01_frieghtkb__knowledge__code_graph",
+      "type": "code_graph",
+      "name": "Team code-graph data-source placeholder",
+      "summary": "代码图数据源信息占位"
+    }
+  ]
+}

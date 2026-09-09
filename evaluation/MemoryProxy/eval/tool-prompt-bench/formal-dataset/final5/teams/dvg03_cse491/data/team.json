@@ -1,0 +1,19 @@
+{
+  "team_id": "dvg03_cse491",
+  "repo_id": "msu-cse491/cse_491_fall_2023",
+  "repo_url": "https://github.com/msu-cse491/cse_491_fall_2023",
+  "case_count": 40,
+  "current_agent_id": "dvg03_cse491__agent__primary",
+  "agent_ids": [
+    "dvg03_cse491__agent__primary",
+    "dvg03_cse491__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "skill_combat_sim_setup",
+    "skill_tick_based_timing",
+    "skill_random_damage_calc",
+    "skill_cpp_syntax_debug",
+    "skill_oop_refactor"
+  ],
+  "status": "active"
+}

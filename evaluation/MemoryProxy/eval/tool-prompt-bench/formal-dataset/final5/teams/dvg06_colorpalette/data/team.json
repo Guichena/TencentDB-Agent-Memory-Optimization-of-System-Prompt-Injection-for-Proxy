@@ -1,0 +1,20 @@
+{
+  "team_id": "dvg06_colorpalette",
+  "repo_id": "naomiajacobs/colorpalettereacttutorial",
+  "repo_url": "https://github.com/naomiajacobs/colorpalettereacttutorial",
+  "case_count": 40,
+  "current_agent_id": "dvg06_colorpalette__agent__primary",
+  "agent_ids": [
+    "dvg06_colorpalette__agent__primary",
+    "dvg06_colorpalette__agent__shared"
+  ],
+  "bound_skill_ids": [
+    "s01_flexbox_full_height",
+    "s02_css_centering",
+    "s03_random_color_generator",
+    "s04_dom_style_manipulation",
+    "s05_debug_null_element",
+    "s06_iterative_css_refinement"
+  ],
+  "status": "active"
+}
