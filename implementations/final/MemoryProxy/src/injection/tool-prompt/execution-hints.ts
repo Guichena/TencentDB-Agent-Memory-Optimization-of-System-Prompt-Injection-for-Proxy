@@ -4,7 +4,7 @@ const INPUT_HINTS: Readonly<Record<string, string>> = {
   skill_search: "query: nonempty BM25 keywords; selected data.items[].skill_id opens with skill_view_by_id.",
   skill_view: "returns data.skill_id, data.version, data.manifest[].path; content/manifest default true.",
   skill_view_by_id: "returns data.skill_id, data.version, data.manifest[].path; content/manifest default true.",
-  skill_files_read: "use the viewed skill's exact manifest path and version; encoding=utf-8|base64. Returns JSON data.content with data.encoding; -o saves the JSON, not decoded bytes. Use skill_files_download for raw bytes.",
+  skill_files_read: "from skill_view or skill_view_by_id: data.skill_id->skill_id, data.manifest[].path->path, data.version->version; encoding=utf-8|base64. Returns JSON data.content with data.encoding; -o saves the JSON, not decoded bytes. Use skill_files_download for raw bytes.",
   skill_files_download: "use the viewed skill's exact manifest path and version; encoding=utf-8|base64; save with -o; chmod +x scripts before execution.",
   skill_create: "content=full SKILL.md with frontmatter; resources=[{path,content,encoding:utf-8|base64,mime_type?,is_executable?}].",
   skill_extract: "Archives the current session buffer and queues asynchronous extraction; do not send messages. data.status=archived|empty; archived does not mean a skill has already been generated.",

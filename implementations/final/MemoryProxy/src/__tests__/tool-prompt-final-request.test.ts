@@ -108,15 +108,23 @@ describe("reviewed 20260909 final provider requests (synthetic assets)", () => {
         expect(serialized).toContain("total ≤ 3 calls per turn");
         expect(serialized).toContain("data.partial=true");
         expect(serialized).toContain("historical version selection is not supported");
+        expect(serialized).toContain("user identity, preferences, conventions");
       }
       if (state.skill) {
         expect(serialized).toContain("-o saves the JSON, not decoded bytes");
+        expect(serialized).toContain("from skill_view or skill_view_by_id: data.skill_id->skill_id");
+        expect(serialized).toContain("attachment missing from context");
         expect(serialized.includes('name=\\"skill_create\\"')).toBe(state.skillWrite);
         expect(serialized.includes('name=\\"skill_extract\\"')).toBe(state.skillExtract);
       }
       if (state.knowledge) {
         expect(serialized).toContain("per resource per session");
         expect(serialized).toContain("knowledge.example.test/v3");
+        expect(serialized).toContain("default to explore");
+        expect(serialized).toContain("includeCode=true for source");
+        expect(serialized).toContain("unless exact/current local code is required");
+        expect(serialized).toContain("get_info returns metadata");
+        expect(serialized).toContain("for data.isError=true, inspect data.text first");
       }
       expect(request).toMatchSnapshot(`${protocol}:${signature}`);
       captures.push({ protocol, signature, request });

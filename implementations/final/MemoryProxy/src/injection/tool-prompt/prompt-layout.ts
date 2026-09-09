@@ -4,7 +4,7 @@ import type { ToolPromptSurface } from "./types.js";
 import type { CompiledToolPromptProfile } from "./types.js";
 const GLOBAL_STOP_ERROR_RULES = [
   "## Global stop and error rules",
-  "- 4xx: no retry; 5xx: once.",
+  "- 4xx: no unchanged retry. Retry transient 5xx at most once; for data.isError=true, inspect data.text first: correct invalid input via card recovery, and retry unchanged only if the error is transient.",
   "- Stop when the user's goal is answerable.",
   "- Read each L2 path at most once/turn.",
 ] as const;
@@ -37,7 +37,7 @@ const V4_SHARED_PROTOCOL = [
   "- JSON 响应成功条件：HTTP 成功且 `code=0`；否则读 `message`。",
   "- JSON returns envelope: `{code,message,data}`; memory atomic search/query uses `data.items[]`, conversation search/query uses `data.messages[]`, and skill search uses `data.items[].skill_id`.",
   "- Memory search: `data.partial=true` means incomplete coverage; `data.failed_agents[]` identifies failed sources. Disclose the limitation; an empty partial result does not establish that no memory exists. A retrieval error is not an empty result.",
-  "- Knowledge results depend on the selected tool: code-graph queries return `data.text/isError` (isError=true is failure); wiki search returns `data.results[]`, read_page returns `data.items[]`. Do not interpret a missing field from another tool's shape as an empty result.",
+  "- Knowledge results depend on the selected tool: code-graph queries return `data.text` and `data.isError` (true means failure even with code=0); get_info returns metadata in `data`; wiki search returns `data.results[]`, read_page returns `data.items[]`. Missing fields from another tool's shape are not empty results.",
   "- `response: bytes` 的正常响应是原始字节，传输完成且 HTTP 成功即可，不要求 JSON `code`；失败仍可能返回 JSON 错误信封，检查状态及响应，不要将错误信封当成文件。仅落盘时用 `-o`。",
   "canonical form: `curl -sSk -X POST '<endpoint>' -H 'content-type: application/json' <bindings> -d '<body>'`",
   "- PowerShell 使用 `curl.exe`；JSON 有引号/换行等转义风险时，先写入 UTF-8 无 BOM 文件，再用 `--data-binary '@<json-file>'` 代替 `-d '<body>'`。",
@@ -48,11 +48,11 @@ const V4_SHARED_PROTOCOL = [
 export const V4_EFFECTIVE_GLOBAL_RULES: Readonly<Record<string, string>> = Object.freeze({
   "must-call": [
     "CALL if enabled persistent assets supply missing required context, or a requested supported write/lifecycle action matches a card.",
-    "- Memory enabled: MUST retrieve required user history, preferences, prior decisions, exact wording or scene content missing from current context/L3 before answering. An L2 path or summary is not the scene body.",
+    "- Memory enabled: MUST retrieve required user identity, preferences, conventions, history, prior decisions, exact wording or scene content missing from current context/L3 before answering. An L2 path or summary is not the scene body.",
     "- Skill enabled: load a matching skill only when the task explicitly requests its use or requires a specific team workflow/convention, and the needed instructions are missing from context. A name/description is not the instructions; topical relevance or ordinary coding alone does not require loading.",
   ].join("\n"),
   "no-call": "NO_CALL for self-contained coding/general knowledge with no missing asset-dependent facts or workflow, or when all required facts/instructions are already in context (including L3 and prior tool results). Keyword overlap alone never triggers a call.",
-  "family-route": "Route: memory=past user facts/preferences/decisions/wording/scenes; skill=missing reusable workflow, not keyword overlap; knowledge=matching cross-file structure/design rationale, but local source for exact/current code.",
+  "family-route": "Route: memory=user identity/facts/preferences/conventions/history/decisions/wording/scenes; skill=missing reusable workflow instructions, not keyword overlap; knowledge=matching cross-file structure/design rationale, but local source for exact/current code.",
   selection: "Choose the narrowest matching `when`; obey `avoid`/`contrast`; use multiple families only for distinct gaps.",
   protocol: V4_SHARED_PROTOCOL,
   defaults: V4_SHARED_DEFAULTS.join("\n"),

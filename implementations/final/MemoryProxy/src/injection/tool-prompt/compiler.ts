@@ -48,6 +48,7 @@ export const SKILL_GUIDANCE = [
   "- CALL discovery: `skill_search` for a requested skill or required team workflow with no exact usable name/ID; open a needed team result via `skill_view_by_id`.",
   "- NO_CALL: topical/keyword-only relevance, ordinary coding without a required team workflow, or all required instructions already in context.",
   "- Cloud-only: use `<skill_tools>`, not file tools.",
+  "- If the viewed instructions require an attachment missing from context, use `skill_files_read` with that view's skill_id, manifest path and version; download only when raw bytes are needed.",
 ].join("\n");
 
 export function renderRuntimeBindings(input: Pick<ToolPromptInput, "endpointBase" | "headers">): string {
@@ -96,7 +97,7 @@ export function compileToolPrompt(input: ToolPromptInput) {
       ? "## 调用约束\n- Read-only; mutate memory through the main path.\n- `tdai_memory_search` + `tdai_conversation_search` total ≤ 3 calls per turn."
       : input.family === "skill"
         ? ""
-        : "## 约定\n\n- code graph: explore=query/files; search=symbol name; callers/callees/impact=symbol; files=directory overview/resource/session.\n- wiki: search -> read_page; no full list.\n- Resources may run in parallel; unavailable -> local search.";
+        : "## 约定\n\n- code graph: default to explore for architecture, behavior or locating code; query=natural language, symbols or filenames. It returns source. Use node next for a specific symbol still needed (includeCode=true for source). Do not re-read returned source unless exact/current local code is required.\n- search=symbol locations only, no source; callers/callees/impact=targeted symbol relationships; files=directory overview. Follow cached tools/list descriptions and params.\n- wiki: search -> read_page; no full list.\n- Resources may run in parallel; unavailable -> local search.";
     const closing = input.family === "skill" && !state.skillWrite
       ? `read-only (skill_write=0).\n</${tag}>` : `</${tag}>`;
     content = [`<${tag}>`, bindings, intro, ...promptIr.tools.map(renderV4ToolCard), footer, closing,
