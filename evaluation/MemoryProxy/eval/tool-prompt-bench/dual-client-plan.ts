@@ -1,7 +1,14 @@
 import { readFileSync } from "node:fs";
 import { parseEnv } from "node:util";
-import { dirname, isAbsolute, resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import type { Final5Client } from "./final5-task-input.js";
+
+export function resolveConfigPath(base: string, value: string): string {
+  if (process.platform !== "win32" && /^(?:[A-Za-z]:[\\/]|\\\\)/.test(value)) {
+    throw new Error("Windows absolute config path cannot be used here; prepare a new run: " + value);
+  }
+  return resolve(base, value.replace(/\\/g, "/"));
+}
 
 export interface DualClientConfig {
   baselineRoot: string; v4Root: string; proxyConfig: string; envFile: string;
@@ -15,7 +22,7 @@ export interface DualClientConfig {
 export function readDualClientConfig(path: string): DualClientConfig {
   const raw = JSON.parse(readFileSync(path, "utf8"));
   const base = dirname(resolve(path));
-  const env = parseEnv(readFileSync(resolve(base, raw.envFile), "utf8"));
+  const env = parseEnv(readFileSync(resolveConfigPath(base, raw.envFile), "utf8"));
   if (raw.clients?.codex) {
     raw.clients.codex.model = env.TDAI_CODEX_MODEL || env.DS_MODEL;
     raw.clients.codex.port ??= Number(env.TDAI_CODEX_PROXY_PORT || 8096);
@@ -30,7 +37,7 @@ export function validateDualClientConfig(raw: any, base: string): DualClientConf
   if (!raw || typeof raw !== "object") throw new Error("Experiment config must be an object");
   const path = (key: string) => {
     if (typeof raw[key] !== "string" || !raw[key].trim()) throw new Error("Missing " + key);
-    return isAbsolute(raw[key]) ? resolve(raw[key]) : resolve(base, raw[key]);
+    return resolveConfigPath(base, raw[key]);
   };
   const integer = (value: unknown, fallback: number, min: number, max: number) => {
     const n = value === undefined ? fallback : value;

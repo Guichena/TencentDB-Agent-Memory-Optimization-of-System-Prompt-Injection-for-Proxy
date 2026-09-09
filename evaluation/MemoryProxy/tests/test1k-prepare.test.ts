@@ -15,7 +15,7 @@ it("prepares the complete final dataset with portable repository bindings and an
     const result = prepareTest1k(output, 18427);
     const rawConfig = read(result.config);
     expect(rawConfig.assetRunRoot).toBe(".");
-    expect(rawConfig.plan).toBe(join("inputs", "campaign.json"));
+    expect(rawConfig.plan).toBe("inputs/campaign.json");
     const config = readTest1kConfig(output);
     const plan = read(config.plan);
     const dataset = loadFinal5Dataset(config.teamsRoot);

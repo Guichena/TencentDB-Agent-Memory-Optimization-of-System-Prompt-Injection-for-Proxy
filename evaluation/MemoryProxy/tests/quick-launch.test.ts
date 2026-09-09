@@ -1,5 +1,19 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { runClientStages, runFinal5Dual } from "../eval/tool-prompt-bench/run-final5-dual.js";
+import { runClientStages, runFinal5Dual, assertExecutionOutcome } from "../eval/tool-prompt-bench/run-final5-dual.js";
+import { resolveConfigPath } from "../eval/tool-prompt-bench/dual-client-plan.js";
+import { resolve } from "node:path";
+
+it("fails single-case execution while allowing batch diagnostics to remain available", () => {
+  expect(() => assertExecutionOutcome(1, true)).toThrow(/Single-case execution failed/);
+  expect(() => assertExecutionOutcome(0, true)).not.toThrow();
+  expect(() => assertExecutionOutcome(1, false)).not.toThrow();
+});
+
+it("resolves both relative path separator formats from the configuration directory", () => {
+  const base = resolve("relocated repo", "runs", "trial");
+  expect(resolveConfigPath(base, "inputs\\campaign.json")).toBe(resolve(base, "inputs/campaign.json"));
+  expect(resolveConfigPath(base, "../../evaluation/.env")).toBe(resolve(base, "../../evaluation/.env"));
+});
 
 afterEach(() => vi.unstubAllEnvs());
 

@@ -9,7 +9,7 @@ import { restoreFinal5Memories } from "./formal-assets/restore-final5-memories.j
 import { restoreFinal5Skills } from "./formal-assets/restore-final5-skills.js";
 import { installFinal5SkillPool } from "./final5-skill-pool.js";
 import { installManagedShutdown, requireFreePort, startManagedNode } from "./managed-eval-process.js";
-import { readDualClientConfig } from "./dual-client-plan.js";
+import { readDualClientConfig, resolveConfigPath } from "./dual-client-plan.js";
 import { managedEnvironment } from "./managed-eval-config.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -23,7 +23,7 @@ const configPathFields = ["baselineRoot", "v4Root", "proxyConfig", "envFile", "p
 export function readTest1kConfig(output: string) {
   const config = read(join(output, "evaluation.json"));
   for (const field of configPathFields) {
-    if (typeof config[field] === "string") config[field] = resolve(output, config[field]);
+    if (typeof config[field] === "string") config[field] = resolveConfigPath(output, config[field]);
   }
   return config;
 }
@@ -64,7 +64,7 @@ export function prepareTest1k(output: string, corePort = 8427) {
     clients: { codex: { concurrency: 5, providerKeyEnv: "TDAI_CODEX_PROVIDER_API_KEY" }, "claude-code": { concurrency: 5, providerKeyEnv: "TDAI_CLAUDE_PROVIDER_API_KEY" } },
   };
   const portableConfig = { ...config };
-  for (const field of configPathFields) portableConfig[field] = relative(output, config[field]) || ".";
+  for (const field of configPathFields) portableConfig[field] = relative(output, config[field]).replace(/\\/g, "/") || ".";
   write(join(output, "evaluation.json"), portableConfig);
   if (!existsSync(config.envFile)) cpSync(join(root, "evaluation/.env.example"), config.envFile, { errorOnExist: true, force: false });
   return { config: join(output, "evaluation.json"), cases: ids.length, slotsPerClient: plan.slots.length, envFile: config.envFile };
@@ -75,7 +75,13 @@ async function runNode(args: string[], output: string, label: string, env: NodeJ
   mkdirSync(logs, { recursive: true });
   const prefix = join(logs, label + "-" + randomUUID());
   const child = startManagedNode({ args, cwd: root, env, stdout: prefix + ".stdout.log", stderr: prefix + ".stderr.log" });
-  try { if (await child.done !== 0) throw new Error(`${label} failed; see ${prefix}.stderr.log`); }
+  try {
+    const code = await child.done;
+    for (const line of readFileSync(prefix + ".stdout.log", "utf8").split(/\r?\n/)) {
+      if (line.startsWith('{"action":"execution-summary"')) console.log(line);
+    }
+    if (code !== 0) throw new Error(`${label} failed; see ${prefix}.stderr.log`);
+  }
   finally { await child.stop(); }
 }
 
@@ -153,6 +159,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     await runNode([join(root, "scripts/workspace-bundle.mjs"), "auto", "--config", inputConfig, "--bundle", resolve(bundleDirectory), "--output", local], output, "workspaces", process.env);
     await withCore(output, false, async env => {
       const args = ["--use-env-proxy", tsx, join(here, "run-final5-dual.ts"), "--config", join(local, "evaluation.local.json"), "--" + mode, "--quick"];
+      if (caseId) args.push("--fail-on-case-failure");
       if (client !== "both") args.push("--client", client);
       if (variant !== "both") args.push(variant === "V4" ? "--v4-only" : "--baseline-only");
       console.log(JSON.stringify({ mode, outputRoot: config.outputRoot, logs: join(output, "setup-logs") }));

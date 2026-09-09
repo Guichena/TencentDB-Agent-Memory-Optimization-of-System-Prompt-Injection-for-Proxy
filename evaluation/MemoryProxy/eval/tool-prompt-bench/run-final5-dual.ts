@@ -123,6 +123,10 @@ async function runLane(config: DualClientConfig, client: Final5Client, mode: "ch
   }
 }
 
+export function assertExecutionOutcome(failed: number, failOnCaseFailure: boolean) {
+  if (failed > 0 && failOnCaseFailure) throw new Error("Single-case execution failed; see execution-summary and receipt.");
+}
+
 export async function runFinal5Dual(configPath: string, mode: "preview" | "check" | "execute", resume = false, baselineOnly = false, v4Only = false, clientOnly?: Final5Client) {
   const config = readDualClientConfig(configPath);
   if (baselineOnly && v4Only) throw new Error("Select baseline or V4, not both exclusive flags");
@@ -166,6 +170,16 @@ export async function runFinal5Dual(configPath: string, mode: "preview" | "check
       try { if (await worker.done !== 0) throw new Error("Worker failed; see " + join(logs, "stderr.log")); }
       finally { await worker.stop(); }
     }));
+    if (mode === "execute") {
+      const summaries = selectedClients.flatMap(client => (v4Only ? stages.slice(1) : baselineOnly ? stages.slice(0, 1) : stages).map(variant => {
+        const receiptPath = clientStagePaths(config, client, variant).receipt;
+        const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+        return { client, variant, completed: receipt.completed, failed: receipt.failed, receipt: receiptPath };
+      }));
+      const failed = summaries.reduce((total, row) => total + row.failed, 0);
+      console.log(JSON.stringify({ action: "execution-summary", status: failed ? "completed-with-failures" : "execution-completed", outputRoot: config.outputRoot, stages: summaries, note: "Execution completion is not behavioral scoring success." }));
+      assertExecutionOutcome(failed, process.argv.includes("--fail-on-case-failure"));
+    }
   } finally { unlinkSync(lock); }
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

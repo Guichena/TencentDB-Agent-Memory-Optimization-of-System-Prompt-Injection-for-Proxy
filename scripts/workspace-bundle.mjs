@@ -117,7 +117,7 @@ export function prepareBundleConfig(configPath, bundleRoot, outputDirectory, pre
   const base = dirname(resolve(configPath));
   const config = readJson(configPath);
   for (const field of ['baselineRoot', 'v4Root', 'proxyConfig', 'envFile', 'plan', 'workspaceManifest', 'teamsRoot', 'skillCatalogBindings', 'runtimeBindings', 'assetRunRoot']) {
-    if (config[field]) config[field] = resolve(base, config[field]);
+    if (config[field]) config[field] = resolve(base, config[field].replace(/\\/g, '/'));
   }
   const rows = readJson(config.workspaceManifest);
   const plan = readJson(config.plan);
@@ -131,7 +131,7 @@ export function prepareBundleConfig(configPath, bundleRoot, outputDirectory, pre
   });
   mkdirSync(outputDirectory, { recursive: true });
   config.workspaceManifest = resolve(outputDirectory, 'workspace-manifest.local.json');
-  config.outputRoot = preserveOutputRoot && config.outputRoot ? resolve(base, config.outputRoot) : resolve(outputDirectory, 'execution');
+  config.outputRoot = preserveOutputRoot && config.outputRoot ? resolve(base, config.outputRoot.replace(/\\/g, '/')) : resolve(outputDirectory, 'execution');
   writeFileSync(config.workspaceManifest, JSON.stringify(manifest, null, 2) + '\n', { flag: 'wx' });
   const output = resolve(outputDirectory, 'evaluation.local.json');
   writeFileSync(output, JSON.stringify(config, null, 2) + '\n', { flag: 'wx' });

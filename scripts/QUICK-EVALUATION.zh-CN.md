@@ -56,6 +56,10 @@ Codex：
 
 两条命令各自只执行最终集中的 `DVG-T04-T01-C001`，默认使用 V4，结束后自动停止本次服务。每次结果单独落盘，不修改全量计划。可用 `-Variant baseline` 测试基线，或用 `-CaseId <ID>` 更换 Case。单条测试沿用配置中的超时上限，默认 8 分钟。
 
+执行结束会在终端输出 `execution-summary`，列出各客户端、变体的 `completed`、`failed` 及回执路径。Smoke 或显式 `-CaseId` 的单条执行失败时返回非零退出码；全量运行保留已完成结果，有失败时标记 `completed-with-failures`，请结合失败数量和评分覆盖率判断，不以命令退出码代替验收。工具选错、误调用等行为评分失败不等于执行失败。
+
+新配置使用 `/` 保存相对路径，读取时兼容旧相对路径中的 `\`。跨操作系统无法使用原 Windows 绝对路径时会要求重新准备。跨系统应重新安装依赖并 prepare、initialize；不直接复用原系统的数据库、CLI 状态或历史证据。整体移动目录的支持主要针对同一系统保持仓库内部布局的情况。
+
 查看 `runs/test1k/execution/quick-*/<客户端>/V4/execution.json`：`completed=1`、`failed=0` 表示执行完成；同目录的 `execution.json.evidence/` 保存 CLI 日志和 HTTP 采集。这个检查只确认执行及落盘，不代表工具调用或答案评分正确。
 
 ### 全量评测
