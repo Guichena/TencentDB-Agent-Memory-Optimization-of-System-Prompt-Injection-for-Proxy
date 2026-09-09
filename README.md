@@ -52,7 +52,7 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 
 生成链为：运行时契约 → 提示词中间表示 → 工具卡 → 统一注入区。
 
-实现位于 `implementations/final`，对照位于 `implementations/baseline`。详见[任务报告第 3 章](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#3-final-实现)。
+实现位于 `implementations/final`，对照位于 `implementations/baseline`。详见[任务报告的代码优化与方法设计](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#1-代码优化与方法设计)。
 
 ## 数据集
 
@@ -69,7 +69,7 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 
 每条 Case 固定展示 8 个 Skill（本队 3、邻队 5），可搜索池为 240 个 Skill。Gold 按该 Case 实际目录书写合法调用链，且不进入模型输入。
 
-数据路径：`evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/test1k/`。构造说明见[任务报告第 4.1 节](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#41-test1k)与[附录 A](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#附录-a-数据与来源)。
+数据路径：`evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/test1k/`。构造说明见[任务报告的数据来源与数据集构造](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#2-数据来源与数据集构造)与[附录 A](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#附录-a-关键代码依据)。
 
 ## 实验
 
@@ -88,7 +88,7 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 | 工具说明压缩率 | **29.65%** | **29.27%** |
 | 有效调用率 | 95.50% → 92.00% | 94.67% → 92.45% |
 
-信息缺口门控降低误调用，契约化工具卡提高工具选择与完整链成功率，共享协议将工具说明压缩约 29%。完整结果见[任务报告第 5 章](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#5-完成效果)。
+信息缺口门控降低误调用，契约化工具卡提高工具选择与完整链成功率，共享协议将工具说明压缩约 29%。完整结果见[任务报告的实验设定与结果](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md#3-实验设定与结果)。
 
 ## 提交内容
 
