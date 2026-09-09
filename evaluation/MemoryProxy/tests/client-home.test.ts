@@ -1,9 +1,9 @@
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import { isolatedClientEnvironment, prepareClientHome } from "../eval/tool-prompt-bench/client-home.mjs";
+import { isolatedClientEnvironment, limitGitDiscoveryToWorkspace, prepareClientHome } from "../eval/tool-prompt-bench/client-home.mjs";
 import { clientStagePaths, type DualClientConfig } from "../eval/tool-prompt-bench/dual-client-plan.js";
 
 const testRoot = fileURLToPath(new URL("../../../runs/tests/client-home/", import.meta.url));
@@ -53,6 +53,25 @@ describe("shared CLI runtime isolation", () => {
     expect(env).toMatchObject({ Path: "tool-path", HTTPS_PROXY: "http://proxy.test", NODE_EXTRA_CA_CERTS: "ca.pem", CLAUDE_CODE_GIT_BASH_PATH: "bash.exe" });
     expect(env.OPENAI_API_KEY).toBeUndefined();
     expect(env.ANTHROPIC_API_KEY).toBeUndefined();
+  });
+
+  it.each(["codex", "claude-code"] as const)("keeps Git discovery inside an evaluation workspace for %s", (client) => {
+    const parent = attempt();
+    execFileSync("git", ["init", "--quiet", parent], { windowsHide: true });
+    const workspace = join(parent, "workspace");
+    mkdirSync(workspace, { recursive: true });
+    const env = limitGitDiscoveryToWorkspace(isolatedClientEnvironment(process.env, join(attempt(), "home"), client), workspace);
+    expect(env.GIT_CEILING_DIRECTORIES).toBe(resolve(parent).replaceAll("\\", "/"));
+    const git = (cwd: string, environment: NodeJS.ProcessEnv) => spawnSync("git", ["rev-parse", "--show-toplevel"], { cwd, env: environment, encoding: "utf8", windowsHide: true });
+    const unguarded = { ...env };
+    delete unguarded.GIT_CEILING_DIRECTORIES;
+    expect(resolve(git(workspace, unguarded).stdout.trim())).toBe(resolve(parent));
+    expect(git(workspace, env).status).not.toBe(0);
+    const nested = join(workspace, "src");
+    mkdirSync(nested);
+    expect(git(nested, env).status).not.toBe(0);
+    execFileSync("git", ["init", "--quiet", workspace], { env, windowsHide: true });
+    expect(resolve(git(workspace, env).stdout.trim())).toBe(resolve(workspace));
   });
 
   it("places managed workspaces inside the client and variant stage", () => {

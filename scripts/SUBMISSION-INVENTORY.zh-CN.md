@@ -20,9 +20,9 @@
 
 | 文件 | 建议 | 依据或后续工作 |
 | --- | --- | --- |
-| `prepare-final5-test100.ps1` | 保留：数据准备入口 | 文档已使用；调用 catalog 同步、数据校验、输入快照与资产包生成 |
+| `evaluate-test1k.ps1` | 保留：test1k 评测入口 | prepare / initialize / check / execute |
 | `run-final5-evaluation.ps1` | 保留：评测入口 | preview/check/execute 三阶段及 Resume |
-| `final5-evaluation.example.json` | 保留：配置模板 | 当前是作者集 4 Case 示例，不是 test100/test1k 全量配置 |
+| `final5-evaluation.example.json` | 保留：配置模板 | 指向 test1k，4 条 Case 样例 |
 | `audit-final5-input.mjs` | 保留：离线核算 | 审计输入及供应商 usage；依赖汇总脚本的 distribution |
 | `audit-final5-input.test.mjs` | 保留：测试 | 验证 usage 解析 |
 | `final5-static-input.mjs` | 保留：静态 Token 计量 | 依赖 distribution；默认使用评测工程的固定 tokenizer 依赖 |
@@ -40,7 +40,6 @@
 | `check-submission.mjs` / `.test.mjs` | 新增：独立文件预检 | 仅依赖 Node 内置模块；检测缺失文件、仓库外路径与符号链接，支持运行时文件严格检查 |
 | `prepare-workspaces.mjs` / `.test.mjs` | 新增：外部仓库接入 | 导出仓库清单，验证实际 Git 提交后重新生成本机 manifest |
 | `verify-reproduction.ps1` | 新增：统一回归入口 | 覆盖本次提交使用的 Final5 检查、采集、评分和脚本测试 |
-| `FINAL5-TEST100.md` | 候选合并后删除 | 早期排障和“尚未实现”状态；先迁移仍适用的信息并更新引用 |
 | `EXPERIMENT-RUNS.md` | 保留：运行隔离说明 | 运行目录、证据保留与 CLI Home 隔离机制 |
 | `README.md` | 保留：操作索引 | 后续补齐资产恢复入口与正式集流程 |
 
@@ -50,8 +49,8 @@
 
 | 环节 | 入口（相对 `evaluation/MemoryProxy/eval/tool-prompt-bench/`） |
 | --- | --- |
-| 数据及目录 | `formal-dataset/final5/`，含作者集、test100、test1k、catalog 和 manifest |
-| 输入准备 | `prepare-final5-test100.ts`、`build-final5-selection-plan.ts`、`final5-campaign-builder.ts` |
+| 数据及目录 | `formal-dataset/final5/test1k/`，39 队、1,140 条 |
+| 输入准备 | `test1k-entry.ts`、`build-final5-selection-plan.ts`、`final5-campaign-builder.ts` |
 | 资产恢复 | `formal-assets/final5-restore-bundle.ts`、`restore-final5-memories.ts`、`restore-final5-skills.ts` 及其依赖 |
 | 执行与采集 | `run-final5-dual.ts`、`final5-real-executor.ts`、`final5-http-capture.ts` 及客户端运行器 |
 | Gold 与评分 | `final5-gold-compiler.ts`、`measurement-v2/`、`final5-metrics-report.ts` |

@@ -192,7 +192,7 @@ StaticSaving = 1 - sum(T_static_final_i) / sum(T_static_baseline_i)
 - provider 与执行器完整观测尚未接成当前服务对的评分输入；Claude 回执仍传 `proxyUsage: null`。
 - `aggregate.triggerRecall` 对应本文 ECR；`firstActionSelectionAccuracy` 对应 TSR_all；TSR_cond 需从首动作事实另算，不能使用条件终点准确率。
 - 当前 `measurement-v2/scorer.ts` 仍使用终点前缀计算 Strict/Overcall/ToolSPL；完整窗口规则必须先修正并回归，不能直接报告为本文同名指标。
-- test100 文档指定新百条集，但主 runner 仍要求 39 队、1560 条；正式数据版本与派生清单未对齐前，不能写死指标分母。
+- 正式对照集为 test1k：39 队、1,140 条。指标分母以该次运行实际选中样本为准。
 - baseline 固定先跑、final 后跑的阶段顺序可能影响缓存与时间对比；需要控制顺序或只将这两类数据作描述，不能预先保证公平。
 
 建议实施次序：确认本文主指标及数据版本；建立最小共同输入与被动观测适配；用合成轨迹验证公式；跑包含 CALL、NO_CALL 和多步链的固定小批配对；验证原始记录能离线复算；之后再扩大规模。

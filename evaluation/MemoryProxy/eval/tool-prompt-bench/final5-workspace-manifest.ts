@@ -557,7 +557,7 @@ function writeJson(path: string, value: unknown): void {
 export function mergeFinal5WorkspaceShards(options: WorkspaceMergeOptions): WorkspaceMergeResult {
   const paths = outputPaths(options.outputPath);
   const index = loadFinal5CaseIndex(options.teamsRoot);
-  const expectedCaseCount = options.expectedCaseCount ?? 1560;
+  const expectedCaseCount = options.expectedCaseCount ?? 1140;
   const expectedTeamCount = options.expectedTeamCount ?? 39;
   if (index.cases.length !== expectedCaseCount) throw new Error(`formal dataset Case count is ${index.cases.length}; expected ${expectedCaseCount}`);
   if (index.teamIds.size !== expectedTeamCount) throw new Error(`formal dataset Team count is ${index.teamIds.size}; expected ${expectedTeamCount}`);

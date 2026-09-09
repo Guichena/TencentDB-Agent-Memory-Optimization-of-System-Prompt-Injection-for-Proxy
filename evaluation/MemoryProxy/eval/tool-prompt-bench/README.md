@@ -38,11 +38,9 @@
 
 | 目录 | Team 数 | Case 数 | 用途 |
 | --- | ---: | ---: | --- |
-| [final5/teams/](formal-dataset/final5/teams/) | 39 | 1,560 | 原始作者集；4 条 Case 的配置示例从此选择 |
-| [final5/test100/](formal-dataset/final5/test100/README.md) | 10 | 100 | 小规模改写集；40 条 CALL、60 条 NO_CALL |
-| [final5/test1k/](formal-dataset/final5/test1k/README.md) | 39 | 1,140 | 扩展改写集；实际数量以数据和 manifest 为准 |
+| [final5/test1k/](formal-dataset/final5/test1k/README.md) | 39 | 1,140 | 正式对照集 |
 
-数据集名称不自动决定运行内容。运行器会检查数据摘要、`allCaseCount`、选中 Case 的唯一性与归属，不再固定要求 39 队、1,560 条。每个客户端的运行槽位数是所选 Case 数乘以两种变体。
+运行器检查数据摘要、`allCaseCount`、选中 Case 的唯一性与归属。每个客户端的运行槽位数是所选 Case 数乘以两种变体。
 
 <details>
 <summary><strong>每个 Team 的数据文件</strong></summary>
@@ -57,9 +55,7 @@
 
 </details>
 
-作者数据、Skill catalog、campaign plan 和 workspace manifest 必须来自同一组输入。改写 `test100/` 或 `test1k/` 时，不覆盖原始 `final5/teams/`，也不混用其 catalog。运行前生成独立输入快照；开始后不根据模型表现修改 Gold 或选择最佳尝试。
-
-`prepare-final5-test100.ps1` 只生成快照与资产导入包。真实执行前仍需导入资产、读回正文与附件、确认 catalog 可见性，并提供经校验的 runtime bindings。具体命令见[脚本指南](../../../../scripts/README.md)。
+作者数据、Skill catalog、campaign plan 和 workspace manifest 必须来自同一组 test1k 输入。运行前生成独立输入快照；开始后不根据模型表现修改 Gold 或选择最佳尝试。正式评测入口为 [evaluate-test1k.ps1](../../../../scripts/evaluate-test1k.ps1)。
 
 ## 指标口径
 
@@ -101,7 +97,7 @@ HTTP 采集看不到所有未形成请求的错误 CLI 调用意图，因此仅�
 
 ```powershell
 npm --prefix evaluation/MemoryProxy ci
-python evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/test100/validate_test100.py
+python evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/test1k/validate_test1k.py
 npm --prefix evaluation/MemoryProxy test -- `
   --config eval/tool-prompt-bench/measurement-v2/vitest.config.ts `
   final5-metrics-report final5-capture-pipeline final5-full-episode

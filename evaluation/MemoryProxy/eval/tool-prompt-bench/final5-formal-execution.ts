@@ -26,7 +26,7 @@ export async function executeFinal5Campaign(input: {
   const rows = selectFinal5Cases(dataset, input.plan.selectedCaseIds);
   const byId = new Map(rows.map((r) => [r.case_id, r]));
   const concurrency = input.concurrency ?? 1;
-  if (!Number.isSafeInteger(concurrency) || concurrency < 1 || concurrency > 5) throw new Error("final5 concurrency must be an integer from 1 to 5");
+  if (!Number.isSafeInteger(concurrency) || concurrency < 1 || concurrency > 10) throw new Error("final5 concurrency must be an integer from 1 to 10");
   const run = async (record?: Parameters<Parameters<typeof withExecutionCheckpoint>[1]>[0]) => {
     const results: Final5SlotResult[] = new Array(input.plan.slots.length);
     let nextIndex = 0;

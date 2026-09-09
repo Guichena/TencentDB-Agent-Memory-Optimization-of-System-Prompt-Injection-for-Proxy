@@ -1,7 +1,8 @@
 # Experiment run directories
 
 Generated data belongs under the submission's `runs/` directory, separate from
-the input dataset in `evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/`.
+the sole input dataset in `evaluation/MemoryProxy/eval/tool-prompt-bench/formal-dataset/final5/test1k/`
+(39 teams, 1,140 cases).
 Existing run directories are not moved or rewritten.
 
 ## Final5
@@ -42,6 +43,12 @@ Home, AppData, XDG config/data/state/cache, and temporary directories. Codex
 also redirects its configuration and SQLite directories. Only allowlisted
 runtime variables are inherited; the runner adds the selected credentials.
 Executables are resolved before the child environment is isolated.
+
+Both case runners limit Git discovery at the workspace parent. Plain source
+snapshots must not discover the submission repository above them or inject its
+status and parent-relative paths into model requests. Real Git repositories at
+the case workspace root remain available. This is a Git discovery boundary,
+not a restriction on arbitrary file access by the CLI.
 
 Final5 cleans per-attempt runtime and task workspace directories on normal
 completion or handled failure, retaining raw evidence. An abrupt controller

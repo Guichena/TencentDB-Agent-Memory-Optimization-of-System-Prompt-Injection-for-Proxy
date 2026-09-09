@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { buildFinal5CampaignPlan } from "./final5-campaign-builder.js";
 import { loadFinal5Dataset } from "./final5-formal-datasource.js";
 
-const teamsRoot = process.env.FINAL5_TEAMS_ROOT ?? fileURLToPath(new URL("./formal-dataset/final5/teams", import.meta.url));
+const teamsRoot = process.env.FINAL5_TEAMS_ROOT ?? fileURLToPath(new URL("./formal-dataset/final5/test1k/teams", import.meta.url));
 const campaignId = process.env.FINAL5_SELECTION_CAMPAIGN_ID?.trim();
 const outputPath = process.env.FINAL5_SELECTION_OUTPUT?.trim();
 const caseIds = (process.env.FINAL5_SELECTION_CASE_IDS ?? "")

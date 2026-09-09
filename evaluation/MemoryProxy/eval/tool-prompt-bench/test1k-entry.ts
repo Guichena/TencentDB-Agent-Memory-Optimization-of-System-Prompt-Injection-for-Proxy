@@ -149,7 +149,9 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     const local = join(output, "bound-" + randomUUID());
     let inputConfig = join(output, "evaluation.json");
     if (caseId) {
-      const plan = buildFinal5CampaignPlan(loadFinal5Dataset(config.teamsRoot), "single-case-" + randomUUID(), [caseId]);
+      const caseIds = caseId.split(",").map((id) => id.trim()).filter(Boolean);
+      if (!caseIds.length) throw new Error("CaseId must contain at least one Case ID");
+      const plan = buildFinal5CampaignPlan(loadFinal5Dataset(config.teamsRoot), "selected-cases-" + randomUUID(), caseIds);
       mkdirSync(local, { recursive: true });
       const planPath = join(local, "selected-plan.json");
       write(planPath, plan);

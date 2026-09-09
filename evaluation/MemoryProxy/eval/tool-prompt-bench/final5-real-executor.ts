@@ -1,4 +1,4 @@
-import { isolatedClientEnvironment, prepareClientHome } from "./client-home.mjs";
+import { isolatedClientEnvironment, limitGitDiscoveryToWorkspace, prepareClientHome } from "./client-home.mjs";
 import { executeCodexProcess, buildCodexConfigArgs, buildCodexInvocation, resolveCodexInvocation } from "./codex-runner.js";
 import { spawn, execFile, execFileSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
@@ -175,6 +175,7 @@ export async function executeFinal5NativeSlot(slot: Final5CampaignPlan["slots"][
       TDAI_CODEX_PROVIDER_API_KEY: process.env.FINAL5_PROVIDER_API_KEY ?? process.env.DS_API_KEY ?? "",
       TDAI_MEMORY_USER_KEY: process.env.TDAI_MEMORY_USER_KEY ?? "",
     };
+    limitGitDiscoveryToWorkspace(environment, isolatedWorkspace);
     prepareClientHome(environment);
     timings.prepareMs = performance.now() - totalStart;
     const clientStart = performance.now();

@@ -53,7 +53,7 @@ export function validateDualClientConfig(raw: any, base: string): DualClientConf
     }
     const providerKeyEnv = item.providerKeyEnv ?? (name === "codex" ? "TDAI_CODEX_PROVIDER_API_KEY" : "TDAI_CLAUDE_PROVIDER_API_KEY");
     if (!/^[A-Z_][A-Z0-9_]*$/.test(providerKeyEnv)) throw new Error("Invalid provider key environment name");
-    return { model: item.model.trim(), port: integer(item.port, port, 1024, 65535), concurrency: integer(item.concurrency, 1, 1, 5), upstreamUrl: item.upstreamUrl, providerKeyEnv };
+    return { model: item.model.trim(), port: integer(item.port, port, 1024, 65535), concurrency: integer(item.concurrency, 1, 1, 10), upstreamUrl: item.upstreamUrl, providerKeyEnv };
   };
   const config: DualClientConfig = { baselineRoot: path("baselineRoot"), v4Root: path("v4Root"), proxyConfig: path("proxyConfig"), envFile: path("envFile"),
     plan: path("plan"), workspaceManifest: path("workspaceManifest"), teamsRoot: path("teamsRoot"), skillCatalogBindings: path("skillCatalogBindings"), outputRoot: path("outputRoot"),

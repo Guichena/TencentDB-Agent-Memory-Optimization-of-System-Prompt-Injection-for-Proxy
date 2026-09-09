@@ -1,8 +1,8 @@
 {
   "schemaVersion": "task1.final5-campaign-plan.v1",
   "campaignId": "task1-final5-small-compare-20260907",
-  "datasetDigest": "6522708a8638e51f7ef452201abe577f2805c17136d5b52894b7866bbe1a958c",
-  "allCaseCount": 1560,
+  "datasetDigest": "c4df4c6fc6c70212d9b1b8888127d48ba232a5db77560bd74b94c0dcafa90cf4",
+  "allCaseCount": 1140,
   "selectedCaseIds": [
     "DVG-T04-T01-C001",
     "DVG-T04-T01-C002",
@@ -55,5 +55,5 @@
       "repeat": 1
     }
   ],
-  "planSha256": "2376cec5b8ed56a64198d108c959be6d19b3676c8592221587157cd8e2a43a63"
+  "planSha256": "ca8d7bf0447e2c5898ab5b74e465f5e453843a8914c45550e3aab8ead2c9a32c"
 }

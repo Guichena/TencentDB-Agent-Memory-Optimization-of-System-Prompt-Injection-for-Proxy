@@ -1,5 +1,5 @@
 import { mkdirSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 
 const allowed = new Set([
   "PATH", "PATHEXT", "SYSTEMROOT", "WINDIR", "COMSPEC", "TEMP", "TMP", "TMPDIR",
@@ -32,6 +32,17 @@ export function isolatedClientEnvironment(source, home, client) {
   const environment = Object.fromEntries(Object.entries(clientRuntimeEnvironment(source))
     .filter(([name]) => !overridden.has(name.toUpperCase())));
   return { ...environment, ...paths };
+}
+
+// Claude Code asks Git for repository status during startup. Evaluation
+// workspaces may be nested under the harness repository without containing
+// their own `.git`, so Git would otherwise walk upward and expose the harness
+// status as paths such as `../../..`. Keep discovery inside the case workspace.
+export function limitGitDiscoveryToWorkspace(environment, workspace) {
+  // Git ignores a ceiling equal to its starting directory. Stop before the
+  // parent instead; a real repository at the workspace root remains usable.
+  environment.GIT_CEILING_DIRECTORIES = dirname(resolve(workspace)).replaceAll("\\", "/");
+  return environment;
 }
 
 export function prepareClientHome(environment) {

@@ -1,4 +1,4 @@
-import { isolatedClientEnvironment, prepareClientHome } from "./client-home.mjs";
+import { isolatedClientEnvironment, limitGitDiscoveryToWorkspace, prepareClientHome } from "./client-home.mjs";
 import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { join, resolve } from "node:path";
@@ -201,7 +201,10 @@ export async function runClaudeCodeCase(options: ClaudeCodeRunOptions): Promise<
     buildClaudeCodeInvocation({ workspaceDir, model: isClaudeCliModel(options.model) ? options.model : "sonnet", prompt: options.prompt, systemInstructions: options.systemInstructions }),
     { explicitExecutable: options.claudeExecutable },
   );
-  const environment = isolateClaudeEnvironment(process.env, isolatedHome, isolatedConfigDir);
+  const environment = limitGitDiscoveryToWorkspace(
+    isolateClaudeEnvironment(process.env, isolatedHome, isolatedConfigDir),
+    workspaceDir,
+  );
   prepareClientHome(environment);
   const apiKeyEnv = options.anthropicApiKeyEnv ?? "ANTHROPIC_API_KEY";
   const apiKey = process.env[apiKeyEnv] ?? process.env.DS_API_KEY ?? "";

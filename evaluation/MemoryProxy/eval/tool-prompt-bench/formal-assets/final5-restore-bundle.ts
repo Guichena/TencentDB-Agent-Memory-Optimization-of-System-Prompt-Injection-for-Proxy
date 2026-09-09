@@ -59,7 +59,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const root = resolve(dirname(fileURLToPath(import.meta.url)), "../formal-dataset/final5");
   if (!process.argv[2]) throw new Error("Usage: final5-restore-bundle.ts <new output.json>");
   const config = process.argv[3] ? JSON.parse(readFileSync(resolve(process.argv[3]), "utf8")) : undefined;
-  const bundle = buildFinal5RestoreBundle(config?.teamsRoot ?? resolve(root, "test100/teams"), config ? dirname(config.skillCatalogBindings) : resolve(root, "test100/skill-catalog"), resolve(root, "teams"));
+  const bundle = buildFinal5RestoreBundle(config?.teamsRoot ?? resolve(root, "test1k/teams"), config ? dirname(config.skillCatalogBindings) : resolve(root, "test1k/skill-catalog"), resolve(root, "test1k/teams"));
   writeFileSync(resolve(process.argv[2]), JSON.stringify(bundle, null, 2) + "\n", { flag: "wx" });
   console.log(JSON.stringify({ status: "prepared-not-imported", teams: bundle.identities.length, memories: bundle.memories.length,
     skills: bundle.skills.length, resources: bundle.skills.reduce((n, skill) => n + skill.resources.length, 0), bundleSha256: bundle.bundleSha256 }));

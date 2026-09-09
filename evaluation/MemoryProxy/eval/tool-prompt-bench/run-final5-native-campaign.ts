@@ -139,13 +139,13 @@ function emptySkillCatalogCoverage(path: string, expectedCaseIds: readonly strin
 export async function runFinal5NativeCampaign(): Promise<Final5WorkspacePreview | Record<string, unknown>> {
   const sourceDirectory = dirname(fileURLToPath(import.meta.url));
   const datasetRoot = resolve(sourceDirectory, "formal-dataset/final5");
-  const teamsRoot = process.env.FINAL5_TEAMS_ROOT ?? resolve(datasetRoot, "teams");
+  const teamsRoot = process.env.FINAL5_TEAMS_ROOT ?? resolve(datasetRoot, "test1k/teams");
   const base = process.env.FINAL5_RUN_ROOT ?? resolve(sourceDirectory, "../../../../runs/final5-native");
   const planPath = process.env.FINAL5_PLAN ?? resolve(datasetRoot, "manifests/final5-campaign-plan-small-compare-4.json");
   const parentPlan = planFromFile(planPath);
   const stage = evaluationStage(process.env.FINAL5_VARIANT ?? "", process.env.FINAL5_PROXY);
   const concurrency = Number(process.env.FINAL5_CONCURRENCY ?? 1);
-  if (!Number.isSafeInteger(concurrency) || concurrency < 1 || concurrency > 5) throw new Error("FINAL5_CONCURRENCY must be 1..5");
+  if (!Number.isSafeInteger(concurrency) || concurrency < 1 || concurrency > 10) throw new Error("FINAL5_CONCURRENCY must be 1..10");
   const client = parseFinal5Client(process.env.FINAL5_CLIENT);
   const plan = selectNativeStagePlan(parentPlan, stage.variant, client);
   const outputPath = process.env.FINAL5_RECEIPT ?? `${base}/${plan.campaignId}-execution.json`;
@@ -164,7 +164,7 @@ export async function runFinal5NativeCampaign(): Promise<Final5WorkspacePreview 
   if (new Set(plan.selectedCaseIds).size !== plan.selectedCaseIds.length || plan.selectedCaseIds.some(id => !dataset.records.some(row => row.case_id === id))) throw new Error("Invalid campaign selection");
   if (plan.allCaseCount !== dataset.records.length) throw new Error(`campaign plan allCaseCount mismatch: ${plan.allCaseCount}`);
   const skillCatalogBindingsPath = process.env.FINAL5_SKILL_CATALOG_BINDINGS
-    ?? resolve(datasetRoot, "skill-catalog/case-skill-catalog.jsonl");
+    ?? resolve(datasetRoot, "test1k/skill-catalog/case-skill-catalog.jsonl");
   const expectedCaseIds = dataset.records.map((record) => record.case_id);
   let skillCatalogByCase = new Map<string, FrozenSkillCatalogPayload>();
   let skillCatalogCoverage: SkillCatalogCoverage;
@@ -201,7 +201,6 @@ export async function runFinal5NativeCampaign(): Promise<Final5WorkspacePreview 
     throw new Error(`missing frozen Skill catalog binding for ${skillCatalogCoverage.missingCaseIds.length} Cases`);
   }
   const runtimeBindingsPath = process.env.FINAL5_RUNTIME_BINDINGS;
-  if (resolve(teamsRoot).split(/[\\/]/u).includes("test100") && !runtimeBindingsPath) throw new Error("test100 requires FINAL5_RUNTIME_BINDINGS from verified asset restore; shared environment identity is not valid");
   const runtimeBindings = runtimeBindingsPath ? loadFinal5RuntimeBindings(runtimeBindingsPath, dataset.sourceDigest, dataset.teams, !quick) : undefined;
   const { runFinal5Slot } = await import("./final5-real-executor.js");
   const { probeFinal5NativeReady, resolveFinal5Cli, readFinal5CliVersion } = await import("./native-protocol-preflight.js");

@@ -1,6 +1,6 @@
 # test1k
 
-正式对照集：**39 队、1140 条**。不改 `final5/teams/` 原 1560，不管 `test100/`。
+正式对照集：**39 队、1,140 条**。
 
 ## 状态（已收口）
 
@@ -18,12 +18,12 @@ FINAL5_TEAMS_ROOT=.../formal-dataset/final5/test1k/teams
 FINAL5_SKILL_CATALOG_BINDINGS=.../formal-dataset/final5/test1k/skill-catalog/case-skill-catalog.jsonl
 ```
 
-restore 必须导入本目录 Memory + Skill（含 `files[]`）。不要和 test100 同一 TDAI space。
+restore 必须导入本目录 Memory + Skill（含 `files[]`）。
 
 ## 不要做
 
-- 不要重跑 `build_scaffold.py`（会打回旧稿）。
-- 不要改已有 `case_id`。L2 另目录 `test-layer/`，不写进本集。
+- 不要重新生成或混入其它版本的数据集。
+- 不要改已有 `case_id`。
 
 ## 文件
 
