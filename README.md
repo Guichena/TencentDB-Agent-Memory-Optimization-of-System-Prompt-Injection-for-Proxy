@@ -13,7 +13,7 @@
 
 ---
 
-本提交完成 MemoryProxy 工具说明注入优化。针对 Memory、Skill、Knowledge 三类工具，在应调用时发起真实 TDAI HTTP，在上下文充分或普通编码任务中保持不调用，并压缩完整工具说明。工作包括注入改造、test1k 构造，以及 Codex CLI 与 Claude Code CLI 上的 baseline / final 对照实验。
+本提交完成 MemoryProxy 工具说明注入优化。针对 Memory、Skill二类工具，在应调用时发起真实 TDAI HTTP，在上下文充分或普通编码任务中保持不调用，并压缩完整工具说明。工作包括注入改造、test1k 构造，以及 Codex CLI 与 Claude Code CLI 上的 baseline / final 对照实验。
 
 | 优化目标 | Final 的实现方式 | 验证方式 |
 | --- | --- | --- |
