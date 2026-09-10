@@ -6,6 +6,7 @@
 - 客户端：单选 `claude-code` 或 `codex`。
 - 并发：`--concurrency 5`，允许 1 到 10。
 - 版本：`--variant both` 先跑 baseline，再跑 V4；也可单选。
+- 计分：全部运行结束后手动执行 `results.ts score`，运行期间只保存证据和回执。
 
 共用现有 implementations、evaluation 和 workspaces 目录，不复制源码。V4 使用当前 implementations/final，运行前记录源码指纹。
 

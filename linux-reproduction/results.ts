@@ -21,8 +21,12 @@ if(mode==='status'){
     }
   }
 }else{
+  if(existsSync(join(quick,'controller.lock')))throw Error('Experiment is still running or has a stale controller lock; confirm it has stopped before scoring.');
+  for(const variant of ['server_team','V4']){
+    if(!existsSync(join(quick,client,variant,'execution.json')))throw Error('Wait for both baseline and V4 execution receipts before scoring.');
+  }
   const config=read(join(quick,'launch-config.json'));
-  const output=join(quick,client,'report-recomputed-'+Date.now());
+  const output=join(quick,client,'report-'+Date.now());
   const report=collectFinal5Evidence(resolve(quick,config.teamsRoot),join(quick,client),client as 'codex'|'claude-code',output);
   console.log(JSON.stringify({output,status:report.status,comparison:report.comparison,coverage:report.coverage}));
 }

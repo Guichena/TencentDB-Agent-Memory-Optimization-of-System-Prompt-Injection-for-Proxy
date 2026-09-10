@@ -7,9 +7,8 @@ import { readDualClientConfig, clientStagePaths, type DualClientConfig } from ".
 import { sourceFingerprint, sourceContractProblems, managedEnvironment, managedProxyConfig } from "./managed-eval-config.js";
 import { startManagedNode, requireFreePort, waitManagedHealth, installManagedShutdown } from "./managed-eval-process.js";
 import { executionHash } from "./execution-checkpoint.js";
-import { mergeStageReceipts, verifyStageReceipt } from "./merge-stage-receipts.js";
+import { verifyStageReceipt } from "./merge-stage-receipts.js";
 import type { Final5Client } from "./final5-task-input.js";
-import { collectFinal5Evidence } from "./collect-final5-evidence.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const proxyPackage = resolve(here, "../..");
@@ -113,14 +112,7 @@ async function runLane(config: DualClientConfig, client: Final5Client, mode: "ch
       await proxy.stop();
     }
   }, baselineOnly, v4Only);
-  if (mode === "execute" && !baselineOnly && !v4Only) {
-    const baseline = JSON.parse(readFileSync(clientStagePaths(config, client, "server_team").receipt, "utf8"));
-    const v4 = JSON.parse(readFileSync(clientStagePaths(config, client, "V4").receipt, "utf8"));
-    const report = mergeStageReceipts(baseline, v4);
-    const output = join(config.outputRoot, client, "paired.json");
-    if (!existsSync(output)) writeFileSync(output, JSON.stringify(report, null, 2), { flag: "wx" });
-    collectFinal5Evidence(config.teamsRoot, join(config.outputRoot, client), client, join(config.outputRoot, client, "report"));
-  }
+  // Execution only persists receipts and raw evidence. Score explicitly after all stages finish.
 }
 
 export function assertExecutionOutcome(failed: number, failOnCaseFailure: boolean) {

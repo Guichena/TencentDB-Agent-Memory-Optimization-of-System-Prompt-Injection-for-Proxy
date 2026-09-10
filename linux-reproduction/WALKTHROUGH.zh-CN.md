@@ -17,7 +17,7 @@ RUN="linux-${DATASET}-${CLIENT}-01"
 bash linux-reproduction/setup.sh "$CLIENT"
 ```
 
-新增文件尚未推送，克隆版本需包含 linux-reproduction 目录。使用专用测试机器，不挂载私人凭据。
+克隆版本需包含 linux-reproduction 目录。使用专用测试机器，不挂载私人凭据。
 
 ## 2. 填写模型配置
 
@@ -71,14 +71,15 @@ bash linux-reproduction/run.sh run --dataset "$DATASET" --client "$CLIENT" --run
 ```bash
 QUICK="runs/$RUN/execution/quick-实际UUID"
 node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/results.ts status "$QUICK" "$CLIENT"
-cat "$QUICK/$CLIENT/report/report.md"
 ```
 
-两阶段结束后自动计分。comparison.json 保存分母和覆盖数，case-scores.jsonl 保存逐条得分。需要重新计分时执行：
+全部运行结束后，手动计分：
 
 ```bash
 node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/results.ts score "$QUICK" "$CLIENT"
 ```
+
+命令会打印报告目录。打开其中的 report.md 查看指标，comparison.json 查看覆盖数，case-scores.jsonl 查看逐条得分。运行期间不自动计分。
 
 ## 注意
 

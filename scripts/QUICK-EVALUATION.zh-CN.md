@@ -80,7 +80,7 @@ Codex：
 
 入口自动绑定外部源码、启动 Core、运行评测，结束或失败后关闭本次启动的服务。可先用 `-Mode check` 检查服务及运行输入。外部源码放在其他位置时添加 `-BundleRoot <目录>`。
 
-执行日志位于 `runs/test1k/setup-logs/`；结果位于 `runs/test1k/execution/quick-*/`，其中 `launch-config.json` 保存实际配置。两种变体全部执行完成后运行器自动收集对比报告。只选一个变体时保留执行证据，不生成双变体对比。每次 execute 创建新结果目录，不覆盖旧结果，也不续跑上次执行。
+执行日志位于 `runs/test1k/setup-logs/`；结果位于 `runs/test1k/execution/quick-*/`，其中 `launch-config.json` 保存实际配置。运行器只保存执行证据和回执，不自动计分。两种变体全部结束后，手动执行 `node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/results.ts score <本次quick目录> <codex或claude-code>` 生成报告。每次 execute 创建新结果目录，不覆盖旧结果，也不续跑上次执行。
 
 当前入口采用 Quick 模式，保留采集和评分，结果标记为 `quick`。它不提供严格源码指纹复现保证。修改数据或资产后应另建运行目录；不要修改已初始化快照。
 
