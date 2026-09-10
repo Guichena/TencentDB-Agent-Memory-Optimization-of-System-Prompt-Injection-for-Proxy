@@ -112,17 +112,18 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 
 支持前 250 条和全量 1,140 条，单选 Claude Code 或 Codex、设置并发。补跑后仍有失败不阻止计分，不可评分的 Case 排除出指标分母，并在报告中保留缺失数量；无需继续补跑至清零。两版本对比使用双方可评分的同 Case 交集。
 
-完成教程中的准备和初始化后，选择对应入口：
+完成教程中的准备和初始化后，沿用已设置的 CLIENT、RUN，选择对应入口：
 
 ```bash
-CLIENT=claude-code  # 或 codex
 # 前 250 条
-bash linux-reproduction/evaluate-250.sh run --client "$CLIENT" --run "linux-250-${CLIENT}-01" --concurrency 5
+bash linux-reproduction/evaluate-250.sh run --client "$CLIENT" --run "$RUN" --concurrency 5
 # 全量 1,140 条
-bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "linux-full-${CLIENT}-01" --concurrency 5
+bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "$RUN" --concurrency 5
 ```
 
 `claude-code` 可替换为 `codex`。prepare、initialize 和 run 使用相同的 `--run` 名称；省略时使用各入口对应的默认名称。
+
+源码 ZIP 解压到仓库根目录，得到 `workspaces/bundle.json`。做过补跑后，使用两边最新 audit 执行 `score-audits`，不要用 `results.ts score` 计算单轮目录。新终端需按教程恢复 Node 和实验变量。
 
 默认并发 5，单 Case 超时 8 分钟，真实执行会产生模型调用费用。每次运行创建独立结果目录，计分手动执行。Quick 模式不提供严格源码冻结保证。
 
