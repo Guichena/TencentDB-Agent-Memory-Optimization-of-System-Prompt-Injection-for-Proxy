@@ -9,6 +9,8 @@ import { aggregateProviderUsage, summarizeProviderUsage } from "./final5-provide
 import { verifyStageReceipt } from "./merge-stage-receipts.js";
 import type { Final5ExecutionReceipt } from "./final5-formal-execution.js";
 import { executionHash } from "./execution-checkpoint.js";
+import { ATTEMPT_POLICY } from './attempt-policy.js';
+import { assessAttempt } from './assess-attempt.js';
 
 export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, client: "codex" | "claude-code", output: string, options: { variant?: 'server_team' | 'V4' } = {}) {
   if (options.variant !== undefined && !['server_team', 'V4'].includes(options.variant)) throw new Error('Invalid scoring variant');
@@ -18,6 +20,7 @@ export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, cli
   const allUsage = { server_team: [] as ReturnType<typeof summarizeProviderUsage>["requests"][number][], V4: [] as ReturnType<typeof summarizeProviderUsage>["requests"][number][] };
   const sources: { path: string; sha256: string }[] = [];
   const missing: { caseId: string; variant: string; attempt: number }[] = [];
+  const dispositions: any[] = [];
   let comparisonHash: string | undefined;
   let selectedCaseIds: Set<string> | undefined;
   const variants = options.variant ? [options.variant] : ['server_team', 'V4'] as const;
@@ -47,25 +50,33 @@ export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, cli
       let selected = false;
       for (const attempt of attempts) {
         const directory = attempt.evidenceDirectory;
-        if (!directory) { missing.push({ caseId: result.caseId, variant, attempt: attempt.attempt }); continue; }
+        if (!directory) { missing.push({ caseId: result.caseId, variant, attempt: attempt.attempt }); dispositions.push({caseId:result.caseId,variant,attempt:attempt.attempt,category:'retry',retryRequired:true,reason:'missing-evidence-directory'}); continue; }
         const rel = relative(stage, resolve(directory));
         if (rel === ".." || rel.startsWith("..\\") || rel.startsWith("../") || isAbsolute(rel)) throw new Error("Evidence directory outside stage");
-        if (!existsSync(resolve(directory, "attempt-capture.json"))) { missing.push({ caseId: result.caseId, variant, attempt: attempt.attempt }); continue; }
-        const { manifest, events, intentEvidence } = readAttemptCapture(directory);
+        if (!existsSync(resolve(directory, "attempt-capture.json"))) { missing.push({ caseId: result.caseId, variant, attempt: attempt.attempt }); dispositions.push({caseId:result.caseId,variant,attempt:attempt.attempt,category:'retry',retryRequired:true,reason:'missing-attempt-capture'}); continue; }
+        let captured: ReturnType<typeof readAttemptCapture>;
+        try { captured=readAttemptCapture(directory); }
+        catch { missing.push({caseId:result.caseId,variant,attempt:attempt.attempt});dispositions.push({caseId:result.caseId,variant,attempt:attempt.attempt,category:'retry',retryRequired:true,reason:'invalid-capture-files'});continue; }
+        const { manifest, events, intentEvidence } = captured;
         if (manifest.client !== client || manifest.variant !== variant || manifest.caseId !== result.caseId || manifest.repeat !== result.repeat) throw new Error("Attempt manifest mismatch");
-        const projected = projectFinal5Evidence(row, dataset.sourceDigest, manifest, events, intentEvidence);
+        const assessment=assessAttempt({ ...attempt, trace: (attempt as any).trace ?? (result as any).trace },client,variant,row,dataset.sourceDigest,directory);
+        const {evidence: accepted, ...policy}=assessment as any;
+        const projected=accepted??projectFinal5Evidence(row,dataset.sourceDigest,manifest,events,intentEvidence);
+        const eligible=assessment.scorable;
+        dispositions.push({caseId:result.caseId,variant,attempt:attempt.attempt,...policy,selected:!selected && eligible});
         allUsage[variant].push(...projected.providerUsage!.requests);
         for (const name of ["attempt-capture.json", "http-events.jsonl"]) {
           const source = resolve(directory, name);
           if (existsSync(source)) sources.push({ path: source, sha256: createHash("sha256").update(readFileSync(source)).digest("hex") });
         }
-        if (!selected && attempt.status === "completed") { evidence.push(projected); selected = true; }
+        if (!selected && eligible) { evidence.push(projected); selected = true; }
       }
     }
   }
   const selectedRecords = dataset.records.filter(row => selectedCaseIds?.has(row.case_id));
   const report = { ...buildFinal5MetricsReport({ ...dataset, records: selectedRecords }, evidence, client), sources, attemptsMissingCapture: missing,
     scope: options.variant ? 'single-variant' : 'paired-comparison', selectedVariant: options.variant ?? null, executionCoverage,
+    attemptPolicy: ATTEMPT_POLICY, attemptDispositions: dispositions,
     singleVariantMetrics: undefined as Record<string, { numerator: number; denominator: number; value: number | null }> | undefined,
     costAllAttempts: { server_team: aggregateProviderUsage(allUsage.server_team, true), V4: aggregateProviderUsage(allUsage.V4, true) } };
   if (options.variant) {

@@ -90,8 +90,33 @@ node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/res
 ## 注意
 
 - 每次运行生成新目录，不自动续跑；试跑与正式结果分开保存。
-- 失败不会自动补跑或合并。补跑可加 `--case ID --variant baseline` 或 `--variant V4`，但不会更新原报告。
-- 标准评分仅纳入 completed；有缺失时不能称为完整结果。行为低分不能作为重跑理由。
+- 正常完成且证据完整的记录，以及持续活动满 8 分钟、证据足够的超时记录，按实际工具行为计分。低分不重跑。
+- 临近超时固定为最后真实活动距结束不超过 180 秒；HTTP 200、心跳和重连不算。旧日志用文件时间时会标注，迁移日志需保留时间戳。
+- 超时证据不足标为 `unscorable_timeout`。缺文件/损坏等采集故障进入补跑；仅有未闭合请求、无法确认缺失原因的先列入人工复核，不猜分也不自动重跑。
 - 换客户端或数据集时换一个 RUN，重新初始化；源码无需复制。
 - Linux 离线检查已通过，实机模型试跑尚未验证。
 - 仍使用 Quick 协议，不能称为严格 formal 复现。CI 不包含真实上游调用；公开源码包发布和真实 Linux 模型试跑需另行完成。
+
+## 扫描、补跑、合并
+
+全部停止后，扫描同一 RUN 内各轮记录，生成补跑清单：
+
+```bash
+bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" baseline
+```
+
+把输出的 audit 路径填入下面命令，只补跑清单中的 Case：
+
+```bash
+bash linux-reproduction/run.sh retry --dataset "$DATASET" --client "$CLIENT" --run "$RUN" --retry-plan "runs/实际路径/retry.json" --concurrency 5
+```
+
+补跑后重新 audit，旧清单不可重复使用。V4 同理，把 audit 最后的 baseline 改为 V4。`needsReview` 不为零时先核查日志。
+
+拿到两边最新 audit 路径后，手动合并计分：
+
+```bash
+bash linux-reproduction/run.sh score-audits "baseline的retry.json路径" "V4的retry.json路径"
+```
+
+同一 Case 选择最早可评分 attempt，保留来源，不覆盖原日志。不同模型、上游或 runner 条件的记录拒绝自动混合。补跑后仍有缺失时，报告保持缺失，不当成完整全量结果。

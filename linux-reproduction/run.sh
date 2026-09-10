@@ -10,4 +10,12 @@ if [[ "${1:-}" == doctor ]]; then
   shift
   exec node doctor.mjs "$@"
 fi
+if [[ "${1:-}" == audit ]]; then
+  shift
+  exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs audit-retries.ts "$@"
+fi
+if [[ "${1:-}" == score-audits ]]; then
+  shift
+  exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs score-audits.ts "$@"
+fi
 exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs entry.ts "$@"

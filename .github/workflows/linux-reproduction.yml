@@ -33,7 +33,7 @@ jobs:
         run: |
           npm --prefix linux-reproduction test
           node --test scripts/workspace-bundle.test.mjs
-          npm --prefix evaluation/MemoryProxy test -- tests/process-lock.test.ts tests/manual-scoring.test.ts tests/dual-client-config.test.ts eval/tool-prompt-bench/measurement-v2/__tests__/final5-capture-pipeline.test.ts
+          npm --prefix evaluation/MemoryProxy test -- tests/process-lock.test.ts tests/manual-scoring.test.ts tests/attempt-policy.test.ts tests/retry-audit.test.ts tests/dual-client-config.test.ts eval/tool-prompt-bench/measurement-v2/__tests__/final5-capture-pipeline.test.ts
       - name: Prepare and initialize real local Core without provider credentials
         run: |
           bash linux-reproduction/run.sh prepare --dataset first250 --client '${{ matrix.client }}' --run ci-linux --concurrency 1

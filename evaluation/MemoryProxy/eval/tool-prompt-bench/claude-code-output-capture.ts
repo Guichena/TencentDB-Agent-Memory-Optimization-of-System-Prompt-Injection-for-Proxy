@@ -2,6 +2,7 @@ import { closeSync, openSync, writeSync } from "node:fs";
 import { join } from "node:path";
 import type { CodexProcessExecutionInput, CodexProcessExecutionResult } from "./codex-runner.js";
 import { inspectClaudeLifecycle } from "./claude-code-event-parser.js";
+import { createActivityTracker } from './attempt-policy.js';
 
 export const CLAUDE_CODE_EVENTS_FILE = "claude-code-events.jsonl";
 export const CLAUDE_CODE_STDERR_FILE = "claude-code-stderr.log";
@@ -16,6 +17,9 @@ export async function executeClaudeWithRawCapture(
   let stderrFd: number | undefined;
   let statusFd: number | undefined;
   const captured = { stdout: "", stderr: "" };
+  const activity = createActivityTracker('claude-code');
+  let streamed = false;
+  const executionStart=performance.now();
   let active = true;
   try {
     stderrFd = openSync(join(directory, CLAUDE_CODE_STDERR_FILE), "wx");
@@ -36,6 +40,7 @@ export async function executeClaudeWithRawCapture(
       ...input,
       onOutput: (stream, chunk) => {
         append(stream, chunk);
+        if(stream==='stdout'){streamed=true;activity.append(chunk);}
         input.onOutput?.(stream, chunk);
       },
     });
@@ -52,7 +57,9 @@ export async function executeClaudeWithRawCapture(
       stderrBytes: Buffer.byteLength(captured.stderr),
       exitCode: result.exitCode,
       timedOut: result.timedOut,
+      timeoutMs: input.timeoutMs, executionDurationMs: performance.now()-executionStart,
       lifecycle: inspectClaudeLifecycle(result.stdout),
+      ...(streamed ? {activity:activity.finish()} : {}),
     })}\n`);
     return result;
   } catch (error) {

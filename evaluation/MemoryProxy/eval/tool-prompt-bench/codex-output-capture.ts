@@ -2,6 +2,7 @@ import { closeSync, openSync, writeSync } from "node:fs";
 import { join } from "node:path";
 import type { CodexProcessExecutionInput, CodexProcessExecutionResult } from "./codex-runner.js";
 import { parseCodexJsonlEvents } from "./codex-runner.js";
+import { createActivityTracker } from './attempt-policy.js';
 
 export function inspectCodexLifecycle(stdout: string) {
   const records = parseCodexJsonlEvents(stdout);
@@ -27,6 +28,9 @@ export async function executeWithRawCapture(
   let stderrFd: number | undefined;
   let statusFd: number | undefined;
   const captured = { stdout: "", stderr: "" };
+  const activity = createActivityTracker('codex');
+  let streamed = false;
+  const executionStart=performance.now();
   let active = true;
   try {
     stderrFd = openSync(join(directory, "codex-stderr.log"), "wx");
@@ -45,6 +49,7 @@ export async function executeWithRawCapture(
     };
     const result = await execute({ ...input, onOutput: (stream, chunk) => {
       append(stream, chunk);
+      if(stream==='stdout'){streamed=true;activity.append(chunk);}
       input.onOutput?.(stream, chunk);
     } });
     for (const stream of ["stdout", "stderr"] as const) {
@@ -59,7 +64,9 @@ export async function executeWithRawCapture(
       schemaVersion: "task1.raw-capture/v1", status: "captured",
       stdoutBytes: Buffer.byteLength(captured.stdout), stderrBytes: Buffer.byteLength(captured.stderr),
       exitCode: result.exitCode, timedOut: result.timedOut,
+      timeoutMs: input.timeoutMs, executionDurationMs: performance.now()-executionStart,
       lifecycle: inspectCodexLifecycle(result.stdout),
+      ...(streamed ? {activity:activity.finish()} : {}),
     }) + "\n");
     return result;
   } catch (error) {

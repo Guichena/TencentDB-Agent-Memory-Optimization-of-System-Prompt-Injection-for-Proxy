@@ -264,5 +264,17 @@ it("recalculates stage artifacts end to end, excludes failed requests from prima
     const baselineOnly = collectFinal5Evidence(teams, join(root, 'codex'), 'codex', join(root, 'baseline-without-final'), { variant: 'server_team' });
     expect(baselineOnly.singleVariantMetrics?.ECR.value).toBe(1);
     expect(() => collectFinal5Evidence(teams, join(root, 'codex'), 'codex', join(root, 'missing-pair'))).toThrow();
+    const receiptPath=join(root,'codex','server_team','execution.json');
+    const {receiptSha256:oldHash,...budgetReceipt}=JSON.parse(readFileSync(receiptPath,'utf8'));
+    const positive=budgetReceipt.results.find((r:any)=>r.caseId==='positive');
+    const attempt=positive.attempts.at(-1);attempt.status='failed';attempt.durationMs=480001;positive.status='failed';budgetReceipt.completed--;budgetReceipt.failed++;
+    const capturePath=join(attempt.evidenceDirectory,'attempt-capture.json');
+    const budgetCapture=JSON.parse(readFileSync(capturePath,'utf8'));budgetCapture.lifecycleComplete=false;writeFileSync(capturePath,JSON.stringify(budgetCapture));
+    writeFileSync(join(attempt.evidenceDirectory,'codex-events.jsonl'),JSON.stringify({type:'item.completed',item:{type:'agent_message',text:'continuing'}}));
+    writeFileSync(join(attempt.evidenceDirectory,'capture-status.json'),JSON.stringify({status:'captured',timedOut:true,activity:{endedAt:'2026-09-10T00:08:00Z',lastMeaningfulAt:'2026-09-10T00:07:30Z'}}));
+    writeFileSync(receiptPath,JSON.stringify({...budgetReceipt,receiptSha256:createHash('sha256').update(JSON.stringify(budgetReceipt)).digest('hex')}));
+    const budgetReport=collectFinal5Evidence(teams,join(root,'codex'),'codex',join(root,'budget-report'),{variant:'server_team'});
+    expect(budgetReport.singleVariantMetrics?.Complete.value).toBe(1);
+    expect(budgetReport.attemptDispositions.some((r:any)=>r.category==='scorable_timeout'&&r.selected)).toBe(true);
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
