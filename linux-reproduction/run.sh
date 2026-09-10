@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT"
+if [[ "$(uname -s)" != Linux ]]; then
+  echo 'This entry point targets Linux.' >&2
+  exit 2
+fi
+exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs entry.ts "$@"

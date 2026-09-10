@@ -95,7 +95,7 @@ export function bindBundle(rows, bundleRoot, selectedIds) {
     }
     if (!existsSync(evidence)) {
       mkdirSync(directory, { recursive: true });
-      execFileSync('tar', ['-xf', archive, '-C', directory], { windowsHide: true, timeout: 300000, stdio: ['ignore', 'pipe', 'pipe'] });
+      execFileSync(process.platform === 'linux' ? 'bsdtar' : 'tar', ['-xf', archive, '-C', directory], { windowsHide: true, timeout: 300000, stdio: ['ignore', 'pipe', 'pipe'] });
       mkdirSync(dirname(evidence), { recursive: true });
       writeFileSync(evidence, JSON.stringify(item, null, 2) + '\n');
     }

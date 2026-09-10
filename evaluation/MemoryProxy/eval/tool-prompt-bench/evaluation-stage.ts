@@ -19,6 +19,9 @@ export async function verifyEvaluationStage(stage: ReturnType<typeof evaluationS
   return health;
 }
 
-export const WINDOWS_HTTP_INSTRUCTIONS = "On Windows PowerShell, call the injected bridge URLs with Invoke-RestMethod, a hashtable for -Headers, ConvertTo-Json for -Body, and -TimeoutSec 30. Never use the curl alias or Bash-style backslash escaping. If using curl.exe, send UTF-8 JSON via a file with --data-binary @file and --connect-timeout 5 --max-time 30. Do not invent or change bridge ports.";
+// Keep the legacy export name; both clients receive host-appropriate HTTP guidance.
+export const WINDOWS_HTTP_INSTRUCTIONS = process.platform === 'win32'
+  ? "On Windows PowerShell, call the injected bridge URLs with Invoke-RestMethod, a hashtable for -Headers, ConvertTo-Json for -Body, and -TimeoutSec 30. Never use the curl alias or Bash-style backslash escaping. If using curl.exe, send UTF-8 JSON via a file with --data-binary @file and --connect-timeout 5 --max-time 30. Do not invent or change bridge ports."
+  : "On Linux, call the injected bridge URLs with curl, explicit HTTP headers, and UTF-8 JSON via a file with --data-binary @file. Use --connect-timeout 5 --max-time 30. Preserve JSON quoting. Do not invent or change bridge ports.";
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url) && process.argv.includes("--print-windows-http-instructions")) console.log(WINDOWS_HTTP_INSTRUCTIONS);

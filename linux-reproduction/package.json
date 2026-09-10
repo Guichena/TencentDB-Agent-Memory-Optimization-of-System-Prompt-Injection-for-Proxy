@@ -1,0 +1,8 @@
+{
+  "name": "memoryproxy-linux-reproduction",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.5.0 <25" },
+  "scripts": { "verify": "node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs verify.ts", "test": "node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs verify.ts" }
+}
