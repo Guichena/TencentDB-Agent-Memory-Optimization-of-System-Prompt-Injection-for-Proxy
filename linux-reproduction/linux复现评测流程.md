@@ -149,74 +149,117 @@ bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "$RUN" --v
 
 先跑 baseline，再跑 V4，每阶段 5 并发，单条超时 8 分钟。两条命令只选与第 3 步一致的一条，沿用初始化时的 RUN。建议在 tmux 中执行，避免 SSH 断开；新开终端须先按文末恢复变量。运行期间不要改源码或配置。
 
-## 6. 查看结果
+## 6. 检查运行是否完成、有无错误
 
-将下面路径替换为控制台打印的正式运行目录，不要填单条试跑目录。此命令只查状态：
+先找到控制台输出的正式运行目录，替换下面的 quick-实际UUID。这里查看执行状态，不计算分数：
 
 ```bash
 QUICK="runs/$RUN/execution/quick-实际UUID"
 node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/results.ts status "$QUICK" "$CLIENT"
 ```
 
-**做了补跑：跳过下面的单轮计分，直接到第 7 节重新 audit，再用 score-audits 合并计算。results.ts score 只读取指定 quick 目录，不会包含其他目录里的补跑。**
+输出中，server_team 表示 baseline。分别检查两边：
 
-只有未补跑、仅计算某一轮正式运行时，才执行：
+| 字段 | 含义 | 接下来做什么 |
+|---|---|---|
+| finished=false | 尚未取得该阶段最终回执 | 等待运行结束；若进程已退出，检查日志 |
+| completed | 正常结束的 Case 数 | 不代表工具行为一定正确 |
+| failed | 超时或其他执行错误的 Case 数 | 到第 7 节分类，不能直接认定全部需要补跑 |
+| failedCaseIds | 执行失败的 Case ID | 用于定位对应记录 |
+
+有错误时，可先查日志位置：
 
 ```bash
-node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/results.ts score "$QUICK" "$CLIENT"
+find "runs/$RUN/setup-logs" "$QUICK/$CLIENT" -type f -name '*stderr*'
 ```
 
-命令会打印报告目录。打开其中的 report.md 查看指标，comparison.json 查看覆盖数，case-scores.jsonl 查看逐条得分。运行期间不自动计分。
+用 `tail -n 80 日志路径` 查看末尾报错。认证失败先检查 .env，连接失败先检查上游地址和网络，初始化失败先检查对应工具链。不要打印或上传 API Key。
 
-只运行了一个版本时，在计分命令末尾加 `--variant baseline` 或 `--variant V4`，生成该版本报告，不生成两版本差值。
+## 7. 判断是否需要补跑，只补跑一次
 
-启动受残留锁阻挡时，先运行 `bash linux-reproduction/run.sh doctor`。检查指定执行目录可追加 `runs/.../quick-UUID`；确认后加 `--clear-stale`，只清除同机已重启或整个进程组已结束的锁。旧格式锁、仍有子进程、端口占用或状态不明时拒绝清理。
+补跑是为了补救网络、认证、初始化或采集故障，避免把这些故障当成模型答错。**不是为了提高分数，也不是所有 failed 都重跑。**
+
+| 情况 | 处理 |
+|---|---|
+| 正常完成、证据完整，即使行为得分低 | 保留，不补跑 |
+| 持续真实交互满 8 分钟，临近结束仍有活动，日志足以评分 | 保留超时结果，不补跑 |
+| 认证、429/503、断连、初始化卡住或关键采集文件缺失 | 列入清单，修复原因后补跑一次 |
+| 超时日志不足，且无法确认缺失原因 | 列为待复核；无法判定时保留缺失，不猜分 |
+
+临近结束固定为最后真实模型或工具活动距结束不超过 180 秒。HTTP 200、重连和心跳不算真实活动。
+
+两阶段都停止后，运行分类检查。audit 只生成清单，不调用模型，也不计算最终指标：
+
+```bash
+bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" baseline
+bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" V4
+```
+
+每条命令输出：
+
+- `selected`：已有可评分记录的 Case 数，不需要补跑。
+- `retry`：建议补跑的 Case 数。两边都是 0 时，跳过补跑。
+- `needsReview`：日志或来源信息不足、需要复核的 Case 数，不会自动补跑。
+- `audit`：本次生成的 retry.json 路径。
+
+把两次输出的 audit 路径分别保存下来：
+
+```bash
+export BASE_AUDIT="baseline输出的retry.json路径"
+export V4_AUDIT="V4输出的retry.json路径"
+```
+
+要查看具体哪些 Case 需要补跑、原因是什么，可以执行：
+
+```bash
+node -e 'const fs=require("fs"); const a=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); console.log(JSON.stringify(a.rows.filter(r=>r.retryRequired||r.reviewRequired),null,2));' "$BASE_AUDIT"
+node -e 'const fs=require("fs"); const a=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); console.log(JSON.stringify(a.rows.filter(r=>r.retryRequired||r.reviewRequired),null,2));' "$V4_AUDIT"
+```
+
+如果 `retry > 0`，执行对应补跑；空清单会自动跳过。不要修改 retry.json：
+
+```bash
+bash "$EVAL_SCRIPT" retry --client "$CLIENT" --run "$RUN" --retry-plan "$BASE_AUDIT" --concurrency 5
+bash "$EVAL_SCRIPT" retry --client "$CLIENT" --run "$RUN" --retry-plan "$V4_AUDIT" --concurrency 5
+```
+
+补跑结束后，重新检查两边，把新输出的 audit 路径重新赋给 BASE_AUDIT 和 V4_AUDIT：
+
+```bash
+bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" baseline
+bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" V4
+```
+
+**只补跑一轮。即使还有 retry 或 needsReview，也直接进入最终计算，不必继续补跑。** 无法评分的 Case 会保留为缺失，不进入指标分母。没有补跑时，直接沿用第一次生成的两个 audit 路径。
+
+## 8. 最后统一计算一次
+
+无论有没有补跑，最终只执行这一条计分命令。若补跑过，确保两个变量指向补跑后最新的 audit：
+
+```bash
+bash linux-reproduction/run.sh score-audits "$BASE_AUDIT" "$V4_AUDIT"
+```
+
+命令会打印结果目录 `runs/$RUN/reports/merged-.../`：
+
+| 文件 | 查看内容 |
+|---|---|
+| comparison.json | 两版本指标、差值和实际配对可评分数量 |
+| case-scores.jsonl | 每条 Case 的行为评分 |
+| selection-provenance.json | 每条 Case 选用了哪次记录，以及剩余失败、待复核项 |
+
+同一 Case 只使用最早可评分记录，避免重复计算；首次失败、补跑成功时使用补跑记录。两版本对比只使用双方均可评分的 Case，因此应同时报告计划条数和实际配对条数，不把缺失当成零分。
+
+不要在前面单独计算某个 quick 目录再当作最终结果，否则会遗漏其他目录的补跑记录。
 
 ## 注意
 
-- 每次运行生成新目录，不自动续跑。审计会读取同一 RUN 下的试跑、正式运行和补跑，同一 Case 只选最早可评分记录。
-- 正常完成且证据完整的记录，以及持续活动满 8 分钟、证据足够的超时记录，按实际工具行为计分。低分不重跑。
-- 临近超时固定为最后真实活动距结束不超过 180 秒；HTTP 200、心跳和重连不算。旧日志用文件时间时会标注，迁移日志需保留时间戳。
-- 超时证据不足标为 `unscorable_timeout`。缺文件/损坏等采集故障进入补跑；仅有未闭合请求、无法确认缺失原因的先列入人工复核，不猜分也不自动重跑。
+- 每次运行生成新目录，不自动续跑。audit 会读取同一 RUN 下的试跑、正式运行和补跑。
 - 换客户端或数据集时换一个 RUN，重新初始化；源码无需复制。
+- 新日志记录真实活动时间；旧日志使用文件时间时会标注，迁移时需保留时间戳。
+- 不同模型、上游或 runner 条件的记录拒绝自动混合。
 - 使用 Quick 协议，源码指纹用于追溯，不提供严格冻结保证。
-
-## 7. 补跑一次并计算最终结果
-
-全部停止后，分别扫描同一 RUN 内的 baseline 和 V4，生成补跑清单：
-
-```bash
-bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" baseline
-bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" V4
-```
-
-把两次输出的 audit 路径分别填入下面命令，只补跑清单中的 Case；空清单会自动跳过：
-
-```bash
-bash "$EVAL_SCRIPT" retry --client "$CLIENT" --run "$RUN" --retry-plan "baseline的retry.json路径" --concurrency 5
-bash "$EVAL_SCRIPT" retry --client "$CLIENT" --run "$RUN" --retry-plan "V4的retry.json路径" --concurrency 5
-```
-
-只补跑一轮即可。两边补跑结束后，重新执行这两条 audit；旧清单不可重复使用：
-
-```bash
-bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" baseline
-bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" V4
-```
-
-即使仍有待补跑项，也可以计算，不需要清零；不可评分项保留为缺失，不计入分母。
-
-使用两边**补跑后最新**的 audit 路径合并计分，不要再用 results.ts score 指向试跑或任意单轮 quick 目录：
-
-```bash
-bash linux-reproduction/run.sh score-audits "baseline的retry.json路径" "V4的retry.json路径"
-```
-
-同一 Case 选择最早可评分 attempt，保留来源，不覆盖原日志。不同模型、上游或 runner 条件的记录拒绝自动混合。补跑后仍有缺失时，报告保持缺失，不当成完整全量结果。
-
-最终结果位于命令打印的 `runs/$RUN/reports/merged-.../`，查看 comparison.json、case-scores.jsonl 和 selection-provenance.json。
-
-依赖版本由锁文件固定，安装需要网络。setup 会检查原生库能否加载，检查通过后再开始实验。
+- 若残留锁阻挡操作，运行 `bash linux-reproduction/run.sh doctor` 检查。确认进程已停止后才考虑 `--clear-stale`；状态不明的锁不要直接删除。
 
 ## 新开终端或 SSH 重连
 
@@ -238,4 +281,4 @@ export NO_PROXY=127.0.0.1,localhost
 export no_proxy="$NO_PROXY"
 ```
 
-如果原来使用了自定义 RUN 名称，改回那个名称；如使用出站代理，也恢复原 HTTP_PROXY/HTTPS_PROXY。查询单轮状态时重新设置 QUICK；合并计分仍使用两边最新 audit 路径。
+如果原来使用了自定义 RUN 名称，改回那个名称；如使用出站代理，也恢复原 HTTP_PROXY/HTTPS_PROXY。查询状态时重新设置 QUICK；最终计算前，按第 7 节重新设置 BASE_AUDIT、V4_AUDIT，指向两边最新 audit 路径。

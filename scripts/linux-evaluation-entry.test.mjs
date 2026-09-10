@@ -21,7 +21,11 @@ test('Linux guide commands parse and both documented environments keep their run
  }
  assert.match(guide,/bsdtar -xf "\$WORKSPACE_ZIP" -C \./);
  assert.match(guide,/test -f workspaces\/bundle\.json/);
- assert.match(guide,/results\.ts score 只读取指定 quick 目录/);
+ assert.equal(blocks.filter(block=>/score-audits/.test(block)).length,1,'Guide must contain one final scoring command');
+ assert.ok(blocks.every(block=>!/results\.ts score\b/.test(block)),'Do not score an individual quick run in the main workflow');
+ assert.match(guide,/## 6\. 检查运行是否完成、有无错误/);
+ assert.match(guide,/## 7\. 判断是否需要补跑，只补跑一次/);
+ assert.match(guide,/## 8\. 最后统一计算一次/);
  assert.match(guide,/## 新开终端或 SSH 重连/);
  assert.match(guide,/--core-port "\$CORE_PORT"/);
  assert.match(guide,/TDAI_CODEX_PROXY_PORT=18096/);
