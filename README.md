@@ -108,7 +108,7 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 
 ### Linux 复现评测
 
-导师从 Git 下载后，按 **[Linux 复现评测流程](linux-reproduction/linux复现评测流程.md)** 操作：安装配置 → 正式运行 → 补跑一次 → 重新审计 → 手动合并计分。
+从 Git 下载后，按 **[Linux 复现评测流程](linux-reproduction/linux复现评测流程.md)** 操作：安装配置 → 正式运行 → 补跑一次 → 重新审计 → 手动合并计分。
 
 支持前 250 条和全量 1,140 条，单选 Claude Code 或 Codex、设置并发。补跑后仍有失败不阻止计分，不可评分的 Case 排除出指标分母，并在报告中保留缺失数量；无需继续补跑至清零。两版本对比使用双方可评分的同 Case 交集。
 
@@ -124,40 +124,17 @@ bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "linux-ful
 
 `claude-code` 可替换为 `codex`。prepare、initialize 和 run 使用相同的 `--run` 名称；省略时使用各入口对应的默认名称。
 
-### Windows 运行
-
-环境要求：Node.js 24.5+、npm、PowerShell 7 和 Git。所有命令从仓库根目录执行。
-
-完整安装、模型配置与资产初始化步骤见 **[快速启动评测](scripts/QUICK-EVALUATION.zh-CN.md)**。顺序为：安装依赖 → `prepare` 生成本机配置 → 填写 `evaluation/.env` → `initialize` 导入资产 → 解压外部源码包 → 执行测试。
-
-完成准备后，任选一个客户端先跑一条 Case：
-
-```powershell
-# Claude Code，默认 V4
-./scripts/evaluate-test1k.ps1 -Smoke -Client claude-code
-
-# Codex，默认 V4
-./scripts/evaluate-test1k.ps1 -Smoke -Client codex
-```
-
-两条命令分别执行 `DVG-T04-T01-C001`。结果保存在 `runs/test1k/execution/quick-*/`；回执中的 `completed=1`、`failed=0` 只表示执行完成，工具调用及答案是否正确需查看评分与 HTTP 证据。真实执行需要可用的模型端点和额度。
-
-全量运行两个客户端、两个变体，共 4,560 个执行槽位：
-
-```powershell
-./scripts/evaluate-test1k.ps1 -Mode execute
-```
-
-默认每个客户端并发 5，单 Case 超时 8 分钟。全量执行会产生模型调用费用。Quick 模式保留采集和评分，每次创建独立结果目录，不续跑上一次执行，也不提供严格源码指纹复现保证。
+默认并发 5，单 Case 超时 8 分钟，真实执行会产生模型调用费用。每次运行创建独立结果目录，计分手动执行。Quick 模式不提供严格源码冻结保证。
 
 ## 离线验证
 
 文件预检只需 Node.js；回归验证需先安装评测依赖，均不调用真实模型，也不需要外部业务源码包：
 
-```powershell
+```bash
 node scripts/check-submission.mjs
 npm --prefix evaluation/MemoryProxy ci
-./scripts/verify-reproduction.ps1
+npm --prefix evaluation/MemoryProxy test
+npm --prefix linux-reproduction test
 npm --prefix evaluation/MemoryProxy run typecheck:contracts
 ```
 

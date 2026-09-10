@@ -15,6 +15,6 @@
 
 共用现有 implementations、evaluation 和 workspaces 目录，不复制源码。V4 使用当前 implementations/final，运行前记录源码指纹。
 
-Linux 使用 Bash 入口、bsdtar 解压和 curl 提示；Windows 使用 PowerShell 入口。
+使用 Bash 入口、bsdtar 解压和 curl 提示。
 
 使用 Quick 协议，源码指纹用于追溯，不提供严格冻结保证。
