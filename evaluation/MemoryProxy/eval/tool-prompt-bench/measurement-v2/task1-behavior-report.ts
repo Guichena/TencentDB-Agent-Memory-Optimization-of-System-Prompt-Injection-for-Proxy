@@ -31,7 +31,12 @@ export function buildTask1BehaviorReport(rows: readonly BehaviorReportRow[]) {
   });
   const pairs = [...new Set(rows.flatMap((r) => r.pairId === null ? [] : [r.pairId]))].map((pairId) => {
     const members = rows.filter((r) => r.pairId === pairId);
-    if (members.length !== 2 || members.filter((r) => r.shouldCall).length !== 1) throw new Error(`Invalid Pair endpoints: ${pairId}`);
+    // A sliced batch may contain only one endpoint of a Pair.  Keep it in the
+    // diagnostic list, but make it ineligible instead of aborting all scoring.
+    // Pair metrics will exclude it; per-Case metrics remain computable.
+    if (members.length !== 2 || members.filter((r) => r.shouldCall).length !== 1) {
+      return { pairId, eligible: false, boundaryCorrect: null, exact: null, reason: "incomplete-pair" };
+    }
     const positive = members.find((r) => r.shouldCall)!;
     const negative = members.find((r) => !r.shouldCall)!;
     if (!eligible.includes(positive) || !eligible.includes(negative)) return { pairId, eligible: false, boundaryCorrect: null, exact: null };
