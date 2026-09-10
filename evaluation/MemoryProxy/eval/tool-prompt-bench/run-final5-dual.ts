@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
@@ -9,6 +9,7 @@ import { startManagedNode, requireFreePort, waitManagedHealth, installManagedShu
 import { executionHash } from "./execution-checkpoint.js";
 import { verifyStageReceipt } from "./merge-stage-receipts.js";
 import type { Final5Client } from "./final5-task-input.js";
+import { acquireProcessLock, recoverProcessLock, inspectLock } from './process-lock.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const proxyPackage = resolve(here, "../..");
@@ -140,11 +141,9 @@ export async function runFinal5Dual(configPath: string, mode: "preview" | "check
   if (quickRun()) writeFileSync(workerConfigPath, JSON.stringify(config, null, 2));
   const lock = join(config.outputRoot, "controller.lock");
   if (resume && existsSync(lock)) {
-    const pid = JSON.parse(readFileSync(lock, "utf8")).pid;
-    if (!Number.isSafeInteger(pid) || pid <= 0) throw new Error("Invalid controller lock");
-    try { process.kill(pid, 0); } catch (error) { if ((error as NodeJS.ErrnoException).code === "ESRCH") unlinkSync(lock); else throw error; }
+    if (inspectLock(lock).state === 'stale') recoverProcessLock(lock);
   }
-  writeFileSync(lock, JSON.stringify({ pid: process.pid }), { flag: "wx" });
+  const releaseLock = acquireProcessLock(lock);
   try {
     if (mode === "execute") {
       const manifest = join(config.outputRoot, "experiment.json");
@@ -172,7 +171,7 @@ export async function runFinal5Dual(configPath: string, mode: "preview" | "check
       console.log(JSON.stringify({ action: "execution-summary", status: failed ? "completed-with-failures" : "execution-completed", outputRoot: config.outputRoot, stages: summaries, note: "Execution completion is not behavioral scoring success." }));
       assertExecutionOutcome(failed, process.argv.includes("--fail-on-case-failure"));
     }
-  } finally { unlinkSync(lock); }
+  } finally { releaseLock(); }
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   installManagedShutdown();

@@ -6,4 +6,8 @@ if [[ "$(uname -s)" != Linux ]]; then
   echo 'This entry point targets Linux.' >&2
   exit 2
 fi
+if [[ "${1:-}" == doctor ]]; then
+  shift
+  exec node doctor.mjs "$@"
+fi
 exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs entry.ts "$@"

@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -6,6 +6,7 @@ import { prepareTest1k } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/
 import { buildFinal5CampaignPlan } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/final5-campaign-builder.js';
 import { loadFinal5Dataset } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/final5-formal-datasource.js';
 import { sourceFingerprint as fingerprintSource } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/managed-eval-config.js';
+import { acquireProcessLock } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/process-lock.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const source = resolve(root, '..');
@@ -42,7 +43,7 @@ function runNode(argv: string[]) {
   if (result.status !== 0) throw Error('Command failed: ' + (result.signal ?? result.status));
 }
 // All clients and run directories share the same ports; prevent simultaneous invocations.
-writeFileSync(lock, JSON.stringify({ pid: process.pid, client, mode, name }), { flag: 'wx' });
+const releaseLock=acquireProcessLock(lock,{client,mode,name});
 try {
   runNode([tsx, join(root, 'verify.ts')]);
   if (mode === 'prepare') {
@@ -70,4 +71,4 @@ try {
     runNode([tsx, join(source, 'evaluation/MemoryProxy/eval/tool-prompt-bench/test1k-entry.ts'),
       mode === 'run' ? 'execute' : mode, output, '18427', client, variant, bundle, ...(caseId ? [caseId] : [])]);
   }
-} finally { unlinkSync(lock); }
+} finally { releaseLock(); }

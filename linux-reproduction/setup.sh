@@ -7,7 +7,10 @@ cd "$ROOT"
 CLIENT="${1:-}"
 case "$CLIENT" in codex|claude-code) ;; *) echo 'Usage: bash linux-reproduction/setup.sh codex|claude-code' >&2; exit 2;; esac
 node -e 'const [a,b]=process.versions.node.split(".").map(Number);if(a!==24||b<5)throw Error("Node.js 24.5+ (24.x) required")'
-for command in git bsdtar python3 make g++; do command -v "$command" >/dev/null || { echo "Missing $command" >&2; exit 2; }; done
+for command in git curl go bsdtar python3 make g++; do command -v "$command" >/dev/null || { echo "Missing $command" >&2; exit 2; }; done
+node linux-reproduction/check-install.mjs
+GLOBAL_PREFIX="$(npm prefix -g)"
+[[ -d "$GLOBAL_PREFIX" && -w "$GLOBAL_PREFIX" ]] || { echo "npm global prefix is not writable: $GLOBAL_PREFIX. Use a user-owned Node installation; do not sudo npm." >&2; exit 2; }
 npm --prefix evaluation/MemoryProxy ci
 npm --prefix implementations/baseline/MemoryProxy ci
 npm --prefix implementations/final/MemoryProxy ci

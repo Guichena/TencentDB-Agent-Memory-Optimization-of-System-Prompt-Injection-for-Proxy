@@ -10,7 +10,8 @@ import { verifyStageReceipt } from "./merge-stage-receipts.js";
 import type { Final5ExecutionReceipt } from "./final5-formal-execution.js";
 import { executionHash } from "./execution-checkpoint.js";
 
-export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, client: "codex" | "claude-code", output: string) {
+export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, client: "codex" | "claude-code", output: string, options: { variant?: 'server_team' | 'V4' } = {}) {
+  if (options.variant !== undefined && !['server_team', 'V4'].includes(options.variant)) throw new Error('Invalid scoring variant');
   const dataset = loadFinal5Dataset(teamsRoot);
   const rows = new Map(dataset.records.map(row => [row.case_id, row]));
   const evidence: Final5MetricEvidence[] = [];
@@ -19,12 +20,15 @@ export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, cli
   const missing: { caseId: string; variant: string; attempt: number }[] = [];
   let comparisonHash: string | undefined;
   let selectedCaseIds: Set<string> | undefined;
-  for (const variant of ["server_team", "V4"] as const) {
+  const variants = options.variant ? [options.variant] : ['server_team', 'V4'] as const;
+  const executionCoverage: Record<string, { planned: number; completed: number; failed: number }> = {};
+  for (const variant of variants) {
     const stage = resolve(clientRoot, variant);
     const path = resolve(stage, "execution.json");
     const raw = readFileSync(path);
     const receipt = JSON.parse(raw.toString("utf8")) as Final5ExecutionReceipt;
     verifyStageReceipt(receipt, variant);
+    executionCoverage[variant] = { planned: receipt.slotCount, completed: receipt.completed, failed: receipt.failed };
     if (receipt.datasetDigest !== dataset.sourceDigest || receipt.executionContext?.comparison.client !== client) throw new Error("Receipt dataset/client mismatch");
     const hash = executionHash(receipt.executionContext.comparison);
     const ids = new Set(receipt.results.map(result => result.caseId));
@@ -61,7 +65,21 @@ export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, cli
   }
   const selectedRecords = dataset.records.filter(row => selectedCaseIds?.has(row.case_id));
   const report = { ...buildFinal5MetricsReport({ ...dataset, records: selectedRecords }, evidence, client), sources, attemptsMissingCapture: missing,
+    scope: options.variant ? 'single-variant' : 'paired-comparison', selectedVariant: options.variant ?? null, executionCoverage,
+    singleVariantMetrics: undefined as Record<string, { numerator: number; denominator: number; value: number | null }> | undefined,
     costAllAttempts: { server_team: aggregateProviderUsage(allUsage.server_team, true), V4: aggregateProviderUsage(allUsage.V4, true) } };
+  if (options.variant) {
+    const arm = report.allObservable[options.variant === 'server_team' ? 'baseline' : 'final'];
+    report.singleVariantMetrics = { ECR: arm.ECR, FCR_all: arm.allNoCall.falseCallRate, TSR_all: arm.TSR_all, TSR_cond: arm.TSR_cond,
+      Complete: arm.chainDetails.completeChainSuccessRate, Strict: arm.chainDetails.strictChainExactRate, Overcall: arm.chainDetails.positiveOvercallRate };
+    report.caseScores = report.caseScores.filter(row => row.variant === options.variant);
+    report.comparison = {};
+    report.binaryStatistics = {};
+    report.status = report.caseScores.every(row => row.behaviorEligible) ? 'behavior-scored' : 'incomplete-evidence';
+    report.providerUsage = Object.fromEntries(variants.map(variant => [variant, aggregateProviderUsage(evidence.filter(row => row.variant === variant && report.caseScores.some(score => score.caseId === row.caseId && score.behaviorEligible)).flatMap(row => row.providerUsage?.requests ?? []))]));
+    report.metricSupport.usage.reason = 'Single-variant behavior-eligible completed cases; paired comparison is not available. See providerUsage and costAllAttempts.';
+    report.metricSupport.usage.value = Object.fromEntries(Object.entries(report.providerUsage).map(([variant, usage]) => [variant, usage.fields]));
+  }
   mkdirSync(output, { recursive: true });
   const persist = (name: string, text: string) => {
     const path = resolve(output, name);
@@ -70,10 +88,14 @@ export function collectFinal5Evidence(teamsRoot: string, clientRoot: string, cli
   };
   persist("normalized-evidence.jsonl", evidence.map(row => JSON.stringify(row) + "\n").join(""));
   persist("case-scores.jsonl", report.caseScores.map(row => JSON.stringify(row) + "\n").join(""));
-  persist("pair-scores.json", JSON.stringify(report.paired, null, 2) + "\n");
+  persist("pair-scores.json", JSON.stringify(options.variant ? { [options.variant]: report.allObservable[options.variant === 'server_team' ? 'baseline' : 'final'] } : report.paired, null, 2) + "\n");
   persist("metric-support.json", JSON.stringify(report.metricSupport, null, 2) + "\n");
   persist("comparison.json", JSON.stringify(report, null, 2) + "\n");
-  persist("report.md", "# Final5 " + client + "\n\nStatus: " + report.status + "\n\n| Metric | Baseline | V4 | Delta (pp) |\n|---|---:|---:|---:|\n" + Object.entries(report.comparison).map(([name, value]) => `| ${name} | ${value.baseline.value ?? "NA"} | ${value.final.value ?? "NA"} | ${value.deltaPercentagePoints ?? "NA"} |`).join("\n") + "\n\nProvider-only usage and all retries: see comparison.json. NA is not zero.\n");
+  const coverageText = Object.entries(executionCoverage).map(([variant, c]) => `${variant}: planned=${c.planned}, completed=${c.completed}, failed=${c.failed}, behavior-eligible=${report.caseScores.filter(r => r.variant === variant && r.behaviorEligible).length}`).join('\n\n');
+  const table = report.singleVariantMetrics
+    ? `Single variant: ${options.variant}. No baseline/V4 comparison.\n\n| Metric | Numerator / denominator | Value |\n|---|---:|---:|\n` + Object.entries(report.singleVariantMetrics).map(([name, value]) => `| ${name} | ${value.numerator}/${value.denominator} | ${value.value ?? 'NA'} |`).join('\n')
+    : `Paired behavior-eligible cases: ${report.coverage.pairedCases}/${report.coverage.plannedCasesPerVariant}\n\n| Metric | Baseline | V4 | Delta (pp) |\n|---|---:|---:|---:|\n` + Object.entries(report.comparison).map(([name, value]) => `| ${name} | ${value.baseline.value ?? 'NA'} | ${value.final.value ?? 'NA'} | ${value.deltaPercentagePoints ?? 'NA'} |`).join('\n');
+  persist('report.md', '# Final5 ' + client + '\n\nStatus: ' + report.status + '\n\n' + coverageText + '\n\n' + table + '\n\nValues are proportions (0..1); deltas are percentage points. Missing evidence is not zero. See comparison.json for coverage and limitations.\n');
   return report;
 }
 

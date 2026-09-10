@@ -52,4 +52,6 @@ it("prepares the complete final dataset with portable repository bindings and an
     } finally { rmSync(relocated, { recursive: true, force: true }); }
     expect(() => prepareTest1k(output)).toThrow(/already exists/);
   } finally { rmSync(output, { recursive: true, force: true }); }
-}, 30000);
+// Includes copying and removing the entire 1140-case asset tree on disk, not a model call.
+// Slow Windows/CI filesystems can exceed 30 seconds even when every assertion passes.
+}, 120000);

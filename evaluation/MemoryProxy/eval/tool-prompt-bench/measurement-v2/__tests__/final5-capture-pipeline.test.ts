@@ -252,5 +252,17 @@ it("recalculates stage artifacts end to end, excludes failed requests from prima
     expect(report.attemptsMissingCapture).toEqual([]);
     expect(readFileSync(join(output, "case-scores.jsonl"), "utf8").trim().split("\n")).toHaveLength(4);
     expect(collectFinal5Evidence(teams, join(root, "codex"), "codex", output)).toEqual(report);
+    for (const variant of ['server_team', 'V4'] as const) {
+      const single = collectFinal5Evidence(teams, join(root, 'codex'), 'codex', join(root, 'single-'+variant), { variant });
+      expect(single.scope).toBe('single-variant');
+      expect(single.caseScores).toHaveLength(2);
+      expect(single.caseScores.every(item => item.variant === variant)).toBe(true);
+      expect(single.singleVariantMetrics?.Complete.value).toBe(1);
+      expect(Object.keys(single.comparison)).toHaveLength(0);
+    }
+    rmSync(join(root, 'codex', 'V4'), { recursive: true, force: true });
+    const baselineOnly = collectFinal5Evidence(teams, join(root, 'codex'), 'codex', join(root, 'baseline-without-final'), { variant: 'server_team' });
+    expect(baselineOnly.singleVariantMetrics?.ECR.value).toBe(1);
+    expect(() => collectFinal5Evidence(teams, join(root, 'codex'), 'codex', join(root, 'missing-pair'))).toThrow();
   } finally { rmSync(root, { recursive: true, force: true }); }
 });

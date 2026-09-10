@@ -2,6 +2,8 @@
 
 环境：Ubuntu、普通用户、Node.js 24.5+（24.x）。复用现有源码，以下命令在同一个终端按顺序执行。
 
+Agent 会绕过权限审批。请使用可丢弃 VM 或隔离容器，不挂 SSH/云凭据和 Docker socket；单独 HOME 不是操作系统沙箱。
+
 ## 1. 拉取仓库、安装依赖
 
 ```bash
@@ -81,6 +83,10 @@ node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/res
 
 命令会打印报告目录。打开其中的 report.md 查看指标，comparison.json 查看覆盖数，case-scores.jsonl 查看逐条得分。运行期间不自动计分。
 
+只运行了一个版本时，在计分命令末尾加 `--variant baseline` 或 `--variant V4`，生成该版本报告，不生成两版本差值。
+
+启动受残留锁阻挡时，先运行 `bash linux-reproduction/run.sh doctor`。检查指定执行目录可追加 `runs/.../quick-UUID`；确认后加 `--clear-stale`，只清除同机已重启或整个进程组已结束的锁。旧格式锁、仍有子进程、端口占用或状态不明时拒绝清理。
+
 ## 注意
 
 - 每次运行生成新目录，不自动续跑；试跑与正式结果分开保存。
@@ -88,3 +94,4 @@ node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/res
 - 标准评分仅纳入 completed；有缺失时不能称为完整结果。行为低分不能作为重跑理由。
 - 换客户端或数据集时换一个 RUN，重新初始化；源码无需复制。
 - Linux 离线检查已通过，实机模型试跑尚未验证。
+- 仍使用 Quick 协议，不能称为严格 formal 复现。CI 不包含真实上游调用；公开源码包发布和真实 Linux 模型试跑需另行完成。

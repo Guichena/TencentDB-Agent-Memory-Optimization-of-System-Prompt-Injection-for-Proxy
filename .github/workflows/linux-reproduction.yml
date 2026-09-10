@@ -1,0 +1,44 @@
+name: Linux reproduction (offline)
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install-and-initialize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        client: [codex, claude-code]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.16.0'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.1'
+          cache: false
+      - name: Linux prerequisites
+        run: sudo apt-get update && sudo apt-get install -y libarchive-tools build-essential python3 curl
+      - name: Verify committed locks
+        run: node linux-reproduction/check-install.mjs --tracked
+      - name: Install through the documented entry point
+        run: bash linux-reproduction/setup.sh '${{ matrix.client }}'
+      - name: Selection and source bundle regression tests
+        run: |
+          npm --prefix linux-reproduction test
+          node --test scripts/workspace-bundle.test.mjs
+          npm --prefix evaluation/MemoryProxy test -- tests/process-lock.test.ts tests/manual-scoring.test.ts tests/dual-client-config.test.ts eval/tool-prompt-bench/measurement-v2/__tests__/final5-capture-pipeline.test.ts
+      - name: Prepare and initialize real local Core without provider credentials
+        run: |
+          bash linux-reproduction/run.sh prepare --dataset first250 --client '${{ matrix.client }}' --run ci-linux --concurrency 1
+          bash linux-reproduction/run.sh initialize --dataset first250 --client '${{ matrix.client }}' --run ci-linux
+          bash linux-reproduction/run.sh doctor
+      - name: Confirm initialization
+        run: node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('runs/ci-linux/initialized.json'));if(!r.ready)throw Error('Core initialization incomplete');"
+      # No real-provider check/run: those require credentials and the external Case bundle.
