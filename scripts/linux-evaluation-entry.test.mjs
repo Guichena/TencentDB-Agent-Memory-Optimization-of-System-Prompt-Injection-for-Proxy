@@ -23,6 +23,10 @@ test('Linux guide commands parse and both documented environments keep their run
  assert.match(guide,/test -f workspaces\/bundle\.json/);
  assert.match(guide,/results\.ts score 只读取指定 quick 目录/);
  assert.match(guide,/## 新开终端或 SSH 重连/);
+ assert.match(guide,/--core-port "\$CORE_PORT"/);
+ assert.match(guide,/TDAI_CODEX_PROXY_PORT=18096/);
+ assert.match(guide,/TDAI_CLAUDE_PROXY_PORT=18097/);
+ assert.match(guide,/不会改变已有 RUN/);
 });
 for(const [script,dataset] of [['evaluate-250.sh','first250'],['evaluate-full.sh','full1140']]){
  test(`${script} pins its dataset and preserves arguments`,()=>{
@@ -38,7 +42,7 @@ for(const [script,dataset] of [['evaluate-250.sh','first250'],['evaluate-full.sh
     assert.equal(res.status,0,res.stderr);assert.ok(res.stdout.startsWith(`${mode}\n--dataset\n${dataset}\n`));
    }
    assert.equal(spawnSync(bash,[join(dir,script),'run','--dataset','other'],{encoding:'utf8'}).status,2);
-   const help=spawnSync(bash,[join(dir,script),'--help'],{encoding:'utf8'});assert.equal(help.status,0);assert.match(help.stdout,/Usage:/);
+   const help=spawnSync(bash,[join(dir,script),'--help'],{encoding:'utf8'});assert.equal(help.status,0);assert.match(help.stdout,/Usage:/);assert.match(help.stdout,/prepare --core-port/);
   }finally{rmSync(dir,{recursive:true,force:true});}
  });
 }

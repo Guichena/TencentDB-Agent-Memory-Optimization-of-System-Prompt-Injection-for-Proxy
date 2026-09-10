@@ -11,6 +11,7 @@
 - 客户端：单选 `claude-code` 或 `codex`。
 - 并发：`--concurrency 5`，允许 1 到 10。
 - 版本：`--variant both` 先跑 baseline，再跑 V4；也可单选。
+- 端口：Core 默认 18427，首次 prepare 用 `--core-port` 设置；两个 Proxy 默认 8096/8097，在 `evaluation/.env` 配置。详见流程中的“Core 与 Proxy 端口”。
 - 计分：未补跑时可用 `results.ts score` 计算单轮；补跑后必须重新 audit，再用 `score-audits` 合并，运行期间不自动计分。
 
 共用现有 implementations、evaluation 和 workspaces 目录，不复制源码。V4 使用当前 implementations/final，运行前记录源码指纹。

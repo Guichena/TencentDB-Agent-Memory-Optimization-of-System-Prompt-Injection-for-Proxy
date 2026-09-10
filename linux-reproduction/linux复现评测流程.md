@@ -8,7 +8,7 @@
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git curl python3 python3-dev build-essential libarchive-tools golang-go
+sudo apt-get install -y git curl python3 python3-dev build-essential libarchive-tools golang-go iproute2
 ```
 
 安装 Node 环境。已有 nvm 时跳过 git clone 这一行：
@@ -48,6 +48,39 @@ export no_proxy="$NO_PROXY"
 ```
 
 不要上传 .env。需要出站代理时另外设置 HTTP_PROXY、HTTPS_PROXY。
+
+### Core 与 Proxy 端口
+
+不修改时使用以下默认值：
+
+| 服务 | 默认端口 | 配置位置 |
+|---|---:|---|
+| Core | 18427 | 首次 prepare 的 `--core-port` 参数 |
+| Codex Proxy | 8096 | `evaluation/.env` 的 `TDAI_CODEX_PROXY_PORT` |
+| Claude Code Proxy | 8097 | `evaluation/.env` 的 `TDAI_CLAUDE_PROXY_PORT` |
+
+在当前终端设置 Core 端口，第 4 节 prepare 会使用它：
+
+```bash
+export CORE_PORT=18427  # 如被占用，可改为 18428
+```
+
+需要修改 Proxy 端口时，编辑 `evaluation/.env` 中这两行，例如：
+
+```dotenv
+TDAI_CODEX_PROXY_PORT=18096
+TDAI_CLAUDE_PROXY_PORT=18097
+```
+
+三个端口应互不相同、处于 1024 到 65535 之间且未被占用。Core 不要使用 8096 或 8097，入口将它们保留给默认 Proxy。服务绑定本机 127.0.0.1，不需要向外开放端口。
+
+端口按客户端划分，不按 baseline/V4 划分：单选一个客户端时，只启动 Core 和对应的一个 Proxy；baseline、V4 先后复用该 Proxy 端口。这些是本地服务端口，不是模型上游 URL。
+
+**生效规则：**Core 端口在 prepare 时写入 `runs/$RUN/evaluation.json` 的 `coreUrl`，initialize、run 和 retry 都读取该配置。后续只改 CORE_PORT 变量，或给 run 加 `--core-port`，不会改变已有 RUN。已有 RUN 要换端口，先停止实验，再编辑该文件的 coreUrl；不要覆盖整个配置文件。
+
+Proxy 在下一次启动时读取 .env；如果你手动设置过 evaluation.json 中的 `clients.codex.port` 或 `clients.claude-code.port`，这些字段优先于 .env。不要修改旧 quick 目录的 launch-config.json 来配置新实验。
+
+检查端口占用可运行 `ss -ltnp`。doctor 当前探测默认端口；自定义端口须自行核对。端口或配置都不要在实验运行过程中修改。
 
 ## 3. 准备业务源码
 
@@ -95,12 +128,12 @@ GOTOOLCHAIN=go1.26.1 go version
 ## 4. 初始化并试跑一条
 
 ```bash
-bash "$EVAL_SCRIPT" prepare --client "$CLIENT" --run "$RUN"
+bash "$EVAL_SCRIPT" prepare --client "$CLIENT" --run "$RUN" --core-port "$CORE_PORT"
 bash "$EVAL_SCRIPT" initialize --client "$CLIENT" --run "$RUN"
 bash "$EVAL_SCRIPT" run --client "$CLIENT" --run "$RUN" --variant both --case DVG-T04-T01-C001 --concurrency 1
 ```
 
-确认 baseline 和 V4 都是 `completed=1、failed=0` 再继续。失败日志在 `runs/$RUN/setup-logs/` 和执行目录中。
+prepare 只用于新 RUN；已有 RUN 不要重复 prepare。Core 端口在这一步固定，后续命令不用再次传端口。确认 baseline 和 V4 都是 `completed=1、failed=0` 再继续。失败日志在 `runs/$RUN/setup-logs/` 和执行目录中。
 
 ## 5. 正式运行
 
@@ -196,6 +229,7 @@ source "$NVM_DIR/nvm.sh"
 nvm use 24.16.0
 export CLIENT=claude-code   # 必须与原实验一致，也可为 codex
 export DATASET=first250    # 必须与原实验一致，也可为 full1140
+export CORE_PORT=18427     # 如首次 prepare 改过端口，填原值；已有 RUN 以 coreUrl 配置为准
 case "$DATASET" in
   first250) export EVAL_SCRIPT=linux-reproduction/evaluate-250.sh; export RUN="linux-250-${CLIENT}-01" ;;
   full1140) export EVAL_SCRIPT=linux-reproduction/evaluate-full.sh; export RUN="linux-full-${CLIENT}-01" ;;
