@@ -25,4 +25,4 @@ for(const [name,count,projects,revisions] of [['first250',250,10,63],['full1140'
   console.log(JSON.stringify({verified:name,cases:count,projects,revisions,slotsPerClient:plan.slots.length,datasetDigest:dataset.sourceDigest}));
 }
 assert.equal(first.caseIds[0],'DVG-T04-T01-C001');assert.equal(first.caseIds.at(-1),'c_3a3e34703e1a9d42');
-for(const file of ['setup.sh','run.sh'])assert.ok(!readFileSync(join(here,file),'utf8').includes('\r'),'Shell script must use LF');
+for(const file of ['setup.sh','run.sh','evaluate-250.sh','evaluate-full.sh'])assert.ok(!readFileSync(join(here,file),'utf8').includes('\r'),'Shell script must use LF');

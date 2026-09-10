@@ -1,8 +1,9 @@
-import { execFile, spawn, type ChildProcess } from "node:child_process";
+import { spawn, type ChildProcess } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { createRequire } from "node:module";
+import { ownProcessTree, processTreeSpawnOptions, processTreeIsStopping } from './process-tree.js';
 
 export interface CodexInvocationInput {
   workspaceDir: string;
@@ -454,14 +455,6 @@ export function buildCodexConfigArgs(input: CodexProfileInput): string[] {
 }
 
 
-function terminateChild(child: ChildProcess): void {
-  if (child.pid && process.platform === "win32") {
-    execFile("taskkill", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true }, () => undefined);
-    return;
-  }
-  child.kill();
-}
-
 function runChild(
   executable: string,
   args: string[],
@@ -472,7 +465,11 @@ function runChild(
   options: Pick<CodexProcessExecutionInput, "stopWhen" | "stopCheckIntervalMs" | "onOutput"> = {},
 ): Promise<CodexProcessExecutionResult> {
   return new Promise((resolveRun, reject) => {
-    const child = spawn(executable, args, { cwd, env, shell: false, windowsHide: true });
+    if(processTreeIsStopping()){reject(Error('Evaluation is shutting down'));return;}
+    const child = spawn(executable, args, { cwd, env, shell: false, windowsHide: true, ...processTreeSpawnOptions() });
+    const stopTree=ownProcessTree(child);
+    let stopFailure:unknown;
+    const terminateChild=(_child:ChildProcess)=>{void stopTree().catch(error=>{stopFailure=error;});};
     let stdout = "";
     let stderr = "";
     let timedOut = false;
@@ -544,10 +541,14 @@ function runChild(
       cleanup();
       reject(error);
     });
-    child.once("close", (exitCode) => {
+    child.once("close", async (exitCode) => {
       if (settled) return;
       settled = true;
       cleanup();
+      if(process.platform!=='win32'){
+        try{await stopTree();}catch(error){reject(error);return;}
+      }
+      if(stopFailure){reject(stopFailure);return;}
       resolveRun({
         exitCode,
         stdout,

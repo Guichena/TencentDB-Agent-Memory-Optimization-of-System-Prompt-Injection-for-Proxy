@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+if [[ $# -eq 0 || "${1:-}" == --help ]]; then
+  echo 'Usage: bash evaluate-250.sh prepare|initialize|check|run|retry --client codex|claude-code [--concurrency 5] [--run NAME]'
+  echo 'Dataset: first250 (250 cases). Initialize before running; scoring remains manual.'
+  exit 0
+fi
+case "$1" in prepare|initialize|check|run|retry) ;; *) echo 'Invalid mode. Use --help.' >&2; exit 2;; esac
+MODE="$1"
+shift
+for argument in "$@"; do
+  case "$argument" in --dataset|--dataset=*) echo 'This entry point is fixed to first250; use evaluate-full.sh for full1140.' >&2; exit 2;; esac
+done
+exec bash "$ROOT/run.sh" "$MODE" --dataset first250 "$@"

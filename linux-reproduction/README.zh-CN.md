@@ -1,10 +1,13 @@
 # Linux 复现
 
-安全要求：Agent 使用 unrestricted / skip-permissions，HOME 隔离不等于安全沙箱。只在可丢弃 VM 或隔离容器中运行，不挂载 SSH 密钥、云凭据或 Docker socket。
+提醒：评测会自动执行代码，请勿在存有敏感数据的环境中运行。
 
 按 [Linux 复现评测流程](linux复现评测流程.md) 从拉取仓库运行到查看结果。
 
-- 数据：`first250` 为前 250 条；`full1140` 为全量 1,140 条。
+流程：正式运行 → 补跑一次 → 重新 audit → 手动合并计分。剩余失败不阻止计算，报告会列出实际可评分数量。
+
+- 前 250 条入口：[evaluate-250.sh](evaluate-250.sh)。
+- 全量 1,140 条入口：[evaluate-full.sh](evaluate-full.sh)。
 - 客户端：单选 `claude-code` 或 `codex`。
 - 并发：`--concurrency 5`，允许 1 到 10。
 - 版本：`--variant both` 先跑 baseline，再跑 V4；也可单选。
@@ -12,6 +15,6 @@
 
 共用现有 implementations、evaluation 和 workspaces 目录，不复制源码。V4 使用当前 implementations/final，运行前记录源码指纹。
 
-Linux 使用 Bash 入口、bsdtar 解压和 curl 提示；Windows 原脚本保留。尚未进行 Linux 实机模型验证。
+Linux 使用 Bash 入口、bsdtar 解压和 curl 提示；Windows 使用 PowerShell 入口。
 
-沿用 Quick 执行协议，源码指纹是追溯记录，不等于严格 formal 冻结。Ubuntu CI 检查安装、离线测试和本地 Core 初始化，不使用真实模型密钥。
+使用 Quick 协议，源码指纹用于追溯，不提供严格冻结保证。

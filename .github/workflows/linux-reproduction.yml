@@ -24,7 +24,7 @@ jobs:
           go-version: '1.26.1'
           cache: false
       - name: Linux prerequisites
-        run: sudo apt-get update && sudo apt-get install -y libarchive-tools build-essential python3 curl
+        run: sudo apt-get update && sudo apt-get install -y libarchive-tools build-essential python3 python3-dev curl
       - name: Verify committed locks
         run: node linux-reproduction/check-install.mjs --tracked
       - name: Install through the documented entry point
@@ -33,7 +33,8 @@ jobs:
         run: |
           npm --prefix linux-reproduction test
           node --test scripts/workspace-bundle.test.mjs
-          npm --prefix evaluation/MemoryProxy test -- tests/process-lock.test.ts tests/manual-scoring.test.ts tests/attempt-policy.test.ts tests/retry-audit.test.ts tests/dual-client-config.test.ts eval/tool-prompt-bench/measurement-v2/__tests__/final5-capture-pipeline.test.ts
+          node --test scripts/linux-evaluation-entry.test.mjs
+          npm --prefix evaluation/MemoryProxy test -- tests/cli-process-tree.test.ts tests/process-lock.test.ts tests/manual-scoring.test.ts tests/attempt-policy.test.ts tests/retry-audit.test.ts tests/dual-client-config.test.ts eval/tool-prompt-bench/measurement-v2/__tests__/final5-capture-pipeline.test.ts
       - name: Prepare and initialize real local Core without provider credentials
         run: |
           bash linux-reproduction/run.sh prepare --dataset first250 --client '${{ matrix.client }}' --run ci-linux --concurrency 1

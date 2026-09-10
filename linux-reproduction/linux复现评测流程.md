@@ -1,25 +1,41 @@
 # Linux 复现评测流程
 
-环境：Ubuntu、普通用户、Node.js 24.5+（24.x）。复用现有源码，以下命令在同一个终端按顺序执行。
+推荐环境：Ubuntu 24.04、Bash、普通用户，Node.js 固定为 24.16.0。下面使用 nvm 在用户目录安装 Node，不需要 Python 虚拟环境或 Conda。以下命令在同一个终端按顺序执行。
 
-Agent 会绕过权限审批。请使用可丢弃 VM 或隔离容器，不挂 SSH/云凭据和 Docker socket；单独 HOME 不是操作系统沙箱。
+提醒：评测会自动执行代码，请勿在存有敏感数据的环境中运行。
 
 ## 1. 拉取仓库、安装依赖
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git curl python3 build-essential libarchive-tools golang-go
+sudo apt-get install -y git curl python3 python3-dev build-essential libarchive-tools golang-go
+```
+
+安装 Node 环境。已有 nvm 时跳过 git clone 这一行：
+
+```bash
+git clone --depth 1 --branch v0.40.3 https://github.com/nvm-sh/nvm.git "$HOME/.nvm"
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
+nvm install 24.16.0
+nvm use 24.16.0
+node --version  # 应输出 v24.16.0
+npm --version
+```
+
+nvm 管理 Node 版本，项目依赖安装在各自的 node_modules 中，后续 npm 命令无需 sudo。新开终端时，重新执行 `export NVM_DIR="$HOME/.nvm"`、`source "$NVM_DIR/nvm.sh"` 和 `nvm use 24.16.0`。
+
+拉取工程并安装所选客户端：
+
+```bash
 git clone https://github.com/Guichena/TencentDB-Agent-Memory-Optimization-of-System-Prompt-Injection-for-Proxy.git memoryproxy-eval
 cd memoryproxy-eval
-node --version  # 需提前安装 Node.js 24.5+，不要使用 sudo npm
 
 CLIENT=claude-code   # 或 codex
-DATASET=first250     # 或 full1140，全量 1,140 条
-RUN="linux-${DATASET}-${CLIENT}-01"
 bash linux-reproduction/setup.sh "$CLIENT"
 ```
 
-克隆版本需包含 linux-reproduction 目录。使用专用测试机器，不挂载私人凭据。
+已安装 Claude Code 或 Codex 且终端能找到时，直接复用；未安装时，脚本会自动安装所选程序。先完成下面的单条试跑，再开始正式实验；同一轮实验中不要更换程序版本。
 
 ## 2. 填写模型配置
 
@@ -34,6 +50,24 @@ export no_proxy="$NO_PROXY"
 不要上传 .env。需要出站代理时另外设置 HTTP_PROXY、HTTPS_PROXY。
 
 ## 3. 准备业务源码
+
+选择一种评测形式，以下两组执行一组。
+
+**前 250 条：**
+
+```bash
+DATASET=first250
+EVAL_SCRIPT=linux-reproduction/evaluate-250.sh
+RUN="linux-250-${CLIENT}-01"
+```
+
+**全量 1,140 条：**
+
+```bash
+DATASET=full1140
+EVAL_SCRIPT=linux-reproduction/evaluate-full.sh
+RUN="linux-full-${CLIENT}-01"
+```
 
 已有完整 workspaces 目录就直接复用；没有则按固定提交下载：
 
@@ -51,17 +85,23 @@ GOTOOLCHAIN=go1.26.1 go version
 ## 4. 初始化并试跑一条
 
 ```bash
-bash linux-reproduction/run.sh prepare --dataset "$DATASET" --client "$CLIENT" --run "$RUN"
-bash linux-reproduction/run.sh initialize --dataset "$DATASET" --client "$CLIENT" --run "$RUN"
-bash linux-reproduction/run.sh run --dataset "$DATASET" --client "$CLIENT" --run "$RUN" --variant both --case DVG-T04-T01-C001 --concurrency 1
+bash "$EVAL_SCRIPT" prepare --client "$CLIENT" --run "$RUN"
+bash "$EVAL_SCRIPT" initialize --client "$CLIENT" --run "$RUN"
+bash "$EVAL_SCRIPT" run --client "$CLIENT" --run "$RUN" --variant both --case DVG-T04-T01-C001 --concurrency 1
 ```
 
 确认 baseline 和 V4 都是 `completed=1、failed=0` 再继续。失败日志在 `runs/$RUN/setup-logs/` 和执行目录中。
 
 ## 5. 正式运行
 
+根据第 3 步所选版本执行对应命令：
+
 ```bash
-bash linux-reproduction/run.sh run --dataset "$DATASET" --client "$CLIENT" --run "$RUN" --variant both --concurrency 5
+# 前 250 条
+bash linux-reproduction/evaluate-250.sh run --client "$CLIENT" --run "linux-250-${CLIENT}-01" --variant both --concurrency 5
+
+# 或全量 1,140 条
+bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "linux-full-${CLIENT}-01" --variant both --concurrency 5
 ```
 
 先跑 baseline，再跑 V4，每阶段 5 并发，单条超时 8 分钟。建议在 tmux 中执行，避免 SSH 断开；运行期间不要改源码或配置。
@@ -94,8 +134,7 @@ node evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs linux-reproduction/res
 - 临近超时固定为最后真实活动距结束不超过 180 秒；HTTP 200、心跳和重连不算。旧日志用文件时间时会标注，迁移日志需保留时间戳。
 - 超时证据不足标为 `unscorable_timeout`。缺文件/损坏等采集故障进入补跑；仅有未闭合请求、无法确认缺失原因的先列入人工复核，不猜分也不自动重跑。
 - 换客户端或数据集时换一个 RUN，重新初始化；源码无需复制。
-- Linux 离线检查已通过，实机模型试跑尚未验证。
-- 仍使用 Quick 协议，不能称为严格 formal 复现。CI 不包含真实上游调用；公开源码包发布和真实 Linux 模型试跑需另行完成。
+- 使用 Quick 协议，源码指纹用于追溯，不提供严格冻结保证。
 
 ## 扫描、补跑、合并
 
@@ -108,10 +147,10 @@ bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" baseline
 把输出的 audit 路径填入下面命令，只补跑清单中的 Case：
 
 ```bash
-bash linux-reproduction/run.sh retry --dataset "$DATASET" --client "$CLIENT" --run "$RUN" --retry-plan "runs/实际路径/retry.json" --concurrency 5
+bash "$EVAL_SCRIPT" retry --client "$CLIENT" --run "$RUN" --retry-plan "runs/实际路径/retry.json" --concurrency 5
 ```
 
-补跑后重新 audit，旧清单不可重复使用。V4 同理，把 audit 最后的 baseline 改为 V4。`needsReview` 不为零时先核查日志。
+只补跑一轮即可。补跑结束后重新 audit，旧清单不可重复使用。V4 同理，把 audit 最后的 baseline 改为 V4。即使仍有待补跑项，也可以直接执行下面的计算，不需要清零；不可评分项会保留为缺失，不计入分母。
 
 拿到两边最新 audit 路径后，手动合并计分：
 
@@ -120,3 +159,5 @@ bash linux-reproduction/run.sh score-audits "baseline的retry.json路径" "V4的
 ```
 
 同一 Case 选择最早可评分 attempt，保留来源，不覆盖原日志。不同模型、上游或 runner 条件的记录拒绝自动混合。补跑后仍有缺失时，报告保持缺失，不当成完整全量结果。
+
+依赖版本由锁文件固定，安装需要网络。setup 会检查原生库能否加载，检查通过后再开始实验。

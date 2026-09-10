@@ -1,6 +1,7 @@
 import { spawn, execFile } from "node:child_process";
 import { closeSync, openSync } from "node:fs";
 import { createServer } from "node:net";
+import { ownProcessTree, processTreeSpawnOptions, installProcessTreeShutdown, processTreeIsStopping } from './process-tree.js';
 
 export async function requireFreePort(port: number): Promise<void> {
   const server = createServer();
@@ -12,20 +13,22 @@ export async function requireFreePort(port: number): Promise<void> {
 const owned = new Set<{ stop(): Promise<void> }>();
 let stopping = false;
 export function installManagedShutdown() {
+  if(process.platform!=='win32'){installProcessTreeShutdown();return;}
   for (const signal of ["SIGINT", "SIGTERM"] as const) process.once(signal, () => {
     stopping = true;
     void Promise.allSettled([...owned].map((child) => child.stop())).finally(() => process.exit(signal === "SIGINT" ? 130 : 143));
   });
 }
 export function startManagedNode(options: { args: string[]; cwd: string; env: NodeJS.ProcessEnv; stdout: string; stderr: string }) {
-  if (stopping) throw new Error("Experiment is stopping");
+  if (stopping || processTreeIsStopping()) throw new Error("Experiment is stopping");
   const stdout = openSync(options.stdout, "wx");
   let stderr: number;
   try { stderr = openSync(options.stderr, "wx"); } catch (error) { closeSync(stdout); throw error; }
   let child: ReturnType<typeof spawn>;
-  try { child = spawn(process.execPath, options.args, { cwd: options.cwd, env: options.env, windowsHide: true, stdio: ["ignore", stdout, stderr] }); }
+  try { child = spawn(process.execPath, options.args, { cwd: options.cwd, env: options.env, windowsHide: true, stdio: ["ignore", stdout, stderr], ...processTreeSpawnOptions() }); }
   finally { closeSync(stdout); closeSync(stderr); }
   let exited = false;
+  const stopTree=ownProcessTree(child);
   const done = new Promise<number>((resolve, reject) => {
     child.once("error", (error) => { exited = true; reject(error); });
     child.once("close", (code) => { exited = true; resolve(code ?? 1); });
@@ -35,10 +38,9 @@ export function startManagedNode(options: { args: string[]; cwd: string; env: No
   const handle = {
     pid: child.pid, done, get exited() { return exited; },
     async stop() {
+      if(process.platform!=='win32'){await stopTree();try{await done;}catch{}return;}
       if (!exited && child.pid) {
-        if (process.platform === "win32") {
-          await new Promise<void>((resolve) => execFile("taskkill", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true }, () => resolve()));
-        } else { child.kill("SIGTERM"); }
+        await new Promise<void>((resolve) => execFile("taskkill", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true }, () => resolve()));
       }
       const timer = setTimeout(() => { if (!exited) child.kill("SIGKILL"); }, 5000);
       try { await done; } catch { /* Start failures have already been reported by caller. */ } finally { clearTimeout(timer); }

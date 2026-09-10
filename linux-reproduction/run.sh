@@ -2,6 +2,8 @@
 set -euo pipefail
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
+# Existing CLI installations take precedence; project installation is a fallback.
+export PATH="$PATH:$ROOT/../.runtime/linux-cli/bin"
 if [[ "$(uname -s)" != Linux ]]; then
   echo 'This entry point targets Linux.' >&2
   exit 2

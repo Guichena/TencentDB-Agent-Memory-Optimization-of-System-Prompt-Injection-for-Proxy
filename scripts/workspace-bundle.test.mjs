@@ -69,13 +69,18 @@ test('exports exact commits and relocates selected source without requiring the 
     assert.deepEqual(index.versions[1].windowsPathMappings, [{ original: 'history/12:34.txt', extracted: 'history/12_34.txt' }]);
     const packageFile = join(root, 'delivery.zip');
     execFileSync(process.execPath, [fileURLToPath(new URL('./package-workspace-bundle.mjs', import.meta.url)), moved, packageFile], { windowsHide: true });
-    const entries = execFileSync('tar', ['-tf', packageFile], { encoding: 'utf8', windowsHide: true }).trim().split(/\r?\n/);
+    const python = [process.env.PYTHON, 'python3', 'python'].filter(Boolean).find(command => {
+      try { execFileSync(command, ['-c', 'import zipfile'], { stdio: 'ignore', windowsHide: true }); return true; } catch { return false; }
+    });
+    if (!python) throw new Error('Python 3 is required to read the delivery zip');
+    const zipPy = (code, extra) => execFileSync(python, ['-c', code, packageFile, ...extra], { encoding: 'utf8', windowsHide: true });
+    const entries = zipPy('import sys,zipfile; print("\\n".join(zipfile.ZipFile(sys.argv[1]).namelist()))', []).trim().split(/\r?\n/);
     assert.ok(entries.every(entry => entry.startsWith('workspaces/')));
     assert.ok(entries.some(entry => entry.includes('/sources/')));
     assert.ok(entries.every(entry => !entry.includes('/archives/')));
     const delivery = join(root, 'teacher-machine');
     mkdirSync(delivery);
-    execFileSync('tar', ['-xf', packageFile, '-C', delivery], { windowsHide: true });
+    zipPy('import sys,zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])', [delivery]);
     const directRoot = join(delivery, 'workspaces');
     const [direct] = bindBundle(portableRows(rows), directRoot, ['c2']);
     assert.equal(readFileSync(join(direct.repositoryPath, 'source.txt'), 'utf8'), 'second version');

@@ -8,7 +8,8 @@
   <a href="#改造方法">改造方法</a> ·
   <a href="#数据集">数据集</a> ·
   <a href="#实验">实验</a> ·
-  <a href="#运行评测">运行评测</a>
+  <a href="#运行评测">运行评测</a> ·
+  <a href="linux-reproduction/linux复现评测流程.md">Linux 复现评测</a>
 </p>
 
 ---
@@ -98,11 +99,32 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 | [implementations/baseline](implementations/baseline/) | 基线实现，结果目录中也记为 server_team |
 | [evaluation](evaluation/) | test1k 数据、固定工具契约、运行器、采集与评分 |
 | [scripts](scripts/) | 数据准备、资产初始化、单条测试、全量执行及离线验证入口 |
+| [Linux 复现评测](linux-reproduction/linux复现评测流程.md) | 250 条 / 全量运行、补跑一次、手动合并计分 |
 | [任务报告](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md) | 改造方法、数据构造、实验结果与指标口径 |
 
 本仓库不包含模型密钥、本机配置、依赖目录和原始运行日志。外部业务源码包 `external-workspaces-ready.zip` 单独交付，下载入口待补充；当前 Git 仓库不含该包。未取得源码包时可阅读报告、检查数据并运行离线验证，真实 Case 执行仍需源码包。
 
 ## 运行评测
+
+### Linux 复现评测
+
+导师从 Git 下载后，按 **[Linux 复现评测流程](linux-reproduction/linux复现评测流程.md)** 操作：安装配置 → 正式运行 → 补跑一次 → 重新审计 → 手动合并计分。
+
+支持前 250 条和全量 1,140 条，单选 Claude Code 或 Codex、设置并发。补跑后仍有失败不阻止计分，不可评分的 Case 排除出指标分母，并在报告中保留缺失数量；无需继续补跑至清零。两版本对比使用双方可评分的同 Case 交集。
+
+完成教程中的准备和初始化后，选择对应入口：
+
+```bash
+CLIENT=claude-code  # 或 codex
+# 前 250 条
+bash linux-reproduction/evaluate-250.sh run --client "$CLIENT" --run "linux-250-${CLIENT}-01" --concurrency 5
+# 全量 1,140 条
+bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "linux-full-${CLIENT}-01" --concurrency 5
+```
+
+`claude-code` 可替换为 `codex`。prepare、initialize 和 run 使用相同的 `--run` 名称；省略时使用各入口对应的默认名称。
+
+### Windows 运行
 
 环境要求：Node.js 24.5+、npm、PowerShell 7 和 Git。所有命令从仓库根目录执行。
 

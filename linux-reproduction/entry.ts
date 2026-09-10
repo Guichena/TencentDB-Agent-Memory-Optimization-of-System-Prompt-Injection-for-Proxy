@@ -1,7 +1,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
+import { ownProcessTree, processTreeSpawnOptions } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/process-tree.js';
 import { prepareTest1k } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/test1k-entry.js';
 import { buildFinal5CampaignPlan } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/final5-campaign-builder.js';
 import { loadFinal5Dataset } from '../evaluation/MemoryProxy/eval/tool-prompt-bench/final5-formal-datasource.js';
@@ -54,15 +55,16 @@ if(mode==='retry'){
   if(JSON.stringify(currentRuns)!==JSON.stringify([...manifest.sourceRuns].sort()))throw Error('New runs exist since this audit. Run audit again before retrying; completed cases must not be rerun.');
   caseId=manifest.retryCaseIds.join(',');
 }else if(options['--retry-plan'])throw Error('--retry-plan requires retry mode');
-function runNode(argv: string[]) {
-  const result = spawnSync(process.execPath, argv, { cwd: source, stdio: 'inherit' });
-  if (result.error) throw result.error;
-  if (result.status !== 0) throw Error('Command failed: ' + (result.signal ?? result.status));
+async function runNode(argv: string[]) {
+  const child=spawn(process.execPath,argv,{cwd:source,stdio:'inherit',...processTreeSpawnOptions()});
+  const stopTree=ownProcessTree(child);
+  try{await new Promise<void>((done,reject)=>{child.once('error',reject);child.once('close',(code,signal)=>code===0?done():reject(Error('Command failed: '+(signal??code))));});}
+  finally{await stopTree();}
 }
 // All clients and run directories share the same ports; prevent simultaneous invocations.
 const releaseLock=acquireProcessLock(lock,{client,mode,name});
 try {
-  runNode([tsx, join(root, 'verify.ts')]);
+  await runNode([tsx, join(root, 'verify.ts')]);
   if (mode === 'prepare') {
     if (!existsSync(join(source, 'evaluation/.env'))) throw Error('Run setup and fill evaluation/.env first');
     prepareTest1k(output, Number(options['--core-port'] ?? 18427));
@@ -85,7 +87,7 @@ try {
     mkdirSync(join(output, 'linux-provenance'), { recursive: true });
     writeFileSync(join(output, 'linux-provenance', Date.now() + '.json'), JSON.stringify(provenance, null, 2), { flag: 'wx' });
     // The fixed plan contains only the chosen dataset. Smoke uses a temporary child plan.
-    runNode([tsx, join(source, 'evaluation/MemoryProxy/eval/tool-prompt-bench/test1k-entry.ts'),
+    await runNode([tsx, join(source, 'evaluation/MemoryProxy/eval/tool-prompt-bench/test1k-entry.ts'),
       mode === 'run' || mode === 'retry' ? 'execute' : mode, output, '18427', client, variant, bundle, ...(caseId ? [caseId] : [])]);
   }
 } finally { releaseLock(); }
