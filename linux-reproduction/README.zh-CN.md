@@ -2,7 +2,7 @@
 
 安全要求：Agent 使用 unrestricted / skip-permissions，HOME 隔离不等于安全沙箱。只在可丢弃 VM 或隔离容器中运行，不挂载 SSH 密钥、云凭据或 Docker socket。
 
-按 [实验步骤](WALKTHROUGH.zh-CN.md) 从拉取仓库运行到查看结果。
+按 [Linux 复现评测流程](linux复现评测流程.md) 从拉取仓库运行到查看结果。
 
 - 数据：`first250` 为前 250 条；`full1140` 为全量 1,140 条。
 - 客户端：单选 `claude-code` 或 `codex`。
