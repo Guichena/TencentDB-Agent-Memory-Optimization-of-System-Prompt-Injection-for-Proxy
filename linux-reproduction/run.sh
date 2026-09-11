@@ -20,4 +20,8 @@ if [[ "${1:-}" == score-audits ]]; then
   shift
   exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs score-audits.ts "$@"
 fi
+if [[ "${1:-}" == measure-static ]]; then
+  shift
+  exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs measure-static.ts "$@"
+fi
 exec node ../evaluation/MemoryProxy/node_modules/tsx/dist/cli.mjs entry.ts "$@"

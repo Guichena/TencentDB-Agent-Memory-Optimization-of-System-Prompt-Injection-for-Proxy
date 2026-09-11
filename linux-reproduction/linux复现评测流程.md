@@ -234,21 +234,32 @@ bash linux-reproduction/run.sh audit "$RUN" "$CLIENT" V4
 
 ## 8. 最后统一计算一次
 
-无论有没有补跑，最终只执行这一条计分命令。若补跑过，确保两个变量指向补跑后最新的 audit：
+无论有没有补跑，最终用同一对最新 audit 计算行为指标和工具说明 Token。若补跑过，确保两个变量指向补跑后最新的 audit。
 
 ```bash
 bash linux-reproduction/run.sh score-audits "$BASE_AUDIT" "$V4_AUDIT"
+bash linux-reproduction/run.sh measure-static "$BASE_AUDIT" "$V4_AUDIT"
 ```
 
-命令会打印结果目录 `runs/$RUN/reports/merged-.../`：
+`score-audits` 打印结果目录 `runs/$RUN/reports/merged-.../`：
 
 | 文件 | 查看内容 |
 |---|---|
-| comparison.json | 两版本指标、差值和实际配对可评分数量 |
+| comparison.json | 两版本行为指标、差值和实际配对可评分数量 |
 | case-scores.jsonl | 每条 Case 的行为评分 |
 | selection-provenance.json | 每条 Case 选用了哪次记录，以及剩余失败、待复核项 |
 
+`measure-static` 打印结果目录 `runs/$RUN/reports/static-.../`：
+
+| 文件 | 查看内容 |
+|---|---|
+| static-input.json | `T_static`、同 Case 压缩率、未能抽出的 Case |
+
 同一 Case 只使用最早可评分记录，避免重复计算；首次失败、补跑成功时使用补跑记录。两版本对比只使用双方均可评分的 Case，因此应同时报告计划条数和实际配对条数，不把缺失当成零分。
+
+工具说明 Token 与行为计分使用同一批记录。每个 Case 只取第一次任务请求，跳过 CLI 写标题请求；用评测工程安装的 `tiktoken` / `o200k_base` 对抽出的完整工具说明编码一次。计入共享协议、路由、卡片、列表外壳和绑定后的地址与请求头；不计入 Skill 条目正文、会话身份块、用户消息和供应商包装。压缩率 = `1 - sum(V4) / sum(baseline)`，只用两边都能抽出且 Skill 条目文本一致的同 Case。抽不出的 Case 列入 missing，不记为零，也不进入压缩率分母。
+
+`comparison.json` 里的 `providerUsage` 是供应商账单侧用量，不能当作工具说明压缩率。`metric-support.json` 中的 `T_static` 仍为未接入；第一套 Token 以 `static-input.json` 为准。
 
 不要在前面单独计算某个 quick 目录再当作最终结果，否则会遗漏其他目录的补跑记录。
 
@@ -281,4 +292,4 @@ export NO_PROXY=127.0.0.1,localhost
 export no_proxy="$NO_PROXY"
 ```
 
-如果原来使用了自定义 RUN 名称，改回那个名称；如使用出站代理，也恢复原 HTTP_PROXY/HTTPS_PROXY。查询状态时重新设置 QUICK；最终计算前，按第 7 节重新设置 BASE_AUDIT、V4_AUDIT，指向两边最新 audit 路径。
+如果原来使用了自定义 RUN 名称，改回那个名称；如使用出站代理，也恢复原 HTTP_PROXY/HTTPS_PROXY。查询状态时重新设置 QUICK；最终计算前，按第 7 节重新设置 BASE_AUDIT、V4_AUDIT，指向两边最新 audit 路径，再执行 `score-audits` 和 `measure-static`。
