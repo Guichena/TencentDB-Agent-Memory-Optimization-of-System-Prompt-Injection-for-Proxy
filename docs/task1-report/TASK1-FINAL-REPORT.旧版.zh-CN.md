@@ -1,6 +1,6 @@
 # 任务一：Proxy 系统提示词注入优化报告（旧版）
 
-> 旧版。实验数字来自既有对照运行（样本覆盖与 first-250 不同）。新版见 [TASK1-FINAL-REPORT.zh-CN.md](TASK1-FINAL-REPORT.zh-CN.md)，最终实验分表见 [最终实验结果.zh-CN.md](最终实验结果.zh-CN.md)。
+> 实验数字来自既有对照运行。
 
 TencentDB Agent Memory
 2026 年 9 月 9 日

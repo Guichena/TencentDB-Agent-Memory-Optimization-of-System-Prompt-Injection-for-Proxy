@@ -104,7 +104,7 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 | [Linux 复现评测](linux-reproduction/linux复现评测流程.md) | 250 条 / 全量运行、补跑一次、手动合并计分 |
 | [任务报告（新版）](docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md) | 改造方法、数据构造、first-250 结果 |
 | [最终实验结果](docs/task1-report/最终实验结果.zh-CN.md) | first-250 分表、Token、`.claude/` 分列 |
-| [任务报告（旧版）](docs/task1-report/TASK1-FINAL-REPORT.旧版.zh-CN.md) | 既有对照运行口径，样本与新版不同 |
+| [任务报告（旧版）](docs/task1-report/TASK1-FINAL-REPORT.旧版.zh-CN.md) | 既有对照运行 |
 
 本仓库不包含模型密钥、本机配置、依赖目录和原始运行日志。外部业务源码包 `external-workspaces-ready.zip` 单独交付，下载入口待补充；当前 Git 仓库不含该包。未取得源码包时可阅读报告、检查数据并运行离线验证，真实 Case 执行仍需源码包。
 

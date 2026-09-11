@@ -249,35 +249,42 @@ bash linux-reproduction/run.sh measure-static "$BASE_AUDIT" "$V4_AUDIT"
 | case-scores.jsonl | 每条 Case 的行为评分 |
 | selection-provenance.json | 每条 Case 选用了哪次记录，以及剩余失败、待复核项 |
 
-### 指标中英对照
+### 行为指标
 
-`comparison.json` 里是英文代码名。报告和 [最终实验结果](../docs/task1-report/最终实验结果.zh-CN.md) 用中文名。只统计绑定到执行器的 TDAI HTTP：失败或选错家族仍算发出；Bash、Read、Grep 不算。记 P = 应调用且证据完整，N = 不应调用且证据完整，T = P 中实际发出过 TDAI 的子集。
+`comparison.json` 里是英文代码名，与 [最终实验结果](../docs/task1-report/最终实验结果.zh-CN.md) 的中文名对应。只统计绑定到执行器的 TDAI HTTP：失败或选错家族仍算发出；Bash、Read、Grep 不算。记 P = 应调用且证据完整，N = 不应调用且证据完整，T = P 中实际发出过 TDAI 的子集。
 
-| 代码名 | 中文名 | 旧版中文名 | 公式 | 代表什么 | 方向 |
-|---|---|---|---|---|:---:|
-| `ECR` | 正例请求发出率 | 有效调用率 | T / P | 该调的案子有没有去调。不是正确率 | ↑ |
-| `FCR` / `FCR_all` | 误调用率 | 误调用率 | N 中发过 TDAI 的比例 | 不该调时有没有伸手 | ↓ |
-| `TSR_all` | 正例首步命中率 | 首工具正确率 | 首次 TDAI = Gold 首步 / P | 漏调也算未命中 | ↑ |
-| `TSR_cond` | 发出后首步命中率 | 调用后首工具正确率 | 同上分子 / T | 已经发出时第一步是否选对 | ↑ |
-| `Complete` | TDAI 必要链完成率 | 完整链成功率 | Gold 步骤走完且绑定正确 / P | 选对工具并接上参数，不是编程完成 | ↑ |
-| `Strict` | TDAI 无多余请求完成率 | 严格链成功率 | 必要链完成且没有多发 / P | 只做必要步骤 | ↑ |
-| `Overcall` | 正例多余发出率 | 过度调用率 | 正例里发过 Gold 以外 TDAI 的比例 | 该调时有没有多检索 | ↓ |
-| `T_static` | 工具说明长度 | 工具说明长度 | 首次任务请求完整工具说明的 `o200k_base` Token | 注入有多长，不是账单总输入 | ↓ |
-| `staticSavingPercent` | 工具说明压缩率 | 同 Case 压缩率 | `1 − ΣV4 / Σbaseline` | 同一 Case 上 V4 比 baseline 短多少 | ↑ |
+| 代码名 | 中文名 | 公式 | 代表什么 | 方向 |
+|---|---|---|---|:---:|
+| `ECR` | 正例请求发出率 | T / P | 该调的案子有没有去调。不是正确率 | ↑ |
+| `FCR` / `FCR_all` | 误调用率 | N 中发过 TDAI 的比例 | 不该调时有没有伸手 | ↓ |
+| `TSR_all` | 正例首步命中率 | 首次 TDAI = Gold 首步 / P | 漏调也算未命中 | ↑ |
+| `TSR_cond` | 发出后首步命中率 | 同上分子 / T | 已经发出时第一步是否选对 | ↑ |
+| `Complete` | TDAI 必要链完成率 | Gold 步骤走完且绑定正确 / P | 选对工具并接上参数，不是编程完成 | ↑ |
+| `Strict` | TDAI 无多余请求完成率 | 必要链完成且没有多发 / P | 只做必要步骤 | ↑ |
+| `Overcall` | 正例多余发出率 | 正例里发过 Gold 以外 TDAI 的比例 | 该调时有没有多检索 | ↓ |
 
-JSON 里还有 `FCR_pair`（只统计 Pair 负端）、`BSA`（Pair 边界切换）、`PairExact`（Pair 精确匹配），本任务主表不单列。`eligibleCaseCount` 是进入分母的有效 Case 数。同一集合下 `TSR_all = ECR × TSR_cond`。`providerUsage` 是供应商账单用量，不能当作工具说明压缩率。
+JSON 里还有 `FCR_pair`（只统计 Pair 负端）、`BSA`（Pair 边界切换）、`PairExact`（Pair 精确匹配），本任务主表不单列。`eligibleCaseCount` 是进入分母的有效 Case 数。同一集合下：正例首步命中率 = 正例请求发出率 × 发出后首步命中率。
 
-`measure-static` 打印结果目录 `runs/$RUN/reports/static-.../`：
+### Token 指标
+
+`measure-static` 打印结果目录 `runs/$RUN/reports/static-.../`。Token 以 `static-input.json` 为准，不要用 `comparison.json` 里的 `providerUsage`，也不要看 `metric-support.json` 里仍为未接入的 `T_static`。
 
 | 文件 | 查看内容 |
 |---|---|
-| static-input.json | `T_static`、同 Case 压缩率、未能抽出的 Case |
+| static-input.json | 工具说明长度、工具说明压缩率、未能抽出的 Case |
+
+| 代码名 | 中文名 | 在 JSON 中的位置 | 代表什么 | 方向 |
+|---|---|---|---|:---:|
+| `T_static` | 工具说明长度 | `variants.*.T_static` 的 `mean` / `p50` / `p95` | 首次任务请求中完整工具说明的 `o200k_base` Token。不是账单总输入 | ↓ |
+| `staticSavingPercent` | 工具说明压缩率 | 根字段 `staticSavingPercent` | `1 − ΣV4 / Σbaseline`，同一 Case 上 V4 比 baseline 短多少 | ↑ |
+| `T_dynamic_listing` | Skill 条目长度 | `variants.*.T_dynamic_listing` | 目录里 Skill 条目正文的 Token，不计入工具说明 | — |
+| `T_prompt` | 整段系统说明长度 | `variants.*.T_prompt` | 抽出后的完整系统侧文本，含工具说明与动态资产 | ↓ |
+| `paired` | Token 对照条数 | `coverage.paired` | 两边都能抽出且 Skill 条目文本一致的 Case 数 | — |
+| `missing` | 未能计量 | `coverage.missingBaseline` / `missingFinal` | 抽不出的 Case，不记为零，也不进压缩率分母 | — |
+
+工具说明 Token 与行为计分使用同一批记录。每个 Case 只取第一次任务请求，跳过 CLI 写标题请求；用评测工程安装的 `tiktoken` / `o200k_base` 编码一次。`T_static` 计入共享协议、路由、卡片、列表外壳和绑定后的地址与请求头；不计入 Skill 条目正文、会话身份块、用户消息和供应商包装。工具说明压缩率只用 `paired` 那些 Case。Token 对照分母不必与行为指标相同。
 
 同一 Case 只使用最早可评分记录，避免重复计算；首次失败、补跑成功时使用补跑记录。两版本对比只使用双方均可评分的 Case，因此应同时报告计划条数和实际配对条数，不把缺失当成零分。
-
-工具说明 Token 与行为计分使用同一批记录。每个 Case 只取第一次任务请求，跳过 CLI 写标题请求；用评测工程安装的 `tiktoken` / `o200k_base` 对抽出的完整工具说明编码一次。计入共享协议、路由、卡片、列表外壳和绑定后的地址与请求头；不计入 Skill 条目正文、会话身份块、用户消息和供应商包装。压缩率 = `1 - sum(V4) / sum(baseline)`，只用两边都能抽出且 Skill 条目文本一致的同 Case。抽不出的 Case 列入 missing，不记为零，也不进入压缩率分母。
-
-`comparison.json` 里的 `providerUsage` 是供应商账单侧用量，不能当作工具说明压缩率。`metric-support.json` 中的 `T_static` 仍为未接入；第一套 Token 以 `static-input.json` 为准。
 
 不要在前面单独计算某个 quick 目录再当作最终结果，否则会遗漏其他目录的补跑记录。
 
