@@ -249,6 +249,24 @@ bash linux-reproduction/run.sh measure-static "$BASE_AUDIT" "$V4_AUDIT"
 | case-scores.jsonl | 每条 Case 的行为评分 |
 | selection-provenance.json | 每条 Case 选用了哪次记录，以及剩余失败、待复核项 |
 
+### 指标中英对照
+
+`comparison.json` 里是英文代码名。报告和 [最终实验结果](../docs/task1-report/最终实验结果.zh-CN.md) 用中文名。只统计绑定到执行器的 TDAI HTTP：失败或选错家族仍算发出；Bash、Read、Grep 不算。记 P = 应调用且证据完整，N = 不应调用且证据完整，T = P 中实际发出过 TDAI 的子集。
+
+| 代码名 | 中文名 | 旧版中文名 | 公式 | 代表什么 | 方向 |
+|---|---|---|---|---|:---:|
+| `ECR` | 正例请求发出率 | 有效调用率 | T / P | 该调的案子有没有去调。不是正确率 | ↑ |
+| `FCR` / `FCR_all` | 误调用率 | 误调用率 | N 中发过 TDAI 的比例 | 不该调时有没有伸手 | ↓ |
+| `TSR_all` | 正例首步命中率 | 首工具正确率 | 首次 TDAI = Gold 首步 / P | 漏调也算未命中 | ↑ |
+| `TSR_cond` | 发出后首步命中率 | 调用后首工具正确率 | 同上分子 / T | 已经发出时第一步是否选对 | ↑ |
+| `Complete` | TDAI 必要链完成率 | 完整链成功率 | Gold 步骤走完且绑定正确 / P | 选对工具并接上参数，不是编程完成 | ↑ |
+| `Strict` | TDAI 无多余请求完成率 | 严格链成功率 | 必要链完成且没有多发 / P | 只做必要步骤 | ↑ |
+| `Overcall` | 正例多余发出率 | 过度调用率 | 正例里发过 Gold 以外 TDAI 的比例 | 该调时有没有多检索 | ↓ |
+| `T_static` | 工具说明长度 | 工具说明长度 | 首次任务请求完整工具说明的 `o200k_base` Token | 注入有多长，不是账单总输入 | ↓ |
+| `staticSavingPercent` | 工具说明压缩率 | 同 Case 压缩率 | `1 − ΣV4 / Σbaseline` | 同一 Case 上 V4 比 baseline 短多少 | ↑ |
+
+JSON 里还有 `FCR_pair`（只统计 Pair 负端）、`BSA`（Pair 边界切换）、`PairExact`（Pair 精确匹配），本任务主表不单列。`eligibleCaseCount` 是进入分母的有效 Case 数。同一集合下 `TSR_all = ECR × TSR_cond`。`providerUsage` 是供应商账单用量，不能当作工具说明压缩率。
+
 `measure-static` 打印结果目录 `runs/$RUN/reports/static-.../`：
 
 | 文件 | 查看内容 |
