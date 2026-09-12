@@ -114,7 +114,7 @@ Skill 附件流程明确为：先查看 Skill，再从该次响应取得 `data.s
 
 从 Git 下载后，按 **[Linux 复现评测流程](linux-reproduction/linux复现评测流程.md)** 操作：安装配置 → 正式运行 → 查看错误并审计 → 按需补跑一次 → 重新审计 → 最后统一计算一次。
 
-支持前 250 条和全量 1,140 条，单选 Claude Code 或 Codex、设置并发。补跑后仍有失败不阻止计分，不可评分的 Case 排除出指标分母，并在报告中保留缺失数量；无需继续补跑至清零。两版本对比使用双方可评分的同 Case 交集。
+支持前 250 条和全量 1,140 条，单选 Codex（推荐，主对照实验）或 Claude Code、设置并发。补跑后仍有失败不阻止计分，不可评分的 Case 排除出指标分母，并在报告中保留缺失数量；无需继续补跑至清零。两版本对比使用双方可评分的同 Case 交集。
 
 完成教程中的准备和初始化后，沿用已设置的 CLIENT、RUN，选择对应入口：
 
@@ -125,7 +125,7 @@ bash linux-reproduction/evaluate-250.sh run --client "$CLIENT" --run "$RUN" --co
 bash linux-reproduction/evaluate-full.sh run --client "$CLIENT" --run "$RUN" --concurrency 5
 ```
 
-`claude-code` 可替换为 `codex`。prepare、initialize 和 run 使用相同的 `--run` 名称；省略时使用各入口对应的默认名称。
+`$CLIENT` 与教程一致，推荐 `codex`，也可用 `claude-code`。prepare、initialize 和 run 使用相同的 `--run` 名称；省略时使用各入口对应的默认名称。
 
 源码 ZIP 解压到仓库根目录，得到 `workspaces/bundle.json`。做过补跑后，使用两边最新 audit 执行 `score-audits`，不要用 `results.ts score` 计算单轮目录。新终端需按教程恢复 Node 和实验变量。
 
