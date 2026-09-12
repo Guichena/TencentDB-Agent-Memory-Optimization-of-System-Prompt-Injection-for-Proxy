@@ -8,7 +8,7 @@
 
 - 前 250 条入口：[evaluate-250.sh](evaluate-250.sh)。
 - 全量 1,140 条入口：[evaluate-full.sh](evaluate-full.sh)。
-- 客户端：单选 `claude-code` 或 `codex`。
+- 客户端：单选 `codex`（推荐，主对照实验）或 `claude-code`。
 - 并发：`--concurrency 5`，允许 1 到 10。
 - 版本：`--variant both` 先跑 baseline，再跑 V4；也可单选。
 - 端口：Core 默认 18427，首次 prepare 用 `--core-port` 设置；两个 Proxy 默认 8096/8097，在 `evaluation/.env` 配置。详见流程中的“Core 与 Proxy 端口”。

@@ -31,7 +31,7 @@ nvm 管理 Node 版本，项目依赖安装在各自的 node_modules 中，后�
 git clone https://github.com/Guichena/TencentDB-Agent-Memory-Optimization-of-System-Prompt-Injection-for-Proxy.git memoryproxy-eval
 cd memoryproxy-eval
 
-export CLIENT=claude-code   # 或 codex
+export CLIENT=codex   # 推荐；也可用 claude-code
 bash linux-reproduction/setup.sh "$CLIENT"
 ```
 
@@ -123,6 +123,12 @@ node linux-reproduction/fetch-workspaces.mjs "$DATASET"
 ```bash
 GOTOOLCHAIN=go1.26.0 go version
 GOTOOLCHAIN=go1.26.1 go version
+```
+
+推荐用 Codex 复现（本仓库对照实验的主客户端）。若用 Claude Code，它会读取业务仓库里的 `.claude/`，可能拉低全量指标。正式对照保留这些文件；若要去掉，prepare 之前执行：
+
+```bash
+node linux-reproduction/strip-claude-dotfiles.mjs --apply
 ```
 
 ## 4. 初始化并试跑一条
@@ -306,7 +312,7 @@ cd /实际路径/memoryproxy-eval
 export NVM_DIR="$HOME/.nvm"
 source "$NVM_DIR/nvm.sh"
 nvm use 24.16.0
-export CLIENT=claude-code   # 必须与原实验一致，也可为 codex
+export CLIENT=codex   # 必须与原实验一致，也可为 claude-code
 export DATASET=first250    # 必须与原实验一致，也可为 full1140
 export CORE_PORT=18427     # 如首次 prepare 改过端口，填原值；已有 RUN 以 coreUrl 配置为准
 case "$DATASET" in
