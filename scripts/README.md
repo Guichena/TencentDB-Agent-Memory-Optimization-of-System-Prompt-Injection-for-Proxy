@@ -1,10 +1,11 @@
 <h1 align="center">运行指南</h1>
 
-test1k 评测按 [快速启动评测](QUICK-EVALUATION.zh-CN.md) 执行（39 队、1,140 条）。`evaluate-test1k.ps1` 提供 prepare、initialize、check、execute，用于生成配置、导入资产并管理本地 Core。
+Linux 复现按 [Linux 复现评测流程](../linux-reproduction/linux复现评测流程.md) 执行。本文是 Windows / PowerShell 路径：test1k 按 [快速启动评测](QUICK-EVALUATION.zh-CN.md)（39 队、1,140 条）。`evaluate-test1k.ps1` 提供 prepare、initialize、check、execute，用于生成配置、导入资产并管理本地 Core。
 
 <p align="center">
   <a href="../README.md">仓库首页</a> ·
-  <a href="QUICK-EVALUATION.zh-CN.md">复现指南</a> ·
+  <a href="../linux-reproduction/linux复现评测流程.md">Linux 复现</a> ·
+  <a href="QUICK-EVALUATION.zh-CN.md">Windows 复现</a> ·
   <a href="../docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md">技术报告</a> ·
   <a href="../evaluation/MemoryProxy/eval/tool-prompt-bench/README.md">评测说明</a> ·
   <a href="EXPERIMENT-RUNS.md">运行目录与隔离机制</a>
@@ -12,7 +13,7 @@ test1k 评测按 [快速启动评测](QUICK-EVALUATION.zh-CN.md) 执行（39 队
 
 ---
 
-本目录提供 Final5 数据准备、双客户端对照和离线复算入口。面向评审的端到端步骤见 [复现指南](QUICK-EVALUATION.zh-CN.md)。以下命令都从仓库根目录执行；数据准备、服务检查和真实模型运行是不同阶段。
+本目录提供 Final5 数据准备、双客户端对照和离线复算入口。Linux 端到端步骤见 [Linux 复现评测流程](../linux-reproduction/linux复现评测流程.md)；Windows 见 [复现指南](QUICK-EVALUATION.zh-CN.md)。以下命令都从仓库根目录执行；数据准备、服务检查和真实模型运行是不同阶段。
 
 交付范围见 [仓库首页](../README.md#提交内容)。历史运行记录在本地保留，不随 Git 仓库交付；[整理记录](SUBMISSION-INVENTORY.zh-CN.md)保留早期检查过程。
 

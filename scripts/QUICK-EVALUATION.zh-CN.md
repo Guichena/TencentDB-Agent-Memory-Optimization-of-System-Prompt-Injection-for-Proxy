@@ -1,5 +1,7 @@
 # 快速启动评测
 
+Linux 复现请改走 [Linux 复现评测流程](../linux-reproduction/linux复现评测流程.md)（推荐 Codex；计分用 audit 后的 `score-audits`，不要把单次 `results.ts score` 当作官方合并结果）。本文是 Windows / PowerShell 路径。
+
 本指南使用最终 test1k 数据集。外部业务源码包单独交付，下载入口待补充；Git 仓库不含该包。拿到源码包前可完成依赖安装、数据准备和离线验证，真实 Case 执行需要解压后的 `workspaces/`。仅做离线检查见 [仓库首页](../README.md#离线验证)。
 
 ## 评测运行：test1k

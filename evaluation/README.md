@@ -16,8 +16,9 @@
 | 需要了解的内容 | 入口 |
 | --- | --- |
 | 任务一提交报告 | [任务报告](../docs/task1-report/TASK1-FINAL-REPORT.zh-CN.md) |
+| Linux 复现评测（推荐） | [Linux 复现评测流程](../linux-reproduction/linux复现评测流程.md) |
 | 数据集、评分口径、检查命令 | [Tool Prompt Benchmark](MemoryProxy/eval/tool-prompt-bench/README.md) |
-| 准备 test1k、配置客户端、运行单条或全量对照 | [快速启动评测](../scripts/QUICK-EVALUATION.zh-CN.md) |
+| Windows / PowerShell 评测 | [快速启动评测](../scripts/QUICK-EVALUATION.zh-CN.md) |
 | 双客户端编排 | [run-final5-dual.ts](MemoryProxy/eval/tool-prompt-bench/run-final5-dual.ts) |
 | 原始证据收集与离线复算 | [collect-final5-evidence.ts](MemoryProxy/eval/tool-prompt-bench/collect-final5-evidence.ts) |
 | 完整调用链评分 | [measurement-v2/scorer.ts](MemoryProxy/eval/tool-prompt-bench/measurement-v2/scorer.ts) |

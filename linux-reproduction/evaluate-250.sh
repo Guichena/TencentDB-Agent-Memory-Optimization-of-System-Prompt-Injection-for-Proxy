@@ -3,6 +3,7 @@ set -euo pipefail
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 if [[ $# -eq 0 || "${1:-}" == --help ]]; then
   echo 'Usage: bash evaluate-250.sh prepare|initialize|check|run|retry --client codex|claude-code [--concurrency 5] [--run NAME]'
+  echo 'Recommended client: codex (main comparison).'
   echo 'Dataset: first250 (250 cases). Initialize before running; scoring remains manual.'
   echo 'Core port: prepare --core-port 18427. Proxy ports: TDAI_CODEX_PROXY_PORT / TDAI_CLAUDE_PROXY_PORT in evaluation/.env.'
   exit 0

@@ -55,7 +55,7 @@
 
 </details>
 
-作者数据、Skill catalog、campaign plan 和 workspace manifest 必须来自同一组 test1k 输入。运行前生成独立输入快照；开始后不根据模型表现修改 Gold 或选择最佳尝试。正式评测入口为 [evaluate-test1k.ps1](../../../../scripts/evaluate-test1k.ps1)。
+作者数据、Skill catalog、campaign plan 和 workspace manifest 必须来自同一组 test1k 输入。运行前生成独立输入快照；开始后不根据模型表现修改 Gold 或选择最佳尝试。Linux 正式入口为 [Linux 复现评测流程](../../../../linux-reproduction/linux复现评测流程.md)；Windows / PowerShell 入口为 [evaluate-test1k.ps1](../../../../scripts/evaluate-test1k.ps1)。
 
 ## 指标口径
 

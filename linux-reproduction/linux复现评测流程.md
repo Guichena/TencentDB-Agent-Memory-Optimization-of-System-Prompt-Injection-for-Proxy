@@ -39,7 +39,7 @@ bash linux-reproduction/setup.sh "$CLIENT"
 
 ## 2. 填写模型配置
 
-编辑 `evaluation/.env`，填写所选客户端的 URL、API Key 和模型名。另一客户端的模型名保留非空，Key 不必填。
+编辑 `evaluation/.env`，填写所选客户端的 URL、API Key 和模型名。另一客户端的模型名保留非空，Key 不必填。Space / Team / Agent / Task 由后面的 initialize 在本地 Core 生成，不必手填，也不要从 `evaluation/.env.example` 抄那些示例 ID。
 
 ```bash
 vi evaluation/.env
